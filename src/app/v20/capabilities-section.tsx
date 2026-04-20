@@ -148,12 +148,12 @@ function StackDiagram() {
           </g>
         )
       }
-      case 2: // 03 Cloud — stacked cloud lamellae
+      case 2: // 03 Cloud — three rhombus lamellae (color cycles, no rotation)
         return (
           <g>
-            <path d={`M ${cx - 44} ${cy + 18} L ${cx} ${cy - 2} L ${cx + 44} ${cy + 18} L ${cx} ${cy + 38} Z`} stroke={ink} strokeWidth='1' fill='none' />
-            <path d={`M ${cx - 34} ${cy + 6} L ${cx} ${cy - 12} L ${cx + 34} ${cy + 6} L ${cx} ${cy + 24} Z`} stroke={ink} strokeWidth='1' fill='none' />
-            <path d={`M ${cx - 24} ${cy - 6} L ${cx} ${cy - 22} L ${cx + 24} ${cy - 6} L ${cx} ${cy + 10} Z`} stroke={acc} strokeWidth='1.3' fill='none' />
+            <path d={`M ${cx - 44} ${cy + 18} L ${cx} ${cy - 2} L ${cx + 44} ${cy + 18} L ${cx} ${cy + 38} Z`} fill='none' className='v20-cloud-rhombus v20-cloud-rhombus-1' />
+            <path d={`M ${cx - 34} ${cy + 6} L ${cx} ${cy - 12} L ${cx + 34} ${cy + 6} L ${cx} ${cy + 24} Z`} fill='none' className='v20-cloud-rhombus v20-cloud-rhombus-2' />
+            <path d={`M ${cx - 24} ${cy - 6} L ${cx} ${cy - 22} L ${cx + 24} ${cy - 6} L ${cx} ${cy + 10} Z`} fill='none' className='v20-cloud-rhombus v20-cloud-rhombus-3' />
             <line x1={cx} y1={cy - 22} x2={cx} y2={cy + 38} stroke={ink} strokeWidth='0.6' strokeDasharray='2 2' />
             <circle cx={cx} cy={cy - 14} r='2.5' fill={acc} />
           </g>
@@ -326,16 +326,18 @@ function StackDiagram() {
             {/* Subtle graph-paper grid inside the housing */}
             <rect x={cx - discR + 15} y={shaftY - discR + 15} width={(discR - 15) * 2} height={(discR - 15) * 2} fill='url(#v20-disc-grid)' />
 
-            {/* Inner geometry — rotates slowly (alternating direction) */}
+            {/* Inner geometry — rotates slowly (alternating direction); CLOUD (i=2) stays still and pulses color */}
             <g>
-              <animateTransform
-                attributeName='transform'
-                type='rotate'
-                from={`${rotateReverse ? 360 : 0} ${cx} ${shaftY}`}
-                to={`${rotateReverse ? 0 : 360} ${cx} ${shaftY}`}
-                dur='45s'
-                repeatCount='indefinite'
-              />
+              {i !== 2 && (
+                <animateTransform
+                  attributeName='transform'
+                  type='rotate'
+                  from={`${rotateReverse ? 360 : 0} ${cx} ${shaftY}`}
+                  to={`${rotateReverse ? 0 : 360} ${cx} ${shaftY}`}
+                  dur='45s'
+                  repeatCount='indefinite'
+                />
+              )}
               {renderShape(i, cx, shaftY)}
             </g>
 
