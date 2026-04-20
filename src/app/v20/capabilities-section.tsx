@@ -128,23 +128,48 @@ function StackDiagram() {
           <g>
             <circle cx={cx} cy={cy} r='48' stroke={ink} strokeWidth='0.8' strokeDasharray='3 2' fill='none' />
             <circle cx={cx} cy={cy} r='34' stroke={ink} strokeWidth='1' fill='none' />
-            <circle cx={cx} cy={cy} r='20' stroke={acc} strokeWidth='1.2' fill='none' />
-            <circle cx={cx} cy={cy} r='8' stroke={acc} strokeWidth='1' fill='none' />
-            <line x1={cx - 58} y1={cy} x2={cx - 42} y2={cy} stroke={ink} strokeWidth='0.8' />
-            <line x1={cx + 42} y1={cy} x2={cx + 58} y2={cy} stroke={ink} strokeWidth='0.8' />
-            <line x1={cx} y1={cy - 58} x2={cx} y2={cy - 42} stroke={ink} strokeWidth='0.8' />
-            <line x1={cx} y1={cy + 42} x2={cx} y2={cy + 58} stroke={ink} strokeWidth='0.8' />
-            <circle cx={cx} cy={cy} r='3' fill={acc} />
+            <circle cx={cx} cy={cy} r='20' stroke={acc} strokeWidth='1.2' fill='none'>
+              <animate attributeName='r' values='20;21.5;20' dur='5s' calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+            </circle>
+            <circle cx={cx} cy={cy} r='8' stroke={acc} strokeWidth='1' fill='none'>
+              <animate attributeName='r' values='8;6.5;8' dur='5s' calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+            </circle>
+            <line x1={cx - 58} y1={cy} x2={cx - 42} y2={cy} stroke={ink} strokeWidth='0.8'>
+              <animate attributeName='opacity' values='0.5;1;0.5' dur='3s' begin='0s' repeatCount='indefinite' />
+            </line>
+            <line x1={cx + 42} y1={cy} x2={cx + 58} y2={cy} stroke={ink} strokeWidth='0.8'>
+              <animate attributeName='opacity' values='0.5;1;0.5' dur='3s' begin='0.75s' repeatCount='indefinite' />
+            </line>
+            <line x1={cx} y1={cy - 58} x2={cx} y2={cy - 42} stroke={ink} strokeWidth='0.8'>
+              <animate attributeName='opacity' values='0.5;1;0.5' dur='3s' begin='1.5s' repeatCount='indefinite' />
+            </line>
+            <line x1={cx} y1={cy + 42} x2={cx} y2={cy + 58} stroke={ink} strokeWidth='0.8'>
+              <animate attributeName='opacity' values='0.5;1;0.5' dur='3s' begin='2.25s' repeatCount='indefinite' />
+            </line>
+            <circle cx={cx} cy={cy} r='3' fill={acc}>
+              <animate attributeName='r' values='3;4;3' dur='4s' repeatCount='indefinite' />
+              <animate attributeName='opacity' values='1;0.65;1' dur='4s' repeatCount='indefinite' />
+            </circle>
           </g>
         )
       case 1: { // 02 Architecture — nested hexagons
         const hex = (r: number) => `${cx},${cy - r} ${cx + r * 0.866},${cy - r / 2} ${cx + r * 0.866},${cy + r / 2} ${cx},${cy + r} ${cx - r * 0.866},${cy + r / 2} ${cx - r * 0.866},${cy - r / 2}`
         return (
           <g>
-            <polygon points={hex(46)} stroke={ink} strokeWidth='0.8' strokeDasharray='3 2' fill='none' />
-            <polygon points={hex(32)} stroke={ink} strokeWidth='1' fill='none' />
-            <polygon points={hex(18)} stroke={acc} strokeWidth='1.3' fill='none' />
-            <circle cx={cx} cy={cy} r='3' fill={acc} />
+            <polygon points={hex(46)} stroke={ink} strokeWidth='0.8' strokeDasharray='3 2' fill='none'>
+              <animate attributeName='stroke-dashoffset' values='0;28' dur='8s' repeatCount='indefinite' />
+            </polygon>
+            <polygon points={hex(32)} stroke={ink} strokeWidth='1' fill='none'>
+              <animate attributeName='opacity' values='0.6;1;0.6' dur='6s' calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+            </polygon>
+            <polygon points={hex(18)} stroke={acc} strokeWidth='1.3' fill='none'>
+              <animate attributeName='stroke-width' values='1.3;1.8;1.3' dur='4s' calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+              <animate attributeName='stroke-opacity' values='1;0.6;1' dur='4s' calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+            </polygon>
+            <circle cx={cx} cy={cy} r='3' fill={acc}>
+              <animate attributeName='r' values='3;4;3' dur='4s' repeatCount='indefinite' />
+              <animate attributeName='opacity' values='1;0.65;1' dur='4s' repeatCount='indefinite' />
+            </circle>
           </g>
         )
       }
@@ -158,43 +183,69 @@ function StackDiagram() {
             <circle cx={cx} cy={cy - 14} r='2.5' fill={acc} />
           </g>
         )
-      case 3: // 04 Development — gear teeth ring
+      case 3: // 04 Development — gear with slow tick rotation + inner pulse
         return (
           <g>
-            <circle cx={cx} cy={cy} r='32' stroke={ink} strokeWidth='1' fill='none' />
-            {Array.from({ length: 12 }).map((_, t) => {
-              const a = (t / 12) * Math.PI * 2
-              const x1 = cx + Math.cos(a) * 32
-              const y1 = cy + Math.sin(a) * 32
-              const x2 = cx + Math.cos(a) * 44
-              const y2 = cy + Math.sin(a) * 44
-              return <line key={t} x1={x1} y1={y1} x2={x2} y2={y2} stroke={ink} strokeWidth='2' />
-            })}
+            {/* Outer gear ring — slow stepping rotation */}
+            <g>
+              <animateTransform attributeName='transform' type='rotate' from={`0 ${cx} ${cy}`} to={`360 ${cx} ${cy}`} dur='60s' repeatCount='indefinite' />
+              <circle cx={cx} cy={cy} r='32' stroke={ink} strokeWidth='1' fill='none' />
+              {Array.from({ length: 12 }).map((_, t) => {
+                const a = (t / 12) * Math.PI * 2
+                const x1 = cx + Math.cos(a) * 32
+                const y1 = cy + Math.sin(a) * 32
+                const x2 = cx + Math.cos(a) * 44
+                const y2 = cy + Math.sin(a) * 44
+                return <line key={t} x1={x1} y1={y1} x2={x2} y2={y2} stroke={ink} strokeWidth='2' />
+              })}
+            </g>
+            {/* Dashed orbit ring */}
             <circle cx={cx} cy={cy} r='44' stroke={ink} strokeWidth='0.6' strokeDasharray='3 2' fill='none' />
-            <circle cx={cx} cy={cy} r='22' stroke={acc} strokeWidth='1.2' fill='none' />
-            <circle cx={cx} cy={cy} r='10' stroke={acc} strokeWidth='1' fill='none' />
-            <circle cx={cx} cy={cy} r='3' fill={acc} />
+            {/* Middle ring — gentle breathe */}
+            <circle cx={cx} cy={cy} r='22' stroke={acc} strokeWidth='1.2' fill='none'>
+              <animate attributeName='r' values='22;24;22' dur='4s' repeatCount='indefinite' />
+            </circle>
+            {/* Inner ring — counter-breathe */}
+            <circle cx={cx} cy={cy} r='10' stroke={acc} strokeWidth='1' fill='none'>
+              <animate attributeName='r' values='10;8;10' dur='4s' repeatCount='indefinite' />
+            </circle>
+            {/* Core dot — subtle pulse */}
+            <circle cx={cx} cy={cy} r='3' fill={acc}>
+              <animate attributeName='r' values='3;4;3' dur='4s' repeatCount='indefinite' />
+              <animate attributeName='opacity' values='1;0.7;1' dur='4s' repeatCount='indefinite' />
+            </circle>
           </g>
         )
-      case 4: // 05 Productivity — dual-ring co-work (human + AI converging)
+      case 4: { // 05 Productivity — dual-ring co-work (human + AI converging, breathe animation)
+        const spread = 16
         return (
           <g>
             {/* Left ring — "human" (grey) */}
-            <circle cx={cx - 16} cy={cy} r='24' stroke={ink} strokeWidth='1.1' fill='none' />
-            <circle cx={cx - 16} cy={cy} r='16' stroke={ink} strokeWidth='0.6' strokeDasharray='2 2' fill='none' />
-            <circle cx={cx - 16} cy={cy} r='2' fill={ink} />
+            <g>
+              <animateTransform attributeName='transform' type='translate' values={`0,0; ${spread * 0.4},0; 0,0`} dur='6s' repeatCount='indefinite' />
+              <circle cx={cx - spread} cy={cy} r='24' stroke={ink} strokeWidth='1.1' fill='none' />
+              <circle cx={cx - spread} cy={cy} r='16' stroke={ink} strokeWidth='0.6' strokeDasharray='2 2' fill='none' />
+              <circle cx={cx - spread} cy={cy} r='2' fill={ink} />
+            </g>
             {/* Right ring — "AI" (orange) */}
-            <circle cx={cx + 16} cy={cy} r='24' stroke={acc} strokeWidth='1.3' fill='none' />
-            <circle cx={cx + 16} cy={cy} r='16' stroke={acc} strokeWidth='0.6' strokeDasharray='2 2' fill='none' />
-            <circle cx={cx + 16} cy={cy} r='2' fill={acc} />
+            <g>
+              <animateTransform attributeName='transform' type='translate' values={`0,0; ${-spread * 0.4},0; 0,0`} dur='6s' repeatCount='indefinite' />
+              <circle cx={cx + spread} cy={cy} r='24' stroke={acc} strokeWidth='1.3' fill='none' />
+              <circle cx={cx + spread} cy={cy} r='16' stroke={acc} strokeWidth='0.6' strokeDasharray='2 2' fill='none' />
+              <circle cx={cx + spread} cy={cy} r='2' fill={acc} />
+            </g>
             {/* Convergence core — shared spark at the intersection */}
-            <circle cx={cx} cy={cy} r='7' fill={acc} fillOpacity='0.18' stroke={acc} strokeWidth='1.3' />
+            <circle cx={cx} cy={cy} r='7' fill={acc} fillOpacity='0.18' stroke={acc} strokeWidth='1.3'>
+              <animate attributeName='r' values='7;9;7' dur='6s' repeatCount='indefinite' />
+              <animate attributeName='fillOpacity' values='0.18;0.35;0.18' dur='6s' repeatCount='indefinite' />
+            </circle>
             <circle cx={cx} cy={cy} r='2.5' fill={acc} />
             {/* Subtle accent dots top & bottom of overlap */}
             <circle cx={cx} cy={cy - 32} r='1.6' fill={acc} opacity='0.5' />
             <circle cx={cx} cy={cy + 32} r='1.6' fill={acc} opacity='0.5' />
           </g>
         )
+      }
       case 5: // 06 Orchestration — hub with 6 connected nodes (no outer ring)
         return (
           <g>
@@ -204,30 +255,57 @@ function StackDiagram() {
               const ny = cy + Math.sin(a) * 38
               return (
                 <g key={nIdx}>
-                  <line x1={cx} y1={cy} x2={nx} y2={ny} stroke={ink} strokeWidth='0.8' strokeDasharray='2 2' />
-                  <circle cx={nx} cy={ny} r='4.5' fill={acc} opacity='0.85' />
+                  <line x1={cx} y1={cy} x2={nx} y2={ny} stroke={ink} strokeWidth='0.8' strokeDasharray='2 2'>
+                    <animate attributeName='stroke-dashoffset' values='0;-8' dur='2s' begin={`${nIdx * 0.3}s`} repeatCount='indefinite' />
+                  </line>
+                  <circle cx={nx} cy={ny} r='4.5' fill={acc} opacity='0.85'>
+                    <animate attributeName='r' values='4.5;5.5;4.5' dur='3s' begin={`${nIdx * 0.5}s`} calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+                    <animate attributeName='opacity' values='0.85;0.5;0.85' dur='3s' begin={`${nIdx * 0.5}s`} calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+                  </circle>
                 </g>
               )
             })}
-            <circle cx={cx} cy={cy} r='12' stroke={acc} strokeWidth='1.5' fill={acc} fillOpacity='0.15' />
-            <circle cx={cx} cy={cy} r='3.5' fill={acc} />
+            <circle cx={cx} cy={cy} r='12' stroke={acc} strokeWidth='1.5' fill={acc} fillOpacity='0.15'>
+              <animate attributeName='r' values='12;14;12' dur='4s' calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+              <animate attributeName='fillOpacity' values='0.15;0.25;0.15' dur='4s' calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+            </circle>
+            <circle cx={cx} cy={cy} r='3.5' fill={acc}>
+              <animate attributeName='r' values='3.5;4.5;3.5' dur='4s' repeatCount='indefinite' />
+            </circle>
           </g>
         )
       case 6: { // 07 Data & Insights — hexagonal data grid
         const hex = (r: number) => `${cx},${cy - r} ${cx + r * 0.866},${cy - r / 2} ${cx + r * 0.866},${cy + r / 2} ${cx},${cy + r} ${cx - r * 0.866},${cy + r / 2} ${cx - r * 0.866},${cy - r / 2}`
         return (
           <g>
-            <polygon points={hex(48)} stroke={ink} strokeWidth='1' fill='none' />
-            <polygon points={hex(24)} stroke={acc} strokeWidth='1.2' fill='none' />
+            <polygon points={hex(48)} stroke={ink} strokeWidth='1' fill='none'>
+              <animate attributeName='opacity' values='0.7;1;0.7' dur='5s' calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+            </polygon>
+            <polygon points={hex(24)} stroke={acc} strokeWidth='1.2' fill='none'>
+              <animate attributeName='stroke-width' values='1.2;1.7;1.2' dur='4s' calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+              <animate attributeName='stroke-opacity' values='1;0.6;1' dur='4s' calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+            </polygon>
             {[0, 60, 120, 180, 240, 300].map((a, idx) => {
               const r = (a - 90) * Math.PI / 180
-              return <circle key={idx} cx={cx + Math.cos(r) * 36} cy={cy + Math.sin(r) * 36} r='2.2' fill={acc} />
+              return (
+                <circle key={idx} cx={cx + Math.cos(r) * 36} cy={cy + Math.sin(r) * 36} r='2.2' fill={acc}>
+                  <animate attributeName='r' values='2.2;3.2;2.2' dur='3s' begin={`${idx * 0.5}s`} calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+                  <animate attributeName='opacity' values='1;0.5;1' dur='3s' begin={`${idx * 0.5}s`} calcMode='spline' keySplines='0.4 0 0.6 1;0.4 0 0.6 1' repeatCount='indefinite' />
+                </circle>
+              )
             })}
             {[30, 90, 150, 210, 270, 330].map((a, idx) => {
               const r = (a - 90) * Math.PI / 180
-              return <line key={idx} x1={cx} y1={cy} x2={cx + Math.cos(r) * 24} y2={cy + Math.sin(r) * 24} stroke={ink} strokeWidth='0.5' strokeDasharray='1.5 1.5' />
+              return (
+                <line key={idx} x1={cx} y1={cy} x2={cx + Math.cos(r) * 24} y2={cy + Math.sin(r) * 24} stroke={ink} strokeWidth='0.5' strokeDasharray='1.5 1.5'>
+                  <animate attributeName='stroke-dashoffset' values='0;-6' dur='2s' begin={`${idx * 0.3}s`} repeatCount='indefinite' />
+                </line>
+              )
             })}
-            <circle cx={cx} cy={cy} r='3' fill={acc} />
+            <circle cx={cx} cy={cy} r='3' fill={acc}>
+              <animate attributeName='r' values='3;4;3' dur='4s' repeatCount='indefinite' />
+              <animate attributeName='opacity' values='1;0.65;1' dur='4s' repeatCount='indefinite' />
+            </circle>
           </g>
         )
       }
@@ -328,7 +406,7 @@ function StackDiagram() {
 
             {/* Inner geometry — rotates slowly (alternating direction); CLOUD (i=2) stays still and pulses color */}
             <g>
-              {i !== 2 && (
+              {i !== 2 && i !== 3 && i !== 4 && (
                 <animateTransform
                   attributeName='transform'
                   type='rotate'

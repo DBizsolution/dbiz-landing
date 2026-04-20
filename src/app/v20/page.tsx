@@ -32,8 +32,53 @@ function HeroDiagram() {
     { label: 'OPS', code: 'S·07' },
   ]
 
-  // 5 particles centered across the box front-face (box spans 140→360, center 250)
-  const particlePositions = [200, 230, 250, 270, 300]
+  const particleXs = [195, 225, 250, 275, 305]
+
+  const shapes: Record<string, (x: number, y: number, delay: string, dur: string, key: string) => React.ReactNode> = {
+    square: (x, y, delay, dur, key) => (
+      <rect key={key} x={x - 2.5} y={y - 2.5} width='5' height='5' fill='#F07B2F' opacity='0' filter='url(#v20-glow)'>
+        <animate attributeName='y' values={`${y};${y + 48}`} dur={dur} begin={delay} repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1' />
+        <animate attributeName='opacity' values='0;0.9;0.9;0' keyTimes='0;0.12;0.8;1' dur={dur} begin={delay} repeatCount='indefinite' />
+        <animateTransform attributeName='transform' type='rotate' values={`0 ${x} ${y};90 ${x} ${y + 48}`} dur={dur} begin={delay} repeatCount='indefinite' />
+      </rect>
+    ),
+    plus: (x, y, delay, dur, key) => (
+      <g key={key} opacity='0' filter='url(#v20-glow)'>
+        <line x1={x - 3} y1={y} x2={x + 3} y2={y} stroke='#F07B2F' strokeWidth='1.4' />
+        <line x1={x} y1={y - 3} x2={x} y2={y + 3} stroke='#F07B2F' strokeWidth='1.4' />
+        <animateTransform attributeName='transform' type='translate' values={`0 0;0 48`} dur={dur} begin={delay} repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1' />
+        <animate attributeName='opacity' values='0;0.9;0.9;0' keyTimes='0;0.12;0.8;1' dur={dur} begin={delay} repeatCount='indefinite' />
+      </g>
+    ),
+    circle: (x, y, delay, dur, key) => (
+      <circle key={key} cx={x} cy={y} r='2.8' fill='#F07B2F' opacity='0' filter='url(#v20-glow)'>
+        <animate attributeName='cy' values={`${y};${y + 48}`} dur={dur} begin={delay} repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1' />
+        <animate attributeName='opacity' values='0;0.9;0.9;0' keyTimes='0;0.12;0.8;1' dur={dur} begin={delay} repeatCount='indefinite' />
+        <animate attributeName='r' values='2.8;1.6' dur={dur} begin={delay} repeatCount='indefinite' />
+      </circle>
+    ),
+    star: (x, y, delay, dur, key) => (
+      <polygon key={key} points={`${x},${y - 3.5} ${x + 1},${y - 1} ${x + 3.5},${y - 1} ${x + 1.5},${y + 0.8} ${x + 2.2},${y + 3.5} ${x},${y + 1.8} ${x - 2.2},${y + 3.5} ${x - 1.5},${y + 0.8} ${x - 3.5},${y - 1} ${x - 1},${y - 1}`} fill='#F07B2F' opacity='0' filter='url(#v20-glow)'>
+        <animateTransform attributeName='transform' type='translate' values={`0 0;0 48`} dur={dur} begin={delay} repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1' />
+        <animate attributeName='opacity' values='0;0.9;0.9;0' keyTimes='0;0.12;0.8;1' dur={dur} begin={delay} repeatCount='indefinite' />
+        <animateTransform attributeName='transform' type='rotate' values={`0 ${x} ${y};180 ${x} ${y + 48}`} dur={dur} begin={delay} repeatCount='indefinite' additive='sum' />
+      </polygon>
+    ),
+    ring: (x, y, delay, dur, key) => (
+      <circle key={key} cx={x} cy={y} r='2.8' fill='none' stroke='#F07B2F' strokeWidth='1' opacity='0' filter='url(#v20-glow)'>
+        <animate attributeName='cy' values={`${y};${y + 48}`} dur={dur} begin={delay} repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1' />
+        <animate attributeName='opacity' values='0;0.9;0.9;0' keyTimes='0;0.12;0.8;1' dur={dur} begin={delay} repeatCount='indefinite' />
+      </circle>
+    ),
+    triangle: (x, y, delay, dur, key) => (
+      <polygon key={key} points={`${x},${y - 3} ${x + 3},${y + 2.5} ${x - 3},${y + 2.5}`} fill='#F07B2F' opacity='0' filter='url(#v20-glow)'>
+        <animateTransform attributeName='transform' type='translate' values={`0 0;0 48`} dur={dur} begin={delay} repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1' />
+        <animate attributeName='opacity' values='0;0.9;0.9;0' keyTimes='0;0.12;0.8;1' dur={dur} begin={delay} repeatCount='indefinite' />
+      </polygon>
+    ),
+  }
+
+  const shapeOrder: (keyof typeof shapes)[] = ['square', 'plus', 'circle', 'star', 'ring', 'triangle']
 
   return (
     <svg viewBox='0 0 520 560' xmlns='http://www.w3.org/2000/svg' aria-hidden='true' className='v20-hero-svg'>
@@ -45,7 +90,7 @@ function HeroDiagram() {
           <circle cx='1' cy='1' r='0.8' fill='var(--v20-ink-dot)' />
         </pattern>
         <filter id='v20-glow'>
-          <feGaussianBlur stdDeviation='2' result='coloredBlur' />
+          <feGaussianBlur stdDeviation='1.5' result='coloredBlur' />
           <feMerge>
             <feMergeNode in='coloredBlur' />
             <feMergeNode in='SourceGraphic' />
@@ -65,26 +110,19 @@ function HeroDiagram() {
       </g>
       <rect x='60' y='60' width='400' height='440' fill='url(#v20-dot)' />
 
-      {/* Particles flowing between layers */}
-      {layers.map((layer, i) => {
-        if (i === layers.length - 1) return null
-        const fromY = 90 + i * 56 + 32
-        const particleDelay = i * 1.5
-
+      {/* Particles flowing between layers — unique shape per layer, 5 per box, none from OPS */}
+      {layers.map((_, i) => {
+        if (i >= layers.length - 1) return null
+        const fromY = 90 + i * 56 + 34
+        const shapeFn = shapes[shapeOrder[i % shapeOrder.length]]
+        const baseDur = 2.8
         return (
           <g key={`particles-${i}`}>
-            {particlePositions.map((x, pIdx) => (
-              <circle
-                key={`${i}-${pIdx}`}
-                cx={x}
-                cy={fromY}
-                r='2.6'
-                fill='#F07B2F'
-                className='v20-particle'
-                style={{ '--particle-delay': `${particleDelay + pIdx * 0.2 + (pIdx % 2) * 0.1}s` } as React.CSSProperties}
-                filter='url(#v20-glow)'
-              />
-            ))}
+            {particleXs.map((x, pIdx) => {
+              const delay = `${i * 1.2 + pIdx * 0.45}s`
+              const dur = `${baseDur + pIdx * 0.15}s`
+              return shapeFn(x, fromY, delay, dur, `p-${i}-${pIdx}`)
+            })}
           </g>
         )
       })}

@@ -34,22 +34,11 @@ function WhyDiagram({ active, onSelect }: { active: number; onSelect: (i: number
           <feGaussianBlur stdDeviation='2' result='coloredBlur' />
           <feMerge><feMergeNode in='coloredBlur' /><feMergeNode in='SourceGraphic' /></feMerge>
         </filter>
-        {/* Blueprint textures */}
-        <pattern id='v20-why-hatch' patternUnits='userSpaceOnUse' width='6' height='6' patternTransform='rotate(45)'>
-          <line x1='0' y1='0' x2='0' y2='6' stroke='rgba(240,123,47,0.15)' strokeWidth='0.8' />
-        </pattern>
-        <pattern id='v20-why-cross' patternUnits='userSpaceOnUse' width='8' height='8'>
-          <line x1='0' y1='0' x2='8' y2='8' stroke='rgba(26,45,90,0.09)' strokeWidth='0.4' />
-          <line x1='8' y1='0' x2='0' y2='8' stroke='rgba(26,45,90,0.09)' strokeWidth='0.4' />
-        </pattern>
-        <pattern id='v20-why-grid' patternUnits='userSpaceOnUse' width='20' height='20'>
-          <path d='M 20 0 L 0 0 0 20' fill='none' stroke='rgba(26,45,90,0.1)' strokeWidth='0.5' />
-        </pattern>
         <clipPath id='v20-why-clip'><rect x='12' y='12' width='416' height='416' /></clipPath>
       </defs>
 
       {/* Frame */}
-      <rect x='10' y='10' width='420' height='420' fill='url(#v20-why-grid)' stroke='rgba(26,45,90,0.15)' strokeWidth='1' />
+      <rect x='10' y='10' width='420' height='420' fill='none' stroke='rgba(26,45,90,0.15)' strokeWidth='1' />
       {/* Corner brackets */}
       <g stroke='#F07B2F' strokeWidth='1.5'>
         <line x1='10' y1='10' x2='28' y2='10' /><line x1='10' y1='10' x2='10' y2='28' />
@@ -61,8 +50,6 @@ function WhyDiagram({ active, onSelect }: { active: number; onSelect: (i: number
       <text x='220' y='26' fontFamily='var(--font-mono)' fontSize='6' fill='rgba(26,45,90,0.35)' textAnchor='middle' letterSpacing='1.5'>DWG·WHY-01</text>
 
       <g clipPath='url(#v20-why-clip)'>
-        {/* Crosshatch texture fill behind orbit */}
-        <circle cx={cx} cy={cy} r={r + 20} fill='url(#v20-why-cross)' />
 
         {/* Construction lines — light blue */}
         <line x1={cx} y1='20' x2={cx} y2='420' stroke='rgba(26,45,90,0.12)' strokeWidth='0.5' strokeDasharray='8 4' />
@@ -88,8 +75,6 @@ function WhyDiagram({ active, onSelect }: { active: number; onSelect: (i: number
         <circle cx={cx} cy={cy} r={r} fill='none' stroke='rgba(240,123,47,0.18)' strokeWidth='0.8' strokeDasharray='5 4' className='v20-why-orbit' />
         <circle cx={cx} cy={cy} r={r - 50} fill='none' stroke='rgba(240,123,47,0.1)' strokeWidth='0.6' strokeDasharray='3 5' />
 
-        {/* Hatched ring between inner orbits */}
-        <path d={`M ${cx} ${cy - r + 50} A ${r - 50} ${r - 50} 0 1 1 ${cx - 0.01} ${cy - r + 50}`} fill='url(#v20-why-hatch)' stroke='none' />
 
         {/* Dimension annotation — radius */}
         <g stroke='rgba(26,45,90,0.22)' strokeWidth='0.5'>
@@ -131,8 +116,6 @@ function WhyDiagram({ active, onSelect }: { active: number; onSelect: (i: number
           return (
             <g key={node.idx} className={`v20-why-node ${isActive ? 'active' : ''}`} onClick={() => onSelect(node.i)} style={{ cursor: 'pointer' }}>
               {isActive && <circle cx={node.x} cy={node.y} r={nodeR + 6} fill='none' stroke='#F07B2F' strokeWidth='0.8' opacity='0.4' strokeDasharray='3 3' className='v20-why-active-ring' />}
-              {/* Hatched fill for inactive */}
-              {!isActive && <circle cx={node.x} cy={node.y} r={nodeR - 1} fill='url(#v20-why-hatch)' />}
               <circle cx={node.x} cy={node.y} r={nodeR} fill={isActive ? '#F07B2F' : 'rgba(13,27,62,0.85)'} stroke={isActive ? '#F07B2F' : '#1A2D5A'} strokeWidth={isActive ? 2 : 1.5} filter={isActive ? 'url(#v20-why-glow)' : 'none'} className='v20-why-node-circle' />
               <text x={node.x} y={node.y + 1} fontFamily='var(--font-mono)' fontSize='6.5' fontWeight='700' fill='#fff' textAnchor='middle' dominantBaseline='middle' letterSpacing='0.6'>{node.label}</text>
               {/* Callout line + index */}
