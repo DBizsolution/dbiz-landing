@@ -1,4 +1,6 @@
 import { ImageResponse } from 'next/og'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 
 export const alt = 'DBiz.ai — Your Enterprise. Agent-Operated.'
 export const size = {
@@ -8,13 +10,12 @@ export const size = {
 export const contentType = 'image/png'
 
 export default async function Image() {
-  const dmSansBold = await fetch(
-    'https://fonts.gstatic.com/s/dmsans/v17/rP2tp2ywxg089UriI5-g4vlH9VoD8CmcqZG40F9JadbnoEwAIpthTg.ttf'
-  ).then((res) => res.arrayBuffer())
-
-  const dmSansRegular = await fetch(
-    'https://fonts.gstatic.com/s/dmsans/v17/rP2tp2ywxg089UriI5-g4vlH9VoD8CmcqZG40F9JadbnoEwAopxhTg.ttf'
-  ).then((res) => res.arrayBuffer())
+  const dmSansRegular = await readFile(
+    join(process.cwd(), 'public/fonts/DMSans-Regular.ttf')
+  )
+  const dmSansBold = await readFile(
+    join(process.cwd(), 'public/fonts/DMSans-Bold.ttf')
+  )
 
   return new ImageResponse(
     (
@@ -78,7 +79,7 @@ export default async function Image() {
             <span
               style={{
                 fontSize: '72px',
-                fontFamily: 'DM Sans Bold',
+                fontFamily: 'DM Sans',
                 fontWeight: 800,
                 color: '#FFFFFF',
                 letterSpacing: '-0.03em',
@@ -89,7 +90,7 @@ export default async function Image() {
             <span
               style={{
                 fontSize: '72px',
-                fontFamily: 'DM Sans Bold',
+                fontFamily: 'DM Sans',
                 fontWeight: 800,
                 color: '#E86A2A',
                 letterSpacing: '-0.03em',
@@ -131,7 +132,7 @@ export default async function Image() {
                   background: 'rgba(232,106,42,0.08)',
                   color: '#E86A2A',
                   fontSize: '18px',
-                  fontFamily: 'DM Sans Bold',
+                  fontFamily: 'DM Sans',
                   fontWeight: 700,
                   display: 'flex',
                 }}
@@ -160,16 +161,16 @@ export default async function Image() {
       ...size,
       fonts: [
         {
-          name: 'DM Sans Bold',
-          data: dmSansBold,
-          style: 'normal',
-          weight: 800,
-        },
-        {
           name: 'DM Sans',
           data: dmSansRegular,
           style: 'normal',
           weight: 400,
+        },
+        {
+          name: 'DM Sans',
+          data: dmSansBold,
+          style: 'normal',
+          weight: 800,
         },
       ],
     }

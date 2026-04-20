@@ -26,7 +26,7 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   title: 'DBiz.ai — Your Enterprise. Agent-Operated.',
   description: 'Human-Led. Agent-Operated. Data-Powered. We build Frontier Organisations — enterprises that scale with AI agents, not just AI tools.',
-  metadataBase: new URL('https://dbiz.ai'),
+  metadataBase: new URL('https://home.dbizapps.ai'),
   openGraph: {
     title: 'DBiz.ai — Your Enterprise. Agent-Operated.',
     description: 'Human-Led. Agent-Operated. Data-Powered. We build Frontier Organisations — enterprises that scale with AI agents, not just AI tools.',
