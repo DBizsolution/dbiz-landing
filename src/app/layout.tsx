@@ -24,8 +24,8 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: 'DBiz.ai — Homepage Explorations',
-  description: 'Multiple homepage variants for DBiz.ai',
+  title: 'DBiz.ai — Your Enterprise. Agent-Operated.',
+  description: 'Human-Led. Agent-Operated. Data-Powered. We build Frontier Organisations — enterprises that scale with AI agents, not just AI tools.',
 }
 
 export default function RootLayout({
