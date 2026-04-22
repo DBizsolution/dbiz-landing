@@ -46,7 +46,7 @@ export default function TestimonialsSection() {
       <div className='v22-container'>
         <div className='v22-quote-frame' key={active}>
           <div className='v22-quote-meta'>
-            <span>N°04 / Testimonial</span>
+            <span>N°05 / Testimonial</span>
             <span>{t.company.toUpperCase()}</span>
           </div>
           <div className='v22-quote-mark' />

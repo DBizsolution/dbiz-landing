@@ -2,6 +2,7 @@
    Clone of V20 — working copy for further iterations. */
 
 import CapabilitiesSection from './capabilities-section'
+import FrameworkSection from './framework-section'
 import HowSection from './how-section'
 import { LogoWall } from './logo-wall'
 import { NavScrollEffect } from './nav-scroll'
@@ -414,12 +415,13 @@ export default function V22Page() {
         </div>
       </section>
 
-      {/* CAPABILITIES — interactive tabbed layout */}
+      {/* CAPABILITIES — N°03 / What we do */}
       <CapabilitiesSection />
 
-      {/* STACK is now inside the Capabilities toggle */}
+      {/* FRAMEWORK — N°04 / How we do it (AI Transformation Stack) */}
+      <FrameworkSection />
 
-      {/* TESTIMONIALS — carousel */}
+      {/* TESTIMONIALS */}
       <TestimonialsSection />
 
       {/* PROVEN — tabbed filter cards */}

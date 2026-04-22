@@ -24,7 +24,7 @@ export default function HowSection() {
     <section className='v22-section v22-how' id='how'>
       <div className='v22-container'>
         <div className='v22-section-head'>
-          <div className='num'>N°06 / How we work</div>
+          <div className='num'>N°07 / How we work</div>
           <h2>Built for pace, <em>not paperwork.</em></h2>
           <p className='lead'>Every engagement is time-boxed. Milestones are fixed. Ambiguity gets eliminated early.</p>
         </div>

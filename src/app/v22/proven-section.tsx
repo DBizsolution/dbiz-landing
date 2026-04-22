@@ -133,7 +133,7 @@ export default function ProvenSection() {
         {/* Header row */}
         <div className='v22-proven-header'>
           <div className='v22-proven-header-left'>
-            <div className='num'>N°05 / Proven</div>
+            <div className='num'>N°06 / Proven</div>
             <h2>Proven where it <em>matters.</em></h2>
           </div>
           <div className='v22-proven-header-right'>

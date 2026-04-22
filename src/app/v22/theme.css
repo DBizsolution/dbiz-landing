@@ -3246,7 +3246,105 @@
   .v22-csm-kicker { font-size: 11.5px; }
 }
 
-/* ---------- AI Transformation Stack — lightbox modal ---------- */
+/* ============================================================
+   N°04 / How we do it — Framework section (AI Transformation Stack)
+   ============================================================ */
+.v22-section.v22-framework {
+  padding: 64px 0 72px;
+  position: relative;
+  scroll-margin-top: 100px;         /* clear the sticky nav when scroll-anchored */
+  /* Inherits the scope's dark bg + dot grid */
+}
+.v22-section.v22-framework .v22-fw-head {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 56px;
+  align-items: start;
+}
+.v22-section.v22-framework .v22-fw-head .num {
+  color: var(--v22-accent);
+  padding-top: 4px;
+}
+.v22-section.v22-framework .v22-fw-head h2 {
+  margin: 0;
+}
+.v22-section.v22-framework .v22-fw-head .lead {
+  padding-top: 4px;
+}
+
+/* ---------- Framework — AI Transformation Stack (Deconstructed Assembly, ported from v20) ---------- */
+.v22-fw-diagram-wrap {
+  border: 1px solid var(--v22-hair-strong);
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+.v22-fw-diagram-wrap::before,
+.v22-fw-diagram-wrap::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--v22-accent);
+  z-index: 2;
+}
+.v22-fw-diagram-wrap::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.v22-fw-diagram-wrap::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.v22-fw-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Layer reveal animation — staggered entrance */
+.v22-fw-stack-layer {
+  opacity: 0;
+  animation: v22-fw-layer-appear 0.5s ease-out forwards;
+  animation-delay: calc(var(--layer-index) * 0.12s + 0.2s);
+}
+@keyframes v22-fw-layer-appear {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Connector draw-in */
+.v22-fw-stack-connector {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: v22-fw-connector-draw 0.6s ease-out forwards;
+  animation-delay: calc(var(--layer-index) * 0.12s + 0.4s);
+}
+@keyframes v22-fw-connector-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Product node dot pulse (currently a placeholder class, kept in case we animate it later) */
+.v22-fw-stack-dot {
+  opacity: 1;
+}
+
+/* Traveling halo — sweeps across the 7 discs continuously */
+.v22-fw-disc-halo {
+  opacity: 0;
+  animation: v22-fw-disc-halo-sweep 10.5s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+@keyframes v22-fw-disc-halo-sweep {
+  0%, 22%, 100% { opacity: 0;    transform: scale(1); }
+  5%            { opacity: 0.7;  transform: scale(1.08); }
+  10%           { opacity: 0.35; transform: scale(1.02); }
+  18%           { opacity: 0.05; transform: scale(1); }
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .v22-fw-diagram-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .v22-fw-diagram { min-width: 1000px; }
+}
+
+/* ---------- AI Transformation Stack — lightbox modal (legacy, kept for fallback) ---------- */
 .v22-stack-modal {
   position: fixed;
   inset: 0;
