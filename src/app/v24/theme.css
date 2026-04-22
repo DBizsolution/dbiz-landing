@@ -5,13 +5,13 @@
    ========================================================================== */
 
 .v24-scope {
-  /* V5 dark blueprint tokens */
-  --v24-paper: var(--brand-navy-deep);
-  --v24-paper-2: #0a1530;
+  /* V5 dark blueprint tokens — lifted from navy-deep to navy for less oppressive darkness */
+  --v24-paper: var(--brand-navy);
+  --v24-paper-2: #132344;
   --v24-ink: #ffffff;
-  --v24-ink-2: rgba(255, 255, 255, 0.62);
-  --v24-ink-3: rgba(255, 255, 255, 0.38);
-  --v24-ink-4: rgba(255, 255, 255, 0.2);
+  --v24-ink-2: rgba(255, 255, 255, 0.78);
+  --v24-ink-3: rgba(255, 255, 255, 0.6);
+  --v24-ink-4: rgba(255, 255, 255, 0.32);
   --v24-accent: #F18943;
   --v24-hair: rgba(255, 255, 255, 0.1);
   --v24-hair-strong: rgba(255, 255, 255, 0.2);
@@ -73,10 +73,10 @@
   padding: 0;
 }
 
-/* ---------- Light surface (V4 style) ---------- */
+/* ---------- Light surface (bright warm paper — refined, not beige) ---------- */
 .v24-scope [data-surface="light"] {
-  --v24-paper: #FAFAFA;
-  --v24-paper-2: #F3F0EC;
+  --v24-paper: #F8F6F2;
+  --v24-paper-2: #FFFFFF;
   --v24-ink: #111111;
   --v24-ink-2: #555555;
   --v24-ink-3: #999999;
@@ -114,8 +114,8 @@
   --v24-ink-blob: #0D1B3E;
 
   background-color: var(--v24-paper);
-  background-image: radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.07) 1px, transparent 0);
-  background-size: 24px 24px;
+  background-image: radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.04) 1px, transparent 0);
+  background-size: 28px 28px;
   color: var(--v24-ink);
   position: relative;
   z-index: 1;

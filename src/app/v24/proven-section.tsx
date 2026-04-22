@@ -128,7 +128,7 @@ export default function ProvenSection() {
   const next = () => setActiveIdx((i) => (i + 1) % filtered.length)
 
   return (
-    <section className='v24-section v24-proven' id='work'>
+    <section className='v24-section v24-proven' id='work' data-surface='light'>
       <div className='v24-container'>
         {/* Header row */}
         <div className='v24-proven-header'>

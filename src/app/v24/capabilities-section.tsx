@@ -87,7 +87,7 @@ function StackDiagram() {
   const svgW = 1400
   const svgH = 580
 
-  const shaftY = 200
+  const shaftY = 176
   const discR = 68
   // 7 discs evenly spaced along the horizontal shaft
   const discCenters = [180, 340, 500, 660, 820, 980, 1140]
@@ -202,7 +202,7 @@ function StackDiagram() {
     }
   }
 
-  const layerNameY = 296   // y of layer name (below disc)
+  const layerNameY = 300   // y of layer name (below disc) — gives padding from illustration
 
   // Two category rows below the discs — Offerings, then Accelerators
   // name reserves 2 lines (line1, line1+13); desc starts ~28px below line2
@@ -363,14 +363,14 @@ function StackDiagram() {
                     <circle cx={cx} cy={cy} r={discR - 10} />
                   </clipPath>
 
-                  {/* Outer orbital references — orange dashed rings outside the teeth */}
-                  <circle cx={cx} cy={cy} r={outerR1} stroke='rgba(232,106,42,0.32)' strokeWidth='0.5' strokeDasharray='1 3' fill='none' />
-                  <path d={arcPath(cx, cy, outerR2, arcStart, arcEnd, cw)} stroke='rgba(232,106,42,0.4)' strokeWidth='0.6' strokeDasharray='3 3' fill='none' />
-                  <polygon points={tangentArrow(cx, cy, outerR2, arrowDeg, cw, 4.5)} fill='var(--v24-accent)' opacity='0.75' />
+                  {/* Outer orbital references — grey dashed rings outside the teeth */}
+                  <circle cx={cx} cy={cy} r={outerR1} stroke='rgba(255,255,255,0.22)' strokeWidth='0.5' strokeDasharray='1 3' fill='none' />
+                  <path d={arcPath(cx, cy, outerR2, arcStart, arcEnd, cw)} stroke='rgba(255,255,255,0.28)' strokeWidth='0.6' strokeDasharray='3 3' fill='none' />
+                  <polygon points={tangentArrow(cx, cy, outerR2, arrowDeg, cw, 4.5)} fill='rgba(255,255,255,0.45)' />
                   {/* Tiny scatter dots along the outer orbit */}
                   {[15, 95, 175, 300].map((deg, j) => {
                     const a = (deg - 90) * Math.PI / 180
-                    return <circle key={j} cx={cx + Math.cos(a) * outerR1} cy={cy + Math.sin(a) * outerR1} r='1' fill='var(--v24-accent)' opacity='0.7' />
+                    return <circle key={j} cx={cx + Math.cos(a) * outerR1} cy={cy + Math.sin(a) * outerR1} r='1' fill='rgba(255,255,255,0.35)' />
                   })}
 
                   {/* Rotating gear body — defined teeth + root + pitch references */}
@@ -393,7 +393,7 @@ function StackDiagram() {
                     { x1: -(discR + 18), y1: 0, x2: -(discR - 10), y2: 0 },
                     { x1: (discR + 18),  y1: 0, x2: (discR - 10),  y2: 0 },
                   ].map((l, j) => (
-                    <line key={j} x1={cx + l.x1} y1={cy + l.y1} x2={cx + l.x2} y2={cy + l.y2} stroke='rgba(232,106,42,0.35)' strokeWidth='0.5' strokeDasharray='3 2' />
+                    <line key={j} x1={cx + l.x1} y1={cy + l.y1} x2={cx + l.x2} y2={cy + l.y2} stroke='rgba(255,255,255,0.22)' strokeWidth='0.5' strokeDasharray='3 2' />
                   ))}
                 </>
               )
@@ -428,7 +428,7 @@ function StackDiagram() {
               ) : null
             ))}
             {wrapDesc(layer.top.desc).map((line, li) => (
-              <text key={li} x={cx} y={offerings.desc + li * 11} fontFamily='var(--font-sans)' fontSize='9' fill='rgba(255,255,255,0.38)' textAnchor='middle'>{line}</text>
+              <text key={li} x={cx} y={offerings.desc + li * 11} fontFamily='var(--font-sans)' fontSize='9' fill='rgba(255,255,255,0.65)' textAnchor='middle'>{line}</text>
             ))}
 
             {/* Accelerators — previously the bottom callout */}
@@ -438,7 +438,7 @@ function StackDiagram() {
               ) : null
             ))}
             {wrapDesc(layer.bottom.desc).map((line, li) => (
-              <text key={li} x={cx} y={accelerators.desc + li * 11} fontFamily='var(--font-sans)' fontSize='9' fill='rgba(255,255,255,0.38)' textAnchor='middle'>{line}</text>
+              <text key={li} x={cx} y={accelerators.desc + li * 11} fontFamily='var(--font-sans)' fontSize='9' fill='rgba(255,255,255,0.65)' textAnchor='middle'>{line}</text>
             ))}
           </g>
         )
@@ -451,7 +451,7 @@ function StackDiagram() {
           const midX = (cxA + cxB) / 2
           return (
             <g key={idx}>
-              <line x1={cxA + discR + 2} y1={shaftY} x2={cxB - discR - 2} y2={shaftY} stroke='rgba(232,106,42,0.35)' strokeWidth='0.5' strokeDasharray='2 2' />
+              <line x1={cxA + discR + 2} y1={shaftY} x2={cxB - discR - 2} y2={shaftY} stroke='rgba(255,255,255,0.22)' strokeWidth='0.5' strokeDasharray='2 2' />
               <circle cx={midX} cy={shaftY} r='2.4' fill='var(--v24-accent)' opacity='0.85' />
             </g>
           )
