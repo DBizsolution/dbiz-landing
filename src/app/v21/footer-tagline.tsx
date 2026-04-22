@@ -43,7 +43,7 @@ export function FooterTagline() {
     if (now - lastTrigger.current < RESTART_COOLDOWN_MS) return
     lastTrigger.current = now
 
-    const letters = svgRef.current?.querySelectorAll<SVGPathElement>('.v20-tagline-letter')
+    const letters = svgRef.current?.querySelectorAll<SVGPathElement>('.v21-tagline-letter')
     if (!letters) return
     letters.forEach(el => {
       el.style.animation = 'none'
@@ -55,7 +55,7 @@ export function FooterTagline() {
   return (
     <svg
       ref={svgRef}
-      className='v20-tagline-svg'
+      className='v21-tagline-svg'
       viewBox='125 70 640 390'
       xmlns='http://www.w3.org/2000/svg'
       aria-label='Impactful Experience at Scale'
@@ -65,7 +65,7 @@ export function FooterTagline() {
         <path
           key={i}
           d={p.d}
-          className={`v20-tagline-letter${p.accent ? ' is-accent' : ''}`}
+          className={`v21-tagline-letter${p.accent ? ' is-accent' : ''}`}
           style={{ '--i': i } as React.CSSProperties}
         />
       ))}

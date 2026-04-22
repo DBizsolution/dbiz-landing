@@ -3,7 +3,6 @@
    Capabilities as interactive tabs, SVG diagrams (V5). */
 
 import CapabilitiesSection from './capabilities-section'
-import { FooterTagline } from './footer-tagline'
 import HowSection from './how-section'
 import { LogoWall } from './logo-wall'
 import { NavScrollEffect } from './nav-scroll'
@@ -38,8 +37,9 @@ function HeroDiagram() {
   const shapes: Record<string, (x: number, y: number, delay: string, dur: string, key: string) => React.ReactNode> = {
     square: (x, y, delay, dur, key) => (
       <rect key={key} x={x - 2.5} y={y - 2.5} width='5' height='5' fill='#F07B2F' opacity='0' filter='url(#v20-glow)'>
-        <animate attributeName='y' values={`${y - 2.5};${y + 45.5}`} dur={dur} begin={delay} repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1' />
+        <animate attributeName='y' values={`${y};${y + 48}`} dur={dur} begin={delay} repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1' />
         <animate attributeName='opacity' values='0;0.9;0.9;0' keyTimes='0;0.12;0.8;1' dur={dur} begin={delay} repeatCount='indefinite' />
+        <animateTransform attributeName='transform' type='rotate' values={`0 ${x} ${y};90 ${x} ${y + 48}`} dur={dur} begin={delay} repeatCount='indefinite' />
       </rect>
     ),
     plus: (x, y, delay, dur, key) => (
@@ -61,6 +61,7 @@ function HeroDiagram() {
       <polygon key={key} points={`${x},${y - 3.5} ${x + 1},${y - 1} ${x + 3.5},${y - 1} ${x + 1.5},${y + 0.8} ${x + 2.2},${y + 3.5} ${x},${y + 1.8} ${x - 2.2},${y + 3.5} ${x - 1.5},${y + 0.8} ${x - 3.5},${y - 1} ${x - 1},${y - 1}`} fill='#F07B2F' opacity='0' filter='url(#v20-glow)'>
         <animateTransform attributeName='transform' type='translate' values={`0 0;0 48`} dur={dur} begin={delay} repeatCount='indefinite' calcMode='spline' keySplines='0.4 0 0.2 1' />
         <animate attributeName='opacity' values='0;0.9;0.9;0' keyTimes='0;0.12;0.8;1' dur={dur} begin={delay} repeatCount='indefinite' />
+        <animateTransform attributeName='transform' type='rotate' values={`0 ${x} ${y};180 ${x} ${y + 48}`} dur={dur} begin={delay} repeatCount='indefinite' additive='sum' />
       </polygon>
     ),
     ring: (x, y, delay, dur, key) => (
@@ -109,32 +110,6 @@ function HeroDiagram() {
       </g>
       <rect x='60' y='60' width='400' height='440' fill='url(#v20-dot)' />
 
-      {/* Back pass: top face + right side polygons (behind particles) */}
-      {layers.map((layer, i) => {
-        const y = 90 + i * 56
-        const skew = 26
-        return (
-          <g key={`back-${layer.code}`} className='v20-layer' style={{ '--layer-index': i, '--box-index': i } as React.CSSProperties}>
-            {/* Top face */}
-            <polygon
-              points={`${140},${y} ${360},${y} ${360 + skew},${y - 14} ${140 + skew},${y - 14}`}
-              fill='var(--v20-ink-layer-fill)'
-              stroke='var(--v20-ink-corner)'
-              strokeWidth='1'
-              className='v20-box-border v20-box-top'
-            />
-            {/* Right side face */}
-            <polygon
-              points={`${360},${y} ${360 + skew},${y - 14} ${360 + skew},${y + 18} ${360},${y + 32}`}
-              fill='var(--v20-ink-layer-right)'
-              stroke='var(--v20-ink-corner)'
-              strokeWidth='1'
-              className='v20-box-border v20-box-side'
-            />
-          </g>
-        )
-      })}
-
       {/* Particles flowing between layers — unique shape per layer, 5 per box, none from OPS */}
       {layers.map((_, i) => {
         if (i >= layers.length - 1) return null
@@ -152,32 +127,35 @@ function HeroDiagram() {
         )
       })}
 
-      {/* Front pass: front face rects + labels + callouts (clip particles) */}
       {layers.map((layer, i) => {
         const y = 90 + i * 56
         const skew = 26
         return (
           <g key={layer.code} className='v20-layer' style={{ '--layer-index': i, '--box-index': i } as React.CSSProperties}>
-            {/* Front face - solid opaque background (never animated, blocks particles) */}
+            {/* Top face */}
+            <polygon points={`${140},${y} ${360},${y} ${360 + skew},${y - 14} ${140 + skew},${y - 14}`} fill='var(--v20-ink-layer-fill)' stroke='var(--v20-ink-corner)' strokeWidth='1' />
+            {/* Front face - solid opaque background first */}
             <rect x='140' y={y} width='220' height='32' fill='var(--v20-ink-layer-fill)' />
-            {/* Front face - hatch overlay for DATA */}
-            {i === 3 && (
-              <rect x='140' y={y} width='220' height='32' fill='url(#v20-hatch)' />
-            )}
-            {/* Front face - orange highlight overlay (animated) */}
-            <rect x='140' y={y} width='220' height='32' fill='none' className='v20-box-fill' />
-            {/* Front face - border stroke on top */}
+            {/* Front face - pattern or fill on top */}
             <rect
               x='140'
               y={y}
               width='220'
               height='32'
-              fill='none'
+              fill={i === 3 ? 'url(#v20-hatch)' : 'none'}
               stroke='var(--v20-ink-corner)'
               strokeWidth='1'
-              className='v20-box-border'
+              className='v20-box-border v20-box-fill'
             />
-            <text x='156' y={y + 20} fontFamily='var(--font-mono)' fontSize='10' letterSpacing='1.5' fill='var(--v20-ink-label-strong)' className='v20-box-text'>{layer.label}</text>
+            {/* Right side face */}
+            <polygon
+              points={`${360},${y} ${360 + skew},${y - 14} ${360 + skew},${y + 18} ${360},${y + 32}`}
+              fill='var(--v20-ink-layer-right)'
+              stroke='var(--v20-ink-corner)'
+              strokeWidth='1'
+              className='v20-box-border v20-box-side'
+            />
+            <text x='156' y={y + 20} fontFamily='var(--font-mono)' fontSize='10' letterSpacing='1.5' fill='var(--v20-ink-label-strong)'>{layer.label}</text>
             <line x1={360 + skew} y1={y + 8} x2='450' y2={y + 8} stroke='var(--v20-ink-callout)' strokeWidth='0.8' strokeDasharray='2 2' className='v20-callout-line' />
             <circle cx={360 + skew} cy={y + 8} r='1.6' fill='#F07B2F' className='v20-callout-dot' />
             <text x='454' y={y + 11} fontFamily='var(--font-mono)' fontSize='8.5' letterSpacing='1' fill='#F07B2F'>{layer.code}</text>
@@ -522,7 +500,6 @@ export default function V14Page() {
               <div className='v20-logo'>
                 <img src='/dbiz-logo.svg' alt='DBiz.ai' width='80' height='45' />
               </div>
-              <FooterTagline />
               <div className='tag'>Human-Led &nbsp;|&nbsp; Agent-Operated &nbsp;|&nbsp; Data-Powered</div>
               <div className='meta'>10 offices · 6 countries · 800+ people</div>
             </div>
