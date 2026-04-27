@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Mechanical Assembly</title>
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: transparent;
+    font-family: 'DM Mono', ui-monospace, monospace;
+  }
+  #scene {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    background: transparent;
+  }
+  .hud {
+    position: fixed;
+    bottom: 18px;
+    left: 20px;
+    color: rgba(240,123,47,0.55);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    pointer-events: none;
+    user-select: none;
+  }
+  .hud .accent { color: #F07B2F; }
+  .hint {
+    position: fixed;
+    bottom: 18px;
+    right: 20px;
+    color: rgba(240,123,47,0.35);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Annotation overlay */
+  #annotations {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  #annotations svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .anno {
+    position: absolute;
+    transform: translate(0, -50%);
+    color: #F07B2F;
+    font-family: 'DM Mono', ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    pointer-events: none;
+    user-select: none;
+    transition: opacity 0.4s ease;
+    will-change: left, top;
+  }
+  .anno.right { transform: translate(0, -50%); text-align: left; }
+  .anno.left  { transform: translate(-100%, -50%); text-align: right; }
+  .anno .code {
+    color: rgba(240,123,47,0.55);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    margin-bottom: 4px;
+  }
+  .anno .cat {
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(240,123,47,0.35);
+    width: 220px;
+  }
+  .anno.left .cat { margin-left: auto; }
+  .anno .row { margin-top: 6px; width: 220px; }
+  .anno.left .row { margin-left: auto; }
+  .anno .title {
+    color: #F07B2F;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+  }
+  .anno .sub {
+    color: rgba(240,123,47,0.65);
+    font-size: 9px;
+    letter-spacing: 0.10em;
+    text-transform: none;
+    margin-top: 2px;
+    line-height: 1.35;
+  }
+  /* Authoring artifact — hide when embedded */
+  #tweak-panel { display: none !important; }
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div id="annotations">
+  <svg id="annoLines" xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+<div class="hud"><span class="accent">[ASM·01]</span> &nbsp; MECHANICAL ASSEMBLY / EXPLODED VIEW</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+
+// ============================================================
+// SCENE SETUP
+// ============================================================
+const canvas = document.getElementById('scene');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 0);
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 200);
+camera.position.set(-3, 6, 30);
+camera.lookAt(0, 0, 0);
+
+// ============================================================
+// SCROLL-DRIVEN TILT + MOUSE PARALLAX (replaces OrbitControls)
+//   • progress 0 → top-down view of the grid (camera straight above)
+//   • progress 1 → front/profile view (camera in front of assembly),
+//     zoomed out a bit and held there
+//   • mouse parallax overlays a subtle counter-shift on the result
+//   • iframe has pointer-events: none so the page scrolls normally;
+//     the iframe reads mouse + scroll from window.parent.
+// ============================================================
+const BASE_DIST = 36;            // base camera distance from origin (20% zoomed out)
+const ZOOM_OUT_AT_END = 0.35;    // 0..1: extra distance at progress=1
+const MOUSE_RANGE_X = 3.5;       // camera offset along world-X
+const MOUSE_RANGE_Y = 2.0;       // camera offset along camera-up
+const SMOOTH = 0.07;             // per-frame lerp factor
+const EDGE_THRESHOLD = 0.85;     // rotation kicks in past this fraction of viewport edge
+const EDGE_ROT_GAIN = 0.018;     // radians/frame at full edge-press
+
+let mouseTargetX = 0;            // raw, -1..1
+let mouseTargetY = 0;
+let mouseSmoothX = 0;            // smoothed (parallax)
+let mouseSmoothY = 0;
+let edgeRotY = 0;                // accumulated yaw when mouse pinned at left/right
+let edgeRotX = 0;                // accumulated pitch when mouse pinned at top/bottom
+let scrollProgress = 0;          // raw, 0..1 across section transit
+let scrollSmooth = 0;            // smoothed; seeded on first measurement
+let scrollSeeded = false;
+
+const host = (() => {
+  try { return window.parent && window.parent !== window ? window.parent : window; }
+  catch { return window; }
+})();
+
+const onParentMouseMove = (e) => {
+  const w = host.innerWidth || 1;
+  const h = host.innerHeight || 1;
+  mouseTargetX = (e.clientX / w) * 2 - 1;
+  mouseTargetY = (e.clientY / h) * 2 - 1;
+};
+const onParentScroll = () => {
+  try {
+    const iframeEl = host !== window ? host.document.querySelector('.v20-stack-3d') : null;
+    if (!iframeEl) { scrollProgress = 0; return; }
+    const rect = iframeEl.getBoundingClientRect();
+    const vh = host.innerHeight || 1;
+    // 0 when section bottom touches viewport top (just entering from below);
+    // 1 when section has fully scrolled past the top.
+    const raw = (vh - rect.top) / (vh + rect.height);
+    scrollProgress = Math.max(0, Math.min(1, raw));
+    if (!scrollSeeded) {
+      scrollSmooth = scrollProgress;
+      scrollSeeded = true;
+    }
+  } catch { scrollProgress = 0; }
+};
+const stopMouseDrift = () => { mouseTargetX = 0; mouseTargetY = 0; };
+host.addEventListener('mousemove', onParentMouseMove, { passive: true });
+host.addEventListener('mouseleave', stopMouseDrift, { passive: true });
+host.addEventListener('blur', stopMouseDrift, { passive: true });
+host.addEventListener('scroll', onParentScroll, { passive: true });
+host.addEventListener('resize', onParentScroll, { passive: true });
+onParentScroll();
+
+// ============================================================
+// MATERIALS
+//   Strategy: dark navy fill + bright orange lines.
+//   Fill occludes back-side lines so depth reads correctly.
+// ============================================================
+const ORANGE = 0xF07B2F;
+const ORANGE_DIM = 0xc85f1c;
+const NAVY_FILL = 0x0a1428;   // slightly lighter than bg
+
+const fillMat = new THREE.MeshBasicMaterial({ color: NAVY_FILL, transparent: true, opacity: 0.2 });
+
+const edgeMat = new THREE.LineBasicMaterial({
+  color: ORANGE, transparent: true, opacity: 1.0,
+});
+const wireMat = new THREE.LineBasicMaterial({
+  color: ORANGE, transparent: true, opacity: 0.55,
+});
+const accentMat = new THREE.LineBasicMaterial({
+  color: ORANGE, transparent: true, opacity: 0.9,
+});
+
+// Polygon offset so the fill doesn't z-fight with lines on top of it.
+fillMat.polygonOffset = true;
+fillMat.polygonOffsetFactor = 1;
+fillMat.polygonOffsetUnits = 1;
+
+// --- helpers ---------------------------------------------------
+function withEdges(geom, threshold = 15) {
+  const g = new THREE.Group();
+  const mesh = new THREE.Mesh(geom, fillMat);
+  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geom, threshold), edgeMat);
+  g.add(mesh, edges);
+  return g;
+}
+
+function withWireframe(geom) {
+  const g = new THREE.Group();
+  const mesh = new THREE.Mesh(geom, fillMat);
+  const wire = new THREE.LineSegments(new THREE.WireframeGeometry(geom), wireMat);
+  const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geom, 25), edgeMat);
+  g.add(mesh, wire, edges);
+  return g;
+}
+
+// Filled orange dot (small disc at a point, always facing +Z)
+function makeDot(radius = 0.08) {
+  const g = new THREE.CircleGeometry(radius, 24);
+  const m = new THREE.MeshBasicMaterial({ color: ORANGE, side: THREE.DoubleSide });
+  return new THREE.Mesh(g, m);
+}
+
+// Orange ring (outline circle, lies on YZ plane by default, facing +X)
+function makeRing(radius, segments = 64) {
+  const pts = [];
+  for (let i = 0; i <= segments; i++) {
+    const t = (i / segments) * Math.PI * 2;
+    pts.push(new THREE.Vector3(0, Math.cos(t) * radius, Math.sin(t) * radius));
+  }
+  const geom = new THREE.BufferGeometry().setFromPoints(pts);
+  return new THREE.Line(geom, accentMat);
+}
+
+// Filled orange disc facing +X (visible solid circle on the face of a part)
+function makeFace(radius, segments = 48) {
+  const g = new THREE.CircleGeometry(radius, segments);
+  const m = new THREE.MeshBasicMaterial({ color: ORANGE, side: THREE.DoubleSide });
+  const mesh = new THREE.Mesh(g, m);
+  mesh.rotation.y = Math.PI / 2;   // face along +X
+  return mesh;
+}
+
+// ============================================================
+// PARTS — each returns a Group centered at the origin,
+//         with its axis along +X. Width is along X.
+// ============================================================
+
+// Electron orbit state (populated by partAtom, read by animate loop)
+const electrons = [];  // { mesh, orbit: {a, b, tilt, phase, speed} }
+
+// ---------- 1. Atom ----------
+//  Central wire-sphere nucleus + symmetric orbital rings across the 3 principal
+//  axes (and 3 mirrored diagonals). Transparent rings + small electrons.
+function partAtom(density = 1) {
+  const g = new THREE.Group();
+
+  const SCALE = 1.5;   // 50% bigger overall
+
+  // --- Nucleus: small cluster of tiny spheres ---
+  const nucleusGroup = new THREE.Group();
+  const nucleonPositions = [
+    [ 0.00,  0.00,  0.00],
+    [ 0.09,  0.00,  0.00],
+    [-0.09,  0.00,  0.00],
+    [ 0.00,  0.09,  0.00],
+    [ 0.00, -0.09,  0.00],
+    [ 0.00,  0.00,  0.09],
+    [ 0.00,  0.00, -0.09],
+  ];
+  const sphW = Math.max(6, Math.round(14 * density));
+  const sphH = Math.max(4, Math.round(10 * density));
+  nucleonPositions.forEach(p => {
+    const s = new THREE.Mesh(
+      new THREE.SphereGeometry(0.06 * SCALE, sphW, sphH),
+      new THREE.MeshBasicMaterial({ color: ORANGE, transparent: true, opacity: 0.85 })
+    );
+    s.position.set(p[0]*SCALE, p[1]*SCALE, p[2]*SCALE);
+    nucleusGroup.add(s);
+  });
+  g.add(nucleusGroup);
+
+  // --- Symmetric orbital rings ---
+  const R = 0.95 * SCALE;
+  const electronsPerOrbit = Math.max(1, Math.round(3 * density));
+  const orbits = [
+    // Principal planes: defined by a rotation that maps local XY plane
+    // into the world plane we want.
+    { ex: 0,           ey: 0,           ez: 0,           speed:  1.2 }, // XY
+    { ex: Math.PI/2,   ey: 0,           ez: 0,           speed: -1.2 }, // XZ
+    { ex: 0,           ey: Math.PI/2,   ez: 0,           speed:  1.2 }, // YZ
+    // Diagonal planes — 45° about X, Y, Z respectively
+    { ex: Math.PI/4,   ey: 0,           ez: Math.PI/4,   speed: -0.9 },
+    { ex: Math.PI/4,   ey: Math.PI/4,   ez: 0,           speed:  0.9 },
+    { ex: 0,           ey: Math.PI/4,   ez: Math.PI/4,   speed: -0.9 },
+  ];
+
+  orbits.forEach((o, oi) => {
+    const ringGroup = new THREE.Group();
+    ringGroup.rotation.set(o.ex, o.ey, o.ez);
+    g.add(ringGroup);
+
+    // Transparent circular ring
+    const segs = Math.max(16, Math.round(80 * density));
+    const ringPts = [];
+    for (let i = 0; i <= segs; i++) {
+      const t = (i / segs) * Math.PI * 2;
+      ringPts.push(new THREE.Vector3(Math.cos(t) * R, Math.sin(t) * R, 0));
+    }
+    const ringGeom = new THREE.BufferGeometry().setFromPoints(ringPts);
+    const ring = new THREE.Line(ringGeom, wireMat);
+    ringGroup.add(ring);
+
+    // Small semi-transparent electrons
+    const eW = Math.max(6, Math.round(12 * density));
+    const eH = Math.max(4, Math.round(8 * density));
+    for (let i = 0; i < electronsPerOrbit; i++) {
+      const e = new THREE.Mesh(
+        new THREE.SphereGeometry(0.045, eW, eH),
+        new THREE.MeshBasicMaterial({ color: ORANGE, transparent: true, opacity: 0.75 })
+      );
+      ringGroup.add(e);
+      electrons.push({
+        mesh: e,
+        a: R, b: R,
+        phase: (i / electronsPerOrbit) * Math.PI * 2 + oi * (Math.PI / 6),
+        speed: o.speed,
+      });
+    }
+  });
+
+  return g;
+}
+
+// Legacy alias
+function partBolt(density = 1) { return partAtom(density); }
+
+// ---------- 2. Concentric-ring disc ----------
+function partRingDisc(density = 1) {
+  const g = new THREE.Group();
+
+  // Thin disc body — thickness 1.05 (3x the original 0.35)
+  const segs = Math.max(8, Math.round(40 * density));
+  const disc = withWireframe(new THREE.CylinderGeometry(1.55, 1.55, 1.05, segs, 2));
+  disc.rotation.z = Math.PI / 2;
+  g.add(disc);
+
+  // Front-face concentric rings + center dot
+  const faceX = 0.526;   // half of 1.05 + small offset
+  const ringSegs = Math.max(16, Math.round(64 * density));
+  [0.35, 0.72, 1.15].forEach(r => {
+    const ring = makeRing(r, ringSegs);
+    ring.position.x = faceX;
+    g.add(ring);
+  });
+  const dot = makeDot(0.14);
+  dot.rotation.y = Math.PI / 2;
+  dot.position.x = faceX + 0.001;
+  g.add(dot);
+
+  return g;
+}
+
+// ---------- 3. Thin hex prism ----------
+function partHexThin(density = 1) {
+  const g = new THREE.Group();
+  const sides = Math.max(3, Math.round(6 * density));
+  const hex = withEdges(new THREE.CylinderGeometry(0.95, 0.95, 0.55, sides, 1));
+  hex.rotation.z = Math.PI / 2;
+  hex.rotation.x = Math.PI / sides;  // point-up orientation
+  g.add(hex);
+  return g;
+}
+
+// ---------- 4. Stepped spindle / bipyramid ----------
+//  Fully symmetric along the X axis (the shared assembly axis).
+//  Two mirrored stacks of square frustums narrowing to a point at each end.
+//  Clean geometry, no extra shafts or floating finials.
+function partDiamond(density = 1) {
+  const g = new THREE.Group();
+
+  // Square frustum built along +X. bottomSize is at x=x0, topSize at x=x0+len.
+  // Axis runs along X, cross-section is square in Y/Z.
+  function frustumX(startSize, endSize, len, x0) {
+    const hs = startSize / 2, he = endSize / 2;
+    const x1 = x0 + len;
+    // 8 vertices: start face (4) then end face (4). CCW when viewed from +X.
+    const verts = [
+      [x0, -hs, -hs], [x0,  hs, -hs], [x0,  hs,  hs], [x0, -hs,  hs],  // start
+      [x1, -he, -he], [x1,  he, -he], [x1,  he,  he], [x1, -he,  he],  // end
+    ];
+    const faces = [
+      // start face (facing -X)
+      [0,2,1],[0,3,2],
+      // end face (facing +X)
+      [4,5,6],[4,6,7],
+      // sides
+      [0,1,5],[0,5,4],  // -Y
+      [1,2,6],[1,6,5],  // +Z ? no: +Y side... let's just compute normals
+      [2,3,7],[2,7,6],
+      [3,0,4],[3,4,7],
+    ];
+    const positions = [];
+    faces.forEach(([a,b,c]) => {
+      positions.push(...verts[a], ...verts[b], ...verts[c]);
+    });
+    const geom = new THREE.BufferGeometry();
+    geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geom.computeVertexNormals();
+    return geom;
+  }
+
+  // Tier profile (half, from center outward along +X):
+  //   [size at inner edge, size at outer edge, length]
+  // Then we mirror it to -X.
+  const tiers = [
+    { a: 1.7, b: 1.7, len: 0.12 },  // center slab (widest, thin)
+    { a: 1.7, b: 1.3, len: 0.25 },  // shoulder
+    { a: 1.3, b: 1.1, len: 0.18 },
+    { a: 1.1, b: 0.7, len: 0.30 },  // stepped
+    { a: 0.7, b: 0.5, len: 0.14 },
+    { a: 0.5, b: 0.12, len: 0.35 }, // point
+  ];
+
+  // Build symmetrically: for each tier, draw +X copy and -X mirrored copy.
+  let x = 0;
+  // Center slab straddles x=0 for perfect symmetry
+  const slab = withEdges(frustumX(tiers[0].a, tiers[0].b, tiers[0].len, -tiers[0].len/2));
+  g.add(slab);
+  x = tiers[0].len / 2;
+
+  for (let i = 1; i < tiers.length; i++) {
+    const t = tiers[i];
+    // +X side
+    const p = withEdges(frustumX(t.a, t.b, t.len, x));
+    g.add(p);
+    // -X side (mirror)
+    const pm = withEdges(frustumX(t.a, t.b, t.len, x));
+    pm.scale.x = -1;
+    g.add(pm);
+    x += t.len;
+  }
+
+  return g;
+}
+
+// ---------- 5. Large spoked wheel ----------
+function partSpokedWheel() {
+  const g = new THREE.Group();
+
+  // Main disc (thick)
+  const wheel = withWireframe(new THREE.CylinderGeometry(2.0, 2.0, 0.8, 48, 3));
+  wheel.rotation.z = Math.PI / 2;
+  g.add(wheel);
+
+  // Radial spokes on the front face: thin line segments from inner to outer ring
+  const faceX = 0.41;
+  const spokeCount = 24;
+  const innerR = 0.55;
+  const outerR = 1.85;
+  const spokePts = [];
+  for (let i = 0; i < spokeCount; i++) {
+    const a = (i / spokeCount) * Math.PI * 2;
+    spokePts.push(new THREE.Vector3(faceX, Math.cos(a) * innerR, Math.sin(a) * innerR));
+    spokePts.push(new THREE.Vector3(faceX, Math.cos(a) * outerR, Math.sin(a) * outerR));
+  }
+  const spokeGeom = new THREE.BufferGeometry().setFromPoints(spokePts);
+  g.add(new THREE.LineSegments(spokeGeom, accentMat));
+
+  // Front face concentric rings
+  [0.55, 0.85, 1.85].forEach(r => {
+    const ring = makeRing(r);
+    ring.position.x = faceX + 0.001;
+    g.add(ring);
+  });
+
+  // Center dot
+  const dot = makeDot(0.18);
+  dot.rotation.y = Math.PI / 2;
+  dot.position.x = faceX + 0.002;
+  g.add(dot);
+
+  return g;
+}
+
+// ---------- 6. Small concentric disc (smaller version of part 2) ----------
+function partSmallRingDisc(density = 1) {
+  const g = new THREE.Group();
+  const segs = Math.max(8, Math.round(32 * density));
+  const disc = withWireframe(new THREE.CylinderGeometry(1.05, 1.05, 0.3, segs, 2));
+  disc.rotation.z = Math.PI / 2;
+  g.add(disc);
+
+  const faceX = 0.151;
+  const ringSegs = Math.max(12, Math.round(48 * density));
+  [0.28, 0.6, 0.85].forEach(r => {
+    const ring = makeRing(r, ringSegs);
+    ring.position.x = faceX;
+    g.add(ring);
+  });
+  const dot = makeDot(0.1);
+  dot.rotation.y = Math.PI / 2;
+  dot.position.x = faceX + 0.001;
+  g.add(dot);
+  return g;
+}
+
+// ---------- 7. Hub with 6 radiating cubes ----------
+function partHubCubes(density = 1) {
+  const g = new THREE.Group();
+
+  // Central sphere hub
+  const hubW = Math.max(6, Math.round(20 * density));
+  const hubH = Math.max(4, Math.round(12 * density));
+  const hub = withWireframe(new THREE.SphereGeometry(0.35, hubW, hubH));
+  g.add(hub);
+
+  // Visible cube count scales with density (min 4, base 6).
+  const visibleCount = Math.max(2, Math.round(6 * density));
+
+  // Total slot pool: enough room above the visible count that the
+  // attach/detach animation has somewhere to bring new cubes IN from.
+  // Also enforces a minimum so the pool feels populated.
+  const totalSlots = Math.max(visibleCount + 6, 12);
+
+  const cubeSize = 0.4;
+  const reach = 0.95;
+
+  // Distribute ALL pool slots evenly around the sphere using a
+  // fibonacci distribution. The first `visibleCount` slots start
+  // visible; the rest start hidden (scale 0) but already wired up
+  // so the animation can fade them in.
+  const positions = [];
+  const phi = Math.PI * (Math.sqrt(5) - 1);
+  for (let i = 0; i < totalSlots; i++) {
+    const y = 1 - (i / Math.max(1, totalSlots - 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
+    const th = phi * i;
+    positions.push([Math.cos(th) * r * reach, y * reach, Math.sin(th) * r * reach]);
+  }
+
+  // Build a slot per position: a cube + a connector line, both
+  // grouped together so we can fade them as a unit.
+  const slots = [];
+  positions.forEach((p, i) => {
+    const slotGroup = new THREE.Group();
+    const initiallyOn = i < visibleCount;
+
+    // Cube
+    const cube = withEdges(new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize));
+    cube.position.set(...p);
+    slotGroup.add(cube);
+
+    // Connector line — drawn 0..p, will scale-along-length via a child
+    // group whose scale we animate.
+    const lineGeom = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(0, 0, 0),
+      new THREE.Vector3(...p),
+    ]);
+    // Per-slot material so we can fade opacity independently.
+    const lineMat = new THREE.LineBasicMaterial({
+      color: ORANGE,
+      transparent: true,
+      opacity: initiallyOn ? 0.85 : 0,
+    });
+    const line = new THREE.Line(lineGeom, lineMat);
+    slotGroup.add(line);
+
+    // Initial state
+    const startScale = initiallyOn ? 1 : 0;
+    cube.scale.setScalar(startScale);
+    // Line uses opacity for fade so its endpoints stay anchored.
+    g.add(slotGroup);
+
+    slots.push({
+      cube,
+      line,
+      lineMat,
+      pos: p,
+      // Animation state — `current` tweens toward `target`.
+      current: initiallyOn ? 1 : 0,
+      target:  initiallyOn ? 1 : 0,
+    });
+  });
+
+  g.userData.slots = slots;
+  return g;
+}
+
+// ---------- 8. Hex thick + ribs (merged) ----------
+//  Central thick hex prism with smaller hex-cross-section ribs flanking
+//  it on both sides + a center shaft. All ribs share the same `sides`
+//  polygon count as the main body.
+function partHexThick(density = 1) {
+  const g = new THREE.Group();
+  const sides = Math.max(3, Math.round(6 * density));
+  const sideRot = Math.PI / sides;   // shared point-up orientation
+
+  // --- Main body (central thick hex prism) ---
+  const bodyR = 1.35;
+  const bodyLen = 1.0;
+  const hex = withEdges(new THREE.CylinderGeometry(bodyR, bodyR, bodyLen, sides, 1));
+  hex.rotation.z = Math.PI / 2;
+  hex.rotation.x = sideRot;
+  g.add(hex);
+
+  // --- Front face center dot + vertex dots ---
+  const faceX = bodyLen / 2 + 0.01;
+  // Outline-circle helper local to this part (replaces solid dots).
+  const ringSegs = 48;
+  const makeRing = (radius) => {
+    const pts = [];
+    for (let i = 0; i <= ringSegs; i++) {
+      const a = (i / ringSegs) * Math.PI * 2;
+      pts.push(new THREE.Vector3(Math.cos(a) * radius, Math.sin(a) * radius, 0));
+    }
+    const ringGeom = new THREE.BufferGeometry().setFromPoints(pts);
+    const ring = new THREE.Line(ringGeom,
+      new THREE.LineBasicMaterial({ color: ORANGE, transparent: true, opacity: 1.0 }));
+    ring.rotation.y = Math.PI / 2;   // face along +X like the original dots
+    return ring;
+  };
+  const centerRing = makeRing(0.16);
+  centerRing.position.x = faceX;
+  g.add(centerRing);
+  for (let i = 0; i < sides; i++) {
+    const a = (i / sides) * Math.PI * 2 + sideRot;
+    const d = makeRing(0.07);
+    d.position.set(faceX + 0.001, Math.cos(a) * 1.0, Math.sin(a) * 1.0);
+    g.add(d);
+  }
+
+  // --- Ribs flanking the main body on each side ---
+  // Each rib is a smaller hex prism (same sides) stacked along the axis with a gap.
+  const ribCount = Math.max(2, Math.round(3 * density));   // ribs per side
+  const ribR = 0.55;
+  const ribLen = 0.14;
+  const ribGap = 0.06;
+  const ribStep = ribLen + ribGap;
+  // First rib sits just outside the main body face
+  const firstRibCenter = bodyLen / 2 + ribGap + ribLen / 2;
+  for (const dir of [+1, -1]) {
+    for (let i = 0; i < ribCount; i++) {
+      const rib = withEdges(new THREE.CylinderGeometry(ribR, ribR, ribLen, sides, 1));
+      rib.rotation.z = Math.PI / 2;
+      rib.rotation.x = sideRot;
+      rib.position.x = dir * (firstRibCenter + i * ribStep);
+      g.add(rib);
+    }
+  }
+
+  // --- Central shaft running through everything ---
+  const totalWidth = bodyLen + 2 * (ribCount * ribStep + ribGap);
+  const shaftR = 0.22;
+  const shaftSegs = Math.max(6, Math.round(16 * density));
+  const shaft = withEdges(new THREE.CylinderGeometry(shaftR, shaftR, totalWidth + 0.2, shaftSegs, 1));
+  shaft.rotation.z = Math.PI / 2;
+  g.add(shaft);
+
+  return g;
+}
+
+// ---------- Nested sphere ----------
+//  Outer wire-sphere + inner smaller solid-edge sphere +
+//  radial connecting lines between matching latitude/longitude vertices.
+function partSphere(density = 1) {
+  const g = new THREE.Group();
+
+  const outerR = 1.3;
+  const innerR = 0.7;
+  const wSegs = Math.max(6, Math.round(18 * density));  // longitude divisions
+  const hSegs = Math.max(4, Math.round(12 * density));  // latitude divisions
+
+  // --- Outer sphere ---
+  // Back-side fill so inner sphere remains visible from the front.
+  const outerGeom = new THREE.SphereGeometry(outerR, wSegs, hSegs);
+  const outerFillMat = new THREE.MeshBasicMaterial({
+    color: NAVY_FILL,
+    side: THREE.BackSide,
+    transparent: true,
+    opacity: 0.2,
+    polygonOffset: true,
+    polygonOffsetFactor: 1,
+    polygonOffsetUnits: 1,
+  });
+  g.add(new THREE.Mesh(outerGeom, outerFillMat));
+
+  // Clean lat/long grid (no triangulation diagonals)
+  const outerGrid = buildSphereGrid(outerR, wSegs, hSegs);
+  g.add(new THREE.LineSegments(outerGrid, wireMat));
+
+  // Equator + prime meridian accent rings (brighter)
+  const eq = makeRing(outerR, 72); eq.rotation.z = Math.PI / 2; g.add(eq);  // XZ plane
+  const mer = makeRing(outerR, 72); g.add(mer);                              // YZ plane
+
+  // --- Inner sphere (brighter wireframe) ---
+  // Wrapped in its own group so it can counter-rotate independently.
+  const innerGroup = new THREE.Group();
+  const iW = Math.max(6, Math.round(14 * density));
+  const iH = Math.max(4, Math.round(10 * density));
+  const innerGrid = buildSphereGrid(innerR, iW, iH);
+  innerGroup.add(new THREE.LineSegments(innerGrid,
+    new THREE.LineBasicMaterial({ color: ORANGE, transparent: true, opacity: 1.0 })));
+  g.add(innerGroup);
+  g.userData.innerGroup = innerGroup;
+
+  // --- 6 axial connecting lines from outer to inner along ±X, ±Y, ±Z ---
+  const connectPts = [];
+  const axes = [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+  axes.forEach(([x,y,z]) => {
+    connectPts.push(new THREE.Vector3(x*outerR, y*outerR, z*outerR));
+    connectPts.push(new THREE.Vector3(x*innerR, y*innerR, z*innerR));
+  });
+  const connectGeom = new THREE.BufferGeometry().setFromPoints(connectPts);
+  g.add(new THREE.LineSegments(connectGeom,
+    new THREE.LineBasicMaterial({ color: ORANGE, transparent: true, opacity: 0.95 })));
+
+  return g;
+}
+
+// Build lat/long line grid on a sphere surface — clean great/small circles
+// without the diagonal segments WireframeGeometry produces.
+function buildSphereGrid(radius, wSegs, hSegs) {
+  const pts = [];
+  // Latitude circles (horizontal rings)
+  for (let i = 1; i < hSegs; i++) {
+    const phi = (i / hSegs) * Math.PI;          // 0..π
+    const y = Math.cos(phi) * radius;
+    const r = Math.sin(phi) * radius;
+    for (let j = 0; j < wSegs; j++) {
+      const t0 = (j / wSegs) * Math.PI * 2;
+      const t1 = ((j + 1) / wSegs) * Math.PI * 2;
+      pts.push(new THREE.Vector3(Math.cos(t0)*r, y, Math.sin(t0)*r));
+      pts.push(new THREE.Vector3(Math.cos(t1)*r, y, Math.sin(t1)*r));
+    }
+  }
+  // Longitude arcs (from pole to pole)
+  for (let j = 0; j < wSegs; j++) {
+    const t = (j / wSegs) * Math.PI * 2;
+    for (let i = 0; i < hSegs; i++) {
+      const phi0 = (i / hSegs) * Math.PI;
+      const phi1 = ((i + 1) / hSegs) * Math.PI;
+      const y0 = Math.cos(phi0) * radius, r0 = Math.sin(phi0) * radius;
+      const y1 = Math.cos(phi1) * radius, r1 = Math.sin(phi1) * radius;
+      pts.push(new THREE.Vector3(Math.cos(t)*r0, y0, Math.sin(t)*r0));
+      pts.push(new THREE.Vector3(Math.cos(t)*r1, y1, Math.sin(t)*r1));
+    }
+  }
+  return new THREE.BufferGeometry().setFromPoints(pts);
+}
+
+// ---------- Tesseract (hypercube projection) ----------
+//  Outer cube + inner (smaller) cube floating inside +
+//  8 edges connecting corresponding vertices.
+function partTesseract(density = 1) {
+  const g = new THREE.Group();
+
+  const outerSize = 2.6;
+  const innerSize = 1.4;
+  const divs = Math.max(1, Math.round(6 * density));
+
+  // --- Outer cube ---
+  const outerGeom = new THREE.BoxGeometry(outerSize, outerSize, outerSize);
+
+  // Fill only on the back-facing faces so the inner cube is visible from the front.
+  const outerFillMat = new THREE.MeshBasicMaterial({
+    color: NAVY_FILL,
+    side: THREE.BackSide,
+    transparent: true,
+    opacity: 0.2,
+    polygonOffset: true,
+    polygonOffsetFactor: 1,
+    polygonOffsetUnits: 1,
+  });
+  const outerMesh = new THREE.Mesh(outerGeom, outerFillMat);
+  g.add(outerMesh);
+
+  // Outer cube grid (divs×divs per face).
+  const outerGrid = buildCubeGrid(outerSize, divs);
+  g.add(new THREE.LineSegments(outerGrid, wireMat));
+
+  // Outer cube bright edges
+  const outerEdges = new THREE.LineSegments(new THREE.EdgesGeometry(outerGeom, 1), edgeMat);
+  g.add(outerEdges);
+
+  // --- Inner cube (edges only, brighter) ---
+  const innerGeom = new THREE.BoxGeometry(innerSize, innerSize, innerSize);
+  const innerEdgesMat = new THREE.LineBasicMaterial({
+    color: ORANGE, transparent: true, opacity: 1.0,
+  });
+  const innerEdges = new THREE.LineSegments(new THREE.EdgesGeometry(innerGeom, 1), innerEdgesMat);
+  g.add(innerEdges);
+
+  // --- 8 connecting edges from outer vertex -> corresponding inner vertex ---
+  const hO = outerSize / 2, hI = innerSize / 2;
+  const connectPts = [];
+  for (let sx of [-1, 1]) for (let sy of [-1, 1]) for (let sz of [-1, 1]) {
+    connectPts.push(new THREE.Vector3(sx*hO, sy*hO, sz*hO));
+    connectPts.push(new THREE.Vector3(sx*hI, sy*hI, sz*hI));
+  }
+  const connectGeom = new THREE.BufferGeometry().setFromPoints(connectPts);
+  g.add(new THREE.LineSegments(connectGeom,
+    new THREE.LineBasicMaterial({ color: ORANGE, transparent: true, opacity: 0.95 })));
+
+  return g;
+}
+
+// Build a grid of line segments on each face of a cube of the given size.
+// divs = number of divisions per edge (so divs-1 internal lines per axis per face).
+function buildCubeGrid(size, divs) {
+  const half = size / 2;
+  const step = size / divs;
+  const pts = [];
+
+  // For each face (6), draw (divs-1) lines in each of the 2 in-plane directions.
+  // Face pairs: ±X, ±Y, ±Z.
+  for (const sign of [-1, 1]) {
+    // ±X faces: lines along Y and Z
+    for (let i = 1; i < divs; i++) {
+      const c = -half + i * step;
+      pts.push(new THREE.Vector3(sign*half, c, -half), new THREE.Vector3(sign*half, c, half));
+      pts.push(new THREE.Vector3(sign*half, -half, c), new THREE.Vector3(sign*half, half, c));
+    }
+    // ±Y faces
+    for (let i = 1; i < divs; i++) {
+      const c = -half + i * step;
+      pts.push(new THREE.Vector3(c, sign*half, -half), new THREE.Vector3(c, sign*half, half));
+      pts.push(new THREE.Vector3(-half, sign*half, c), new THREE.Vector3(half, sign*half, c));
+    }
+    // ±Z faces
+    for (let i = 1; i < divs; i++) {
+      const c = -half + i * step;
+      pts.push(new THREE.Vector3(c, -half, sign*half), new THREE.Vector3(c, half, sign*half));
+      pts.push(new THREE.Vector3(-half, c, sign*half), new THREE.Vector3(half, c, sign*half));
+    }
+  }
+  return new THREE.BufferGeometry().setFromPoints(pts);
+}
+
+// ============================================================
+// ASSEMBLY — lay parts along the X axis at explicit positions.
+//   Every part's center sits on y=0, z=0 → they share ONE axis.
+// ============================================================
+const assembly = new THREE.Group();
+assembly.scale.setScalar(1.2);   // main objects 20% bigger
+scene.add(assembly);
+
+// ============================================================
+// AMBIENT SCENE: 3D grid + dot field + drifting smoke
+//   These sit at scene-root so they don't rotate with the assembly.
+// ============================================================
+const ambient = new THREE.Group();
+scene.add(ambient);
+
+// ---- 3D BACKGROUND GRID --------------------------------------
+// Cell size + extent share constants with the dot lattice (below) so every
+// grid intersection coincides with a dot — same vanishing points.
+const LATTICE_STEP = 3.0;
+const LATTICE_HALF = 24;        // -> 17 dots / axis, 16 grid cells / axis
+{
+  const SIZE = LATTICE_HALF * 2;          // 48
+  const DIVS = SIZE / LATTICE_STEP;       // 16
+  const HALF = SIZE / 2;                  // 24
+  const GRID_COLOR = 0x4a78b8;
+  const grid = new THREE.Group();
+  const gFloor   = new THREE.GridHelper(SIZE, DIVS, GRID_COLOR, GRID_COLOR);
+  const gCeiling = new THREE.GridHelper(SIZE, DIVS, GRID_COLOR, GRID_COLOR);
+  gFloor.position.y   = -HALF;
+  gCeiling.position.y = +HALF;
+  const gBack  = new THREE.GridHelper(SIZE, DIVS, GRID_COLOR, GRID_COLOR);
+  const gFront = new THREE.GridHelper(SIZE, DIVS, GRID_COLOR, GRID_COLOR);
+  gBack.rotation.x  = Math.PI / 2;  gBack.position.z  = -HALF;
+  gFront.rotation.x = Math.PI / 2;  gFront.position.z = +HALF;
+  const gLeft  = new THREE.GridHelper(SIZE, DIVS, GRID_COLOR, GRID_COLOR);
+  const gRight = new THREE.GridHelper(SIZE, DIVS, GRID_COLOR, GRID_COLOR);
+  gLeft.rotation.z  = Math.PI / 2;  gLeft.position.x  = -HALF;
+  gRight.rotation.z = Math.PI / 2;  gRight.position.x = +HALF;
+  for (const g of [gFloor, gCeiling, gBack, gFront, gLeft, gRight]) {
+    g.material.transparent = true;
+    g.material.opacity = 0.55;
+    g.material.depthWrite = false;
+    grid.add(g);
+  }
+  ambient.add(grid);
+}
+
+// ---- EQUI-DISTANT DOT FIELD -----------------------------------
+// A regular 3D lattice of tiny dots — uniform spacing in X/Y/Z.
+// We jitter each lightly so they don't form perfect axis-aligned lines
+// when viewed straight on, but the spacing remains effectively uniform.
+{
+  const STEP = LATTICE_STEP;     // shared with the grid
+  const HALF = LATTICE_HALF;
+  const positions = [];
+  // Inclusive bounds: e.g. STEP=3, HALF=24 -> offsets {-24,-21,...,21,24}
+  for (let x = -HALF; x <= HALF + 1e-6; x += STEP) {
+    for (let y = -HALF; y <= HALF + 1e-6; y += STEP) {
+      for (let z = -HALF; z <= HALF + 1e-6; z += STEP) {
+        positions.push(x, y, z);
+      }
+    }
+  }
+  const dotGeom = new THREE.BufferGeometry();
+  dotGeom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  const dotMat = new THREE.PointsMaterial({
+    color: 0xffd9a8,
+    size: 0.08,
+    sizeAttenuation: true,
+    transparent: true,
+    opacity: 0.5,
+    depthWrite: false,
+  });
+  ambient.add(new THREE.Points(dotGeom, dotMat));
+}
+
+// ---- (smoke removed) ------------------------------------------
+const smokeSprites = [];
+
+// Inner group that holds all parts and spins around the assembly's
+// own local X axis. The outer `assembly` keeps the static 3/4-view
+// tilt — that way the rotation doesn't translate parts in world
+// space (parts sit at y=z=0 along X), so leader lines / labels stay
+// anchored.
+const spinner = new THREE.Group();
+assembly.add(spinner);
+
+const layout = [
+  { key: 'atom',      label: 'ATOM',        factory: partBolt,
+    info: { code: 'L01', cat: 'STRATEGY',
+      lines: [
+        ['FUTURES STUDIO', 'AI ambition, roadmap & use-case prioritisation'],
+        ['DBIZ CANVAS', 'Concept to code in days'],
+      ] } },
+  { key: 'ringDisc',  label: 'RING DISC',   factory: partRingDisc,
+    info: { code: 'L02', cat: 'ARCHITECTURE',
+      lines: [
+        ['TECHOFFICE FOUNDRY', 'AI foundation & Well-Architected review'],
+        ['DBIZ ADAPT', 'Architecting Secure & Sovereign AI'],
+      ] } },
+  { key: 'diamond',   label: 'SPINDLE',     factory: partDiamond,
+    info: { code: 'L03', cat: 'CLOUD',
+      lines: [
+        ['MULTI-CLOUD AI FOUNDATION', 'Enterprise AI Foundation rollout'],
+        ['DBIZ SCOOP', 'AI-Powered migration pipeline'],
+      ] } },
+  { key: 'sphere',    label: 'SPHERE',      factory: partSphere,
+    info: { code: 'L04', cat: 'DEVELOPMENT',
+      lines: [
+        ['PERPETUAL ENGINEERING', 'AI agents across the full SDLC'],
+        ['NEXUS PLATFORM', 'Enterprise AI dev environment'],
+      ] } },
+  { key: 'hubCubes',  label: 'HUB',         factory: partHubCubes,
+    info: { code: 'L05', cat: 'PRODUCTIVITY',
+      lines: [
+        ['AI-INFUSED BIZAPPS', 'Autonomous agents for SaaS platforms'],
+        ['PRODUCTIVITY AUTOMATION', 'Claude Co-work & Copilot'],
+      ] } },
+  { key: 'hexThick',  label: 'HEX THICK',   factory: partHexThick,
+    info: { code: 'L06', cat: 'ORCHESTRATION',
+      lines: [
+        ['AGENT STUDIO', 'Agentic AI & multi-agent orchestration'],
+        ['NEXUS ICONNECTOR', 'No rip & replace integration'],
+      ] } },
+  { key: 'tesseract', label: 'TESSERACT',   factory: partTesseract,
+    info: { code: 'L07', cat: 'DATA & INSIGHTS',
+      lines: [
+        ['DBIZ COMPASS', 'AI-infused data engineering'],
+        ['FACTWEAVERS.AI', 'Domain data cloud & quick insights'],
+      ] } },
+];
+
+// Even spacing along X, centered at origin.
+const ASSEMBLY_SPAN = 17.3;   // total length at spacing = 1.0
+const STEP = ASSEMBLY_SPAN / (layout.length - 1);
+const BASE_X = layout.map((_, i) => -ASSEMBLY_SPAN / 2 + i * STEP);
+
+// Build initial parts
+layout.forEach((entry, i) => {
+  entry.mesh = entry.factory(1);
+  entry.mesh.position.set(BASE_X[i], 0, 0);
+  spinner.add(entry.mesh);
+});
+
+// Thin orange line threading through every part along the assembly axis.
+// Lives in `spinner` so it spins with the parts; vertex positions are
+// rewritten whenever spacing changes (see applySpacing).
+const connectorPositions = new Float32Array(layout.length * 3);
+const connectorGeom = new THREE.BufferGeometry();
+connectorGeom.setAttribute('position', new THREE.BufferAttribute(connectorPositions, 3));
+const connectorMat = new THREE.LineBasicMaterial({
+  color: ORANGE, transparent: true, opacity: 0.55,
+});
+const connectorLine = new THREE.Line(connectorGeom, connectorMat);
+spinner.add(connectorLine);
+function updateConnectorLine() {
+  const arr = connectorGeom.attributes.position.array;
+  for (let i = 0; i < layout.length; i++) {
+    arr[i * 3]     = layout[i].mesh.position.x;
+    arr[i * 3 + 1] = 0;
+    arr[i * 3 + 2] = 0;
+  }
+  connectorGeom.attributes.position.needsUpdate = true;
+}
+updateConnectorLine();
+
+// --- Rebuild a part when its density changes -----------------
+function rebuildPart(i, density) {
+  const entry = layout[i];
+  spinner.remove(entry.mesh);
+  // If this is the atom, electrons array has old entries tied to discarded
+  // meshes. Clear any electron entries whose meshes are no longer in scene.
+  if (entry.key === 'atom') {
+    electrons.length = 0;
+  }
+  entry.mesh = entry.factory(density);
+  entry.mesh.position.set(BASE_X[i] * tweaks.spacing, 0, 0);
+  spinner.add(entry.mesh);
+  // Refresh surface raycast targets so newly built meshes are picked up.
+  // (Plasma may not be initialized yet during the initial density pass.)
+  if (window.__plasmaReady) collectSurfaceTargets();
+}
+
+// --- Spacing control ----------------------------------------
+function applySpacing(s) {
+  layout.forEach((entry, i) => {
+    entry.mesh.position.x = BASE_X[i] * s;
+  });
+  updateConnectorLine();
+}
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "spacing": 1.25,
+  "d_atom": 1.8,
+  "d_ringDisc": 0.3,
+  "d_diamond": 1.5,
+  "d_sphere": 1.05,
+  "d_hubCubes": 2.35,
+  "d_hexThick": 1.15,
+  "d_tesseract": 1.55
+}/*EDITMODE-END*/;
+
+let tweaks = { ...TWEAK_DEFAULTS };
+const targetSpacing = tweaks.spacing;
+applySpacing(0);  // start collapsed for intro animation
+
+// Apply initial per-part density values (rebuild any that aren't 1.0)
+layout.forEach((entry, i) => {
+  const d = tweaks['d_' + entry.key];
+  if (d !== undefined && d !== 1) rebuildPart(i, d);
+});
+
+// Tilt so we see tops + right-sides of parts — matches reference's 3/4 view
+assembly.rotation.x = 0.18;
+assembly.rotation.y = -0.12;
+
+// ============================================================
+// INTRO ANIMATION — snappy expand from spacing 0 → target
+// Starts on FIRST frame so it plays in full whenever the page becomes visible.
+// ============================================================
+const INTRO_DURATION = 1100;          // ms
+let INTRO_START = null;
+let introDone = false;
+let userOverrodeSpacing = false;      // stop intro if user touches slider
+
+// Snappy: easeOutBack (slight overshoot) blended with easeOutExpo for punch.
+function easeSnappy(t) {
+  // easeOutBack
+  const c1 = 1.70158;
+  const c3 = c1 + 1;
+  const back = 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+  // easeOutExpo
+  const expo = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  return back * 0.55 + expo * 0.45;
+}
+
+// ============================================================
+// ANNOTATIONS — leader-line labels for tagged parts
+// ============================================================
+const annoRoot = document.getElementById('annotations');
+const annoSvg = document.getElementById('annoLines');
+const annoEntries = [];   // { entry, side: 'top'|'bot', el, line, anchor: Vector3 }
+
+// Alternate above/below the assembly axis based on order in the layout.
+// We only consider entries that HAVE info.
+let flip = 0;
+layout.forEach((entry) => {
+  if (!entry.info) return;
+  const side = (flip++ % 2 === 0) ? 'top' : 'bot';
+
+  // Label DOM
+  const el = document.createElement('div');
+  el.className = 'anno right';   // text always reads left-to-right
+  el.innerHTML = `
+    <div class="code">${entry.info.code}</div>
+    <div class="cat">${entry.info.cat}</div>
+    ${entry.info.lines.map(([t, s]) => `
+      <div class="row">
+        <div class="title">${t}</div>
+        <div class="sub">${s}</div>
+      </div>
+    `).join('')}
+  `;
+  el.style.opacity = '0';
+  annoRoot.appendChild(el);
+
+  // Leader line
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+  line.setAttribute('fill', 'none');
+  line.setAttribute('stroke', '#F07B2F');
+  line.setAttribute('stroke-width', '1');
+  line.setAttribute('stroke-opacity', '0.55');
+  annoSvg.appendChild(line);
+
+  // End-cap dot at the part anchor
+  const cap = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  cap.setAttribute('r', '2.5');
+  cap.setAttribute('fill', '#F07B2F');
+  annoSvg.appendChild(cap);
+
+  annoEntries.push({ entry, side, el, line, cap, anchor: new THREE.Vector3() });
+});
+
+const _projVec = new THREE.Vector3();
+
+function updateAnnotations() {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  // Vertical levels above/below the axis where labels sit, in screen space.
+  const topY = h * 0.12;
+  const botY = h * 0.78;
+  // Hide everything during the early part of the intro animation
+  const elapsedMs = INTRO_START === null ? 0 : (performance.now() - INTRO_START);
+  const introProgress = introDone ? 1 : Math.min(1, elapsedMs / INTRO_DURATION);
+  const fade = Math.max(0, (introProgress - 0.6) / 0.4);   // start fading in late
+
+  annoEntries.forEach((a) => {
+    // Project the part's CURRENT world position
+    a.entry.mesh.getWorldPosition(_projVec);
+    _projVec.project(camera);
+    const sx = (_projVec.x *  0.5 + 0.5) * w;
+    const sy = (_projVec.y * -0.5 + 0.5) * h;
+
+    // Label position: stays vertically pinned to top/bot band, horizontally
+    // tracks the part. Clamp into viewport.
+    const labelY = a.side === 'top' ? topY : botY;
+    let labelX = sx + 24;
+    // Keep labels from overflowing the right edge
+    const maxX = w - 250;
+    if (labelX > maxX) labelX = maxX;
+    if (labelX < 16) labelX = 16;
+
+    a.el.style.left = labelX + 'px';
+    a.el.style.top  = labelY + 'px';
+    a.el.style.opacity = fade.toFixed(3);
+
+    // Leader line: from part (sx, sy) -> small vertical run -> kink -> label anchor
+    // Build a 3-point polyline: anchor on part, vertical to label band, then
+    // horizontal short stub into the label.
+    const labelAnchorX = labelX - 8;
+    const labelAnchorY = labelY;
+    const kinkX = labelAnchorX;
+    const pts = `${sx},${sy} ${kinkX},${sy} ${labelAnchorX},${labelAnchorY}`;
+    a.line.setAttribute('points', pts);
+    a.line.setAttribute('stroke-opacity', (0.55 * fade).toFixed(3));
+
+    a.cap.setAttribute('cx', sx);
+    a.cap.setAttribute('cy', sy);
+    a.cap.setAttribute('fill-opacity', fade.toFixed(3));
+  });
+}
+
+// ============================================================
+// PART ANIMATIONS  (slow, subtle "alive" motion per part)
+// ============================================================
+// Capture each part's user-set base density so the rebuild-driven
+// animations (tesseract mesh density, hub cube count) oscillate
+// around the saved baseline rather than 1.0.
+layout.forEach(entry => {
+  entry.baseDensity = tweaks['d_' + entry.key] ?? 1;
+});
+// Track the last rounded "bucket" we rebuilt at, so we only rebuild when
+// the integer-resolution geometry actually changes.
+const lastBucket = {};
+
+function updatePartAnimations(t) {
+  // Lookup parts by key (defensive — some keys may be missing in variants).
+  const byKey = {};
+  layout.forEach((e, i) => { byKey[e.key] = { entry: e, idx: i }; });
+
+  // 1. Thick disc — slow continuous rotation about the assembly axis (X).
+  if (byKey.ringDisc) {
+    byKey.ringDisc.entry.mesh.rotation.x = t * 0.25;
+  }
+
+  // 2. Spindle (diamond) — gentle scale pulsation, ±5%.
+  if (byKey.diamond) {
+    const s = 1 + Math.sin(t * 0.7) * 0.05;
+    byKey.diamond.entry.mesh.scale.set(s, s, s);
+  }
+
+  // 3. Sphere — outer rotates one way (around X), inner counter-rotates.
+  if (byKey.sphere) {
+    const m = byKey.sphere.entry.mesh;
+    m.rotation.x = t * 0.18;
+    const inner = m.userData.innerGroup;
+    if (inner) inner.rotation.x = -t * 0.32;
+  }
+
+  // 4. Hub cubes — slots smoothly attach/detach over time.
+  //    A simple scheduler flips one random slot's target state every
+  //    ~1.4s, kept within sensible visible-count bounds. Each slot
+  //    tweens its scale (cube) and opacity (connector) toward target.
+  if (byKey.hubCubes) {
+    const slots = byKey.hubCubes.entry.mesh.userData.slots;
+    if (slots && slots.length) {
+      // Lazy-init scheduler state on the entry.
+      const e = byKey.hubCubes.entry;
+      if (e._hubInit === undefined) {
+        e._hubInit = true;
+        e._hubNextFlipAt = t + 1.6;     // first flip after a brief settle
+        // Aim to keep visible count between 60% and 100% of the pool.
+        e._hubMin = Math.max(3, Math.floor(slots.length * 0.55));
+        e._hubMax = slots.length;
+      }
+
+      // Flip one slot's target on a slow cadence.
+      if (t >= e._hubNextFlipAt) {
+        const onCount  = slots.filter(s => s.target > 0.5).length;
+        // Choose direction biased to keep within [min..max].
+        let goOn;
+        if (onCount <= e._hubMin)      goOn = true;
+        else if (onCount >= e._hubMax) goOn = false;
+        else                            goOn = Math.random() < 0.5;
+
+        const candidates = slots.filter(s => (s.target > 0.5) !== goOn);
+        if (candidates.length) {
+          const pick = candidates[Math.floor(Math.random() * candidates.length)];
+          pick.target = goOn ? 1 : 0;
+        }
+        e._hubNextFlipAt = t + 1.1 + Math.random() * 1.0;   // 1.1–2.1s
+      }
+
+      // Tween each slot toward its target with a smooth approach.
+      // Frame-rate independent: ~1.2s to reach target.
+      const dt = Math.min(0.05, t - (e._hubLastT ?? t));
+      e._hubLastT = t;
+      const k = 1 - Math.exp(-dt * 3.2);   // exponential approach
+      slots.forEach(s => {
+        s.current += (s.target - s.current) * k;
+        // Cube scale: snap-and-overshoot feel via mild ease.
+        const v = Math.max(0, Math.min(1, s.current));
+        // Slight back-ease so cubes "pop" on attach.
+        const eased = v * v * (3 - 2 * v);
+        s.cube.scale.setScalar(eased);
+        s.lineMat.opacity = 0.85 * eased;
+      });
+    }
+  }
+
+  // 5. Hex thick — "breathe" along its thickness axis (X). ±6%.
+  if (byKey.hexThick) {
+    const s = 1 + Math.sin(t * 0.55) * 0.06;
+    byKey.hexThick.entry.mesh.scale.x = s;
+  }
+
+  // 6. Tesseract — mesh density oscillates ±0.15 around base; rebuild
+  //    on bucket change. Use a coarse bucket so rebuilds stay infrequent.
+  if (byKey.tesseract) {
+    const { entry, idx } = byKey.tesseract;
+    const d = entry.baseDensity * (1 + Math.sin(t * 0.4 + 1.2) * 0.18);
+    // Bucket = max segs along the cube edge; matches the geometry's
+    // dominant resolution driver inside partTesseract.
+    const bucket = Math.max(2, Math.round(6 * d));
+    if (lastBucket.tesseract !== bucket) {
+      lastBucket.tesseract = bucket;
+      rebuildPart(idx, d);
+    }
+  }
+}
+
+// ============================================================
+// PLASMA ENERGY ARC — fluid, chaotic, lightning-style flow
+//   Inspired by reference: jagged electric arc with explosive
+//   side-spray and scattered sparks. NO rigid tubes, NO end caps.
+//
+//   Composition:
+//   - Multiple noisy filaments (LineStrip per filament). Each
+//     filament is a sequence of points along the axis with
+//     fractal noise displacement perpendicular to it. Filaments
+//     re-seed periodically so the arc constantly reinvents itself.
+//   - Bright white/orange streak sparks ejected sideways from
+//     the arc with velocity → simulate "spray".
+//   - Tiny scattered pixel sparks across a wider field.
+// ============================================================
+const plasma = new THREE.Group();
+plasma.visible = false;   // disabled: particles + strings removed
+spinner.add(plasma);
+
+// Beam endpoints — derived from atom/tesseract positions (after spacing applied).
+function getBeamRange() {
+  const atomEntry = layout.find(l => l.key === 'atom');
+  const tessEntry = layout.find(l => l.key === 'tesseract');
+  const x0 = atomEntry.mesh.position.x;
+  const x1 = tessEntry.mesh.position.x;
+  return [Math.min(x0, x1), Math.max(x0, x1)];
+}
+
+// Pseudo-noise (cheap, smooth-ish) — 1D
+function noise1(x) {
+  const s = Math.sin(x * 12.9898) * 43758.5453;
+  return (s - Math.floor(s)) * 2 - 1;
+}
+function smoothNoise1(x) {
+  const i = Math.floor(x);
+  const f = x - i;
+  const a = noise1(i);
+  const b = noise1(i + 1);
+  const u = f * f * (3 - 2 * f);
+  return a * (1 - u) + b * u;
+}
+function fbm1(x) {
+  let v = 0, amp = 1, freq = 1, norm = 0;
+  for (let i = 0; i < 4; i++) {
+    v += smoothNoise1(x * freq) * amp;
+    norm += amp;
+    amp *= 0.5;
+    freq *= 2.1;
+  }
+  return v / norm;
+}
+
+// ----- FILAMENTS -----------------------------------------------
+// Multiple jagged lines from x0..x1 with perpendicular noise.
+// Each filament has its own seed so they look independent.
+const FILAMENT_COUNT = 7;
+const POINTS_PER_FILAMENT = 110;
+const filaments = [];
+
+for (let f = 0; f < FILAMENT_COUNT; f++) {
+  const positions = new Float32Array(POINTS_PER_FILAMENT * 3);
+  const colors    = new Float32Array(POINTS_PER_FILAMENT * 3);
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geom.setAttribute('color',    new THREE.BufferAttribute(colors, 3));
+  const mat = new THREE.LineBasicMaterial({
+    vertexColors: true,
+    transparent: true,
+    opacity: 1.0,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
+  const line = new THREE.Line(geom, mat);
+  plasma.add(line);
+  filaments.push({
+    line, geom, positions, colors, mat,
+    // Per-filament personality:
+    seed: Math.random() * 1000,
+    coreBias: f === 0 ? 1.0 : 0.0,    // first filament is the hot core spine
+    amp: f === 0 ? 0.04 : (0.12 + Math.random() * 0.28),  // displacement amplitude
+    freq: 2 + Math.random() * 4,                          // noise frequency along axis
+    speed: 1.4 + Math.random() * 2.6,                     // how fast the noise scrolls
+    twist: (Math.random() - 0.5) * 1.5,                   // rotation rate of perpendicular plane
+    phaseY: Math.random() * 100,
+    phaseZ: Math.random() * 100,
+    flicker: Math.random() * 6.28,
+  });
+}
+
+// ----- STREAK SPARKS (sideways spray) --------------------------
+// Particles born ON the arc with sideways velocity → fly away,
+// fade out, respawn. Drawn as additive points with falloff sprite.
+function makeSpriteTex() {
+  const size = 64;
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  const ctx = c.getContext('2d');
+  const grd = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+  // Soft orange kernel — feathered so overlapping sprites blend smoothly
+  // into a continuous glow rather than stacking as visible discs.
+  grd.addColorStop(0.00, 'rgba(255,230,190,0.85)');
+  grd.addColorStop(0.25, 'rgba(255,170,70,0.5)');
+  grd.addColorStop(0.55, 'rgba(255,100,30,0.18)');
+  grd.addColorStop(1.00, 'rgba(255,70,10,0)');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, size, size);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+const SPRITE_TEX = makeSpriteTex();
+
+const SPARK_COUNT = 900;
+const sparkPos    = new Float32Array(SPARK_COUNT * 3);
+const sparkCol    = new Float32Array(SPARK_COUNT * 3);
+const sparkSize   = new Float32Array(SPARK_COUNT);
+// State: vx, vy, vz, life (s remaining), maxLife, hot (0/1)
+const sparkVel    = new Float32Array(SPARK_COUNT * 3);
+const sparkLife   = new Float32Array(SPARK_COUNT);
+const sparkMax    = new Float32Array(SPARK_COUNT);
+const sparkHot    = new Float32Array(SPARK_COUNT);
+const sparkBaseSz = new Float32Array(SPARK_COUNT);
+const sparkMode   = new Float32Array(SPARK_COUNT);   // 0=stream, 1=surface
+const sparkAngle  = new Float32Array(SPARK_COUNT);   // surface raycast angle
+
+// Collect all part fill meshes — surface particles raycast against these.
+const surfaceTargets = [];
+function collectSurfaceTargets() {
+  surfaceTargets.length = 0;
+  layout.forEach(entry => {
+    entry.mesh.traverse(o => {
+      if (o.isMesh) surfaceTargets.push(o);
+    });
+  });
+}
+collectSurfaceTargets();
+
+const _ray = new THREE.Raycaster();
+const _rayOrigin = new THREE.Vector3();
+const _rayDir = new THREE.Vector3();
+// Raycast from a point on the X-axis outward in direction (cosθ, sinθ) within
+// the spinner's local frame. Returns hit distance or -1.
+function surfaceHit(x, theta) {
+  _rayOrigin.set(x, 0, 0);
+  _rayDir.set(0, Math.cos(theta), Math.sin(theta));
+  _ray.set(_rayOrigin, _rayDir);
+  _ray.far = 4;
+  // Important: raycast against the part meshes in their local space — since
+  // sparks live in the same `spinner` group, distances match.
+  const hits = _ray.intersectObjects(surfaceTargets, false);
+  return hits.length ? hits[0].distance : -1;
+}
+
+function respawnSpark(i, t) {
+  const [x0, x1] = getBeamRange();
+  const len = x1 - x0;
+
+  // 20% of sparks crawl along part surfaces; the rest stream through space.
+  const isSurface = Math.random() < 0.20;
+  sparkMode[i] = isSurface ? 1 : 0;
+
+  if (isSurface) {
+    // Spawn anywhere along the assembly span, snap to the nearest surface.
+    // If no surface intersects at this x, fall back to a stream particle.
+    const u = Math.random();
+    const x = x0 + u * len;
+    const theta = Math.random() * Math.PI * 2;
+    const d = surfaceHit(x, theta);
+    if (d > 0) {
+      sparkAngle[i] = theta;
+      sparkPos[i*3+0] = x;
+      sparkPos[i*3+1] = Math.cos(theta) * d;
+      sparkPos[i*3+2] = Math.sin(theta) * d;
+      // Slower along-axis crawl on surfaces (they hug — they don't shoot).
+      const flow = 6 + Math.random() * 10;
+      sparkVel[i*3+0] = flow;
+      sparkVel[i*3+1] = 0;
+      sparkVel[i*3+2] = 0;
+      const maxL = 0.8 + Math.random() * 1.0;
+      sparkMax[i]  = maxL;
+      sparkLife[i] = maxL;
+      sparkHot[i]  = Math.random() < 0.25 ? 1 : 0;
+      sparkBaseSz[i] = 0.25 + Math.random() * 0.7;
+      return;
+    }
+    // Fallthrough to stream behavior
+    sparkMode[i] = 0;
+  }
+
+  // Stream: clustered near the ATOM end (x0). Bias strongly toward x0
+  // so particles begin their journey there and have the full span to travel.
+  const u = Math.pow(Math.random(), 2.2) * 0.25;
+  const x = x0 + u * len;
+  const ang = Math.random() * Math.PI * 2;
+  const r = Math.random() * 0.18;
+  sparkPos[i*3+0] = x + (Math.random() - 0.5) * 0.05;
+  sparkPos[i*3+1] = Math.cos(ang) * r;
+  sparkPos[i*3+2] = Math.sin(ang) * r;
+  // Velocity: STRONGLY along +X (toward tesseract). Perpendicular is tiny.
+  const flow = 25 + Math.random() * 45;
+  sparkVel[i*3+0] = flow;
+  sparkVel[i*3+1] = (Math.random() - 0.5) * 0.018;
+  sparkVel[i*3+2] = (Math.random() - 0.5) * 0.018;
+  const maxL = 1.0 + Math.random() * 1.2;
+  sparkMax[i]  = maxL;
+  sparkLife[i] = maxL;
+  sparkHot[i]  = Math.random() < 0.18 ? 1 : 0;
+  sparkBaseSz[i] = 0.6 + Math.random() * 1.8;
+}
+for (let i = 0; i < SPARK_COUNT; i++) {
+  // Stagger initial life so they don't all respawn together.
+  respawnSpark(i, 0);
+  sparkLife[i] = Math.random() * sparkMax[i];
+}
+
+const sparkGeom = new THREE.BufferGeometry();
+sparkGeom.setAttribute('position', new THREE.BufferAttribute(sparkPos, 3));
+sparkGeom.setAttribute('color',    new THREE.BufferAttribute(sparkCol, 3));
+sparkGeom.setAttribute('size',     new THREE.BufferAttribute(sparkSize, 1));
+
+const sparkMat = new THREE.ShaderMaterial({
+  uniforms: { uTex: { value: SPRITE_TEX } },
+  vertexShader: `
+    attribute float size;
+    varying vec3 vColor;
+    void main() {
+      vColor = color;
+      vec4 mv = modelViewMatrix * vec4(position, 1.0);
+      gl_PointSize = max(1.0, size * (340.0 / -mv.z));
+      gl_Position = projectionMatrix * mv;
+    }
+  `,
+  fragmentShader: `
+    uniform sampler2D uTex;
+    varying vec3 vColor;
+    void main() {
+      vec4 t = texture2D(uTex, gl_PointCoord);
+      gl_FragColor = vec4(vColor, 1.0) * t;
+    }
+  `,
+  vertexColors: true,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+plasma.add(new THREE.Points(sparkGeom, sparkMat));
+
+// ----- MOTION-BLUR TRAILS --------------------------------------
+// One line segment per spark: tail (faded) -> head (bright).
+// Tail position = head - velocity * blurDt. Length naturally scales with
+// speed so fast stream sparks streak; slow surface sparks stay compact.
+const TRAIL_BLUR_DT = 0.04;   // seconds of motion captured by the trail
+const trailPos = new Float32Array(SPARK_COUNT * 2 * 3);
+const trailCol = new Float32Array(SPARK_COUNT * 2 * 3);
+const trailGeom = new THREE.BufferGeometry();
+trailGeom.setAttribute('position', new THREE.BufferAttribute(trailPos, 3));
+trailGeom.setAttribute('color',    new THREE.BufferAttribute(trailCol, 3));
+const trailMat = new THREE.LineBasicMaterial({
+  vertexColors: true,
+  transparent: true,
+  opacity: 0.9,
+  blending: THREE.AdditiveBlending,
+  depthWrite: false,
+});
+plasma.add(new THREE.LineSegments(trailGeom, trailMat));
+
+// ----- TINY PIXEL SCATTER --------------------------------------
+// Static-ish sharp little squares that flicker around the arc.
+const PIXEL_COUNT = 320;
+const pixelPositions = new Float32Array(PIXEL_COUNT * 3);
+const pixelColors    = new Float32Array(PIXEL_COUNT * 3);
+const pixelSizes     = new Float32Array(PIXEL_COUNT);
+const pixelSeeds     = new Float32Array(PIXEL_COUNT * 4);
+for (let i = 0; i < PIXEL_COUNT; i++) {
+  pixelSeeds[i*4+0] = Math.random();              // u along axis
+  pixelSeeds[i*4+1] = Math.random() * Math.PI*2;  // angle
+  pixelSeeds[i*4+2] = 0.05 + Math.random() * 1.6; // wider radius spread
+  pixelSeeds[i*4+3] = Math.random() * 6.28;       // flicker phase
+  pixelSizes[i] = 0.022 + Math.random() * 0.06;
+}
+const pixelGeom = new THREE.BufferGeometry();
+pixelGeom.setAttribute('position', new THREE.BufferAttribute(pixelPositions, 3));
+pixelGeom.setAttribute('color',    new THREE.BufferAttribute(pixelColors, 3));
+pixelGeom.setAttribute('size',     new THREE.BufferAttribute(pixelSizes, 1));
+
+const pixelMat = new THREE.ShaderMaterial({
+  vertexShader: `
+    attribute float size;
+    varying vec3 vColor;
+    void main() {
+      vColor = color;
+      vec4 mv = modelViewMatrix * vec4(position, 1.0);
+      gl_PointSize = max(1.0, size * (340.0 / -mv.z));
+      gl_Position = projectionMatrix * mv;
+    }
+  `,
+  fragmentShader: `
+    varying vec3 vColor;
+    void main() {
+      gl_FragColor = vec4(vColor, 1.0);
+    }
+  `,
+  vertexColors: true,
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+plasma.add(new THREE.Points(pixelGeom, pixelMat));
+
+// --------------------------------------------------------------
+let _lastT = null;
+function updatePlasma(t) {
+  const [x0, x1] = getBeamRange();
+  const len = x1 - x0;
+  const dt = _lastT === null ? 0.016 : Math.min(0.05, t - _lastT);
+  _lastT = t;
+
+  // ---- Filaments ----
+  for (let fi = 0; fi < filaments.length; fi++) {
+    const F = filaments[fi];
+    const N = POINTS_PER_FILAMENT;
+    const pos = F.positions;
+    const col = F.colors;
+    for (let i = 0; i < N; i++) {
+      const u = i / (N - 1);
+      const x = x0 + u * len;
+
+      // Edge fade so filaments dissolve into the connection points
+      // rather than meeting them with a hard cap.
+      const edge = Math.min(1, Math.min(u, 1 - u) * 4.5);
+
+      // Noise input: scrolls along axis over time.
+      const nx = u * F.freq + t * F.speed + F.seed;
+      const dy = fbm1(nx + F.phaseY);
+      const dz = fbm1(nx + F.phaseZ + 7.13);
+
+      // Amplitude tapers to ~0 at endpoints (so it pinches into the
+      // atom and tesseract centers organically).
+      const taper = Math.sin(u * Math.PI);
+      const amp = F.amp * taper;
+
+      // Optional rotational twist over time so filaments swirl slowly.
+      const tw = t * F.twist;
+      const cy = Math.cos(tw) * dy - Math.sin(tw) * dz;
+      const cz = Math.sin(tw) * dy + Math.cos(tw) * dz;
+
+      pos[i*3+0] = x;
+      pos[i*3+1] = cy * amp;
+      pos[i*3+2] = cz * amp;
+
+      // Color: hot core, fading orange outward.
+      // Brightness flickers per-filament.
+      const flick = 0.7 + 0.3 * Math.sin(t * 18 + F.flicker + u * 9);
+      const isCore = F.coreBias > 0.5;
+      // Distance-from-axis approximation
+      const radial = Math.hypot(pos[i*3+1], pos[i*3+2]);
+      const coreness = isCore ? 1.0 : Math.max(0, 1 - radial / 0.35);
+      const wht = Math.pow(coreness, 1.4);
+      // base intensity: core bright, others moderate
+      const base = isCore ? 1.6 : 0.9;
+      const r = 1.0 * base * flick * edge;
+      const g = (0.45 + wht * 0.5) * base * flick * edge;
+      const b = (0.12 + wht * 0.85) * base * flick * edge;
+      col[i*3+0] = r;
+      col[i*3+1] = g;
+      col[i*3+2] = b;
+    }
+    F.geom.attributes.position.needsUpdate = true;
+    F.geom.attributes.color.needsUpdate = true;
+    // Per-filament global flicker on opacity
+    F.mat.opacity = 0.75 + 0.25 * Math.sin(t * 11 + F.flicker);
+  }
+
+  // ---- Sparks ----
+  for (let i = 0; i < SPARK_COUNT; i++) {
+    sparkLife[i] -= dt;
+    if (sparkLife[i] <= 0) {
+      respawnSpark(i, t);
+    }
+
+    if (sparkMode[i] > 0.5) {
+      // SURFACE crawler: advance along +X, then re-snap radially to the
+      // surface at the new X. If the ray now misses (we ran off the part),
+      // recycle this particle.
+      sparkPos[i*3+0] += sparkVel[i*3+0] * dt;
+      const theta = sparkAngle[i];
+      const d = surfaceHit(sparkPos[i*3+0], theta);
+      if (d <= 0) {
+        sparkLife[i] = 0;
+      } else {
+        sparkPos[i*3+1] = Math.cos(theta) * d;
+        sparkPos[i*3+2] = Math.sin(theta) * d;
+      }
+    } else {
+      // STREAM: forward momentum, perpendicular damped.
+      const perpDrag = Math.exp(-dt * 3.0);
+      sparkVel[i*3+1] *= perpDrag;
+      sparkVel[i*3+2] *= perpDrag;
+      sparkPos[i*3+0] += sparkVel[i*3+0] * dt;
+      sparkPos[i*3+1] += sparkVel[i*3+1] * dt;
+      sparkPos[i*3+2] += sparkVel[i*3+2] * dt;
+      const [bx0, bx1] = getBeamRange();
+      if (sparkPos[i*3+0] > bx1) sparkLife[i] = 0;
+    }
+
+    const lifeFrac = sparkLife[i] / sparkMax[i];      // 1 → 0
+    const fade = Math.pow(lifeFrac, 0.7);
+    // Hot sparks: white-ish; normal: orange.
+    const hot = sparkHot[i] > 0.5 ? 1 : 0;
+    const cR = (1.0) * fade;
+    const cG = (hot ? 0.95 : 0.5 + 0.2 * lifeFrac) * fade;
+    const cB = (hot ? 0.85 : 0.15 + 0.15 * lifeFrac) * fade;
+    sparkCol[i*3+0] = cR;
+    sparkCol[i*3+1] = cG;
+    sparkCol[i*3+2] = cB;
+    sparkSize[i] = sparkBaseSz[i] * (0.4 + 0.8 * fade);
+
+    // ---- Motion-blur trail: head (current pos) -> tail (lagged by blurDt) ----
+    // Surface sparks have zero perp velocity, so the trail length follows
+    // their slow forward speed naturally; stream sparks get long streaks.
+    const ti0 = i * 6;       // tail vertex
+    const ti1 = i * 6 + 3;   // head vertex
+    const hx = sparkPos[i*3+0];
+    const hy = sparkPos[i*3+1];
+    const hz = sparkPos[i*3+2];
+    trailPos[ti1+0] = hx;
+    trailPos[ti1+1] = hy;
+    trailPos[ti1+2] = hz;
+    trailPos[ti0+0] = hx - sparkVel[i*3+0] * TRAIL_BLUR_DT;
+    trailPos[ti0+1] = hy - sparkVel[i*3+1] * TRAIL_BLUR_DT;
+    trailPos[ti0+2] = hz - sparkVel[i*3+2] * TRAIL_BLUR_DT;
+    // Head bright, tail faded.
+    trailCol[ti1+0] = cR * 1.1;
+    trailCol[ti1+1] = cG * 1.1;
+    trailCol[ti1+2] = cB * 1.1;
+    trailCol[ti0+0] = 0;
+    trailCol[ti0+1] = 0;
+    trailCol[ti0+2] = 0;
+  }
+  sparkGeom.attributes.position.needsUpdate = true;
+  sparkGeom.attributes.color.needsUpdate = true;
+  sparkGeom.attributes.size.needsUpdate = true;
+  trailGeom.attributes.position.needsUpdate = true;
+  trailGeom.attributes.color.needsUpdate = true;
+
+  // ---- Tiny pixels ----
+  for (let i = 0; i < PIXEL_COUNT; i++) {
+    const s0 = pixelSeeds[i*4+0];
+    const s1 = pixelSeeds[i*4+1];
+    const s2 = pixelSeeds[i*4+2];
+    const s3 = pixelSeeds[i*4+3];
+
+    // Slow drift along axis with tiny wobble.
+    let u = (s0 + t * 0.05) % 1; if (u < 0) u += 1;
+    const x = x0 + u * len + Math.sin(t * 1.1 + s3) * 0.06;
+    const ang = s1 + t * 0.15;
+    const r = s2 * (0.12 + Math.sin(t * 0.9 + s3) * 0.04);
+    pixelPositions[i*3+0] = x;
+    pixelPositions[i*3+1] = Math.cos(ang) * r;
+    pixelPositions[i*3+2] = Math.sin(ang) * r;
+
+    // Fast flicker, with periods of darkness ("on/off" pixels).
+    const f = 0.5 + 0.5 * Math.sin(t * 14 + s3 * 9);
+    const on = f > 0.45 ? 1 : 0;
+    const flick = on * (0.4 + 0.6 * f);
+    const edgeFade = Math.min(1, Math.min(u, 1 - u) * 3);
+    pixelColors[i*3+0] = 1.0 * flick * edgeFade;
+    pixelColors[i*3+1] = (0.55 + 0.3 * (1 - s2)) * flick * edgeFade;
+    pixelColors[i*3+2] = (0.2  + 0.4 * (1 - s2)) * flick * edgeFade;
+  }
+  pixelGeom.attributes.position.needsUpdate = true;
+  pixelGeom.attributes.color.needsUpdate = true;
+}
+
+// ============================================================
+// RENDER LOOP
+// ============================================================
+function animate() {
+  requestAnimationFrame(animate);
+  const t = performance.now() * 0.001;
+
+  // Intro spacing animation
+  if (!introDone && !userOverrodeSpacing) {
+    if (INTRO_START === null) INTRO_START = performance.now();
+    const elapsed = performance.now() - INTRO_START;
+    const u = Math.min(1, elapsed / INTRO_DURATION);
+    const eased = easeSnappy(u);
+    const s = eased * targetSpacing;
+    applySpacing(s);
+    // Live-sync the slider UI (if already initialized)
+    if (window.__spacingSlider) {
+      window.__spacingSlider.value = s;
+      window.__spacingValLabel.textContent = s.toFixed(2);
+    }
+    if (u >= 1) {
+      introDone = true;
+      applySpacing(targetSpacing);
+    }
+  }
+
+  // Update orbiting electrons
+  for (const e of electrons) {
+    const theta = t * e.speed + e.phase;
+    e.mesh.position.set(Math.cos(theta) * e.a, Math.sin(theta) * e.b, 0);
+  }
+
+  // Slow rotation of all parts around the assembly's main (X) axis.
+  // Done on the inner spinner so labels/leader-lines (which read parts'
+  // world positions) stay perfectly anchored.
+  spinner.rotation.x = t * 0.06;
+
+  // Drift smoke sprites with smooth low-frequency noise.
+  for (const ss of smokeSprites) {
+    ss.sprite.position.set(
+      ss.base.x + Math.sin(t * ss.sx + ss.ax) * ss.driftX,
+      ss.base.y + Math.sin(t * ss.sy + ss.ay) * ss.driftY,
+      ss.base.z + Math.sin(t * ss.sz + ss.az) * ss.driftZ,
+    );
+    ss.sprite.material.rotation = t * 0.05 + ss.ax;
+  }
+
+  // Subtle per-part animations
+  updatePartAnimations(t);
+
+  // Plasma energy beam (disabled — particles & strings removed)
+  // updatePlasma(t);
+
+  // Smoothed parallax (position-based)
+  scrollSmooth += (scrollProgress - scrollSmooth) * SMOOTH;
+  mouseSmoothX += (mouseTargetX  - mouseSmoothX) * SMOOTH;
+  mouseSmoothY += (mouseTargetY  - mouseSmoothY) * SMOOTH;
+
+  // Edge rotation: when mouse is past EDGE_THRESHOLD on an axis, keep
+  // rotating the scene in that direction at a rate proportional to how
+  // far past the threshold (1.0 at the very edge → full speed).
+  const rx = Math.sign(mouseTargetX) * Math.max(0, Math.abs(mouseTargetX) - EDGE_THRESHOLD) / (1 - EDGE_THRESHOLD);
+  const ry = Math.sign(mouseTargetY) * Math.max(0, Math.abs(mouseTargetY) - EDGE_THRESHOLD) / (1 - EDGE_THRESHOLD);
+  edgeRotY -= rx * EDGE_ROT_GAIN;
+  edgeRotX -= ry * EDGE_ROT_GAIN;
+  scene.rotation.y = edgeRotY;
+  scene.rotation.x = edgeRotX;
+
+  // Tilt around X axis: 0 = top-down, π/2 = front
+  const a = scrollSmooth * (Math.PI / 2);
+  const dist = BASE_DIST * (1 + ZOOM_OUT_AT_END * scrollSmooth);
+
+  // Camera up rotates with tilt so +X always reads as screen-right
+  const upY = Math.sin(a);
+  const upZ = -Math.cos(a);
+
+  // Mouse parallax in camera-aligned axes:
+  //   - X moves along world-X (camera's right at any tilt)
+  //   - Y moves along the camera's up vector
+  const px = -mouseSmoothX * MOUSE_RANGE_X;
+  const py = mouseSmoothY * MOUSE_RANGE_Y;
+
+  camera.up.set(0, upY, upZ);
+  camera.position.set(
+    px,
+    dist * Math.cos(a) + py * upY,
+    dist * Math.sin(a) + py * upZ,
+  );
+  camera.lookAt(0, 0, 0);
+
+  renderer.render(scene, camera);
+  updateAnnotations();
+}
+animate();
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ============================================================
+// TWEAKS PANEL
+// ============================================================
+const tweakPanel = document.createElement('div');
+tweakPanel.id = 'tweak-panel';
+tweakPanel.style.cssText = `
+  position: fixed;
+  bottom: 48px;
+  right: 20px;
+  width: 260px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 14px 16px 16px;
+  background: rgba(10, 18, 36, 0.92);
+  border: 1px solid rgba(240, 123, 47, 0.35);
+  border-radius: 4px;
+  color: #F07B2F;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  display: none;
+`;
+const densityRowsHTML = layout.map((entry, i) => `
+  <div style="margin-top:10px;display:flex;justify-content:space-between;">
+    <span style="color:rgba(240,123,47,0.7);">${String(i+1).padStart(2,'0')} · ${entry.label}</span>
+    <span id="dval-${entry.key}" style="color:#F07B2F;">1.00</span>
+  </div>
+  <input class="density-slider" data-key="${entry.key}" data-idx="${i}" type="range" min="0.3" max="3" step="0.05" value="1"
+    style="width:100%;accent-color:#F07B2F;cursor:pointer;" />
+`).join('');
+
+tweakPanel.innerHTML = `
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;border-bottom:1px solid rgba(240,123,47,0.25);padding-bottom:8px;position:sticky;top:-14px;background:rgba(10,18,36,0.96);padding-top:14px;margin-top:-14px;">
+    <span style="color:#F07B2F;font-weight:600;">TWEAKS</span>
+    <span style="color:rgba(240,123,47,0.4);font-size:9px;">[ASM·01]</span>
+  </div>
+  <div style="margin-bottom:6px;display:flex;justify-content:space-between;">
+    <span style="color:rgba(240,123,47,0.7);">SPACING</span>
+    <span id="spacing-val" style="color:#F07B2F;">1.00</span>
+  </div>
+  <input id="spacing-slider" type="range" min="0" max="1.4" step="0.01" value="1"
+    style="width:100%;accent-color:#F07B2F;cursor:pointer;" />
+  <div style="display:flex;justify-content:space-between;color:rgba(240,123,47,0.35);font-size:9px;margin-top:4px;">
+    <span>COLLAPSED</span>
+    <span>EXPANDED</span>
+  </div>
+  <div style="margin-top:14px;padding-top:10px;border-top:1px solid rgba(240,123,47,0.25);">
+    <div style="color:rgba(240,123,47,0.55);font-size:9px;margin-bottom:4px;">MESH DENSITY</div>
+    ${densityRowsHTML}
+  </div>
+`;
+document.body.appendChild(tweakPanel);
+
+const slider = tweakPanel.querySelector('#spacing-slider');
+const valLabel = tweakPanel.querySelector('#spacing-val');
+
+slider.value = tweaks.spacing;
+valLabel.textContent = Number(tweaks.spacing).toFixed(2);
+window.__spacingSlider = slider;
+window.__spacingValLabel = valLabel;
+
+slider.addEventListener('input', () => {
+  const v = parseFloat(slider.value);
+  userOverrodeSpacing = true;
+  introDone = true;
+  tweaks.spacing = v;
+  valLabel.textContent = v.toFixed(2);
+  applySpacing(v);
+  // Persist
+  try {
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { spacing: v } }, '*');
+  } catch (e) { /* standalone mode */ }
+});
+
+// Per-part density sliders
+tweakPanel.querySelectorAll('.density-slider').forEach(el => {
+  const key = el.dataset.key;
+  const idx = parseInt(el.dataset.idx, 10);
+  const initial = tweaks['d_' + key] ?? 1;
+  el.value = initial;
+  const lbl = tweakPanel.querySelector('#dval-' + key);
+  lbl.textContent = Number(initial).toFixed(2);
+  el.addEventListener('input', () => {
+    const v = parseFloat(el.value);
+    tweaks['d_' + key] = v;
+    lbl.textContent = v.toFixed(2);
+    rebuildPart(idx, v);
+    try {
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { ['d_' + key]: v } }, '*');
+    } catch (e) { /* standalone */ }
+  });
+});
+
+// --- Tweak mode protocol -------------------------------------
+// Register listener FIRST, then announce availability.
+window.addEventListener('message', (e) => {
+  const msg = e.data;
+  if (!msg || typeof msg !== 'object') return;
+  if (msg.type === '__activate_edit_mode') {
+    tweakPanel.style.display = 'block';
+  } else if (msg.type === '__deactivate_edit_mode') {
+    tweakPanel.style.display = 'none';
+  }
+});
+
+try {
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+} catch (e) { /* standalone */ }
+</script>
+</body>
+</html>
