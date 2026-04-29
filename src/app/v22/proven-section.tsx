@@ -197,9 +197,6 @@ export default function ProvenSection() {
               </div>
               <button className='v22-proven-arrow' onClick={next} aria-label='Next'>→</button>
             </div>
-            <a href='/case-studies' className='v22-proven-all-cta'>
-              See all case studies <span aria-hidden='true'>&rarr;</span>
-            </a>
           </div>
         </div>
       </div>

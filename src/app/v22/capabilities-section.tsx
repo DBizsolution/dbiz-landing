@@ -117,7 +117,6 @@ export default function CapabilitiesSection() {
 
   // Stack geometry (Option A — grid-aligned 40px, centred front face)
   const svgW = 560
-  const svgH = 640
   const baseX = 120
   const boxW = 320
   const boxH = 46
@@ -126,13 +125,14 @@ export default function CapabilitiesSection() {
   const firstY = 40
   const stackTop = firstY - 16
   const stackBot = firstY + (capabilities.length - 1) * rowGap + boxH + 16
+  const svgH = stackBot + 40
 
   // Scattered textured layers (grey, subtle)
   const texturedLayers = new Set([0, 3, 5])
   const patternForLayer = (i: number) => (texturedLayers.has(i) ? `url(#v22-cs-tex-${i})` : 'transparent')
 
   return (
-    <section className='v22-section' id='solutions'>
+    <section className='v22-section' id='solutions' data-surface='light' style={{ ['--v22-paper' as string]: '#F3F0EC', ['--v22-paper-2' as string]: '#EAE5DB' }}>
       <div className='v22-container'>
         <div className='v22-section-head v22-cs-head'>
           <div className='num'>N°03 / What we do</div>
@@ -169,18 +169,10 @@ export default function CapabilitiesSection() {
               <rect x='0' y='0' width={svgW} height={svgH} fill='url(#v22-cs-grid-pat)' />
               <rect x='0' y='0' width={svgW} height={svgH} fill='url(#v22-cs-dot-pat)' />
 
-              {/* Corner crop marks */}
-              <g stroke='rgba(255,255,255,0.35)' strokeWidth='0.8'>
-                <line x1='8' y1='8' x2='28' y2='8' /><line x1='8' y1='8' x2='8' y2='28' />
-                <line x1={svgW - 28} y1='8' x2={svgW - 8} y2='8' /><line x1={svgW - 8} y1='8' x2={svgW - 8} y2='28' />
-                <line x1='8' y1={svgH - 8} x2='28' y2={svgH - 8} /><line x1='8' y1={svgH - 8} x2='8' y2={svgH - 28} />
-                <line x1={svgW - 28} y1={svgH - 8} x2={svgW - 8} y2={svgH - 8} /><line x1={svgW - 8} y1={svgH - 8} x2={svgW - 8} y2={svgH - 28} />
-              </g>
-
-              {/* Left-edge tick marks */}
+              {/* Left-edge tick marks — only span the stack region */}
               <g stroke='rgba(255,255,255,0.15)' strokeWidth='0.5'>
-                {Array.from({ length: 15 }).map((_, i) => (
-                  <line key={i} x1='62' y1={40 + i * 40} x2={i % 2 === 0 ? 72 : 68} y2={40 + i * 40} />
+                {Array.from({ length: Math.floor((stackBot - stackTop) / 40) + 1 }).map((_, i) => (
+                  <line key={i} x1='62' y1={stackTop + i * 40} x2={i % 2 === 0 ? 72 : 68} y2={stackTop + i * 40} />
                 ))}
               </g>
 

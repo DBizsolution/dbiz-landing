@@ -3,7 +3,6 @@
 
 import CapabilitiesSection from './capabilities-section'
 import FrameworkSection from './framework-section'
-import HowSection from './how-section'
 import { LogoWall } from './logo-wall'
 import { NavScrollEffect } from './nav-scroll'
 import ProvenSection from './proven-section'
@@ -395,7 +394,19 @@ export default function V22Page() {
       {/* TRUST — client register */}
       <LogoWall />
 
-      {/* STATS — light surface */}
+      {/* CAPABILITIES — N°03 / What we do */}
+      <CapabilitiesSection />
+
+      {/* FRAMEWORK — N°04 / How we do it (AI Transformation Stack) */}
+      <FrameworkSection />
+
+      {/* TESTIMONIALS */}
+      <TestimonialsSection />
+
+      {/* PROVEN — tabbed filter cards */}
+      <ProvenSection />
+
+      {/* STATS — placed after Proven ("where it matters") */}
       <section className='v22-stats' data-surface='light'>
         <div className='v22-container'>
           <div className='v22-section-head'>
@@ -414,21 +425,6 @@ export default function V22Page() {
           </div>
         </div>
       </section>
-
-      {/* CAPABILITIES — N°03 / What we do */}
-      <CapabilitiesSection />
-
-      {/* FRAMEWORK — N°04 / How we do it (AI Transformation Stack) */}
-      <FrameworkSection />
-
-      {/* TESTIMONIALS */}
-      <TestimonialsSection />
-
-      {/* PROVEN — tabbed filter cards */}
-      <ProvenSection />
-
-      {/* HOW WE WORK — time-boxed delivery phases */}
-      <HowSection />
 
       {/* WHY — interactive diagram */}
       <WhySection />

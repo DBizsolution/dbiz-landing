@@ -17,6 +17,8 @@
   --v22-hair-strong: rgba(255, 255, 255, 0.2);
   --v22-orange-hair: rgba(240, 123, 47, 0.55);
   --v22-orange-hair-soft: rgba(240, 123, 47, 0.28);
+  /* Lifted brand-navy hue — readable blue on the dark v22 surface. */
+  --v22-blue: oklch(from var(--brand-navy) 0.78 0.12 h);
 
   /* V5 SVG ink tokens */
   --v22-ink-grid: #1a2646;
@@ -711,29 +713,28 @@
   padding: 24px 0 28px;
   overflow-x: hidden;
   overflow-y: visible;
-  background-color: #E8E2D4;
-  background-image: radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.06) 1px, transparent 0);
+  background-color: #050B1C;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0);
   background-size: 24px 24px;
   position: relative;
-  border-top: 1px solid rgba(13, 27, 62, 0.08);
-  border-bottom: 1px solid rgba(13, 27, 62, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .v22-logos-head {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: var(--v22-col-gap);
+  display: flex;
+  justify-content: center;
   align-items: baseline;
   padding-bottom: 8px;
   margin-bottom: 4px;
+  text-align: center;
 }
 .v22-logos-kicker {
-  grid-column: 1 / 4;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.14em;
-  color: rgba(13, 27, 62, 0.55);
+  color: rgba(255, 255, 255, 0.55);
   text-transform: uppercase;
   padding-top: 4px;
 }
@@ -780,7 +781,7 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(13, 27, 62, 0.62);
+  color: rgba(255, 255, 255, 0.6);
   white-space: nowrap;
   transition: color 160ms;
 }
@@ -791,7 +792,7 @@
   display: inline-block;
   width: 1px;
   height: 14px;
-  background: rgba(13, 27, 62, 0.18);
+  background: rgba(255, 255, 255, 0.18);
   margin-left: 32px;
 }
 
@@ -892,18 +893,25 @@
 .v22-stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  border: 1px solid var(--v22-hair);
+  gap: clamp(10px, 1vw, 18px);
+  border: none;
 }
 .v22-stat {
   padding: 40px 28px;
-  border-right: 1px solid var(--v22-hair);
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  background: #FFFFFF;                       /* lighter than the beige bg */
+  border: 1px solid rgba(13, 27, 62, 0.06);
+  border-radius: 6px;
+  box-shadow: 0 1px 0 rgba(13, 27, 62, 0.03), 0 6px 18px -8px rgba(13, 27, 62, 0.06);
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
-.v22-stat:last-child { border-right: none; }
+.v22-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 0 rgba(13, 27, 62, 0.04), 0 14px 32px -12px rgba(13, 27, 62, 0.12);
+}
 .v22-stat::before {
   content: '';
   position: absolute;
@@ -1706,6 +1714,123 @@
   padding: var(--v22-rhythm) 0;
   position: relative;
 }
+
+/* Beige light-mode override for capabilities section */
+.v22-scope section#solutions[data-surface="light"] {
+  background-color: #F3F0EC;
+  background-image: radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+  color: var(--v22-ink);
+}
+.v22-scope section#solutions[data-surface="light"] .v22-section-head h2,
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail h3,
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail p,
+.v22-scope section#solutions[data-surface="light"] .v22-section-head .lead {
+  color: var(--v22-ink);
+}
+.v22-scope section#solutions[data-surface="light"] .v22-section-head .num {
+  color: var(--brand-navy);
+}
+
+/* Stack SVG — flip ALL white fills/strokes to navy in beige mode.
+   Uses attribute prefix match to catch every rgba(255,255,255,*) value. */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack text[fill^="rgba(255,255,255"],
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack text[fill="#ffffff"],
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack text[fill="#fff"] {
+  fill: var(--brand-navy) !important;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack [stroke^="rgba(255,255,255"] {
+  stroke: rgba(13, 27, 62, 0.62) !important;
+}
+/* Layer texture patterns — keep far more subtle on beige so text stays legible.
+   These override the global stroke-flip above, which would otherwise make the
+   crosshatch too dense against the paper. */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack pattern#v22-cs-tex-0 line,
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack pattern#v22-cs-tex-3 path,
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack pattern#v22-cs-tex-3 line {
+  stroke: rgba(13, 27, 62, 0.09) !important;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack pattern#v22-cs-tex-5 circle {
+  fill: rgba(13, 27, 62, 0.12) !important;
+}
+/* Inactive layer boxes — solid navy outline for clarity (AA-level contrast on beige) */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) polygon,
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) rect {
+  stroke: rgba(13, 27, 62, 0.55) !important;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:hover polygon,
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:hover rect {
+  stroke: var(--brand-navy) !important;
+}
+/* Active layer keeps orange accent + soft orange fill for selection clarity */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer.is-active polygon,
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer.is-active rect {
+  stroke: var(--v22-accent) !important;
+}
+/* Focus ring for keyboard users — 3px navy ring, 4.5:1+ on beige */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:focus-visible {
+  outline: 3px solid var(--brand-navy);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* WCAG 2.2 AA — darken active-state orange text to reach 4.5:1 on beige paper.
+   Applies to text only; box strokes and fills stay brand orange (UI component
+   contrast threshold is 3:1 which brand orange meets). */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer.is-active text[fill="var(--v22-accent)"] {
+  fill: #A8420E !important;
+}
+/* Active box — brand orange stroke + soft orange wash (kept as-is for DBiz colour identity). */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer.is-active polygon,
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer.is-active rect[stroke] {
+  stroke: var(--v22-accent) !important;
+  stroke-width: 1.75 !important;
+}
+
+/* Non-color differentiation for active state (WCAG 1.4.1):
+   add a leading bar via an extra SVG marker via pseudo-element on the wrapper.
+   Already have a stroke-width bump above; that plus darker stroke gives 2+ visual cues. */
+
+/* Detail-side links and pills — ensure 4.5:1 on beige. */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-kicker { color: #A8420E; }
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-cta { color: #A8420E; }
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-cta:hover { color: var(--brand-navy); }
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-tags span {
+  color: var(--brand-navy);
+  border-color: rgba(13, 27, 62, 0.4);  /* 3:1+ against beige — UI component */
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-cta:focus-visible,
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-tags span:focus-visible {
+  outline: 3px solid var(--brand-navy);
+  outline-offset: 3px;
+}
+
+/* Inactive-state strokes — bump to 2.2:1+ (non-text UI = 3:1 minimum).
+   rgba(13,27,62,0.55) on beige ≈ 5.6:1 ✓ already; ensure it applies. */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) polygon,
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) rect {
+  stroke-width: 1.1 !important;
+}
+
+/* Eyebrow labels in inactive rows — ensure 4.5:1.
+   Navy 0.85 ≈ 10:1 on beige. */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) text {
+  fill: rgba(13, 27, 62, 0.85) !important;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) text[fill^="rgba(255,255,255,0.5"],
+.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) text[fill^="rgba(255,255,255,0.55"] {
+  fill: rgba(13, 27, 62, 0.7) !important;  /* ≈ 8.3:1 on beige */
+}
+/* Grid + dot patterns — flip their stroke color to navy via CSS (SVG patterns
+   inherit fill/stroke through presentation attribute overrides — use !important
+   on the elements rendered by the pattern) */
+/* Detail panel text — navy on beige */
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-kicker { color: var(--v22-accent); }
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-title { color: var(--brand-navy); }
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-sub { color: rgba(13, 27, 62, 0.7); }
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-body { color: rgba(13, 27, 62, 0.8); }
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-tags span { color: var(--brand-navy); border-color: rgba(13, 27, 62, 0.3); }
+.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-cta { color: var(--v22-accent); }
 
 /* ---------- PROVEN (carousel with image cards) ---------- */
 .v22-proven {
@@ -2518,6 +2643,560 @@
 }
 .v22-why-detail-dot:hover { background: var(--v22-accent); opacity: 0.7; }
 
+/* ---------- Why DBiz — motion card grid (blueprint feel) ---------- */
+/* ─── Why DBiz — specimen rail ────────────────────────────────────
+   Six numbered specimen cards on a horizontal scroll-snap rail.
+   Each card has its own "paper" background (graph / dot / rule /
+   ledger / radial / cell-grid) so the row reads as a draftsman's
+   typology rather than identical containers. The centered card
+   becomes "active" and replays a glyph-specific signature animation.
+   ────────────────────────────────────────────────────────────── */
+
+.v22-why-rail-wrap {
+  position: relative;
+  margin: 56px calc(var(--v22-gutter) * -1) 0;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms cubic-bezier(.2,.7,.1,1), transform 700ms cubic-bezier(.2,.7,.1,1);
+}
+.v22-why-rail-wrap.is-visible { opacity: 1; transform: none; }
+
+.v22-why-rail {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: max(var(--v22-gutter), calc((100% - 380px) / 2));
+  padding: 32px max(var(--v22-gutter), calc((100% - 380px) / 2)) 36px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.v22-why-rail::-webkit-scrollbar { display: none; }
+
+.v22-why-rail-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 96px;
+  pointer-events: none;
+  z-index: 2;
+}
+.v22-why-rail-fade-l { left: 0;  background: linear-gradient(to right, var(--v22-paper) 8%, rgba(243, 240, 236, 0)); }
+.v22-why-rail-fade-r { right: 0; background: linear-gradient(to left,  var(--v22-paper) 8%, rgba(243, 240, 236, 0)); }
+
+/* ─── Card ─── */
+.v22-why-card {
+  position: relative;
+  flex: 0 0 380px;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 28px 24px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(13, 27, 62, 0.12);
+  border-radius: 2px;
+  outline: none;
+  isolation: isolate;
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms cubic-bezier(.2,.7,.1,1) var(--why-delay, 0ms),
+    transform 600ms cubic-bezier(.2,.7,.1,1) var(--why-delay, 0ms),
+    border-color 280ms ease,
+    background-color 280ms ease,
+    box-shadow 320ms ease;
+  will-change: transform, opacity;
+}
+.v22-why-rail-wrap.is-visible .v22-why-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Inactive cards on the rail dim slightly to draw the eye to the active one. */
+.v22-why-card:not(.is-active) {
+  filter: saturate(0.85);
+}
+.v22-why-rail-wrap.is-visible .v22-why-card:not(.is-active) {
+  opacity: 0.6;
+}
+.v22-why-rail-wrap.is-visible .v22-why-card.is-active {
+  opacity: 1;
+  border-color: rgba(240, 123, 47, 0.55);
+  box-shadow: 0 28px 48px -28px rgba(13, 27, 62, 0.32);
+}
+.v22-why-card:focus-visible {
+  outline: 2px solid var(--v22-accent);
+  outline-offset: 3px;
+}
+
+/* Orange corner brackets — visible only on the active card, blueprint marker. */
+.v22-why-card-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--v22-accent);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 320ms ease, transform 320ms cubic-bezier(.2,.7,.1,1);
+  pointer-events: none;
+  z-index: 3;
+}
+.v22-why-card-corner.tl { top: -1px;    left: -1px;    border-right: none; border-bottom: none; }
+.v22-why-card-corner.tr { top: -1px;    right: -1px;   border-left: none;  border-bottom: none; }
+.v22-why-card-corner.bl { bottom: -1px; left: -1px;    border-right: none; border-top: none; }
+.v22-why-card-corner.br { bottom: -1px; right: -1px;   border-left: none;  border-top: none; }
+.v22-why-card.is-active .v22-why-card-corner {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── Per-card paper backgrounds — six different drafting surfaces ─── */
+.v22-why-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.55;
+  transition: opacity 280ms ease;
+  background-color: rgba(255, 255, 255, 0.55);
+}
+.v22-why-card.is-active::before { opacity: 0.95; }
+
+/* 01 — graph paper (fine grid) */
+.v22-why-paper-0::before {
+  background-image:
+    linear-gradient(to right, rgba(13, 27, 62, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 27, 62, 0.06) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+/* 02 — dot grid */
+.v22-why-paper-1::before {
+  background-image: radial-gradient(circle, rgba(13, 27, 62, 0.18) 1px, transparent 1.4px);
+  background-size: 14px 14px;
+}
+/* 03 — calibration ladder (horizontal rules of varying weight) */
+.v22-why-paper-2::before {
+  background-image:
+    repeating-linear-gradient(to bottom,
+      rgba(13, 27, 62, 0.12) 0 1px,
+      transparent 1px 24px,
+      rgba(13, 27, 62, 0.05) 24px 25px,
+      transparent 25px 48px);
+}
+/* 04 — stack ledger (heavy horizontals every 32px) */
+.v22-why-paper-3::before {
+  background-image:
+    linear-gradient(to bottom, rgba(13, 27, 62, 0.10) 1px, transparent 1px);
+  background-size: 100% 32px;
+}
+/* 05 — radial concentrics (subtle) */
+.v22-why-paper-4::before {
+  background-image:
+    radial-gradient(circle at center,
+      transparent 0 18%,
+      rgba(13, 27, 62, 0.06) 18% 18.4%,
+      transparent 18.4% 32%,
+      rgba(13, 27, 62, 0.05) 32% 32.4%,
+      transparent 32.4% 48%,
+      rgba(13, 27, 62, 0.04) 48% 48.4%,
+      transparent 48.4%);
+}
+/* 06 — cell grid (3×3 read) */
+.v22-why-paper-5::before {
+  background-image:
+    linear-gradient(to right, rgba(13, 27, 62, 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 27, 62, 0.10) 1px, transparent 1px);
+  background-size: 33.333% 33.333%;
+}
+
+/* ─── Glyph stage (top half of card) ─── */
+.v22-why-card-stage {
+  position: relative;
+  width: 100%;
+  height: 168px;
+  margin-bottom: 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(13, 27, 62, 0.08);
+  background: rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+}
+.v22-why-card.is-active .v22-why-card-stage {
+  border-color: rgba(240, 123, 47, 0.32);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Construction-line guides — appear on active */
+.v22-why-card-guide {
+  position: absolute;
+  background: rgba(240, 123, 47, 0.55);
+  opacity: 0;
+  transition: opacity 280ms ease, transform 480ms cubic-bezier(.2,.7,.1,1);
+}
+.v22-why-card-guide.v-line { left: 50%; top: 6px; bottom: 6px; width: 1px; transform: scaleY(0); transform-origin: top; }
+.v22-why-card-guide.h-line { top: 50%; left: 6px; right: 6px; height: 1px; transform: scaleX(0); transform-origin: left; }
+.v22-why-card.is-active .v22-why-card-guide {
+  opacity: 1;
+  transform: none;
+}
+
+.v22-why-glyph-svg {
+  position: relative;
+  z-index: 1;
+  width: 144px;
+  height: 144px;
+  display: block;
+}
+
+/* ─── Card text content ─── */
+.v22-why-card-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.v22-why-card-idx {
+  font-family: var(--font-mono);
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--brand-navy);
+  line-height: 0.95;
+  position: relative;
+}
+.v22-why-card-idx::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  bottom: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--v22-accent);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 240ms ease 200ms, transform 240ms cubic-bezier(.2,.7,.1,1) 200ms;
+}
+.v22-why-card.is-active .v22-why-card-idx::after { opacity: 1; transform: scale(1); }
+
+.v22-why-card-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: rgba(13, 27, 62, 0.55);
+  text-transform: uppercase;
+}
+.v22-why-card.is-active .v22-why-card-label { color: var(--v22-accent); }
+
+.v22-why-card-rule {
+  height: 1px;
+  background: rgba(13, 27, 62, 0.12);
+  margin: 0 0 14px;
+  position: relative;
+  overflow: hidden;
+}
+.v22-why-card-rule::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--v22-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 600ms cubic-bezier(.2,.7,.1,1) 100ms;
+}
+.v22-why-card.is-active .v22-why-card-rule::after { transform: scaleX(1); }
+
+.v22-why-card-title {
+  font-family: var(--font-sans);
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.22;
+  color: var(--brand-navy);
+  margin: 0 0 10px;
+}
+.v22-why-card-body {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(13, 27, 62, 0.72);
+  margin: 0 0 18px;
+  max-width: 38ch;
+}
+.v22-why-card-foot {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.36);
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(13, 27, 62, 0.14);
+}
+
+/* ─── Per-glyph signature animations — fire when card becomes active ─── */
+
+/* g0 EXPERTISE — compass bezel rotates one revolution then settles */
+.v22-why-card .g-compass-bezel { transform-origin: 60px 60px; }
+.v22-why-card.is-active .g-compass-bezel { animation: v22w-spin 4.2s cubic-bezier(.2,.7,.1,1) 1; }
+.v22-why-card.is-active .g0 .g-ring-in { animation: v22w-pulse 1800ms ease-in-out 1.2s 2 alternate; }
+.v22-why-card.is-active .g0 .g-dot   { animation: v22w-dot-bloom 480ms cubic-bezier(.2,.7,.1,1) 1.4s 1 both; }
+@keyframes v22w-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@keyframes v22w-pulse { from { opacity: 1; transform: scale(1); } to { opacity: 0.45; transform: scale(1.08); transform-origin: center; } }
+@keyframes v22w-dot-bloom { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.v22-why-card.is-active .g0 .g-ring-in { transform-origin: 60px 60px; transform-box: fill-box; }
+
+/* g1 SCALE — sonar pings expand outward */
+.v22-why-card .g1 .g-sonar { transform-origin: 60px 60px; transform-box: fill-box; }
+.v22-why-card.is-active .g1 .g-sonar-1 { animation: v22w-sonar 2.2s cubic-bezier(.1,.7,.2,1) 0.3s infinite; }
+.v22-why-card.is-active .g1 .g-sonar-2 { animation: v22w-sonar 2.2s cubic-bezier(.1,.7,.2,1) 1.4s infinite; }
+.v22-why-card.is-active .g1 .g-vtx     { animation: v22w-vtx-pop 1600ms ease 1 both; }
+.v22-why-card.is-active .g1 .g-vtx-0 { animation-delay: 0.20s; }
+.v22-why-card.is-active .g1 .g-vtx-1 { animation-delay: 0.32s; }
+.v22-why-card.is-active .g1 .g-vtx-2 { animation-delay: 0.44s; }
+.v22-why-card.is-active .g1 .g-vtx-3 { animation-delay: 0.56s; }
+.v22-why-card.is-active .g1 .g-vtx-4 { animation-delay: 0.68s; }
+.v22-why-card.is-active .g1 .g-vtx-5 { animation-delay: 0.80s; }
+@keyframes v22w-sonar {
+  0%   { opacity: 0;    transform: scale(0.4); }
+  20%  { opacity: 0.9; }
+  100% { opacity: 0;    transform: scale(2.4); }
+}
+@keyframes v22w-vtx-pop {
+  0%   { r: 1.6; opacity: 0; }
+  60%  { r: 3;   opacity: 1; }
+  100% { r: 1.6; opacity: 1; }
+}
+
+/* g2 DELIVERY — arrow advances along timeline, ticks light sequentially */
+.v22-why-card .g2 .g-arrow-track { transform: translateX(0); }
+.v22-why-card.is-active .g2 .g-arrow-track { animation: v22w-arrow 2400ms cubic-bezier(.4,0,.2,1) 0.4s 1 forwards; }
+@keyframes v22w-arrow {
+  0%   { transform: translateX(0); opacity: 0.6; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateX(64px); opacity: 1; }
+}
+.v22-why-card.is-active .g2 .g-target     { animation: v22w-target-spin 3600ms linear 1.6s infinite; transform-origin: 102px 60px; transform-box: fill-box; }
+.v22-why-card.is-active .g2 .g-target-dot { animation: v22w-dot-bloom 360ms ease 1.6s 1 both; }
+.v22-why-card.is-active .g2 .g-tick       { animation: v22w-tick-up 320ms ease 1 both; }
+.v22-why-card.is-active .g2 .g-tick-0  { animation-delay: 0.40s; }
+.v22-why-card.is-active .g2 .g-tick-1  { animation-delay: 0.52s; }
+.v22-why-card.is-active .g2 .g-tick-2  { animation-delay: 0.64s; }
+.v22-why-card.is-active .g2 .g-tick-3  { animation-delay: 0.76s; }
+.v22-why-card.is-active .g2 .g-tick-4  { animation-delay: 0.88s; }
+.v22-why-card.is-active .g2 .g-tick-5  { animation-delay: 1.00s; }
+.v22-why-card.is-active .g2 .g-tick-6  { animation-delay: 1.12s; }
+.v22-why-card.is-active .g2 .g-tick-7  { animation-delay: 1.24s; }
+.v22-why-card.is-active .g2 .g-tick-8  { animation-delay: 1.36s; }
+.v22-why-card.is-active .g2 .g-tick-9  { animation-delay: 1.48s; }
+.v22-why-card.is-active .g2 .g-tick-10 { animation-delay: 1.60s; }
+@keyframes v22w-tick-up {
+  0%   { stroke: rgba(13,27,62,0.20); }
+  60%  { stroke: #F07B2F; }
+  100% { stroke: rgba(13,27,62,0.55); }
+}
+@keyframes v22w-target-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+
+/* g3 PLATFORMS — layers settle in from above (raster build) */
+.v22-why-card .g3 .g-layer { transform: translateY(-20px); opacity: 0; }
+.v22-why-card.is-active .g3 .g-layer { animation: v22w-layer-drop 600ms cubic-bezier(.2,.7,.1,1) 1 forwards; }
+.v22-why-card.is-active .g3 .g-layer-0 { animation-delay: 0.20s; }
+.v22-why-card.is-active .g3 .g-layer-1 { animation-delay: 0.34s; }
+.v22-why-card.is-active .g3 .g-layer-2 { animation-delay: 0.48s; }
+.v22-why-card.is-active .g3 .g-layer-3 { animation-delay: 0.62s; }
+.v22-why-card.is-active .g3 .g-layer-4 { animation-delay: 0.76s; }
+.v22-why-card.is-active .g3 .g-port    { transform: scale(0.3); opacity: 0; transform-box: fill-box; transform-origin: center; animation: v22w-port-pop 360ms ease 1 forwards; }
+.v22-why-card.is-active .g3 .g-port-0 { animation-delay: 0.50s; }
+.v22-why-card.is-active .g3 .g-port-1 { animation-delay: 0.64s; }
+.v22-why-card.is-active .g3 .g-port-2 { animation-delay: 0.78s; }
+.v22-why-card.is-active .g3 .g-port-3 { animation-delay: 0.92s; }
+.v22-why-card.is-active .g3 .g-port-4 { animation-delay: 1.06s; }
+@keyframes v22w-layer-drop {
+  0%   { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0);     opacity: 1; }
+}
+@keyframes v22w-port-pop {
+  0%   { transform: scale(0.3); opacity: 0; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+/* g4 PARTNERS — hub pings, nodes wake */
+.v22-why-card .g4 .g-ping { transform-origin: 60px 60px; transform-box: fill-box; }
+.v22-why-card.is-active .g4 .g-ping-1 { animation: v22w-ping 2400ms cubic-bezier(.1,.7,.2,1) 0.3s infinite; }
+.v22-why-card.is-active .g4 .g-ping-2 { animation: v22w-ping 2400ms cubic-bezier(.1,.7,.2,1) 1.5s infinite; }
+.v22-why-card.is-active .g4 .g-node   { opacity: 0.4; animation: v22w-node-light 480ms ease 1 forwards; }
+.v22-why-card.is-active .g4 .g-node-0 { animation-delay: 0.30s; }
+.v22-why-card.is-active .g4 .g-node-1 { animation-delay: 0.50s; }
+.v22-why-card.is-active .g4 .g-node-2 { animation-delay: 0.70s; }
+.v22-why-card.is-active .g4 .g-node-3 { animation-delay: 0.90s; }
+.v22-why-card.is-active .g4 .g-hub    { animation: v22w-hub-breathe 2200ms ease-in-out 1.2s infinite alternate; transform-origin: 60px 60px; transform-box: fill-box; }
+@keyframes v22w-ping {
+  0%   { opacity: 0;    transform: scale(0.5); }
+  20%  { opacity: 0.85; }
+  100% { opacity: 0;    transform: scale(2.6); }
+}
+@keyframes v22w-node-light {
+  0%   { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+@keyframes v22w-hub-breathe {
+  from { transform: scale(1);    fill-opacity: 0.16; }
+  to   { transform: scale(1.06); fill-opacity: 0.28; }
+}
+
+/* g5 DOMAIN — cells light in raster scan order */
+.v22-why-card .g5 .g-cell { transform-origin: center; transform-box: fill-box; opacity: 0.4; }
+.v22-why-card.is-active .g5 .g-cell { animation: v22w-cell-light 360ms ease 1 forwards; }
+.v22-why-card.is-active .g5 .g-cell-0 { animation-delay: 0.30s; }
+.v22-why-card.is-active .g5 .g-cell-1 { animation-delay: 0.40s; }
+.v22-why-card.is-active .g5 .g-cell-2 { animation-delay: 0.50s; }
+.v22-why-card.is-active .g5 .g-cell-3 { animation-delay: 0.60s; }
+.v22-why-card.is-active .g5 .g-cell-4 { animation-delay: 0.72s; animation-name: v22w-cell-fill; }
+.v22-why-card.is-active .g5 .g-cell-5 { animation-delay: 0.80s; }
+.v22-why-card.is-active .g5 .g-cell-6 { animation-delay: 0.90s; }
+.v22-why-card.is-active .g5 .g-cell-7 { animation-delay: 1.00s; }
+.v22-why-card.is-active .g5 .g-cell-8 { animation-delay: 1.10s; }
+@keyframes v22w-cell-light {
+  0%   { opacity: 0.4;  transform: scale(0.92); }
+  60%  { opacity: 1;    transform: scale(1.06); }
+  100% { opacity: 1;    transform: scale(1); }
+}
+@keyframes v22w-cell-fill {
+  0%   { opacity: 0.4;  fill-opacity: 0.4;  transform: scale(0.92); }
+  60%  { opacity: 1;    fill-opacity: 1;    transform: scale(1.1); }
+  100% { opacity: 1;    fill-opacity: 1;    transform: scale(1); }
+}
+
+/* ─── Controls strip below the rail ─── */
+.v22-why-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 4px;
+  padding-top: 4px;
+}
+.v22-why-nav {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(13, 27, 62, 0.18);
+  background: transparent;
+  color: var(--brand-navy);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: border-color 200ms ease, color 200ms ease, background 200ms ease, transform 200ms ease;
+  flex-shrink: 0;
+}
+.v22-why-nav svg { width: 18px; height: 18px; display: block; }
+.v22-why-nav:hover:not(:disabled) {
+  border-color: var(--v22-accent);
+  color: var(--v22-accent);
+  background: rgba(240, 123, 47, 0.06);
+}
+.v22-why-nav:active:not(:disabled) { transform: scale(0.95); }
+.v22-why-nav:disabled { opacity: 0.3; cursor: default; }
+.v22-why-nav:focus-visible { outline: 2px solid var(--v22-accent); outline-offset: 3px; }
+
+.v22-why-progress {
+  position: relative;
+  flex: 1;
+  height: 12px;
+  display: flex;
+  align-items: center;
+}
+.v22-why-progress::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(13, 27, 62, 0.18);
+  transform: translateY(-50%);
+}
+.v22-why-progress-fill {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: var(--v22-accent);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 480ms cubic-bezier(.2,.7,.1,1);
+  pointer-events: none;
+  translate: 0 -0.5px;
+}
+.v22-why-progress-stops {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.v22-why-progress-dot {
+  width: 12px;
+  height: 12px;
+  border: none;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+}
+.v22-why-progress-dot::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  background: rgba(13, 27, 62, 0.32);
+  border-radius: 50%;
+  transition: background 200ms ease, transform 240ms cubic-bezier(.2,.7,.1,1);
+}
+.v22-why-progress-dot.is-passed::after { background: var(--v22-accent); }
+.v22-why-progress-dot.is-current::after {
+  background: var(--v22-accent);
+  transform: scale(1.6);
+  box-shadow: 0 0 0 3px rgba(240, 123, 47, 0.18);
+}
+.v22-why-progress-dot:focus-visible { outline: 2px solid var(--v22-accent); outline-offset: 3px; }
+
+.v22-why-counter {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--brand-navy);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.v22-why-counter-now { color: var(--v22-accent); font-size: 1.1rem; }
+.v22-why-counter-sep { opacity: 0.4; }
+.v22-why-counter-total { opacity: 0.6; }
+
+/* ─── Responsive ─── */
+@media (max-width: 720px) {
+  .v22-why-card { flex-basis: 320px; padding: 24px 22px 22px; }
+  .v22-why-card-stage { height: 144px; }
+  .v22-why-glyph-svg { width: 120px; height: 120px; }
+  .v22-why-card-idx { font-size: 2rem; }
+  .v22-why-card-title { font-size: 1.06rem; }
+  .v22-why-rail { gap: 16px; padding: 24px max(var(--v22-gutter), calc((100% - 320px) / 2)) 28px; scroll-padding-inline: max(var(--v22-gutter), calc((100% - 320px) / 2)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v22-why-rail-wrap,
+  .v22-why-card { transition-duration: 0.001s; opacity: 1; transform: none; }
+  .v22-why-card.is-active *,
+  .v22-why-rail-wrap.is-visible .v22-why-card * { animation: none !important; }
+  .v22-why-card.is-active .g-compass-bezel { transform: none; }
+}
+
 /* Responsive */
 @media (max-width: 960px) {
   .v22-why-interactive {
@@ -3158,7 +3837,7 @@
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--brand-navy);
   text-transform: uppercase;
   line-height: 1.15;
 }
@@ -3167,7 +3846,7 @@
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(13, 27, 62, 0.6);
   text-transform: uppercase;
 }
 .v22-csm-row.is-open .v22-csm-kicker { color: var(--v22-accent); }
@@ -3253,7 +3932,10 @@
   padding: 64px 0 72px;
   position: relative;
   scroll-margin-top: 100px;         /* clear the sticky nav when scroll-anchored */
-  /* Inherits the scope's dark bg + dot grid */
+  /* Match the disc housing bg so the whole framework reads as one illustration */
+  background-color: var(--brand-navy-deep);
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0);
+  background-size: 24px 24px;
 }
 .v22-section.v22-framework .v22-fw-head {
   border-bottom: none;
@@ -3274,22 +3956,10 @@
 
 /* ---------- Framework — AI Transformation Stack (Deconstructed Assembly, ported from v20) ---------- */
 .v22-fw-diagram-wrap {
-  border: 1px solid var(--v22-hair-strong);
   position: relative;
   padding: 0;
   overflow: hidden;
 }
-.v22-fw-diagram-wrap::before,
-.v22-fw-diagram-wrap::after {
-  content: '';
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border: 1px solid var(--v22-accent);
-  z-index: 2;
-}
-.v22-fw-diagram-wrap::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
-.v22-fw-diagram-wrap::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
 .v22-fw-diagram {
   display: block;
@@ -3297,15 +3967,297 @@
   height: auto;
 }
 
+/* ---------- Framework — card grid (offering + accelerator per layer) ----------
+   Uses CSS subgrid so offering / separator / accelerator rows align across
+   all 7 cards — accelerators always sit at the same y regardless of how much
+   copy the offering above has. */
+.v22-fw-cards {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  /* 3 shared rows across all cards: offering, separator, accelerator.
+     subgrid on each card syncs its children into these rows. */
+  grid-template-rows: auto auto auto;
+  gap: clamp(8px, 0.9vw, 14px);
+  margin-top: 0;
+}
+/* ----- Top strip — FULL STACK · NO CAPABILITY GAPS · NO VENDOR LOCK-IN ----- */
+.v22-fw-top-strip {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.6vw, 24px);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.55);
+  padding: 14px 4px 16px;
+  position: relative;
+}
+.v22-fw-top-code {
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+}
+.v22-fw-top-promise {
+  flex: 1 1 auto;
+  color: rgba(255, 255, 255, 0.42);
+  text-align: center;
+  letter-spacing: 0.22em;
+  border-top: 1px solid rgba(240, 123, 47, 0.5);
+  border-bottom: 1px solid rgba(240, 123, 47, 0.5);
+  padding: 6px 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 720px) {
+  .v22-fw-top-strip { flex-wrap: wrap; justify-content: space-between; font-size: 9px; }
+  .v22-fw-top-promise {
+    flex-basis: 100%;
+    order: 3;
+    text-align: center;
+    letter-spacing: 0.16em;
+    font-size: 9px;
+    white-space: normal;
+    padding: 8px 6px;
+    margin-top: 6px;
+  }
+}
+
+/* ----- Scroller — turns into a carousel below 1100px ----- */
+.v22-fw-scroller { display: block; }
+
+/* Mini disc is desktop-hidden — master SVG above handles discs. */
+.v22-fw-card-mini { display: none; }
+
+@media (max-width: 1100px) {
+  .v22-fw-scroller {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+  .v22-fw-scroller::-webkit-scrollbar { display: none; }
+
+  /* Hide the master diagram on mobile — each card renders its own mini disc. */
+  .v22-fw-scroller .v22-fw-diagram-wrap { display: none; }
+
+  /* Cards become the scroll track, one card per viewport. */
+  .v22-fw-scroller .v22-fw-cards {
+    min-width: calc(7 * 100vw);
+    display: flex !important;
+    grid-template-columns: none !important;
+    grid-template-rows: none !important;
+  }
+  .v22-fw-card {
+    display: flex !important;
+    flex-direction: column;
+    grid-row: auto !important;
+    grid-template-rows: none !important;
+    width: 100vw;
+    flex: 0 0 100vw;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    padding: 12px 20px 24px;
+  }
+
+  /* Mini disc — sized to fit its card column, stays at "normal" visual size. */
+  .v22-fw-card-mini {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .v22-fw-mini-disc {
+    width: 160px;
+    height: 160px;
+    display: block;
+  }
+  .v22-fw-card-layer {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+  }
+}
+
+/* ----- Pagination (carousel indicators) ----- */
+.v22-fw-pagination {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 8px 4px;
+}
+@media (max-width: 1100px) {
+  .v22-fw-pagination { display: flex; flex-wrap: wrap; }
+}
+.v22-fw-dot {
+  appearance: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 220ms ease, border-color 220ms ease, color 220ms ease, transform 220ms ease;
+  padding: 0;
+}
+.v22-fw-dot:hover,
+.v22-fw-dot:focus-visible {
+  border-color: var(--v22-accent);
+  color: var(--v22-accent);
+  outline: none;
+}
+.v22-fw-dot.is-active {
+  background: var(--v22-accent);
+  border-color: var(--v22-accent);
+  color: #fff;
+  transform: scale(1.08);
+}
+.v22-fw-dot-idx { pointer-events: none; }
+
+/* Borderless card. Uses CSS subgrid so the offering block, separator, and
+   accelerator block align in the same rows across all 7 cards. */
+.v22-fw-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  justify-items: center;
+  padding: 8px 12px 18px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  text-align: center;
+
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms cubic-bezier(.2,.7,.1,1) var(--card-delay, 0ms),
+    transform 600ms cubic-bezier(.2,.7,.1,1) var(--card-delay, 0ms);
+  will-change: transform, opacity;
+}
+.v22-fw-cards.is-visible .v22-fw-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* (Solid entry line + bubble removed per user request.) */
+
+/* Dotted separator between offering and accelerator */
+.v22-fw-card-link {
+  display: block;
+  width: 1px;
+  height: 28px;
+  margin: 4px auto 8px;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 50%
+  );
+  background-size: 1px 4px;
+  transition: background-image 220ms ease;
+}
+
+/* Active / hover state — line + bubble + names go brand orange */
+.v22-fw-card.is-active,
+.v22-fw-card:hover,
+.v22-fw-card:focus-visible { outline: none; }
+.v22-fw-card.is-active .v22-fw-card-link,
+.v22-fw-card:hover .v22-fw-card-link,
+.v22-fw-card:focus-visible .v22-fw-card-link {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(240, 123, 47, 0.9) 50%,
+    transparent 50%
+  );
+}
+.v22-fw-card.is-active .v22-fw-card-name,
+.v22-fw-card:hover .v22-fw-card-name,
+.v22-fw-card:focus-visible .v22-fw-card-name {
+  color: var(--v22-accent);
+}
+.v22-fw-card:focus-visible {
+  outline: 1px dashed var(--v22-accent);
+  outline-offset: 4px;
+}
+
+.v22-fw-card-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 0;
+  background: transparent;
+  width: 100%;
+  text-align: center;
+}
+.v22-fw-card-kicker {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.v22-fw-card-name {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: -0.003em;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.3;
+  /* Reserve 2 lines so single-line and double-line names align consistently. */
+  min-height: 2.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 220ms ease;
+}
+.v22-fw-card-desc {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.42);
+  margin: 0;
+  /* Reserve 2 lines so all desc rows line up across cards. */
+  min-height: calc(10px * 1.45 * 2);
+}
+.v22-fw-card-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 4px -12px;
+}
+
 /* Layer reveal animation — staggered entrance */
 .v22-fw-stack-layer {
   opacity: 0;
   animation: v22-fw-layer-appear 0.5s ease-out forwards;
   animation-delay: calc(var(--layer-index) * 0.12s + 0.2s);
+  transition: transform 360ms cubic-bezier(.2,.7,.1,1), filter 360ms ease;
 }
 @keyframes v22-fw-layer-appear {
   from { opacity: 0; transform: translateY(-10px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Active disc (its card is hovered/focused) — small highlight only. */
+.v22-fw-stack-layer.is-active {
+  filter: drop-shadow(0 0 10px rgba(240, 123, 47, 0.35));
 }
 
 /* Connector draw-in */

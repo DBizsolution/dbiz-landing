@@ -1,47 +1,65 @@
+'use client'
+
 /* V22 — N°04 How we do it.
    AI Transformation Stack — Deconstructed Assembly (ported from v20).
-   7 discs on a central horizontal shaft, each with a rotating inner geometry,
-   a traveling halo that sweeps across the row, and paired top/bottom callouts
-   for the offering and accelerator powering that layer. */
+   Illustration shows the 7 discs + shaft + labels. The offerings and
+   accelerators for each layer live in a card grid below the diagram. */
 
-/* ─── Stack Diagram SVG — Deconstructed Assembly (machine reference) ─── */
-function StackDiagram() {
-  const svgW = 1400
-  const svgH = 720
+import { useEffect, useRef, useState } from 'react'
 
-  const shaftY = 360
-  const discR = 68
-  // 7 discs evenly spaced along the horizontal shaft
-  const discCenters = [180, 340, 500, 660, 820, 980, 1140]
+type Side = { name: string; desc: string }
+type Layer = { n: string; label: string; top: Side; bottom: Side }
 
-  type Side = { name: string; desc: string }
-  // Order: left-to-right — Strategy (01) first, Data (07) last
-  const layers: { n: string; label: string; top: Side; bottom: Side }[] = [
-    { n: '01', label: 'STRATEGY',
-      top:    { name: 'Futures Studio', desc: 'AI ambition, roadmap & use-case prioritisation' },
-      bottom: { name: 'DBiz Canvas',    desc: 'Concept to code in days' } },
-    { n: '02', label: 'ARCHITECTURE',
-      top:    { name: 'TechOffice Foundry', desc: 'AI foundation & Well-Architected review' },
-      bottom: { name: 'DBiz Adapt',         desc: 'Architecting Secure and Sovereign AI' } },
-    { n: '03', label: 'CLOUD',
-      top:    { name: 'Multi-Cloud AI Foundation', desc: 'Enterprise AI Foundation rollout' },
-      bottom: { name: 'DBiz Scoop',                desc: 'AI-Powered migration pipeline' } },
-    { n: '04', label: 'DEVELOPMENT',
-      top:    { name: 'Perpetual Engineering', desc: 'AI agents across the full SDLC' },
-      bottom: { name: 'Nexus Platform',        desc: 'Enterprise AI dev environment' } },
-    { n: '05', label: 'PRODUCTIVITY',
-      top:    { name: 'AI-Infused BizApps',     desc: 'Autonomous agents for SaaS platforms' },
-      bottom: { name: 'Productivity Automation', desc: 'Claude Co-work & Copilot' } },
-    { n: '06', label: 'ORCHESTRATION',
-      top:    { name: 'Agent Studio',     desc: 'Agentic AI & multi-agent orchestration' },
-      bottom: { name: 'Nexus iConnector', desc: 'No rip & replace integration' } },
-    { n: '07', label: 'DATA & INSIGHTS',
-      top:    { name: 'DBiz Compass',    desc: 'AI-infused data engineering' },
-      bottom: { name: 'Factweavers.ai',  desc: 'Domain data cloud & quick insights' } },
-  ]
+/* Force text onto exactly 2 balanced lines. Splits at the word midpoint so
+   both lines are similar lengths; single-word strings render alone (min-height
+   in CSS reserves the second-line space). */
+function TwoLine({ text }: { text: string }) {
+  const words = text.split(' ')
+  if (words.length <= 1) return <>{text}</>
+  const mid = Math.ceil(words.length / 2)
+  return (
+    <>
+      {words.slice(0, mid).join(' ')}
+      <br />
+      {words.slice(mid).join(' ')}
+    </>
+  )
+}
+const TwoLineName = ({ name }: { name: string }) => <TwoLine text={name} />
 
-  // Per-layer inner shape renderer — duotone: grey structure + orange accents
-  const renderShape = (i: number, cx: number, cy: number) => {
+// Order: left-to-right — Strategy (01) first, Data (07) last
+const layers: Layer[] = [
+  { n: '01', label: 'STRATEGY',
+    top:    { name: 'Futures Studio', desc: 'AI ambition, roadmap & use-case prioritisation' },
+    bottom: { name: 'DBiz Canvas',    desc: 'Concept to code in days' } },
+  { n: '02', label: 'ARCHITECTURE',
+    top:    { name: 'TechOffice Foundry', desc: 'AI foundation & Well-Architected review' },
+    bottom: { name: 'DBiz Adapt',         desc: 'Architecting Secure and Sovereign AI' } },
+  { n: '03', label: 'CLOUD',
+    top:    { name: 'Hyperscaler AI Foundations', desc: 'Enterprise AI Foundation rollout' },
+    bottom: { name: 'DBiz Scoop',                desc: 'AI-Powered migration pipeline' } },
+  { n: '04', label: 'DEVELOPMENT',
+    top:    { name: 'Perpetual Engineering', desc: 'AI agents across the full SDLC' },
+    bottom: { name: 'Nexus Platform',        desc: 'Enterprise AI dev environment' } },
+  { n: '05', label: 'PRODUCTIVITY',
+    top:    { name: 'AI-Infused BizApps',     desc: 'Autonomous agents for SaaS platforms' },
+    bottom: { name: 'Productivity Automation', desc: 'Claude Co-work & Copilot' } },
+  { n: '06', label: 'ORCHESTRATION',
+    top:    { name: 'Agent Studio',     desc: 'Agentic AI & multi-agent orchestration' },
+    bottom: { name: 'Nexus iConnector', desc: 'No rip & replace integration' } },
+  { n: '07', label: 'DATA & INSIGHTS',
+    top:    { name: 'DBiz Data Compass', desc: 'AI-infused data engineering' },
+    bottom: { name: 'Factweavers.ai',    desc: 'Domain data cloud & quick insights' } },
+]
+
+/* Round trig outputs to a fixed precision so SSR and CSR serialize identically
+   (avoids hydration mismatches on Math.cos/Math.sin last-digit drift). */
+const r4 = (n: number) => Math.round(n * 10000) / 10000
+
+/* Per-layer inner shape renderer — duotone: grey structure + orange accents.
+   Hoisted to module scope so both the main StackDiagram and per-card MiniDisc
+   can use it. */
+function renderShape(i: number, cx: number, cy: number) {
     const acc = 'var(--v22-accent)'
     const ink = 'rgba(255,255,255,0.38)'
     switch (i) {
@@ -86,10 +104,10 @@ function StackDiagram() {
             <circle cx={cx} cy={cy} r='32' stroke={ink} strokeWidth='1' fill='none' />
             {Array.from({ length: 12 }).map((_, t) => {
               const a = (t / 12) * Math.PI * 2
-              const x1 = cx + Math.cos(a) * 32
-              const y1 = cy + Math.sin(a) * 32
-              const x2 = cx + Math.cos(a) * 44
-              const y2 = cy + Math.sin(a) * 44
+              const x1 = r4(cx + Math.cos(a) * 32)
+              const y1 = r4(cy + Math.sin(a) * 32)
+              const x2 = r4(cx + Math.cos(a) * 44)
+              const y2 = r4(cy + Math.sin(a) * 44)
               return <line key={t} x1={x1} y1={y1} x2={x2} y2={y2} stroke={ink} strokeWidth='2' />
             })}
             <circle cx={cx} cy={cy} r='44' stroke={ink} strokeWidth='0.6' strokeDasharray='3 2' fill='none' />
@@ -118,8 +136,8 @@ function StackDiagram() {
           <g>
             {Array.from({ length: 6 }).map((_, nIdx) => {
               const a = (nIdx / 6) * Math.PI * 2 - Math.PI / 2
-              const nx = cx + Math.cos(a) * 38
-              const ny = cy + Math.sin(a) * 38
+              const nx = r4(cx + Math.cos(a) * 38)
+              const ny = r4(cy + Math.sin(a) * 38)
               return (
                 <g key={nIdx}>
                   <line x1={cx} y1={cy} x2={nx} y2={ny} stroke={ink} strokeWidth='0.8' strokeDasharray='2 2' />
@@ -139,11 +157,11 @@ function StackDiagram() {
             <polygon points={hex(24)} stroke={acc} strokeWidth='1.2' fill='none' />
             {[0, 60, 120, 180, 240, 300].map((a, idx) => {
               const r = (a - 90) * Math.PI / 180
-              return <circle key={idx} cx={cx + Math.cos(r) * 36} cy={cy + Math.sin(r) * 36} r='2.2' fill={acc} />
+              return <circle key={idx} cx={r4(cx + Math.cos(r) * 36)} cy={r4(cy + Math.sin(r) * 36)} r='2.2' fill={acc} />
             })}
             {[30, 90, 150, 210, 270, 330].map((a, idx) => {
               const r = (a - 90) * Math.PI / 180
-              return <line key={idx} x1={cx} y1={cy} x2={cx + Math.cos(r) * 24} y2={cy + Math.sin(r) * 24} stroke={ink} strokeWidth='0.5' strokeDasharray='1.5 1.5' />
+              return <line key={idx} x1={cx} y1={cy} x2={r4(cx + Math.cos(r) * 24)} y2={r4(cy + Math.sin(r) * 24)} stroke={ink} strokeWidth='0.5' strokeDasharray='1.5 1.5' />
             })}
             <circle cx={cx} cy={cy} r='3' fill={acc} />
           </g>
@@ -152,31 +170,40 @@ function StackDiagram() {
       default:
         return null
     }
-  }
+}
 
-  const layerNameY = 452
+/* Mini per-card disc (shown only on narrow viewports — keeps the icon at a
+   sensible "normal" size regardless of how wide the scroller stretches). */
+export function MiniDisc({ i }: { i: number }) {
+  const cx = 80
+  const cy = 80
+  const r = 60
+  return (
+    <svg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg' className='v22-fw-mini-disc' aria-hidden='true'>
+      <defs>
+        <pattern id={`v22-mini-grid-${i}`} patternUnits='userSpaceOnUse' width='12' height='12'>
+          <path d='M 12 0 L 0 0 0 12' fill='none' stroke='rgba(255,255,255,0.14)' strokeWidth='0.6' />
+        </pattern>
+      </defs>
+      <rect x={cx - r} y={cy - r} width={r * 2} height={r * 2} stroke='rgba(255,255,255,0.22)' strokeWidth='0.8' strokeDasharray='4 3' fill='var(--brand-navy-deep)' fillOpacity='0.85' />
+      <rect x={cx - r + 6} y={cy - r + 6} width={(r - 6) * 2} height={(r - 6) * 2} stroke='rgba(255,255,255,0.16)' strokeWidth='0.6' fill='none' />
+      <rect x={cx - r + 13} y={cy - r + 13} width={(r - 13) * 2} height={(r - 13) * 2} stroke='rgba(255,255,255,0.12)' strokeWidth='0.4' strokeDasharray='1.5 2' fill='none' />
+      <rect x={cx - r + 14} y={cy - r + 14} width={(r - 14) * 2} height={(r - 14) * 2} fill={`url(#v22-mini-grid-${i})`} />
+      {renderShape(i, cx, cy)}
+    </svg>
+  )
+}
 
-  // Top line: y=174 → y=284 (110px). Bottom line: y=466 → y=576 (110px).
-  // Order: name (orange) ABOVE desc (grey) on BOTH top and bottom callouts
-  const tp = { name: 100, desc: 135, dot: 172 }
-  const bp = { dot: 578,  name: 600, desc: 630 }
-
-  // Soft-wrap helper — splits a string into up to 2 lines at a char limit
-  const wrapDesc = (text: string, maxChars = 22): string[] => {
-    if (text.length <= maxChars) return [text]
-    const words = text.split(' ')
-    let line1 = '', line2 = ''
-    for (const w of words) {
-      const next = (line1 ? line1 + ' ' : '') + w
-      if (next.length <= maxChars && !line2) line1 = next
-      else line2 = (line2 ? line2 + ' ' : '') + w
-    }
-    return line2 ? [line1, line2] : [line1]
-  }
+/* ─── Stack Diagram SVG — Deconstructed Assembly (machine reference) ─── */
+function StackDiagram({ hovered, onHover }: { hovered: number; onHover: (i: number) => void }) {
+  const svgW = 1400
+  const svgH = 360
+  const shaftY = 200
+  const discR = 84
+  const discCenters = [100, 300, 500, 700, 900, 1100, 1300]
+  const layerNameY = shaftY + discR + 24    // below disc
 
   const inkCorner = 'rgba(240,123,47,0.5)'
-  const inkLabelStrong = 'rgba(255,255,255,0.55)'
-  const inkDim = 'rgba(255,255,255,0.4)'
 
   return (
     <svg
@@ -203,22 +230,10 @@ function StackDiagram() {
         </radialGradient>
       </defs>
 
-      {/* Frame + dot background */}
+      {/* Orange dot background */}
       <rect x='8' y='8' width={svgW - 16} height={svgH - 16} fill='url(#v22-fw-ex-dot)' />
-      <g stroke={inkCorner} strokeWidth='2'>
-        <line x1='8' y1='8' x2='26' y2='8' /><line x1='8' y1='8' x2='8' y2='26' />
-        <line x1={svgW - 8} y1='8' x2={svgW - 26} y2='8' /><line x1={svgW - 8} y1='8' x2={svgW - 8} y2='26' />
-        <line x1='8' y1={svgH - 8} x2='26' y2={svgH - 8} /><line x1='8' y1={svgH - 8} x2='8' y2={svgH - 26} />
-        <line x1={svgW - 8} y1={svgH - 8} x2={svgW - 26} y2={svgH - 8} /><line x1={svgW - 8} y1={svgH - 8} x2={svgW - 8} y2={svgH - 26} />
-      </g>
 
-      {/* Top strip — promise anchor */}
-      <text x='50' y='32' fontFamily='var(--font-mono)' fontSize='9' fill={inkLabelStrong} letterSpacing='2'>SCALE 1:1</text>
-      <line x1={svgW / 2 - 260} y1={44} x2={svgW / 2 + 260} y2={44} stroke={inkCorner} strokeWidth='0.8' />
-      <line x1={svgW / 2 - 260} y1={40} x2={svgW / 2 - 260} y2={48} stroke={inkCorner} strokeWidth='0.8' />
-      <line x1={svgW / 2 + 260} y1={40} x2={svgW / 2 + 260} y2={48} stroke={inkCorner} strokeWidth='0.8' />
-      <text x={svgW / 2} y='32' fontFamily='var(--font-mono)' fontSize='10' fill={inkDim} textAnchor='middle' letterSpacing='3'>FULL STACK  ·  NO CAPABILITY GAPS  ·  NO VENDOR LOCK-IN</text>
-      <text x={svgW - 50} y='32' fontFamily='var(--font-mono)' fontSize='9' fill={inkLabelStrong} textAnchor='end' letterSpacing='1'>SHEET A1</text>
+      {/* Top-strip text moved to HTML so it can wrap responsively on mobile. */}
 
       {/* Central shaft — the spine connecting all components */}
       <line x1='80' y1={shaftY} x2={svgW - 80} y2={shaftY} stroke={inkCorner} strokeWidth='1' />
@@ -231,8 +246,15 @@ function StackDiagram() {
       {layers.map((layer, i) => {
         const cx = discCenters[i]
         const rotateReverse = i % 2 === 1
+        const isActive = i === hovered
         return (
-          <g key={layer.n} className='v22-fw-stack-layer' style={{ '--layer-index': i } as React.CSSProperties}>
+          <g
+            key={layer.n}
+            className={`v22-fw-stack-layer ${isActive ? 'is-active' : ''}`}
+            style={{ '--layer-index': i, transformOrigin: `${cx}px ${shaftY}px`, cursor: 'pointer' } as React.CSSProperties}
+            onMouseEnter={() => onHover(i)}
+            onMouseLeave={() => onHover(-1)}
+          >
             {/* Traveling halo — staggered via CSS delay, sweeps across all discs */}
             <rect x={cx - discR - 14} y={shaftY - discR - 14} width={(discR + 14) * 2} height={(discR + 14) * 2} fill='var(--v22-accent)' fillOpacity='0.35' filter='url(#v22-fw-halo-blur)' className='v22-fw-disc-halo' style={{ animationDelay: `${i * 1.4}s` } as React.CSSProperties} />
 
@@ -267,36 +289,67 @@ function StackDiagram() {
             {/* Layer name — just below disc */}
             <text x={cx} y={layerNameY} fontFamily='var(--font-mono)' fontSize='10' fontWeight='500' fill='#ffffff' textAnchor='middle' letterSpacing='2.5'>{layer.label}</text>
 
-            {/* Top callout — name (orange, emphasised) ABOVE, desc (grey) BELOW */}
-            <line x1={cx} y1={tp.dot + 2} x2={cx} y2={shaftY - discR - 8} stroke='rgba(255,255,255,0.18)' strokeWidth='0.7' strokeDasharray='3 2' className='v22-fw-stack-connector' />
-            <circle cx={cx} cy={tp.dot} r='2.8' fill='var(--v22-accent)' className='v22-fw-stack-dot' />
-            {wrapDesc(layer.top.name.toUpperCase(), 15).map((line, li) => (
-              <text key={li} x={cx} y={tp.name + li * 13} fontFamily='var(--font-mono)' fontSize='11' fontWeight='500' letterSpacing='2' fill='var(--v22-accent)' textAnchor='middle'>{line}</text>
-            ))}
-            {wrapDesc(layer.top.desc).map((line, li) => (
-              <text key={li} x={cx} y={tp.desc + li * 11} fontFamily='var(--font-sans)' fontSize='9' fill='rgba(255,255,255,0.45)' textAnchor='middle'>{line}</text>
-            ))}
-
-            {/* Bottom callout — name (orange, emphasised) ABOVE, desc (grey) BELOW */}
-            <line x1={cx} y1={layerNameY + 14} x2={cx} y2={bp.dot - 2} stroke='rgba(255,255,255,0.18)' strokeWidth='0.7' strokeDasharray='3 2' className='v22-fw-stack-connector' />
-            <circle cx={cx} cy={bp.dot} r='2.8' fill='var(--v22-accent)' className='v22-fw-stack-dot' />
-            {wrapDesc(layer.bottom.name.toUpperCase(), 15).map((line, li) => (
-              <text key={li} x={cx} y={bp.name + li * 13} fontFamily='var(--font-mono)' fontSize='11' fontWeight='500' letterSpacing='2' fill='var(--v22-accent)' textAnchor='middle'>{line}</text>
-            ))}
-            {wrapDesc(layer.bottom.desc).map((line, li) => (
-              <text key={li} x={cx} y={bp.desc + li * 11} fontFamily='var(--font-sans)' fontSize='9' fill='rgba(255,255,255,0.45)' textAnchor='middle'>{line}</text>
-            ))}
+            {/* Connector — dashed line + orange dot, from layer name down to the card */}
+            <line x1={cx} y1={layerNameY + 8} x2={cx} y2={svgH - 4} stroke='rgba(255,255,255,0.22)' strokeWidth='0.8' strokeDasharray='3 3' className='v22-fw-stack-connector' />
+            <circle cx={cx} cy={svgH - 4} r='2.8' fill='var(--v22-accent)' className='v22-fw-stack-dot' />
           </g>
         )
       })}
 
-      {/* Bottom strip — drawing metadata */}
-      <text x={svgW / 2} y={svgH - 26} fontFamily='var(--font-mono)' fontSize='9' fill={inkLabelStrong} textAnchor='middle' letterSpacing='2'>DWG-STACK-01  ·  EXPLODED ASSEMBLY</text>
     </svg>
   )
 }
 
 export default function FrameworkSection() {
+  const [hovered, setHovered] = useState(-1)
+  const [visible, setVisible] = useState(false)
+  const [current, setCurrent] = useState(0)
+  const cardsRef = useRef<HTMLDivElement>(null)
+  const scrollerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = cardsRef.current
+    if (!el) return
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true)
+        io.disconnect()
+      }
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  /* Track the card currently centred in the scroller so the pagination
+     indicator stays in sync on mobile. */
+  useEffect(() => {
+    const scroller = scrollerRef.current
+    if (!scroller) return
+    let raf = 0
+    const onScroll = () => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        raf = 0
+        const scrollL = scroller.scrollLeft
+        const w = scroller.clientWidth
+        // closest column center to viewport center
+        const idx = Math.round((scrollL + w / 2) / w - 0.5)
+        setCurrent(Math.max(0, Math.min(layers.length - 1, idx)))
+      })
+    }
+    scroller.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      scroller.removeEventListener('scroll', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
+
+  const scrollToCard = (i: number) => {
+    const scroller = scrollerRef.current
+    if (!scroller) return
+    scroller.scrollTo({ left: i * scroller.clientWidth, behavior: 'smooth' })
+  }
+
   return (
     <section className='v22-section v22-framework' id='framework'>
       <div className='v22-container'>
@@ -310,8 +363,70 @@ export default function FrameworkSection() {
           </p>
         </div>
 
+        <div className='v22-fw-top-strip' aria-hidden='true'>
+          <span className='v22-fw-top-code'>SCALE 1:1</span>
+          <span className='v22-fw-top-promise'>FULL STACK · NO CAPABILITY GAPS · NO VENDOR LOCK-IN</span>
+          <span className='v22-fw-top-code'>SHEET A1</span>
+        </div>
+
+        <div className='v22-fw-scroller' ref={scrollerRef}>
         <div className='v22-fw-diagram-wrap'>
-          <StackDiagram />
+          <StackDiagram hovered={hovered} onHover={setHovered} />
+        </div>
+
+        <div
+          ref={cardsRef}
+          className={`v22-fw-cards ${visible ? 'is-visible' : ''} ${hovered >= 0 ? 'has-hover' : ''}`}
+          aria-label='Stack layers — offerings and accelerators'
+        >
+          {layers.map((layer, i) => (
+            <article
+              key={layer.n}
+              className={`v22-fw-card ${hovered === i ? 'is-active' : ''}`}
+              style={{
+                ['--card-i' as string]: i,
+                ['--card-delay' as string]: `${Math.abs(i - 3) * 80}ms`,
+              } as React.CSSProperties}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(-1)}
+              onFocus={() => setHovered(i)}
+              onBlur={() => setHovered(-1)}
+              tabIndex={0}
+              aria-label={`${layer.label} — ${layer.top.name}, accelerated by ${layer.bottom.name}`}
+            >
+              <div className='v22-fw-card-mini' aria-hidden='true'>
+                <MiniDisc i={i} />
+                <div className='v22-fw-card-layer'>L{layer.n} · {layer.label}</div>
+              </div>
+              <div className='v22-fw-card-item'>
+                <div className='v22-fw-card-name'><TwoLine text={layer.top.name} /></div>
+                <p className='v22-fw-card-desc'><TwoLine text={layer.top.desc} /></p>
+              </div>
+              <span className='v22-fw-card-link' aria-hidden='true' />
+              <div className='v22-fw-card-item'>
+                <div className='v22-fw-card-kicker'>Accelerator</div>
+                <div className='v22-fw-card-name'><TwoLine text={layer.bottom.name} /></div>
+                <p className='v22-fw-card-desc'><TwoLine text={layer.bottom.desc} /></p>
+              </div>
+            </article>
+          ))}
+        </div>
+        </div>
+
+        <div className='v22-fw-pagination' role='tablist' aria-label='Layer navigation'>
+          {layers.map((l, i) => (
+            <button
+              key={l.n}
+              type='button'
+              role='tab'
+              aria-selected={current === i}
+              aria-label={`Go to ${l.label}`}
+              className={`v22-fw-dot ${current === i ? 'is-active' : ''}`}
+              onClick={() => scrollToCard(i)}
+            >
+              <span className='v22-fw-dot-idx'>{l.n}</span>
+            </button>
+          ))}
         </div>
       </div>
     </section>

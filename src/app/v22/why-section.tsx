@@ -1,202 +1,397 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 const reasons = [
-  { idx: '01', label: 'EXPERTISE', title: 'Expertise that works together.', body: 'Strategy, cloud, data, platforms, product, design, operations — our teams work across every layer, not within silos.', angle: 0 },
-  { idx: '02', label: 'SCALE', title: 'Transformation at scale.', body: '50+ enterprise clients. 150+ AI solutions. Six countries. Over a decade of enterprise delivery — not a pitch deck.', angle: 60 },
-  { idx: '03', label: 'DELIVERY', title: 'Time-boxed delivery.', body: 'Outcomes within defined timeframes. Ambiguity is the enemy of delivery — so we don\u2019t allow it.', angle: 120 },
-  { idx: '04', label: 'PLATFORMS', title: 'Production platforms.', body: 'NEXUS, Agent Studio, FactWeavers\u2122, DBiz Canvas — production systems deployed in enterprise environments.', angle: 180 },
-  { idx: '05', label: 'PARTNERS', title: 'Certified at the highest tiers.', body: 'AWS Advanced, Azure Solutions, Salesforce, Dynamics 365, Snowflake, Databricks, Anthropic, Boomi, MuleSoft.', angle: 240 },
-  { idx: '06', label: 'DOMAIN', title: 'Sector expertise, engineered.', body: 'Financial Services, Logistics, Real Estate, Aged Care, Automotive, Government — with FactWeavers\u2122 pre-built for every vertical.', angle: 300 },
+  { idx: '01', label: 'EXPERTISE',  meta: 'DWG · 08-01', title: 'Expertise that works together.',     body: 'Strategy, cloud, data, platforms, product, design, operations — our teams work across every layer, not within silos.' },
+  { idx: '02', label: 'SCALE',      meta: 'DWG · 08-02', title: 'Transformation at scale.',            body: '50+ enterprise clients. 150+ AI solutions. Six countries. Over a decade of enterprise delivery — not a pitch deck.' },
+  { idx: '03', label: 'DELIVERY',   meta: 'DWG · 08-03', title: 'Time-boxed delivery.',                body: 'Outcomes within defined timeframes. Ambiguity is the enemy of delivery — so we don’t allow it.' },
+  { idx: '04', label: 'PLATFORMS',  meta: 'DWG · 08-04', title: 'Production platforms.',               body: 'NEXUS, Agent Studio, FactWeavers™, DBiz Canvas — production systems deployed in enterprise environments.' },
+  { idx: '05', label: 'PARTNERS',   meta: 'DWG · 08-05', title: 'Certified at the highest tiers.',     body: 'AWS Advanced, Azure Solutions, Salesforce, Dynamics 365, Snowflake, Databricks, Anthropic, Boomi, MuleSoft.' },
+  { idx: '06', label: 'DOMAIN',     meta: 'DWG · 08-06', title: 'Sector expertise, engineered.',       body: 'Financial Services, Logistics, Real Estate, Aged Care, Automotive, Government — with FactWeavers™ pre-built for every vertical.' },
 ]
 
-function WhyDiagram({ active, onSelect }: { active: number; onSelect: (i: number) => void }) {
-  const cx = 220
-  const cy = 220
-  const r = 150
-  const nodeR = 30
-  const hubR = 36
-
-  const nodes = reasons.map((reason, i) => {
-    const a = (reason.angle - 90) * Math.PI / 180
-    return { ...reason, i, x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r, a }
-  })
-
-  return (
-    <svg viewBox='0 0 440 440' xmlns='http://www.w3.org/2000/svg' className='v22-why-diagram'>
-      <defs>
-        <filter id='v22-why-glow'>
-          <feGaussianBlur stdDeviation='4' result='coloredBlur' />
-          <feMerge><feMergeNode in='coloredBlur' /><feMergeNode in='SourceGraphic' /></feMerge>
-        </filter>
-        <filter id='v22-why-glow-sm'>
-          <feGaussianBlur stdDeviation='2' result='coloredBlur' />
-          <feMerge><feMergeNode in='coloredBlur' /><feMergeNode in='SourceGraphic' /></feMerge>
-        </filter>
-        {/* Blueprint textures */}
-        <pattern id='v22-why-hatch' patternUnits='userSpaceOnUse' width='6' height='6' patternTransform='rotate(45)'>
-          <line x1='0' y1='0' x2='0' y2='6' stroke='rgba(240,123,47,0.15)' strokeWidth='0.8' />
-        </pattern>
-        <pattern id='v22-why-cross' patternUnits='userSpaceOnUse' width='8' height='8'>
-          <line x1='0' y1='0' x2='8' y2='8' stroke='rgba(26,45,90,0.09)' strokeWidth='0.4' />
-          <line x1='8' y1='0' x2='0' y2='8' stroke='rgba(26,45,90,0.09)' strokeWidth='0.4' />
-        </pattern>
-        <pattern id='v22-why-grid' patternUnits='userSpaceOnUse' width='20' height='20'>
-          <path d='M 20 0 L 0 0 0 20' fill='none' stroke='rgba(26,45,90,0.1)' strokeWidth='0.5' />
-        </pattern>
-        <clipPath id='v22-why-clip'><rect x='12' y='12' width='416' height='416' /></clipPath>
-      </defs>
-
-      {/* Frame */}
-      <rect x='10' y='10' width='420' height='420' fill='url(#v22-why-grid)' stroke='rgba(26,45,90,0.15)' strokeWidth='1' />
-      {/* Corner brackets */}
-      <g stroke='#F07B2F' strokeWidth='1.5'>
-        <line x1='10' y1='10' x2='28' y2='10' /><line x1='10' y1='10' x2='10' y2='28' />
-        <line x1='430' y1='10' x2='412' y2='10' /><line x1='430' y1='10' x2='430' y2='28' />
-        <line x1='10' y1='430' x2='28' y2='430' /><line x1='10' y1='430' x2='10' y2='412' />
-        <line x1='430' y1='430' x2='412' y2='430' /><line x1='430' y1='430' x2='430' y2='412' />
-      </g>
-      {/* Drawing number */}
-      <text x='220' y='26' fontFamily='var(--font-mono)' fontSize='6' fill='rgba(26,45,90,0.65)' textAnchor='middle' letterSpacing='1.5'>DWG·WHY-01</text>
-
-      <g clipPath='url(#v22-why-clip)'>
-        {/* Crosshatch texture fill behind orbit */}
-        <circle cx={cx} cy={cy} r={r + 20} fill='url(#v22-why-cross)' />
-
-        {/* Construction lines — light blue */}
-        <line x1={cx} y1='20' x2={cx} y2='420' stroke='rgba(26,45,90,0.12)' strokeWidth='0.5' strokeDasharray='8 4' />
-        <line x1='20' y1={cy} x2='420' y2={cy} stroke='rgba(26,45,90,0.12)' strokeWidth='0.5' strokeDasharray='8 4' />
-        <line x1='20' y1='20' x2='420' y2='420' stroke='rgba(26,45,90,0.07)' strokeWidth='0.5' strokeDasharray='6 6' />
-        <line x1='420' y1='20' x2='20' y2='420' stroke='rgba(26,45,90,0.07)' strokeWidth='0.5' strokeDasharray='6 6' />
-
-        {/* Ruler ticks — left */}
-        <g stroke='rgba(26,45,90,0.15)' strokeWidth='0.5'>
-          {Array.from({ length: 20 }).map((_, i) => (
-            <line key={`rl${i}`} x1='12' y1={22 + i * 21} x2={i % 5 === 0 ? '24' : '18'} y2={22 + i * 21} />
+/* Six schematic glyphs. Each one has a CSS-driven "signature animation" tied
+   to its meaning that fires when the parent card becomes the active snap-card.
+   The hover state replays the same animation for non-snap interactions. */
+function CardGlyph({ i }: { i: number }) {
+  const acc = '#F07B2F'
+  const ink = 'rgba(13,27,62,0.55)'
+  const dim = 'rgba(13,27,62,0.32)'
+  switch (i) {
+    case 0: // EXPERTISE — compass with rotating bezel + lock-on dot
+      return (
+        <svg viewBox='0 0 120 120' aria-hidden='true' className='v22-why-glyph-svg g0'>
+          <g className='g-compass-bezel'>
+            <circle cx='60' cy='60' r='52' fill='none' stroke={dim} strokeWidth='0.7' strokeDasharray='1.5 2.5' />
+            {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((a, k) => {
+              const rad = (a * Math.PI) / 180
+              const x1 = 60 + Math.cos(rad) * 48
+              const y1 = 60 + Math.sin(rad) * 48
+              const x2 = 60 + Math.cos(rad) * (k % 3 === 0 ? 56 : 52)
+              const y2 = 60 + Math.sin(rad) * (k % 3 === 0 ? 56 : 52)
+              return <line key={k} x1={x1.toFixed(2)} y1={y1.toFixed(2)} x2={x2.toFixed(2)} y2={y2.toFixed(2)} stroke={dim} strokeWidth='0.8' />
+            })}
+          </g>
+          <circle className='g-ring g-ring-mid' cx='60' cy='60' r='34' fill='none' stroke={ink} strokeWidth='1' />
+          <circle className='g-ring g-ring-in' cx='60' cy='60' r='18' fill='none' stroke={acc} strokeWidth='1.4' />
+          <line className='g-cross' x1='4'   y1='60' x2='14'  y2='60' stroke={ink} strokeWidth='0.9' />
+          <line className='g-cross' x1='106' y1='60' x2='116' y2='60' stroke={ink} strokeWidth='0.9' />
+          <line className='g-cross' x1='60'  y1='4'  x2='60'  y2='14' stroke={ink} strokeWidth='0.9' />
+          <line className='g-cross' x1='60'  y1='106' x2='60' y2='116' stroke={ink} strokeWidth='0.9' />
+          <circle className='g-dot' cx='60' cy='60' r='3.2' fill={acc} />
+        </svg>
+      )
+    case 1: // SCALE — concentric hexes + sonar pulse
+      return (
+        <svg viewBox='0 0 120 120' aria-hidden='true' className='v22-why-glyph-svg g1'>
+          <circle className='g-sonar g-sonar-1' cx='60' cy='60' r='22' fill='none' stroke={acc} strokeWidth='0.9' opacity='0' />
+          <circle className='g-sonar g-sonar-2' cx='60' cy='60' r='22' fill='none' stroke={acc} strokeWidth='0.7' opacity='0' />
+          {[48, 32, 18].map((r, k) => {
+            const pts = [0, 60, 120, 180, 240, 300].map(a => {
+              const rad = ((a - 30) * Math.PI) / 180
+              return `${(60 + Math.cos(rad) * r).toFixed(2)},${(60 + Math.sin(rad) * r).toFixed(2)}`
+            }).join(' ')
+            return (
+              <polygon
+                key={k}
+                className={`g-hex g-hex-${k}`}
+                points={pts}
+                fill='none'
+                stroke={k === 2 ? acc : ink}
+                strokeWidth={k === 2 ? 1.5 : 1}
+                strokeDasharray={k === 0 ? '3 2.5' : undefined}
+              />
+            )
+          })}
+          {[0, 60, 120, 180, 240, 300].map((a, k) => {
+            const rad = ((a - 30) * Math.PI) / 180
+            return (
+              <circle
+                key={k}
+                className={`g-vtx g-vtx-${k}`}
+                cx={(60 + Math.cos(rad) * 48).toFixed(2)}
+                cy={(60 + Math.sin(rad) * 48).toFixed(2)}
+                r='1.6'
+                fill={dim}
+              />
+            )
+          })}
+          <circle className='g-dot' cx='60' cy='60' r='3' fill={acc} />
+        </svg>
+      )
+    case 2: // DELIVERY — calibrated timeline with advancing arrow
+      return (
+        <svg viewBox='0 0 120 120' aria-hidden='true' className='v22-why-glyph-svg g2'>
+          <rect x='12' y='52' width='96' height='16' fill='none' stroke={ink} strokeWidth='1' />
+          {Array.from({ length: 11 }).map((_, k) => {
+            const x = 12 + k * 9.6
+            const major = k % 2 === 0
+            return (
+              <line
+                key={k}
+                className={`g-tick g-tick-${k}`}
+                x1={x.toFixed(2)}
+                y1='52'
+                x2={x.toFixed(2)}
+                y2={major ? '74' : '60'}
+                stroke={major ? ink : dim}
+                strokeWidth={major ? '0.9' : '0.6'}
+              />
+            )
+          })}
+          <text x='14' y='86' fontFamily='var(--font-mono)' fontSize='8' fill={dim} letterSpacing='0.5'>00</text>
+          <text x='54' y='86' fontFamily='var(--font-mono)' fontSize='8' fill={dim} letterSpacing='0.5'>45</text>
+          <text x='94' y='86' fontFamily='var(--font-mono)' fontSize='8' fill={dim} letterSpacing='0.5'>90</text>
+          <text x='52' y='40' fontFamily='var(--font-mono)' fontSize='8' fontWeight='600' fill={acc} letterSpacing='1'>DAYS</text>
+          <g className='g-arrow-track'>
+            <path className='g-arrow' d='M 18 60 L 36 60 M 32 56 L 36 60 L 32 64' fill='none' stroke={acc} strokeWidth='1.6' strokeLinecap='round' strokeLinejoin='round' />
+          </g>
+          <circle className='g-target' cx='102' cy='60' r='3.2' fill='none' stroke={acc} strokeWidth='1.4' />
+          <circle className='g-target-dot' cx='102' cy='60' r='1.4' fill={acc} />
+        </svg>
+      )
+    case 3: // PLATFORMS — stack assembly, layers settle in
+      return (
+        <svg viewBox='0 0 120 120' aria-hidden='true' className='v22-why-glyph-svg g3'>
+          <line x1='20' y1='14' x2='20' y2='106' stroke={dim} strokeWidth='0.5' strokeDasharray='1 2' />
+          <line x1='100' y1='14' x2='100' y2='106' stroke={dim} strokeWidth='0.5' strokeDasharray='1 2' />
+          {[0, 1, 2, 3, 4].map(k => (
+            <rect
+              key={k}
+              className={`g-layer g-layer-${k}`}
+              x='24'
+              y={26 + k * 14}
+              width='72'
+              height='10'
+              fill='none'
+              stroke={k === 2 ? acc : ink}
+              strokeWidth={k === 2 ? 1.4 : 0.9}
+            />
           ))}
-        </g>
-        {/* Ruler ticks — top */}
-        <g stroke='rgba(26,45,90,0.15)' strokeWidth='0.5'>
-          {Array.from({ length: 20 }).map((_, i) => (
-            <line key={`rt${i}`} x1={22 + i * 21} y1='12' x2={22 + i * 21} y2={i % 5 === 0 ? '24' : '18'} />
+          {[0, 1, 2, 3, 4].map(k => (
+            <circle
+              key={k}
+              className={`g-port g-port-${k}`}
+              cx='102'
+              cy={31 + k * 14}
+              r='1.6'
+              fill={k === 2 ? acc : dim}
+            />
           ))}
-        </g>
-
-        {/* Orbit rings */}
-        <circle cx={cx} cy={cy} r={r + 30} fill='none' stroke='rgba(240,123,47,0.08)' strokeWidth='0.6' strokeDasharray='3 6' />
-        <circle cx={cx} cy={cy} r={r} fill='none' stroke='rgba(240,123,47,0.18)' strokeWidth='0.8' strokeDasharray='5 4' className='v22-why-orbit' />
-        <circle cx={cx} cy={cy} r={r - 50} fill='none' stroke='rgba(240,123,47,0.1)' strokeWidth='0.6' strokeDasharray='3 5' />
-
-        {/* Hatched ring between inner orbits */}
-        <path d={`M ${cx} ${cy - r + 50} A ${r - 50} ${r - 50} 0 1 1 ${cx - 0.01} ${cy - r + 50}`} fill='url(#v22-why-hatch)' stroke='none' />
-
-        {/* Dimension annotation — radius */}
-        <g stroke='rgba(26,45,90,0.22)' strokeWidth='0.5'>
-          <line x1={cx} y1={cy} x2={cx + r} y2={cy} strokeDasharray='2 3' />
-          <line x1={cx + r - 4} y1={cy - 3} x2={cx + r + 4} y2={cy + 3} />
-        </g>
-        <text x={cx + r / 2} y={cy - 5} fontFamily='var(--font-mono)' fontSize='5.5' fill='rgba(26,45,90,0.3)' textAnchor='middle'>R={r}</text>
-
-        {/* Section marker — bottom */}
-        <g>
-          <line x1='60' y1='418' x2='380' y2='418' stroke='rgba(26,45,90,0.12)' strokeWidth='0.5' />
-          <text x='220' y='414' fontFamily='var(--font-mono)' fontSize='5' fill='rgba(26,45,90,0.25)' textAnchor='middle' letterSpacing='1'>SECTION A-A</text>
-        </g>
-
-        {/* Spokes */}
-        {nodes.map((node) => {
-          const isActive = node.i === active
-          const sx = cx + Math.cos(node.a) * (hubR + 2)
-          const sy = cy + Math.sin(node.a) * (hubR + 2)
-          const ex = node.x - Math.cos(node.a) * (nodeR + 2)
-          const ey = node.y - Math.sin(node.a) * (nodeR + 2)
-
-          return (
-            <g key={`spoke-${node.idx}`}>
-              <line x1={sx} y1={sy} x2={ex} y2={ey} stroke='#F07B2F' strokeWidth={isActive ? 1.5 : 0.8} strokeDasharray='5 4' opacity={isActive ? 0.9 : 0.25} className='v22-why-spoke' />
-              <circle r='2' fill='#F07B2F' opacity={isActive ? 0.9 : 0.2} filter='url(#v22-why-glow-sm)'>
-                <animateMotion dur={`${2.5 + node.i * 0.2}s`} repeatCount='indefinite'>
-                  <mpath xlinkHref={`#spoke-path-${node.i}`} />
-                </animateMotion>
-              </circle>
-              <path id={`spoke-path-${node.i}`} d={`M ${sx} ${sy} L ${ex} ${ey}`} fill='none' stroke='none' />
+          <text x='24' y='22' fontFamily='var(--font-mono)' fontSize='6.5' fill={dim} letterSpacing='0.5'>STACK A</text>
+          <text x='80' y='22' fontFamily='var(--font-mono)' fontSize='6.5' fill={dim} letterSpacing='0.5'>v.07</text>
+        </svg>
+      )
+    case 4: // PARTNERS — hub + four nodes with sequential ping
+      return (
+        <svg viewBox='0 0 120 120' aria-hidden='true' className='v22-why-glyph-svg g4'>
+          <circle className='g-ping g-ping-1' cx='60' cy='60' r='22' fill='none' stroke={acc} strokeWidth='1' opacity='0' />
+          <circle className='g-ping g-ping-2' cx='60' cy='60' r='22' fill='none' stroke={acc} strokeWidth='0.7' opacity='0' />
+          {[[24, 28], [96, 28], [24, 92], [96, 92]].map(([x, y], k) => (
+            <g key={k} className={`g-node g-node-${k}`}>
+              <line x1='60' y1='60' x2={x} y2={y} stroke={ink} strokeWidth='0.8' strokeDasharray='2.5 2.5' />
+              <circle cx={x} cy={y} r='6' fill='none' stroke={ink} strokeWidth='1' />
+              <circle cx={x} cy={y} r='2.4' fill={dim} className='g-node-core' />
             </g>
-          )
-        })}
+          ))}
+          <circle className='g-hub' cx='60' cy='60' r='12' fill={acc} fillOpacity='0.16' stroke={acc} strokeWidth='1.4' />
+          <circle className='g-dot' cx='60' cy='60' r='3.4' fill={acc} />
+        </svg>
+      )
+    case 5: // DOMAIN — 3×3 raster, cells light in scan order
+    default:
+      return (
+        <svg viewBox='0 0 120 120' aria-hidden='true' className='v22-why-glyph-svg g5'>
+          <text x='10' y='30' fontFamily='var(--font-mono)' fontSize='6' fill={dim} letterSpacing='0.5'>A</text>
+          <text x='10' y='60' fontFamily='var(--font-mono)' fontSize='6' fill={dim} letterSpacing='0.5'>B</text>
+          <text x='10' y='90' fontFamily='var(--font-mono)' fontSize='6' fill={dim} letterSpacing='0.5'>C</text>
+          <text x='32' y='14' fontFamily='var(--font-mono)' fontSize='6' fill={dim} letterSpacing='0.5'>1</text>
+          <text x='62' y='14' fontFamily='var(--font-mono)' fontSize='6' fill={dim} letterSpacing='0.5'>2</text>
+          <text x='92' y='14' fontFamily='var(--font-mono)' fontSize='6' fill={dim} letterSpacing='0.5'>3</text>
+          {[0, 1, 2].map(row =>
+            [0, 1, 2].map(col => {
+              const x = 24 + col * 28
+              const y = 22 + row * 28
+              const idx = row * 3 + col
+              const isCenter = row === 1 && col === 1
+              return (
+                <rect
+                  key={`${row}-${col}`}
+                  className={`g-cell g-cell-${idx}`}
+                  x={x}
+                  y={y}
+                  width='22'
+                  height='22'
+                  fill={isCenter ? acc : 'none'}
+                  stroke={ink}
+                  strokeWidth='1'
+                />
+              )
+            })
+          )}
+        </svg>
+      )
+  }
+}
 
-        {/* Nodes */}
-        {nodes.map((node) => {
-          const isActive = node.i === active
-          return (
-            <g key={node.idx} className={`v22-why-node ${isActive ? 'active' : ''}`} onClick={() => onSelect(node.i)} style={{ cursor: 'pointer' }}>
-              {isActive && <circle cx={node.x} cy={node.y} r={nodeR + 6} fill='none' stroke='#F07B2F' strokeWidth='0.8' opacity='0.4' strokeDasharray='3 3' className='v22-why-active-ring' />}
-              {/* Hatched fill for inactive */}
-              {!isActive && <circle cx={node.x} cy={node.y} r={nodeR - 1} fill='url(#v22-why-hatch)' />}
-              <circle cx={node.x} cy={node.y} r={nodeR} fill={isActive ? '#F07B2F' : 'rgba(13,27,62,0.85)'} stroke={isActive ? '#F07B2F' : '#1A2D5A'} strokeWidth={isActive ? 2 : 1.5} filter={isActive ? 'url(#v22-why-glow)' : 'none'} className='v22-why-node-circle' />
-              <text x={node.x} y={node.y + 1} fontFamily='var(--font-mono)' fontSize='6.5' fontWeight='700' fill='#fff' textAnchor='middle' dominantBaseline='middle' letterSpacing='0.6'>{node.label}</text>
-              {/* Callout line + index */}
-              <line x1={node.x + Math.cos(node.a) * nodeR} y1={node.y + Math.sin(node.a) * nodeR} x2={node.x + Math.cos(node.a) * (nodeR + 10)} y2={node.y + Math.sin(node.a) * (nodeR + 10)} stroke='#F07B2F' strokeWidth='0.6' />
-              <text x={node.x + Math.cos(node.a) * (nodeR + 16)} y={node.y + Math.sin(node.a) * (nodeR + 16)} fontFamily='var(--font-mono)' fontSize='7.5' fontWeight='600' fill='#F07B2F' textAnchor='middle' dominantBaseline='middle'>{node.idx}</text>
-            </g>
-          )
-        })}
+/* Count-up animated number (mono numerals). Respects reduced motion. */
+function CountUp({ target, visible, durationMs = 900 }: { target: number; visible: boolean; durationMs?: number }) {
+  const [value, setValue] = useState(0)
+  useEffect(() => {
+    if (!visible) return
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setValue(target)
+      return
+    }
+    let raf = 0
+    const start = performance.now()
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - start) / durationMs)
+      const eased = 1 - Math.pow(1 - p, 3)
+      setValue(Math.round(eased * target))
+      if (p < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [visible, target, durationMs])
+  return <span>{String(value).padStart(2, '0')}</span>
+}
 
-        {/* Center hub */}
-        <circle cx={cx} cy={cy} r={hubR} fill='#F07B2F' stroke='rgba(240,123,47,0.5)' strokeWidth='2.5' />
-        <circle cx={cx} cy={cy} r={hubR + 6} fill='none' stroke='rgba(240,123,47,0.12)' strokeWidth='0.8' strokeDasharray='3 3' className='v22-why-active-ring' />
-        <circle cx={cx} cy={cy} r='18' fill='#E06B1F' className='v22-why-hub-pulse' />
-        <text x={cx} y={cy - 4} fontFamily='var(--font-mono)' fontSize='6.5' fontWeight='700' fill='#fff' textAnchor='middle' letterSpacing='0.8'>WHY</text>
-        <text x={cx} y={cy + 7} fontFamily='var(--font-sans)' fontSize='9' fontWeight='800' fill='#fff' textAnchor='middle' letterSpacing='1'>DBIZ</text>
-      </g>
-    </svg>
-  )
+function useReveal<T extends HTMLElement>() {
+  const ref = useRef<T | null>(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true)
+        io.disconnect()
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+  return { ref, visible }
 }
 
 export default function WhySection() {
+  const { ref: revealRef, visible } = useReveal<HTMLDivElement>()
+  const railRef = useRef<HTMLDivElement | null>(null)
   const [active, setActive] = useState(0)
-  const reason = reasons[active]
 
-  /* Auto-rotate every 5s */
+  // Track which card is most centered as the rail scrolls.
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActive((i) => (i + 1) % reasons.length)
-    }, 5000)
-    return () => clearInterval(timer)
+    const rail = railRef.current
+    if (!rail) return
+    let raf = 0
+    const compute = () => {
+      const railRect = rail.getBoundingClientRect()
+      const railCx = railRect.left + railRect.width / 2
+      const cards = rail.querySelectorAll<HTMLElement>('.v22-why-card')
+      let bestIdx = 0
+      let bestDist = Infinity
+      cards.forEach((c, i) => {
+        const r = c.getBoundingClientRect()
+        const cx = r.left + r.width / 2
+        const d = Math.abs(cx - railCx)
+        if (d < bestDist) { bestDist = d; bestIdx = i }
+      })
+      setActive(bestIdx)
+    }
+    const onScroll = () => {
+      cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(compute)
+    }
+    compute()
+    rail.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      rail.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      cancelAnimationFrame(raf)
+    }
+  }, [visible])
+
+  const scrollTo = useCallback((i: number) => {
+    const rail = railRef.current
+    if (!rail) return
+    const cards = rail.querySelectorAll<HTMLElement>('.v22-why-card')
+    const target = cards[Math.max(0, Math.min(reasons.length - 1, i))]
+    if (!target) return
+    const railRect = rail.getBoundingClientRect()
+    const targetRect = target.getBoundingClientRect()
+    const delta = (targetRect.left + targetRect.width / 2) - (railRect.left + railRect.width / 2)
+    rail.scrollBy({ left: delta, behavior: 'smooth' })
   }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    try {
+      console.log('%cDBiz.ai %c· SECTION B · WHY %c[DWG·WHY-02]',
+        'font:600 12px var(--font-mono,monospace);color:#F07B2F',
+        'font:500 11px var(--font-mono,monospace);color:#0D1B3E',
+        'font:500 11px var(--font-mono,monospace);color:#0D1B3E;opacity:.5')
+    } catch {}
+  }, [])
+
+  const progress = reasons.length > 1 ? active / (reasons.length - 1) : 0
 
   return (
     <section className='v22-section' id='about' data-surface='light'>
       <div className='v22-container'>
-        <div className='v22-why-head'>
+        <div className='v22-why-head' ref={revealRef}>
           <div className='num'>N°08 / Why DBiz</div>
           <h2>Why enterprises choose <em>DBiz.</em></h2>
           <p className='lead'>Six differentiators — all evidenced by delivery, not brochures.</p>
         </div>
 
-        <div className='v22-why-interactive'>
-          {/* Diagram — center */}
-          <div className='v22-why-diagram-wrap'>
-            <WhyDiagram active={active} onSelect={setActive} />
+        <div className={`v22-why-rail-wrap ${visible ? 'is-visible' : ''}`}>
+          <div className='v22-why-rail' ref={railRef} role='region' aria-label='DBiz differentiators'>
+            {reasons.map((r, i) => (
+              <article
+                key={r.idx}
+                className={`v22-why-card v22-why-paper-${i} ${active === i ? 'is-active' : ''}`}
+                style={{ ['--why-delay' as string]: `${i * 90}ms` } as React.CSSProperties}
+                tabIndex={0}
+                aria-current={active === i ? 'true' : undefined}
+                aria-label={`${r.label} — ${r.title}`}
+                onFocus={() => scrollTo(i)}
+              >
+                <span className='v22-why-card-corner tl' aria-hidden='true' />
+                <span className='v22-why-card-corner tr' aria-hidden='true' />
+                <span className='v22-why-card-corner bl' aria-hidden='true' />
+                <span className='v22-why-card-corner br' aria-hidden='true' />
+
+                <div className='v22-why-card-stage' aria-hidden='true'>
+                  <span className='v22-why-card-guide v-line' />
+                  <span className='v22-why-card-guide h-line' />
+                  <CardGlyph i={i} />
+                </div>
+
+                <div className='v22-why-card-meta'>
+                  <span className='v22-why-card-idx'>
+                    <CountUp target={Number(r.idx)} visible={visible} durationMs={700 + i * 80} />
+                  </span>
+                  <span className='v22-why-card-label'>{r.label}</span>
+                </div>
+
+                <div className='v22-why-card-rule' aria-hidden='true' />
+
+                <h3 className='v22-why-card-title'>{r.title}</h3>
+                <p className='v22-why-card-body'>{r.body}</p>
+
+                <span className='v22-why-card-foot'>{r.meta}</span>
+              </article>
+            ))}
           </div>
 
-          {/* Detail panel — right */}
-          <div className='v22-why-detail' key={active}>
-            <span className='v22-why-detail-idx'>{reason.idx} / {reason.label}</span>
-            <h3>{reason.title}</h3>
-            <p>{reason.body}</p>
-            <a href='#cta' className='v22-why-cta'>Learn more about us <span className='arrow'>→</span></a>
-            <div className='v22-why-detail-nav'>
+          <div className='v22-why-rail-fade v22-why-rail-fade-l' aria-hidden='true' />
+          <div className='v22-why-rail-fade v22-why-rail-fade-r' aria-hidden='true' />
+        </div>
+
+        <div className='v22-why-controls'>
+          <button
+            className='v22-why-nav'
+            type='button'
+            onClick={() => scrollTo(active - 1)}
+            disabled={active === 0}
+            aria-label='Previous differentiator'
+          >
+            <svg viewBox='0 0 24 24' aria-hidden='true'><path d='M15 5 L7 12 L15 19' fill='none' stroke='currentColor' strokeWidth='1.4' strokeLinecap='square' strokeLinejoin='miter' /></svg>
+          </button>
+
+          <div className='v22-why-progress' aria-hidden='true'>
+            <div className='v22-why-progress-fill' style={{ transform: `scaleX(${progress})` }} />
+            <div className='v22-why-progress-stops'>
               {reasons.map((_, i) => (
                 <button
                   key={i}
-                  className={`v22-why-detail-dot ${i === active ? 'active' : ''}`}
-                  onClick={() => setActive(i)}
-                  aria-label={`Reason ${i + 1}`}
+                  type='button'
+                  className={`v22-why-progress-dot ${active >= i ? 'is-passed' : ''} ${active === i ? 'is-current' : ''}`}
+                  onClick={() => scrollTo(i)}
+                  aria-label={`Jump to differentiator ${i + 1}`}
                 />
               ))}
             </div>
           </div>
+
+          <button
+            className='v22-why-nav'
+            type='button'
+            onClick={() => scrollTo(active + 1)}
+            disabled={active === reasons.length - 1}
+            aria-label='Next differentiator'
+          >
+            <svg viewBox='0 0 24 24' aria-hidden='true'><path d='M9 5 L17 12 L9 19' fill='none' stroke='currentColor' strokeWidth='1.4' strokeLinecap='square' strokeLinejoin='miter' /></svg>
+          </button>
+
+          <span className='v22-why-counter'>
+            <span className='v22-why-counter-now'>{String(active + 1).padStart(2, '0')}</span>
+            <span className='v22-why-counter-sep'>/</span>
+            <span className='v22-why-counter-total'>{String(reasons.length).padStart(2, '0')}</span>
+          </span>
         </div>
       </div>
     </section>

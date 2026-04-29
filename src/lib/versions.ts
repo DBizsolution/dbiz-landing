@@ -114,4 +114,16 @@ export const versions: Version[] = [
     tagline: 'Clone of V20 — working copy for further iterations',
     status: 'draft',
   },
+  {
+    slug: 'v25',
+    name: 'V25 — Ingress',
+    tagline: 'Editorial blueprint — Palantir restraint, DBiz DNA, typographic-first',
+    status: 'draft',
+  },
+  {
+    slug: 'v26',
+    name: 'V26 — Organic Frontier',
+    tagline: 'V24 restructured: curves, parallax layers, floating orbs, organic motion',
+    status: 'draft',
+  },
 ]
