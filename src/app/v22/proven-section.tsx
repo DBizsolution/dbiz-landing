@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useMemo } from 'react'
 
 type CaseStudy = {
   metric: string
@@ -89,7 +89,7 @@ const cases: CaseStudy[] = [
     metric: '4 platforms',
     title: 'Data platforms unified under one roof',
     kicker: 'Data Platforms',
-    body: 'Snowflake, Databricks, Fabric, BigQuery — with FactWeavers\u2122 built on top.',
+    body: 'Snowflake, Databricks, Fabric, BigQuery — with FactWeavers™ built on top.',
     image: 'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
     tag: 'technology',
     techs: ['Snowflake', 'Databricks', 'BigQuery'],
@@ -98,15 +98,63 @@ const cases: CaseStudy[] = [
 
 type Filter = 'all' | 'industry' | 'solution' | 'technology'
 
+const filterLabels: Record<Filter, string> = {
+  all: 'All',
+  industry: 'By Industry',
+  solution: 'By Solution',
+  technology: 'By Technology',
+}
+
+/* For each filter family, the set of inline sub-chips and the predicate
+   that decides whether a given case matches that chip. */
+function getSubOptions(filter: Filter): string[] {
+  if (filter === 'industry')   return Array.from(new Set(cases.filter(c => c.tag === 'industry').map(c => c.kicker)))
+  if (filter === 'solution')   return Array.from(new Set(cases.filter(c => c.tag === 'solution').map(c => c.kicker)))
+  if (filter === 'technology') return Array.from(new Set(cases.flatMap(c => c.techs ?? []))).sort()
+  return []
+}
+
+function matchesSub(c: CaseStudy, filter: Filter, sub: string | null) {
+  if (!sub) return true
+  if (filter === 'industry' || filter === 'solution') return c.kicker === sub
+  if (filter === 'technology') return (c.techs ?? []).includes(sub)
+  return true
+}
+
 export default function ProvenSection() {
   const [filter, setFilter] = useState<Filter>('all')
+  const [sub, setSub] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
+  const [searchOpen, setSearchOpen] = useState(false)
   const [activeIdx, setActiveIdx] = useState(0)
   const trackRef = useRef<HTMLDivElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
 
-  const filtered = filter === 'all' ? cases : cases.filter((c) => c.tag === filter)
+  const subOptions = useMemo(() => getSubOptions(filter), [filter])
 
-  /* Reset index when filter changes */
-  useEffect(() => { setActiveIdx(0) }, [filter])
+  const filtered = useMemo(() => {
+    let out = filter === 'all' ? cases : cases.filter(c => c.tag === filter)
+    out = out.filter(c => matchesSub(c, filter, sub))
+    const q = search.trim().toLowerCase()
+    if (q) {
+      out = out.filter(c =>
+        c.title.toLowerCase().includes(q) ||
+        c.body.toLowerCase().includes(q) ||
+        c.kicker.toLowerCase().includes(q) ||
+        (c.techs ?? []).some(t => t.toLowerCase().includes(q))
+      )
+    }
+    return out
+  }, [filter, sub, search])
+
+  /* Reset position when filters change */
+  useEffect(() => { setActiveIdx(0); setSub(null) }, [filter])
+  useEffect(() => { setActiveIdx(0) }, [sub, search])
+
+  /* Focus the search input the moment it opens */
+  useEffect(() => {
+    if (searchOpen) requestAnimationFrame(() => searchInputRef.current?.focus())
+  }, [searchOpen])
 
   /* Scroll to active card */
   useEffect(() => {
@@ -116,21 +164,14 @@ export default function ProvenSection() {
     trackRef.current.scrollTo({ left: card.offsetLeft - 40, behavior: 'smooth' })
   }, [activeIdx])
 
-  /* Auto-advance every 4s */
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveIdx((i) => (i + 1) % filtered.length)
-    }, 4000)
-    return () => clearInterval(timer)
-  }, [filtered.length])
-
-  const prev = () => setActiveIdx((i) => (i - 1 + filtered.length) % filtered.length)
-  const next = () => setActiveIdx((i) => (i + 1) % filtered.length)
+  const total = filtered.length
+  const prev = () => setActiveIdx((i) => (i - 1 + total) % Math.max(total, 1))
+  const next = () => setActiveIdx((i) => (i + 1) % Math.max(total, 1))
 
   return (
-    <section className='v22-section v22-proven' id='work'>
+    <section className='v22-section v22-proven' id='work' data-surface='light'>
       <div className='v22-container'>
-        {/* Header row */}
+        {/* Header */}
         <div className='v22-proven-header'>
           <div className='v22-proven-header-left'>
             <div className='num'>N°06 / Proven</div>
@@ -141,63 +182,155 @@ export default function ProvenSection() {
           </div>
         </div>
 
-        {/* Filter row — full width, below heading */}
-        <div className='v22-proven-filters'>
-          {(['all', 'industry', 'solution', 'technology'] as Filter[]).map((f) => (
-            <button
-              key={f}
-              className={`v22-proven-filter ${filter === f ? 'active' : ''}`}
-              onClick={() => setFilter(f)}
-            >
-              {f === 'all' ? 'All' : f === 'industry' ? 'By Industry' : f === 'solution' ? 'By Solution' : 'By Technology'}
-            </button>
-          ))}
-        </div>
-
-        {/* Carousel */}
-        <div className='v22-proven-carousel'>
-          <div className='v22-proven-track' ref={trackRef}>
-            {filtered.map((c, i) => (
-              <div
-                key={c.title}
-                className={`v22-proven-card ${i === activeIdx ? 'active' : ''}`}
-                onClick={() => setActiveIdx(i)}
+        {/* Filter row + inline sub-filter expansion + search affordance */}
+        <div className='v22-proven-filterbar'>
+          <div className='v22-proven-filters' role='tablist' aria-label='Filter case studies'>
+            {(['all', 'industry', 'solution', 'technology'] as Filter[]).map((f) => (
+              <button
+                key={f}
+                className={`v22-proven-filter ${filter === f ? 'active' : ''}`}
+                role='tab'
+                aria-selected={filter === f}
+                onClick={() => setFilter(f)}
               >
-                {/* Image area */}
-                <div className='v22-proven-img'>
-                  <img src={c.image} alt={c.kicker} loading='lazy' />
-                  <div className='v22-proven-img-overlay'>
-                    <span className='v22-proven-metric'>{c.metric}</span>
-                  </div>
-                  <div className='v22-proven-img-dots' />
-                </div>
-                {/* Content */}
-                <div className='v22-proven-content'>
-                  <span className='v22-proven-kicker'>{c.kicker}</span>
-                  <h4>{c.title}</h4>
-                  <p>{c.body}</p>
-                  {c.techs && (
-                    <div className='v22-proven-techs'>
-                      {c.techs.map((t) => <span key={t} className='v22-proven-tech-pill'>{t}</span>)}
-                    </div>
-                  )}
-                </div>
-              </div>
+                {filterLabels[f]}
+              </button>
             ))}
           </div>
 
-          {/* Navigation + CTA row */}
-          <div className='v22-proven-nav'>
-            <div className='v22-proven-nav-center'>
-              <button className='v22-proven-arrow' onClick={prev} aria-label='Previous'>←</button>
-              <div className='v22-proven-dots'>
-                {filtered.map((_, i) => (
-                  <span key={i} className={`v22-proven-dot ${i === activeIdx ? 'active' : ''}`} onClick={() => setActiveIdx(i)} />
+          <button
+            className={`v22-proven-search-toggle ${searchOpen ? 'is-open' : ''}`}
+            onClick={() => {
+              if (searchOpen && search) setSearch('')
+              setSearchOpen((v) => !v)
+            }}
+            aria-label={searchOpen ? 'Close search' : 'Search case studies'}
+            aria-expanded={searchOpen}
+          >
+            {searchOpen ? (
+              <svg viewBox='0 0 20 20' aria-hidden='true' width='14' height='14'>
+                <path d='M5 5 L15 15 M15 5 L5 15' stroke='currentColor' strokeWidth='1.6' strokeLinecap='square' fill='none' />
+              </svg>
+            ) : (
+              <svg viewBox='0 0 20 20' aria-hidden='true' width='14' height='14'>
+                <circle cx='9' cy='9' r='5.5' fill='none' stroke='currentColor' strokeWidth='1.6' />
+                <path d='M13.2 13.2 L17 17' stroke='currentColor' strokeWidth='1.6' strokeLinecap='square' fill='none' />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Inline sub-filter row — only when a non-"all" filter is active */}
+        <div
+          className={`v22-proven-subbar ${filter !== 'all' || searchOpen ? 'is-open' : ''}`}
+          aria-hidden={filter === 'all' && !searchOpen}
+        >
+          <div className='v22-proven-subbar-inner'>
+            {searchOpen ? (
+              <div className='v22-proven-search-row'>
+                <span className='v22-proven-search-label'>SEARCH</span>
+                <input
+                  ref={searchInputRef}
+                  className='v22-proven-search-input'
+                  type='text'
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder='Search across all case studies — title, sector, technology…'
+                  aria-label='Search case studies'
+                />
+              </div>
+            ) : filter !== 'all' ? (
+              <div className='v22-proven-subchips' role='tablist' aria-label={`Filter by ${filterLabels[filter].replace('By ', '').toLowerCase()}`}>
+                <span className='v22-proven-sub-label'>{filter === 'technology' ? 'TECHNOLOGY' : filter === 'solution' ? 'SOLUTION' : 'INDUSTRY'}</span>
+                <button
+                  className={`v22-proven-subchip ${sub === null ? 'active' : ''}`}
+                  onClick={() => setSub(null)}
+                >
+                  Show all
+                </button>
+                {subOptions.map((o) => (
+                  <button
+                    key={o}
+                    className={`v22-proven-subchip ${sub === o ? 'active' : ''}`}
+                    onClick={() => setSub(s => s === o ? null : o)}
+                    aria-pressed={sub === o}
+                  >
+                    {o}
+                  </button>
                 ))}
               </div>
-              <button className='v22-proven-arrow' onClick={next} aria-label='Next'>→</button>
-            </div>
+            ) : null}
           </div>
+        </div>
+
+        {/* Filmstrip / carousel */}
+        <div className='v22-proven-carousel'>
+          {filtered.length === 0 ? (
+            <div className='v22-proven-empty'>
+              <span className='v22-proven-empty-mono'>NO MATCH</span>
+              <p>No case studies match those filters. Try a broader sector or clear search.</p>
+              <button
+                className='v22-proven-empty-reset'
+                onClick={() => { setSearch(''); setSearchOpen(false); setSub(null); setFilter('all') }}
+              >
+                Reset filters →
+              </button>
+            </div>
+          ) : (
+            <div className='v22-proven-track' ref={trackRef}>
+              {filtered.map((c, i) => (
+                <article
+                  key={c.title}
+                  className={`v22-proven-card ${i === activeIdx ? 'active' : ''}`}
+                  onClick={() => setActiveIdx(i)}
+                >
+                  <div className='v22-proven-img'>
+                    <img src={c.image} alt={c.kicker} loading='lazy' />
+                    <span className='v22-proven-metric'>{c.metric}</span>
+                  </div>
+                  <div className='v22-proven-content'>
+                    <span className='v22-proven-kicker'>{c.kicker}</span>
+                    <h4>{c.title}</h4>
+                    <p>{c.body}</p>
+                    {c.techs && (
+                      <div className='v22-proven-techs'>
+                        {c.techs.map((t) => <span key={t} className='v22-proven-tech-pill'>{t}</span>)}
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+
+          {/* Navigation row */}
+          {filtered.length > 0 && (
+            <div className='v22-proven-nav'>
+              <div className='v22-proven-nav-meta'>
+                <span className='v22-proven-counter'>
+                  <span className='v22-proven-counter-now'>{String(activeIdx + 1).padStart(2, '0')}</span>
+                  <span className='v22-proven-counter-sep'>/</span>
+                  <span className='v22-proven-counter-total'>{String(total).padStart(2, '0')}</span>
+                </span>
+              </div>
+              <div className='v22-proven-nav-center'>
+                <button className='v22-proven-arrow' onClick={prev} aria-label='Previous'>
+                  <svg viewBox='0 0 24 24' aria-hidden='true' width='16' height='16'><path d='M15 5 L7 12 L15 19' fill='none' stroke='currentColor' strokeWidth='1.5' /></svg>
+                </button>
+                <div className='v22-proven-dots' role='tablist'>
+                  {filtered.map((_, i) => (
+                    <button key={i} className={`v22-proven-dot ${i === activeIdx ? 'active' : ''}`} onClick={() => setActiveIdx(i)} aria-label={`Case ${i + 1}`} />
+                  ))}
+                </div>
+                <button className='v22-proven-arrow' onClick={next} aria-label='Next'>
+                  <svg viewBox='0 0 24 24' aria-hidden='true' width='16' height='16'><path d='M9 5 L17 12 L9 19' fill='none' stroke='currentColor' strokeWidth='1.5' /></svg>
+                </button>
+              </div>
+              <a href='#' className='v22-proven-foot-link'>
+                See all case studies <span aria-hidden='true'>→</span>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </section>

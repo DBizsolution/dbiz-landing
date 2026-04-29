@@ -1832,18 +1832,35 @@
 .v22-scope section#solutions[data-surface="light"] .v22-cs-detail-tags span { color: var(--brand-navy); border-color: rgba(13, 27, 62, 0.3); }
 .v22-scope section#solutions[data-surface="light"] .v22-cs-detail-cta { color: var(--v22-accent); }
 
-/* ---------- PROVEN (carousel with image cards) ---------- */
+/* ---------- PROVEN (light-mode editorial — three sectioned bands) ---------- */
+.v22-proven[data-surface="light"] {
+  --proven-paper:    #F3F0EC;
+  --proven-card-bg:  #FFFFFF;
+  --proven-ink:      var(--brand-navy);
+  --proven-ink-2:    rgba(13, 27, 62, 0.7);
+  --proven-ink-3:    rgba(13, 27, 62, 0.45);
+  --proven-rule:     rgba(13, 27, 62, 0.12);
+  --proven-rule-2:   rgba(13, 27, 62, 0.06);
+
+  overflow: hidden;
+  background-color: var(--proven-paper);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.10) 1px, transparent 0);
+  background-size: 22px 22px;
+  color: var(--proven-ink);
+}
+/* Legacy dark-mode block kept for any non-light usage. */
 .v22-proven {
   overflow: hidden;
-  background-color: var(--brand-navy-deep);        /* fallback */
+  background-color: var(--brand-navy-deep);
   background-image:
     radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0),
     linear-gradient(
       180deg,
-      var(--brand-navy) 0%,                        /* top — 16.9:1 */
-      #0A1530 18%,                                  /* quick fade into mid */
-      #08122E 50%,                   /* dark dominates from mid down */
-      #08122E 100%                   /* bottom — 19.1:1 */
+      var(--brand-navy) 0%,
+      #0A1530 18%,
+      #08122E 50%,
+      #08122E 100%
     );
   background-size: 24px 24px, 100% 100%;
   padding: var(--v22-rhythm) 0;
@@ -2215,6 +2232,459 @@
   .v22-proven-header-right .lead { margin-left: 0; }
   .v22-proven-filters { margin-left: 0; }
   .v22-proven-card { flex: 0 0 85%; min-width: 280px; }
+}
+
+/* ─── Light-mode Proven section: editorial filmstrip with expanding filters ─── */
+.v22-proven[data-surface="light"] .v22-proven-header-left .num { color: var(--v22-accent); }
+.v22-proven[data-surface="light"] .v22-proven-header-left h2 { color: var(--proven-ink); }
+.v22-proven[data-surface="light"] .v22-proven-header-right .lead { color: var(--proven-ink-2); }
+
+/* ── Filter bar: top-level filters on the left, search toggle on the right ── */
+.v22-proven[data-surface="light"] .v22-proven-filterbar {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  margin-top: clamp(32px, 4vw, 48px);
+  margin-bottom: 0;
+  border: 1px solid var(--proven-rule);
+  border-radius: 2px;
+  background: var(--proven-card-bg);
+}
+
+.v22-proven[data-surface="light"] .v22-proven-filters {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  border: none;
+  margin: 0;
+  background: transparent;
+}
+
+.v22-proven[data-surface="light"] .v22-proven-filter {
+  flex: 0 0 auto;
+  position: relative;
+  padding: 14px 22px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--proven-rule-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--proven-ink-2);
+  cursor: pointer;
+  transition: color 200ms ease, background 200ms ease;
+}
+.v22-proven[data-surface="light"] .v22-proven-filter:hover { color: var(--proven-ink); }
+.v22-proven[data-surface="light"] .v22-proven-filter.active {
+  color: var(--proven-ink);
+  background: rgba(240, 123, 47, 0.06);
+}
+.v22-proven[data-surface="light"] .v22-proven-filter.active::after {
+  content: '';
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: -1px;
+  height: 2px;
+  background: var(--v22-accent);
+}
+.v22-proven[data-surface="light"] .v22-proven-filter:focus-visible {
+  outline: 2px solid var(--v22-accent);
+  outline-offset: -2px;
+}
+
+/* Search toggle (magnifier icon) — sits at the right edge of the filterbar */
+.v22-proven[data-surface="light"] .v22-proven-search-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 50px;
+  background: transparent;
+  border: none;
+  border-left: 1px solid var(--proven-rule-2);
+  color: var(--proven-ink-2);
+  cursor: pointer;
+  transition: color 200ms ease, background 200ms ease;
+}
+.v22-proven[data-surface="light"] .v22-proven-search-toggle:hover { color: var(--v22-accent); background: rgba(240, 123, 47, 0.04); }
+.v22-proven[data-surface="light"] .v22-proven-search-toggle.is-open { color: var(--v22-accent); background: rgba(240, 123, 47, 0.08); }
+.v22-proven[data-surface="light"] .v22-proven-search-toggle:focus-visible {
+  outline: 2px solid var(--v22-accent);
+  outline-offset: -2px;
+}
+
+/* ── Sub-bar: expands inline below the filter bar when a non-"all" filter is
+   active OR when search is open. Uses grid-template-rows trick for a
+   layout-safe height transition. ── */
+.v22-proven-subbar {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 360ms cubic-bezier(.2,.7,.1,1);
+}
+.v22-proven-subbar.is-open { grid-template-rows: 1fr; }
+.v22-proven-subbar-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+.v22-proven[data-surface="light"] .v22-proven-subbar.is-open .v22-proven-subbar-inner {
+  border: 1px solid var(--proven-rule);
+  border-top: none;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Sub-chip row — the inline list of industries / solutions / technologies */
+.v22-proven-subchips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+}
+.v22-proven-sub-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--proven-ink-3);
+  margin-right: 8px;
+}
+.v22-proven[data-surface="light"] .v22-proven-subchip {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid var(--proven-rule);
+  border-radius: 100px;
+  color: var(--proven-ink-2);
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+.v22-proven[data-surface="light"] .v22-proven-subchip:hover {
+  color: var(--proven-ink);
+  border-color: rgba(13, 27, 62, 0.28);
+}
+.v22-proven[data-surface="light"] .v22-proven-subchip.active {
+  color: #fff;
+  background: var(--brand-navy);
+  border-color: var(--brand-navy);
+}
+.v22-proven[data-surface="light"] .v22-proven-subchip:focus-visible {
+  outline: 2px solid var(--v22-accent);
+  outline-offset: 2px;
+}
+
+/* Inline search row */
+.v22-proven-search-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+}
+.v22-proven-search-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--proven-ink-3);
+}
+.v22-proven[data-surface="light"] .v22-proven-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--proven-rule);
+  padding: 6px 0;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--proven-ink);
+  outline: none;
+  transition: border-color 180ms ease;
+}
+.v22-proven[data-surface="light"] .v22-proven-search-input::placeholder {
+  color: var(--proven-ink-3);
+}
+.v22-proven[data-surface="light"] .v22-proven-search-input:focus {
+  border-bottom-color: var(--v22-accent);
+}
+
+/* ── Filmstrip / carousel ── */
+.v22-proven[data-surface="light"] .v22-proven-carousel {
+  margin-top: 28px;
+}
+.v22-proven[data-surface="light"] .v22-proven-track {
+  display: flex;
+  gap: clamp(16px, 1.6vw, 24px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  padding: 4px 0 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.v22-proven[data-surface="light"] .v22-proven-track::-webkit-scrollbar { height: 6px; }
+.v22-proven[data-surface="light"] .v22-proven-track::-webkit-scrollbar-track { background: rgba(13, 27, 62, 0.06); }
+.v22-proven[data-surface="light"] .v22-proven-track::-webkit-scrollbar-thumb { background: rgba(240, 123, 47, 0.5); }
+
+.v22-proven[data-surface="light"] .v22-proven-card {
+  position: relative;
+  flex: 0 0 calc((100% - 2 * clamp(16px, 1.6vw, 24px)) / 3);
+  min-width: 280px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  background: var(--proven-card-bg);
+  border: 1px solid var(--proven-rule);
+  border-radius: 2px;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+  transition: border-color 240ms ease, box-shadow 280ms ease, transform 320ms cubic-bezier(.2,.7,.1,1), opacity 240ms ease;
+  animation: none;
+}
+@media (max-width: 960px) {
+  .v22-proven[data-surface="light"] .v22-proven-card { flex: 0 0 calc((100% - clamp(16px, 1.6vw, 24px)) / 2); }
+}
+@media (max-width: 640px) {
+  .v22-proven[data-surface="light"] .v22-proven-card { flex: 0 0 86%; }
+}
+.v22-proven[data-surface="light"] .v22-proven-card:hover {
+  border-color: rgba(240, 123, 47, 0.45);
+  box-shadow: 0 18px 36px -22px rgba(13, 27, 62, 0.28);
+  transform: translateY(-3px);
+}
+.v22-proven[data-surface="light"] .v22-proven-card:not(.active):not(:hover) { opacity: 0.85; }
+.v22-proven[data-surface="light"] .v22-proven-card.active {
+  border-color: rgba(240, 123, 47, 0.55);
+  box-shadow: 0 24px 40px -22px rgba(13, 27, 62, 0.3);
+}
+.v22-proven[data-surface="light"] .v22-proven-card::before,
+.v22-proven[data-surface="light"] .v22-proven-card::after { content: none; }
+
+.v22-proven[data-surface="light"] .v22-proven-img {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--proven-rule-2);
+}
+.v22-proven[data-surface="light"] .v22-proven-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 600ms cubic-bezier(.2,.7,.1,1);
+}
+.v22-proven[data-surface="light"] .v22-proven-card:hover .v22-proven-img img { transform: scale(1.04); }
+.v22-proven[data-surface="light"] .v22-proven-img-overlay,
+.v22-proven[data-surface="light"] .v22-proven-img-dots { display: none; }
+.v22-proven[data-surface="light"] .v22-proven-metric {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff;
+  padding: 5px 10px;
+  background: var(--brand-navy);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.v22-proven[data-surface="light"] .v22-proven-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 22px 24px;
+}
+.v22-proven[data-surface="light"] .v22-proven-kicker {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  margin-bottom: 4px;
+}
+.v22-proven[data-surface="light"] .v22-proven-card h4 {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  line-height: 1.25;
+  color: var(--proven-ink);
+  margin: 0;
+}
+.v22-proven[data-surface="light"] .v22-proven-card p {
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--proven-ink-2);
+  margin: 0;
+}
+.v22-proven[data-surface="light"] .v22-proven-techs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--proven-rule-2);
+}
+.v22-proven[data-surface="light"] .v22-proven-tech-pill {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border: 1px solid var(--proven-rule);
+  color: var(--proven-ink-2);
+  background: transparent;
+}
+
+/* ── Empty state when filters return nothing ── */
+.v22-proven-empty {
+  padding: 64px 32px;
+  text-align: center;
+  border: 1px dashed var(--proven-rule);
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.v22-proven-empty-mono {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--v22-accent);
+}
+.v22-proven-empty p {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--proven-ink-2);
+  margin: 0;
+  max-width: 42ch;
+}
+.v22-proven-empty-reset {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  background: transparent;
+  border: 1px solid var(--v22-accent);
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: color 200ms ease, background 200ms ease;
+}
+.v22-proven-empty-reset:hover { color: #fff; background: var(--v22-accent); }
+
+/* ── Navigation row (counter | arrows + dots | see all link) ── */
+.v22-proven[data-surface="light"] .v22-proven-nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--proven-rule);
+}
+.v22-proven-nav-meta {
+  justify-self: start;
+}
+.v22-proven-counter {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  color: var(--proven-ink);
+}
+.v22-proven-counter-now { color: var(--v22-accent); font-size: 1.1rem; }
+.v22-proven-counter-sep { color: var(--proven-ink-3); }
+.v22-proven-counter-total { color: var(--proven-ink-2); }
+
+.v22-proven[data-surface="light"] .v22-proven-nav-center {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+.v22-proven[data-surface="light"] .v22-proven-arrow {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--proven-rule);
+  color: var(--proven-ink);
+  cursor: pointer;
+  transition: border-color 200ms ease, color 200ms ease, background 200ms ease, transform 200ms ease;
+}
+.v22-proven[data-surface="light"] .v22-proven-arrow:hover {
+  border-color: var(--v22-accent);
+  color: var(--v22-accent);
+  background: rgba(240, 123, 47, 0.06);
+}
+.v22-proven[data-surface="light"] .v22-proven-arrow:active { transform: scale(0.96); }
+
+.v22-proven[data-surface="light"] .v22-proven-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+.v22-proven[data-surface="light"] .v22-proven-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(13, 27, 62, 0.22);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 180ms ease, transform 220ms ease;
+}
+.v22-proven[data-surface="light"] .v22-proven-dot.active {
+  background: var(--v22-accent);
+  transform: scale(1.5);
+  box-shadow: 0 0 0 3px rgba(240, 123, 47, 0.18);
+}
+
+.v22-proven[data-surface="light"] .v22-proven-foot-link {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--v22-accent);
+  transition: gap 240ms ease, color 240ms ease;
+}
+.v22-proven[data-surface="light"] .v22-proven-foot-link:hover { gap: 18px; }
+
+@media (max-width: 720px) {
+  .v22-proven[data-surface="light"] .v22-proven-nav { grid-template-columns: 1fr; gap: 16px; }
+  .v22-proven-nav-meta,
+  .v22-proven[data-surface="light"] .v22-proven-nav-center,
+  .v22-proven[data-surface="light"] .v22-proven-foot-link { justify-self: start; }
 }
 
 /* ---------- QUOTE (V5 framed) ---------- */
