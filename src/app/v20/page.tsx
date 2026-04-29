@@ -2,7 +2,7 @@
    V4's 12-column grid structure on V5's dark blueprint canvas.
    Capabilities as interactive tabs, SVG diagrams (V5). */
 
-import CapabilitiesSection from './capabilities-section'
+import CapabilitiesSection, { StackSection } from './capabilities-section'
 import HowSection from './how-section'
 import { LogoWall } from './logo-wall'
 import { NavScrollEffect } from './nav-scroll'
@@ -456,7 +456,8 @@ export default function V14Page() {
       {/* CAPABILITIES — interactive tabbed layout */}
       <CapabilitiesSection />
 
-      {/* STACK is now inside the Capabilities toggle */}
+      {/* STACK — full-bleed 3D exploded assembly */}
+      <StackSection />
 
       {/* TESTIMONIALS — carousel */}
       <TestimonialsSection />
