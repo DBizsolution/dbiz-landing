@@ -109,6 +109,12 @@ export const versions: Version[] = [
     status: 'draft',
   },
   {
+    slug: 'v22-alt',
+    name: 'V22-ALT — Blueprint in Motion',
+    tagline: 'V22 with scroll-tied parallax, unified reveals, and a hero→capabilities cascade',
+    status: 'draft',
+  },
+  {
     slug: 'v24',
     name: 'V24 — Blueprint Dark',
     tagline: 'Clone of V20 — working copy for further iterations',
