@@ -4024,12 +4024,105 @@
 }
 
 /* ----- Scroller — turns into a carousel below 1100px ----- */
-.v22-fw-scroller { display: block; }
+.v22-fw-scroller {
+  display: block;
+  position: relative;
+}
+
+/* Scroll-affordance: visible custom scrollbar + right-edge fade + nudge hint
+   on first reveal. Only applies when the scroller is actually scrollable
+   (mid-viewport range and below). */
+.v22-fw-scroller.is-scrollable {
+  --scroll-thumb: rgba(240, 123, 47, 0.55);
+  --scroll-track: rgba(255, 255, 255, 0.08);
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+  scrollbar-width: thin;
+}
+.v22-fw-scroller.is-scrollable::-webkit-scrollbar { height: 8px; display: block; }
+.v22-fw-scroller.is-scrollable::-webkit-scrollbar-track { background: var(--scroll-track); }
+.v22-fw-scroller.is-scrollable::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 4px;
+}
+
+/* Fading right edge on the scroller — signals "more content to the right". */
+.v22-fw-scroll-edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 64px;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+.v22-fw-scroll-edge.right {
+  right: 0;
+  background: linear-gradient(to left, var(--v22-paper) 5%, rgba(13, 27, 62, 0));
+}
+.v22-fw-scroll-edge.left {
+  left: 0;
+  background: linear-gradient(to right, var(--v22-paper) 5%, rgba(13, 27, 62, 0));
+}
+.v22-fw-scroller.is-scrollable .v22-fw-scroll-edge { opacity: 1; }
+.v22-fw-scroller.is-at-start .v22-fw-scroll-edge.left { opacity: 0; }
+.v22-fw-scroller.is-at-end   .v22-fw-scroll-edge.right { opacity: 0; }
+
+/* Scroll hint pill — a subtle label that fades in once and gently nudges
+   to reveal the gesture. Disappears after the user starts scrolling. */
+.v22-fw-scroll-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  background: rgba(13, 27, 62, 0.7);
+  border: 1px solid rgba(240, 123, 47, 0.35);
+  border-radius: 100px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity 320ms ease, transform 320ms ease;
+  z-index: 6;
+  backdrop-filter: blur(4px);
+}
+.v22-fw-scroller.is-scrollable .v22-fw-scroll-hint {
+  opacity: 1;
+  transform: translateX(0);
+  animation: v22-fw-scroll-hint-nudge 2.6s cubic-bezier(.4,0,.2,1) 0.6s 3;
+}
+.v22-fw-scroller.is-scrolling .v22-fw-scroll-hint {
+  opacity: 0;
+  transform: translateX(8px);
+  animation: none;
+}
+.v22-fw-scroll-hint-arrow {
+  display: inline-block;
+  width: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+@keyframes v22-fw-scroll-hint-nudge {
+  0%, 70%, 100% { transform: translateX(0); }
+  78%           { transform: translateX(-6px); }
+  86%           { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v22-fw-scroller.is-scrollable .v22-fw-scroll-hint { animation: none; }
+}
 
 /* Mini disc is desktop-hidden — master SVG above handles discs. */
 .v22-fw-card-mini { display: none; }
 
-@media (max-width: 1100px) {
+@media (max-width: 760px) {
   .v22-fw-scroller {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -4040,7 +4133,7 @@
   }
   .v22-fw-scroller::-webkit-scrollbar { display: none; }
 
-  /* Hide the master diagram on mobile — each card renders its own mini disc. */
+  /* Hide the master diagram on narrow phones — each card renders its own mini disc. */
   .v22-fw-scroller .v22-fw-diagram-wrap { display: none; }
 
   /* Cards become the scroll track, one card per viewport. */
@@ -4092,7 +4185,7 @@
   gap: 8px;
   padding: 18px 8px 4px;
 }
-@media (max-width: 1100px) {
+@media (max-width: 760px) {
   .v22-fw-pagination { display: flex; flex-wrap: wrap; }
 }
 .v22-fw-dot {
@@ -4290,10 +4383,40 @@
   18%           { opacity: 0.05; transform: scale(1); }
 }
 
-/* Responsive */
-@media (max-width: 960px) {
-  .v22-fw-diagram-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .v22-fw-diagram { min-width: 1000px; }
+/* Card title turns orange in two situations:
+   1. Auto: in lockstep with the disc halo above so the highlighted disc
+      and its title light up as one moment. Tight window, two states only
+      (orange / inherit) — no interpolated midpoint that would muddy the
+      row when several titles are mid-cycle.
+   2. Engaged: on hover, focus, or when the corresponding disc is hovered
+      (sets .is-active via onHover state). The hover state pins the title
+      orange and overrides the auto-cycle. */
+/* Title turns orange only when the user is engaged with that layer —
+   hover, keyboard focus, or hovering the corresponding disc on the master
+   diagram (which sets .is-active via onHover state). The disc halo is the
+   only ambient motion; titles stay calm until interacted with. */
+.v22-fw-card:hover .v22-fw-card-name,
+.v22-fw-card:focus-visible .v22-fw-card-name,
+.v22-fw-card.is-active .v22-fw-card-name {
+  color: var(--v22-accent);
+}
+
+/* Responsive — when the SVG is forced to its readable min-width, the cards
+   must share that same coordinate space so disc x-positions and card columns
+   line up. Move horizontal scroll up to .v22-fw-scroller so the diagram and
+   cards scroll together as one unit. */
+@media (max-width: 1100px) and (min-width: 761px) {
+  .v22-fw-scroller {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .v22-fw-diagram-wrap,
+  .v22-fw-cards {
+    min-width: 1000px;
+  }
+  .v22-fw-diagram-wrap { overflow: visible; }
+  .v22-fw-diagram { min-width: 0; width: 100%; }
 }
 
 /* ---------- AI Transformation Stack — lightbox modal (legacy, kept for fallback) ---------- */

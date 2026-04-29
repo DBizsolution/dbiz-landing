@@ -321,26 +321,46 @@ export default function FrameworkSection() {
   }, [])
 
   /* Track the card currently centred in the scroller so the pagination
-     indicator stays in sync on mobile. */
+     indicator stays in sync on mobile, and toggle scroll-affordance classes
+     so the rail's edge fades, custom scrollbar, and "drag to scroll" hint
+     render only when the rail is actually overflowing. */
   useEffect(() => {
     const scroller = scrollerRef.current
     if (!scroller) return
     let raf = 0
+    let hintTimer = 0
+
+    const update = () => {
+      const scrollL = scroller.scrollLeft
+      const w = scroller.clientWidth
+      const sw = scroller.scrollWidth
+      const overflow = sw - w > 4
+      scroller.classList.toggle('is-scrollable', overflow)
+      scroller.classList.toggle('is-at-start', scrollL <= 4)
+      scroller.classList.toggle('is-at-end', scrollL >= sw - w - 4)
+      const idx = Math.round((scrollL + w / 2) / w - 0.5)
+      setCurrent(Math.max(0, Math.min(layers.length - 1, idx)))
+    }
+
     const onScroll = () => {
+      scroller.classList.add('is-scrolling')
+      window.clearTimeout(hintTimer)
       if (raf) return
       raf = requestAnimationFrame(() => {
         raf = 0
-        const scrollL = scroller.scrollLeft
-        const w = scroller.clientWidth
-        // closest column center to viewport center
-        const idx = Math.round((scrollL + w / 2) / w - 0.5)
-        setCurrent(Math.max(0, Math.min(layers.length - 1, idx)))
+        update()
       })
     }
+
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(scroller)
     scroller.addEventListener('scroll', onScroll, { passive: true })
     return () => {
       scroller.removeEventListener('scroll', onScroll)
+      ro.disconnect()
       if (raf) cancelAnimationFrame(raf)
+      window.clearTimeout(hintTimer)
     }
   }, [])
 
@@ -369,7 +389,13 @@ export default function FrameworkSection() {
           <span className='v22-fw-top-code'>SHEET A1</span>
         </div>
 
-        <div className='v22-fw-scroller' ref={scrollerRef}>
+        <div className='v22-fw-scroller is-at-start' ref={scrollerRef}>
+        <span className='v22-fw-scroll-edge left' aria-hidden='true' />
+        <span className='v22-fw-scroll-edge right' aria-hidden='true' />
+        <div className='v22-fw-scroll-hint' aria-hidden='true'>
+          <span className='v22-fw-scroll-hint-arrow'>↔</span>
+          <span>Drag to explore · 7 layers</span>
+        </div>
         <div className='v22-fw-diagram-wrap'>
           <StackDiagram hovered={hovered} onHover={setHovered} />
         </div>
