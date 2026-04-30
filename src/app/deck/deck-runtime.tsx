@@ -6,7 +6,7 @@ import { slides } from './slides'
 
 const STAGE_W = 1920
 const STAGE_H = 1080
-const VIEWPORT_PADDING = 48
+const VIEWPORT_PADDING = 0
 
 export default function DeckRuntime() {
   const searchParams = useSearchParams()
@@ -46,7 +46,7 @@ export default function DeckRuntime() {
       if (!el) return
       const w = window.innerWidth - VIEWPORT_PADDING * 2
       const h = window.innerHeight - VIEWPORT_PADDING * 2
-      const scale = Math.min(w / STAGE_W, h / STAGE_H, 1)
+      const scale = Math.min(w / STAGE_W, h / STAGE_H)
       el.style.setProperty('--deck-scale', String(scale))
     }
     update()

@@ -17,7 +17,7 @@ type SlideShellProps = {
 }
 
 export function SlideShell({ meta, children, noFrame }: SlideShellProps) {
-  const { index, total, act, title, marker, time } = meta
+  const { index, total, act, title } = meta
   const slideNo = String(index + 1).padStart(2, '0')
   const totalNo = String(total).padStart(2, '0')
 
@@ -25,23 +25,15 @@ export function SlideShell({ meta, children, noFrame }: SlideShellProps) {
     <>
       {!noFrame && <div className='deck-frame' />}
       <div className='deck-meta'>
-        <span>
-          DBiz · Deck · <span className='accent'>{marker}</span>
-        </span>
-        <span>
-          <span className='k'>{act}</span>
-          {' · '}
-          {title}
-        </span>
-        <span>
-          Sheet <span className='k'>{slideNo}</span> / {totalNo}
-        </span>
+        <span className='k'>{act}</span>
+        <span>{title}</span>
       </div>
       <div className='deck-body'>{children}</div>
       <div className='deck-foot'>
-        <span>Rev <span className='k'>2026-04-29</span></span>
-        <span>{time ? `est ${time}` : '—'}</span>
-        <span>Scale <span className='k'>1 : 1</span></span>
+        <span>DBiz</span>
+        <span>
+          {slideNo} / {totalNo}
+        </span>
       </div>
     </>
   )
