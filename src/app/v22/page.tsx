@@ -371,7 +371,7 @@ export default function V22Page() {
               </h1>
             </div>
             <p className='v22-hero-body'>
-              Most enterprises have tried AI. Most of it didn&apos;t scale — not because the technology failed, but because no one connected the ambition to what actually got built. We close that gap. We call the result a Frontier Organisation: human-led, agent-operated, data-powered.
+              Most enterprises have tried AI. Most of it didn&apos;t scale, not because the technology failed, but because no one connected the ambition to what actually got built. We close that gap. We call the result a Frontier Organisation: human-led, agent-operated, data-powered.
             </p>
             <div className='v22-hero-ctas'>
               <a href='#solutions' className='v22-cta-primary'>
@@ -391,6 +391,7 @@ export default function V22Page() {
           </div>
         </div>
       </section>
+
 
       {/* TRUST — client register */}
       <LogoWall />

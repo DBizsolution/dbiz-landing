@@ -185,7 +185,7 @@ export function MiniDisc({ i }: { i: number }) {
           <path d='M 12 0 L 0 0 0 12' fill='none' stroke='rgba(255,255,255,0.14)' strokeWidth='0.6' />
         </pattern>
       </defs>
-      <rect x={cx - r} y={cy - r} width={r * 2} height={r * 2} stroke='rgba(255,255,255,0.22)' strokeWidth='0.8' strokeDasharray='4 3' fill='var(--brand-navy-deep)' fillOpacity='0.85' />
+      <rect x={cx - r} y={cy - r} width={r * 2} height={r * 2} stroke='rgba(255,255,255,0.22)' strokeWidth='0.8' strokeDasharray='4 3' fill='none' />
       <rect x={cx - r + 6} y={cy - r + 6} width={(r - 6) * 2} height={(r - 6) * 2} stroke='rgba(255,255,255,0.16)' strokeWidth='0.6' fill='none' />
       <rect x={cx - r + 13} y={cy - r + 13} width={(r - 13) * 2} height={(r - 13) * 2} stroke='rgba(255,255,255,0.12)' strokeWidth='0.4' strokeDasharray='1.5 2' fill='none' />
       <rect x={cx - r + 14} y={cy - r + 14} width={(r - 14) * 2} height={(r - 14) * 2} fill={`url(#v22-mini-grid-${i})`} />
@@ -258,8 +258,8 @@ function StackDiagram({ hovered, onHover }: { hovered: number; onHover: (i: numb
             {/* Traveling halo — staggered via CSS delay, sweeps across all discs */}
             <rect x={cx - discR - 14} y={shaftY - discR - 14} width={(discR + 14) * 2} height={(discR + 14) * 2} fill='var(--v22-accent)' fillOpacity='0.35' filter='url(#v22-fw-halo-blur)' className='v22-fw-disc-halo' style={{ animationDelay: `${i * 1.4}s` } as React.CSSProperties} />
 
-            {/* Outer housing — dashed square (grey) */}
-            <rect x={cx - discR} y={shaftY - discR} width={discR * 2} height={discR * 2} stroke='rgba(255,255,255,0.22)' strokeWidth='0.8' strokeDasharray='4 3' fill='var(--brand-navy-deep)' fillOpacity='0.85' />
+            {/* Outer housing — dashed square (transparent so the section gradient shows through) */}
+            <rect x={cx - discR} y={shaftY - discR} width={discR * 2} height={discR * 2} stroke='rgba(255,255,255,0.22)' strokeWidth='0.8' strokeDasharray='4 3' fill='none' />
             {/* Second housing — inset square */}
             <rect x={cx - discR + 6} y={shaftY - discR + 6} width={(discR - 6) * 2} height={(discR - 6) * 2} stroke='rgba(255,255,255,0.16)' strokeWidth='0.6' fill='none' />
             {/* Inner groove — thin dashed square */}

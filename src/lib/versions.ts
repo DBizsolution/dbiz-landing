@@ -115,6 +115,12 @@ export const versions: Version[] = [
     status: 'draft',
   },
   {
+    slug: 'v23',
+    name: 'V23 — Swiss Blueprint',
+    tagline: 'Clone of V22 — working copy for further iterations',
+    status: 'draft',
+  },
+  {
     slug: 'v24',
     name: 'V24 — Blueprint Dark',
     tagline: 'Clone of V20 — working copy for further iterations',
