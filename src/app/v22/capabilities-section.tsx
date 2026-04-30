@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 
-const CYCLE_MS = 4500
+const CYCLE_MS = 5000
 
 type Capability = {
   num: string
@@ -20,7 +20,7 @@ const capabilities: Capability[] = [
     num: '01',
     kicker: 'AI Strategy & Architecture',
     altLabel: 'Tech Advisory',
-    title: 'Strategy for AI, Architecture for Scale',
+    title: 'Strategy & Architecture',
     subtitle: 'Futures Studio · TechOffice Foundry',
     tags: ['AI Vision & Roadmap', 'Architecture-as-a-Service', 'AI Readiness', 'DBiz Canvas'],
     body: 'Your business priorities become an AI and technology roadmap. Use case prioritisation, readiness assessment, architecture blueprint, data governance and security posture, before a single line of code gets written.',
@@ -30,7 +30,7 @@ const capabilities: Capability[] = [
     num: '02',
     kicker: 'AI-Ready Infrastructure',
     altLabel: 'Cloud',
-    title: 'Purpose-built for AI Workloads',
+    title: 'The AI Foundational Layer',
     subtitle: 'Multi-hyperscaler · Sovereign · Governed',
     tags: ['DBiz Scoop', 'Multi-Hyperscaler', 'Sovereign Cloud', 'GPU Orchestration', 'FinOps'],
     body: 'Cloud built for AI workloads, not retrofitted for them. Environments purpose-built for agents, data pipelines, and AI models, with governance, cost controls, and observability enterprise IT requires.',
@@ -41,10 +41,10 @@ const capabilities: Capability[] = [
     kicker: 'Intelligence',
     altLabel: 'Data & AI',
     title: 'The Intelligence Layer',
-    subtitle: 'FactWeavers\u2122 · Domain Data Cloud',
-    tags: ['FactWeavers\u2122', 'Domain Data Cloud', 'Data Mesh'],
-    body: "Every AI initiative stalls on the same thing: the data isn\u2019t ready. FactWeavers\u2122 cleans, unifies, and activates enterprise data, pre-modelled for your industry, ready for agents from day one.",
-    cta: 'See FactWeavers\u2122 in action',
+    subtitle: 'FactWeavers™ · Domain Data Cloud',
+    tags: ['FactWeavers™', 'Domain Data Cloud', 'Data Mesh'],
+    body: "Every AI initiative stalls on the same thing: the data isn’t ready. FactWeavers™ cleans, unifies, and activates enterprise data, pre-modelled for your industry, ready for agents from day one.",
+    cta: 'See FactWeavers™ in action',
   },
   {
     num: '04',
@@ -53,7 +53,7 @@ const capabilities: Capability[] = [
     title: 'Connected Systems, Not Silos',
     subtitle: 'No rip and replace',
     tags: ['Salesforce', 'Dynamics 365', 'Boomi', 'MuleSoft'],
-    body: "CRM, ERP, and platform investments don\u2019t need replacing, they need unlocking \u2014 for agents. We connect existing systems so agents can read, write, and act across your entire application landscape.",
+    body: "CRM, ERP, and platform investments don’t need replacing, they need unlocking — for agents. We connect existing systems so agents can read, write, and act across your entire application landscape.",
     cta: 'Explore integration options',
   },
   {
@@ -61,19 +61,19 @@ const capabilities: Capability[] = [
     kicker: 'AI Engineering',
     altLabel: 'Product & AI Engineering',
     title: 'Engineered with AI, Shipped Continuously',
-    subtitle: 'Agent Studio \u00b7 Nexus \u00b7 Perpetual Engineering',
+    subtitle: 'Agent Studio · Nexus · Perpetual Engineering',
     tags: ['AI-Native Apps', 'Agent Studio', 'Nexus Platform', 'Perpetual Engineering'],
     body: 'AI-native applications built by AI-first teams. Agent Studio for multi-agent orchestration, Nexus as the dev platform, Perpetual Engineering across the SDLC.',
-    cta: 'See what we\u2019ve built',
+    cta: 'See what we’ve built',
   },
   {
     num: '06',
     kicker: 'Human Experience',
-    altLabel: 'Research & Design',
-    title: 'Designed for Humans, Trusted by Agents',
+    altLabel: 'Experience Design',
+    title: 'The Human-Agent Experience',
     subtitle: 'Research-led · Experience engineering',
     tags: ['Agentic UX', 'Design Systems', 'DBiz Canvas', 'AI in Design Workflows'],
-    body: 'Designing for humans in an increasingly agentic world is our core. We map human needs into design, iterate with AI-driven workflows, and turn requirements into shipped screens in days \u2014 structured enough to scale, human enough to trust.',
+    body: 'Designing for humans in an increasingly agentic world is our core. We map human needs into design, iterate with AI-driven workflows, and turn requirements into shipped screens in days — structured enough to scale, human enough to trust.',
     cta: 'Explore our design practice',
   },
   {
@@ -83,20 +83,103 @@ const capabilities: Capability[] = [
     title: 'AI-First Operations',
     subtitle: 'The team that built it runs it',
     tags: ['Monitoring', 'Governance', 'Continuous Improvement'],
-    body: "AI-first monitoring, governance, and continuous improvement across your entire stack. Not a support contract from a team that\u2019s never seen the architecture.",
+    body: "AI-first monitoring, governance, and continuous improvement across your entire stack. Not a support contract from a team that’s never seen the architecture.",
     cta: 'Learn about managed services',
   },
 ]
 
+/* Geometric SVG icons — navy strokes + orange accents (v22 light-mode tokens) */
+function CapIcon({ index }: { index: number }) {
+  const icons = [
+    /* 0 Strategy — target */
+    <svg key={0} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='1' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
+      <circle cx='40' cy='40' r='24' stroke='var(--v22-ink-2)' strokeWidth='1.2' className='v22-icon-circle-draw v22-icon-delay-2' />
+      <circle cx='40' cy='40' r='14' stroke='var(--v22-accent)' strokeWidth='1.5' className='v22-icon-circle-draw v22-icon-delay-3' />
+      <circle cx='40' cy='40' r='4' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-4' />
+      <line x1='40' y1='3' x2='40' y2='15' stroke='var(--v22-ink-2)' strokeWidth='0.8' className='v22-icon-line-draw v22-icon-delay-3' />
+      <line x1='40' y1='65' x2='40' y2='77' stroke='var(--v22-ink-2)' strokeWidth='0.8' className='v22-icon-line-draw v22-icon-delay-3' />
+      <line x1='3' y1='40' x2='15' y2='40' stroke='var(--v22-ink-2)' strokeWidth='0.8' className='v22-icon-line-draw v22-icon-delay-3' />
+      <line x1='65' y1='40' x2='77' y2='40' stroke='var(--v22-ink-2)' strokeWidth='0.8' className='v22-icon-line-draw v22-icon-delay-3' />
+      <circle cx='40' cy='5' r='2' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-5' />
+    </svg>,
+    /* 1 Cloud — layered diamond */
+    <svg key={1} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
+      <path d='M 20 48 L 40 38 L 60 48 L 40 58 Z' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-polygon-draw v22-icon-delay-2' />
+      <path d='M 24 40 L 40 32 L 56 40 L 40 48 Z' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-polygon-draw v22-icon-delay-3' />
+      <path d='M 28 32 L 40 26 L 52 32 L 40 38 Z' stroke='var(--v22-accent)' strokeWidth='1.5' fill='none' className='v22-icon-polygon-draw v22-icon-delay-4' />
+      <line x1='40' y1='26' x2='40' y2='58' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='2 2' className='v22-icon-line-draw v22-icon-delay-5' />
+      <circle cx='40' cy='29' r='2.5' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-6' />
+      <circle cx='28' cy='32' r='1.5' fill='var(--v22-accent)' opacity='0.6' className='v22-icon-scale-in v22-icon-delay-6' />
+      <circle cx='52' cy='32' r='1.5' fill='var(--v22-accent)' opacity='0.6' className='v22-icon-scale-in v22-icon-delay-6' />
+    </svg>,
+    /* 2 Data — hexagon */
+    <svg key={2} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
+      <polygon points='40,8 68,23 68,57 40,72 12,57 12,23' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-polygon-draw v22-icon-delay-2' />
+      <polygon points='40,20 56,29 56,51 40,60 24,51 24,29' stroke='var(--v22-accent)' strokeWidth='1.5' fill='none' className='v22-icon-polygon-draw v22-icon-delay-3' />
+      <circle cx='40' cy='40' r='6' fill='var(--v22-accent)' opacity='0.15' stroke='var(--v22-accent)' strokeWidth='1.2' className='v22-icon-fade-in-el v22-icon-delay-4' />
+      <circle cx='40' cy='40' r='2.5' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-5' />
+      {[0, 60, 120, 180, 240, 300].map((a, i) => {
+        const r = (a - 90) * Math.PI / 180
+        return <circle key={i} cx={40 + Math.cos(r) * 14} cy={40 + Math.sin(r) * 14} r='2' fill='var(--v22-accent)' opacity='0.6' className='v22-icon-scale-in' style={{ animationDelay: `${0.6 + i * 0.08}s` }} />
+      })}
+    </svg>,
+    /* 3 Apps — connected nodes */
+    <svg key={3} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
+      <line x1='20' y1='27' x2='32' y2='40' stroke='var(--v22-ink-2)' strokeWidth='1' className='v22-icon-line-draw v22-icon-delay-3' />
+      <line x1='60' y1='27' x2='48' y2='40' stroke='var(--v22-ink-2)' strokeWidth='1' className='v22-icon-line-draw v22-icon-delay-3' />
+      <line x1='20' y1='53' x2='32' y2='40' stroke='var(--v22-ink-2)' strokeWidth='1' className='v22-icon-line-draw v22-icon-delay-4' />
+      <line x1='60' y1='53' x2='48' y2='40' stroke='var(--v22-ink-2)' strokeWidth='1' className='v22-icon-line-draw v22-icon-delay-4' />
+      <rect x='12' y='19' width='16' height='16' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-rect-draw v22-icon-delay-2' />
+      <rect x='52' y='19' width='16' height='16' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-rect-draw v22-icon-delay-2' />
+      <rect x='12' y='45' width='16' height='16' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-rect-draw v22-icon-delay-2' />
+      <rect x='52' y='45' width='16' height='16' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-rect-draw v22-icon-delay-2' />
+      <circle cx='40' cy='40' r='8' stroke='var(--v22-accent)' strokeWidth='1.5' fill='none' className='v22-icon-circle-draw v22-icon-delay-5' />
+      <circle cx='40' cy='40' r='3' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-6' />
+    </svg>,
+    /* 4 Engineering — orbital */
+    <svg key={4} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
+      <circle cx='40' cy='40' r='26' stroke='var(--v22-ink-2)' strokeWidth='1.2' className='v22-icon-circle-draw v22-icon-delay-2' />
+      <circle cx='40' cy='40' r='17' stroke='var(--v22-accent)' strokeWidth='1.5' className='v22-icon-circle-draw v22-icon-delay-3' />
+      <circle cx='40' cy='40' r='3' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-5' />
+      <ellipse cx='40' cy='40' rx='35' ry='14' stroke='var(--v22-ink-2)' strokeWidth='0.8' transform='rotate(30 40 40)' className='v22-icon-circle-draw v22-icon-delay-4' />
+      <circle cx='62.5' cy='20' r='2.5' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-6' />
+    </svg>,
+    /* 5 Human Experience — radar */
+    <svg key={5} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='1.2' className='v22-icon-circle-draw v22-icon-delay-1' />
+      <circle cx='40' cy='40' r='24' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-2' />
+      <circle cx='40' cy='40' r='13' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-3' />
+      <line x1='40' y1='5' x2='40' y2='75' stroke='var(--v22-ink-2)' strokeWidth='0.6' className='v22-icon-line-draw v22-icon-delay-4' />
+      <line x1='5' y1='40' x2='75' y2='40' stroke='var(--v22-ink-2)' strokeWidth='0.6' className='v22-icon-line-draw v22-icon-delay-4' />
+      <path d='M 40 40 L 40 5' stroke='var(--v22-accent)' strokeWidth='2' className='v22-icon-line-draw v22-icon-delay-5' />
+      <circle cx='40' cy='40' r='3' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-6' />
+      <circle cx='54' cy='22' r='2.5' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-7' />
+    </svg>,
+    /* 6 AI Operations — shield */
+    <svg key={6} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
+      <path d='M 40 6 L 70 21 L 70 51 L 40 74 L 10 51 L 10 21 Z' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-polygon-draw v22-icon-delay-2' />
+      <path d='M 40 16 L 60 27 L 60 49 L 40 62 L 20 49 L 20 27 Z' stroke='var(--v22-accent)' strokeWidth='1.5' fill='none' className='v22-icon-polygon-draw v22-icon-delay-3' />
+      <line x1='40' y1='16' x2='40' y2='62' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='2 2' className='v22-icon-line-draw v22-icon-delay-4' />
+      <line x1='20' y1='38' x2='60' y2='38' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='2 2' className='v22-icon-line-draw v22-icon-delay-4' />
+      <circle cx='40' cy='38' r='6' fill='var(--v22-accent)' opacity='0.15' stroke='var(--v22-accent)' strokeWidth='1.2' className='v22-icon-fade-in-el v22-icon-delay-5' />
+      <circle cx='40' cy='38' r='2.5' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-6' />
+    </svg>,
+  ]
+  return icons[index] || icons[0]
+}
 
 export default function CapabilitiesSection() {
   const [active, setActive] = useState(0)
   const [locked, setLocked] = useState(false)
-  // Mobile accordion open row — independent of desktop active so taps can toggle
-  const [mobileOpen, setMobileOpen] = useState<number | null>(0)
   const c = capabilities[active]
 
-  // Auto-cycle through capabilities; hover/click locks
+  // Auto-cycle through capabilities; click locks
   useEffect(() => {
     if (locked) return
     const id = setTimeout(() => setActive((i) => (i + 1) % capabilities.length), CYCLE_MS)
@@ -108,263 +191,92 @@ export default function CapabilitiesSection() {
     setActive(i)
   }
 
-  // Mobile accordion tap — toggle open/close on the tapped row
-  const toggleMobile = (i: number) => {
-    setMobileOpen((cur) => (cur === i ? null : i))
-    setLocked(true)
-    setActive(i)
-  }
-
-  // Stack geometry (Option A — grid-aligned 40px, centred front face)
-  const svgW = 560
-  const baseX = 120
-  const boxW = 320
-  const boxH = 46
-  const rowGap = 66
-  const skew = 20
-  const firstY = 40
-  const stackTop = firstY - 16
-  const stackBot = firstY + (capabilities.length - 1) * rowGap + boxH + 16
-  const svgH = stackBot + 40
-
-  // Scattered textured layers (grey, subtle)
-  const texturedLayers = new Set([0, 3, 5])
-  const patternForLayer = (i: number) => (texturedLayers.has(i) ? `url(#v22-cs-tex-${i})` : 'transparent')
-
   return (
     <section className='v22-section' id='solutions' data-surface='light' style={{ ['--v22-paper' as string]: '#F3F0EC', ['--v22-paper-2' as string]: '#EAE5DB' }}>
       <div className='v22-container'>
-        <div className='v22-section-head v22-cs-head'>
-          <div className='num'>N°03 / What we do</div>
-          <h2>Seven layers. <span style={{ color: 'var(--v22-accent)' }}>One Frontier.</span>{' '}<span style={{ whiteSpace: 'nowrap' }}>No handoff.</span></h2>
-          <p className='lead'>We re&#8209;architect every layer for the AI&#8209;native enterprise. No retrofits, no silos.</p>
+        <div className='v22-cap-head'>
+          <div className='v22-cap-head-left'>
+            <div className='num'>N°03 / What we do</div>
+            <h2>Seven layers. <span style={{ color: 'var(--v22-accent)' }}>One Frontier.</span>{' '}<span style={{ whiteSpace: 'nowrap' }}>No handoff.</span></h2>
+            <p className='lead'>We re&#8209;architect every layer for the AI&#8209;native enterprise. No retrofits, no silos.</p>
+          </div>
         </div>
 
-        <div className='v22-cs-desktop'>
-        <div className='v22-cs-grid'>
-          <div className='v22-cs-stack-wrap'>
-            <svg viewBox={`0 0 ${svgW} ${svgH}`} xmlns='http://www.w3.org/2000/svg' className='v22-cs-stack' aria-label='Capabilities stack'>
-              <defs>
-                <pattern id='v22-cs-grid-pat' patternUnits='userSpaceOnUse' width='40' height='40'>
-                  <path d='M 40 0 L 0 0 0 40' fill='none' stroke='rgba(240,123,47,0.08)' strokeWidth='0.5' />
-                </pattern>
-                <pattern id='v22-cs-dot-pat' patternUnits='userSpaceOnUse' width='10' height='10'>
-                  <circle cx='1' cy='1' r='0.6' fill='rgba(240,123,47,0.18)' />
-                </pattern>
-                <pattern id='v22-cs-tex-0' patternUnits='userSpaceOnUse' width='6' height='6' patternTransform='rotate(45)'>
-                  <line x1='0' y1='0' x2='0' y2='6' stroke='rgba(255,255,255,0.22)' strokeWidth='0.8' />
-                </pattern>
-                <pattern id='v22-cs-tex-3' patternUnits='userSpaceOnUse' width='16' height='16'>
-                  <path d='M 0 0 L 16 16 M 16 0 L 0 16' stroke='rgba(255,255,255,0.1)' strokeWidth='0.5' />
-                </pattern>
-                <pattern id='v22-cs-tex-5' patternUnits='userSpaceOnUse' width='18' height='14'>
-                  <circle cx='1' cy='1' r='0.7' fill='rgba(255,255,255,0.18)' />
-                </pattern>
-                <filter id='v22-cs-particle-glow' x='-50%' y='-50%' width='200%' height='200%'>
-                  <feGaussianBlur stdDeviation='1.6' result='blur' />
-                  <feMerge><feMergeNode in='blur' /><feMergeNode in='SourceGraphic' /></feMerge>
-                </filter>
-              </defs>
-
-              <rect x='0' y='0' width={svgW} height={svgH} fill='url(#v22-cs-grid-pat)' />
-              <rect x='0' y='0' width={svgW} height={svgH} fill='url(#v22-cs-dot-pat)' />
-
-              {/* Left-edge tick marks — only span the stack region */}
-              <g stroke='rgba(255,255,255,0.15)' strokeWidth='0.5'>
-                {Array.from({ length: Math.floor((stackBot - stackTop) / 40) + 1 }).map((_, i) => (
-                  <line key={i} x1='62' y1={stackTop + i * 40} x2={i % 2 === 0 ? 72 : 68} y2={stackTop + i * 40} />
-                ))}
-              </g>
-
-              {/* FRONTIER ORGANISATION vertical label */}
-              <g>
-                <line x1='56' y1={stackTop} x2='56' y2={stackBot} stroke='rgba(240,123,47,0.45)' strokeWidth='1' />
-                <line x1='50' y1={stackTop} x2='62' y2={stackTop} stroke='rgba(240,123,47,0.45)' strokeWidth='1' />
-                <line x1='50' y1={stackBot} x2='62' y2={stackBot} stroke='rgba(240,123,47,0.45)' strokeWidth='1' />
-                <text
-                  x='40'
-                  y={(stackTop + stackBot) / 2}
-                  fontFamily='var(--font-mono)'
-                  fontSize='11'
-                  fontWeight='700'
-                  letterSpacing='3'
-                  fill='var(--v22-accent)'
-                  textAnchor='middle'
-                  transform={`rotate(-90 40 ${(stackTop + stackBot) / 2})`}
-                >
-                  FRONTIER ORGANISATION
-                </text>
-              </g>
-
-              {/* Particles — organic flow, 3/1/2/3/1/2 across 6 gaps */}
-              {(() => {
-                const gapCounts = [3, 1, 2, 3, 1, 2]
-                const xPools = [
-                  [baseX + 80, baseX + 160, baseX + 250],
-                  [baseX + 180],
-                  [baseX + 100, baseX + 230],
-                  [baseX + 60, baseX + 150, baseX + 260],
-                  [baseX + 200],
-                  [baseX + 110, baseX + 220],
-                ]
-                return capabilities.slice(0, -1).map((_, i) => {
-                  const fromY = firstY + i * rowGap + boxH
-                  const toY = firstY + (i + 1) * rowGap
-                  const count = gapCounts[i]
-                  const xs = xPools[i].slice(0, count)
-                  const gapDelay = i * 0.55
-                  return (
-                    <g key={`flow-${i}`}>
-                      {xs.map((x, pIdx) => (
-                        <circle
-                          key={pIdx}
-                          cx={x}
-                          cy={fromY}
-                          r={2.2 + (pIdx % 2) * 0.4}
-                          fill='var(--v22-accent)'
-                          className='v22-cs-flow-particle'
-                          filter='url(#v22-cs-particle-glow)'
-                          style={{
-                            '--cs-flow-distance': `${toY - fromY}px`,
-                            '--cs-flow-delay': `${gapDelay + pIdx * 0.42}s`,
-                          } as React.CSSProperties}
-                        />
-                      ))}
-                    </g>
-                  )
-                })
-              })()}
-
-              {/* Layers */}
-              {capabilities.map((cap, i) => {
-                const y = firstY + i * rowGap
-                const isActive = i === active
-                const stroke = isActive ? 'var(--v22-accent)' : 'rgba(255,255,255,0.32)'
-                const sw = isActive ? 1.6 : 1
-                const x = baseX
-                return (
-                  <g
-                    key={cap.num}
-                    className={`v22-cs-layer ${isActive ? 'is-active' : ''}`}
-                    onClick={() => select(i)}
-                    onMouseEnter={() => select(i)}
-                    role='button'
-                    aria-label={`Select ${cap.kicker}`}
-                    tabIndex={0}
-                    onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && select(i)}
-                  >
-                    <polygon points={`${x},${y} ${x + boxW},${y} ${x + boxW + skew},${y - 14} ${x + skew},${y - 14}`} fill='transparent' stroke={stroke} strokeWidth={sw} />
-                    <rect x={x} y={y} width={boxW} height={boxH} fill={isActive ? 'rgba(240,123,47,0.1)' : 'transparent'} stroke='none' />
-                    <rect x={x} y={y} width={boxW} height={boxH} fill={patternForLayer(i)} stroke={stroke} strokeWidth={sw} opacity={isActive ? 1 : 0.85} />
-                    <polygon points={`${x + boxW},${y} ${x + boxW + skew},${y - 14} ${x + boxW + skew},${y + boxH - 14} ${x + boxW},${y + boxH}`} fill='transparent' stroke={stroke} strokeWidth={sw} />
-                    <text x={x - 12} y={y + boxH / 2 + 4} fontFamily='var(--font-mono)' fontSize='11' fontWeight='500' letterSpacing='1' fill={isActive ? 'var(--v22-accent)' : 'rgba(255,255,255,0.55)'} textAnchor='end'>L{cap.num}</text>
-                    {/* Eyebrow — familiar service name */}
-                    <text x={x + 18} y={y + boxH / 2 - 6} fontFamily='var(--font-mono)' fontSize='8' fontWeight='500' letterSpacing='1.6' fill={isActive ? 'var(--v22-accent)' : 'rgba(255,255,255,0.5)'}>
-                      {cap.altLabel.toUpperCase()}
-                    </text>
-                    {/* Main kicker — architectural name */}
-                    <text x={x + 18} y={y + boxH / 2 + 12} fontFamily='var(--font-mono)' fontSize='12' fontWeight='600' letterSpacing='1.6' fill={isActive ? 'var(--v22-accent)' : 'rgba(255,255,255,0.92)'}>
-                      {cap.kicker.toUpperCase()}
-                    </text>
-                  </g>
-                )
-              })}
-
-              {/* Bottom dimension marker */}
-              <g stroke='rgba(255,255,255,0.22)' strokeWidth='0.6'>
-                <line x1={baseX} y1={stackBot + 6} x2={baseX + boxW} y2={stackBot + 6} />
-                <line x1={baseX} y1={stackBot + 2} x2={baseX} y2={stackBot + 10} />
-                <line x1={baseX + boxW} y1={stackBot + 2} x2={baseX + boxW} y2={stackBot + 10} />
-              </g>
-              <text x={baseX + boxW / 2} y={stackBot + 20} fontFamily='var(--font-mono)' fontSize='8' fill='rgba(255,255,255,0.55)' textAnchor='middle' letterSpacing='1.5'>7 × LAYER · ONE ENTERPRISE</text>
-            </svg>
-          </div>
-
-          <div className='v22-cs-detail' key={active}>
-            <div className='v22-cs-detail-kicker'>L{c.num} · {c.kicker.toUpperCase()}</div>
-            <h3 className='v22-cs-detail-title'>{c.title}</h3>
-            <p className='v22-cs-detail-sub'>{c.subtitle}</p>
-            <p className='v22-cs-detail-body'>{c.body}</p>
-            <div className='v22-cs-detail-tags'>
-              {c.tags.slice(0, 4).map((t) => (
-                <span key={t} className='v22-cs-tag'>{t}</span>
-              ))}
-            </div>
-            <a href='#' className='v22-cs-detail-cta'>{c.cta} <span>→</span></a>
-            {locked && (
-              <button className='v22-cs-resume' onClick={() => setLocked(false)}>
-                Resume auto-cycle →
+        <div className='v22-cap-interactive'>
+          {/* Desktop: left sidebar tab list */}
+          <div className='v22-cap-tabs' role='tablist'>
+            {capabilities.map((cap, i) => (
+              <button
+                key={cap.num}
+                role='tab'
+                aria-selected={i === active}
+                className={`v22-cap-tab ${i === active ? 'active' : ''}`}
+                onClick={() => select(i)}
+              >
+                <span className='tab-num'>{cap.num}</span>
+                <span className='tab-label'>
+                  <span className='tab-title'>{cap.title}</span>
+                  <span className='tab-kicker'>{cap.altLabel.toUpperCase()}</span>
+                </span>
+                <span className='v22-cap-tab-progress' />
               </button>
-            )}
+            ))}
           </div>
-        </div>
-        </div>{/* /v22-cs-desktop */}
 
-        {/* Mobile accordion — full 7-row stack, tap to expand/collapse inline */}
-        <div className='v22-cs-mobile-acc' role='list'>
-          {capabilities.map((cap, i) => {
-            const isOpen = i === mobileOpen
-            const stroke = 'var(--v22-accent)'
-            const sw = isOpen ? 1.6 : 1
-            return (
-              <div key={cap.num} className={`v22-csm-row ${isOpen ? 'is-open' : ''}`} role='listitem'>
-                <button
-                  className='v22-csm-trigger'
-                  onClick={() => toggleMobile(i)}
-                  aria-expanded={isOpen}
-                  aria-controls={`v22-csm-body-${i}`}
-                >
-                  <svg viewBox='0 0 72 44' className='v22-csm-mark' aria-hidden='true'>
-                    <rect x='2' y='14' width='56' height='26' fill={isOpen ? 'rgba(240,123,47,0.16)' : 'transparent'} />
-                    <rect x='2' y='14' width='56' height='26' fill={texturedLayers.has(i) ? `url(#v22-cs-tex-${i})` : 'transparent'} />
-                    <rect x='2' y='14' width='56' height='26' fill='none' stroke={stroke} strokeOpacity={isOpen ? 1 : 0.55} strokeWidth={sw} />
-                    <polygon points='2,14 58,14 70,2 14,2' fill='transparent' stroke={stroke} strokeOpacity={isOpen ? 1 : 0.55} strokeWidth={sw} />
-                    <polygon points='58,14 70,2 70,28 58,40' fill='transparent' stroke={stroke} strokeOpacity={isOpen ? 1 : 0.55} strokeWidth={sw} />
-                    <text x='30' y='32' fontFamily='var(--font-mono)' fontSize='11' fontWeight='700' letterSpacing='0.8' fill='var(--v22-accent)' opacity={isOpen ? 1 : 0.8} textAnchor='middle'>L{cap.num}</text>
-                  </svg>
-                  <span className='v22-csm-labels'>
-                    <span className='v22-csm-kicker'>{cap.kicker.toUpperCase()}</span>
-                    <span className='v22-csm-alt'>{cap.altLabel.toUpperCase()}</span>
-                  </span>
-                  <span className='v22-csm-chevron' aria-hidden='true'>{isOpen ? '−' : '+'}</span>
-                </button>
-                <div id={`v22-csm-body-${i}`} className='v22-csm-body' hidden={!isOpen}>
-                  <h3 className='v22-csm-title'>{cap.title}</h3>
-                  <p className='v22-csm-sub'>{cap.subtitle}</p>
-                  <p className='v22-csm-copy'>{cap.body}</p>
-                  <div className='v22-csm-tags'>
-                    {cap.tags.slice(0, 4).map((t) => (
-                      <span key={t} className='v22-csm-tag'>{t}</span>
-                    ))}
-                  </div>
-                  <a href='#' className='v22-csm-cta'>{cap.cta} <span>→</span></a>
-                </div>
+          {/* Mobile: compact prev/next navigator */}
+          <div className='v22-cap-mobile-nav'>
+            <button
+              className='v22-cap-arrow'
+              onClick={() => select((active - 1 + capabilities.length) % capabilities.length)}
+              aria-label='Previous capability'
+            >
+              ←
+            </button>
+            <div className='v22-cap-mobile-label'>
+              <span className='mob-num'>{c.num}</span>
+              <span className='mob-title'>{c.title}</span>
+              <span className='mob-dots'>
+                {capabilities.map((_, i) => (
+                  <span key={i} className={`mob-dot ${i === active ? 'active' : ''}`} onClick={() => select(i)} />
+                ))}
+              </span>
+            </div>
+            <button
+              className='v22-cap-arrow'
+              onClick={() => select((active + 1) % capabilities.length)}
+              aria-label='Next capability'
+            >
+              →
+            </button>
+            {!locked && <span className='v22-cap-mobile-progress' />}
+          </div>
+
+          {/* Detail panel — content left, icon column right */}
+          <div className='v22-cap-detail' role='tabpanel' key={active}>
+            <div className='v22-cap-detail-content'>
+              <div className='v22-cap-detail-meta'>
+                <span className='detail-kicker'>{c.altLabel.toUpperCase()}</span>
+                <h3>{c.title}</h3>
+                <span className='detail-subtitle'>{c.subtitle}</span>
               </div>
-            )
-          })}
+              <p>{c.body}</p>
+              <div className='v22-cap-pills'>
+                {c.tags.map((tag) => (
+                  <span key={tag} className='v22-cap-pill'>{tag}</span>
+                ))}
+              </div>
+              <a href='#cta' className='v22-cap-cta'>
+                {c.cta} <span className='arrow'>&rarr;</span>
+              </a>
+            </div>
+            <div className='v22-cap-detail-icon'>
+              <div className='v22-cap-icon-ring'>
+                <CapIcon index={active} />
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Bookend CTA — scrolls to the framework section (N°04) below */}
-        <div className='v22-cs-bookend'>
-          <div className='v22-cs-bookend-meta'>
-            <span className='v22-cs-bookend-num'>N°04 · NEXT</span>
-            <span className='v22-cs-bookend-sep' aria-hidden='true' />
-            <span className='v22-cs-bookend-text'>
-              Every capability above maps to a layer of the stack.
-            </span>
-          </div>
-          <a href='#framework' className='v22-cs-stack-cta'>
-            <span className='v22-cs-stack-cta-icon' aria-hidden='true'>
-              <svg viewBox='0 0 24 16' fill='none'>
-                <polygon points='2,6 16,6 22,2 8,2' stroke='currentColor' strokeWidth='1.2' />
-                <rect x='2' y='6' width='14' height='8' stroke='currentColor' strokeWidth='1.2' fill='none' />
-                <polygon points='16,6 22,2 22,10 16,14' stroke='currentColor' strokeWidth='1.2' fill='none' />
-              </svg>
-            </span>
-            See how we do it
-            <span className='v22-cs-stack-cta-arrow' aria-hidden='true'>↓</span>
-          </a>
-        </div>
       </div>
     </section>
   )

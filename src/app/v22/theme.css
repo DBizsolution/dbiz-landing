@@ -462,13 +462,13 @@
   padding: 48px 0 56px;
   border-bottom: 1px solid var(--v22-hair);
   position: relative;
-  background-color: var(--brand-navy-deep);        /* fallback */
+  background-color: var(--brand-navy-deep);
   background-image: linear-gradient(
     180deg,
-    var(--brand-navy) 0%,                          /* top edge — 16.9:1 */
-    #0A1530 18%,                                   /* quick fade into mid */
-    #08122E 50%,                    /* dark dominates from mid down */
-    #08122E 100%                    /* bottom — 19.1:1 */
+    var(--brand-navy) 0%,
+    #0A1530 18%,
+    #08122E 50%,
+    #08122E 100%
   );
   color: var(--v22-ink);
 }
@@ -590,16 +590,11 @@
   grid-column: 8 / 13;
   grid-row: 2 / 6;
   position: relative;
-  border: 1px solid var(--v22-hair-strong);
-  padding: 28px;
-}
-.v22-hero-diagram::before,
-.v22-hero-diagram::after {
-  content: '';
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border: 1px solid var(--v22-accent);
+  /* No frame — diagram sits directly on the hero gradient. The SVG's own
+     internal grid + corner ticks give it structure without an outer container. */
+  border: none;
+  padding: 0;
+  background: transparent;
 }
 .v22-hero-diagram::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
 .v22-hero-diagram::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
@@ -608,8 +603,10 @@
 .v22-diagram-label,
 .v22-diagram-foot {
   position: absolute;
-  left: 28px;
-  right: 28px;
+  /* Pulled inward so the labels don't collide with the SVG corner brackets
+     (which sit at x=20→40 and x=480→500 in the 520-wide viewBox). */
+  left: clamp(56px, 6%, 80px);
+  right: clamp(56px, 6%, 80px);
   display: flex;
   justify-content: space-between;
   font-family: var(--font-mono);
@@ -618,8 +615,8 @@
   color: var(--v22-ink-3);
   text-transform: uppercase;
 }
-.v22-diagram-label { top: 12px; }
-.v22-diagram-foot { bottom: 12px; }
+.v22-diagram-label { top: 18px; }
+.v22-diagram-foot { bottom: 18px; }
 
 /* ---------- CTA buttons ---------- */
 .v22-scope a.v22-cta-primary,
@@ -654,6 +651,7 @@
 .v22-cta-primary:hover::before { top: -4px; left: -4px; }
 .v22-cta-primary:hover::after { bottom: -4px; right: -4px; }
 .v22-cta-primary .arrow { margin-left: auto; font-weight: 400; }
+
 
 .v22-cta-secondary {
   display: inline-flex;
@@ -880,21 +878,43 @@
 .v22-section-head.v22-with-diagram h2 { margin-bottom: 20px; }
 
 /* ---------- STATS (V5 boxed style) ---------- */
+/* Switched from a flat off-white to the brand cream paper with a visible
+   blueprint dot grid + an orange schematic tick rule, so the section reads as
+   a "data sheet" moment rather than dull off-white filler. */
 .v22-stats {
   padding: var(--v22-rhythm) 0;
-  border-bottom: 1px solid var(--v22-hair);
-  background-color: #F0EEEB !important;
+  border-bottom: 1px solid rgba(13, 27, 62, 0.08);
+  background-color: #F3F0EC !important;
   background-image:
-    radial-gradient(rgba(20, 18, 16, 0.025) 1px, transparent 1px),
-    radial-gradient(rgba(20, 18, 16, 0.018) 1px, transparent 1px) !important;
-  background-size: 3px 3px, 7px 7px !important;
-  background-position: 0 0, 1px 2px !important;
+    /* blueprint dot grid — matches capabilities and framework rhythm */
+    radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.10) 1px, transparent 0) !important;
+  background-size: 22px 22px !important;
+  background-position: 0 0 !important;
+  position: relative;
+}
+.v22-stats::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    transparent 8%,
+    var(--v22-accent) 8%,
+    var(--v22-accent) 24%,
+    transparent 24%,
+    transparent 100%);
+  opacity: 0.55;
 }
 .v22-stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 1fr;        /* equalise card heights row-by-row */
   gap: clamp(10px, 1vw, 18px);
   border: none;
+  align-items: stretch;
 }
 .v22-stat {
   padding: 40px 28px;
@@ -966,9 +986,35 @@
   line-height: 1.5;
 }
 @media (max-width: 960px) {
-  .v22-stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .v22-stat { border-bottom: 1px solid var(--v22-hair); }
+  .v22-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .v22-stat {
+    padding: 22px 18px 20px;          /* compress vertical padding */
+    gap: 10px;                         /* tighter internal stack */
+    border-bottom: 1px solid var(--v22-hair);
+  }
   .v22-stat:nth-child(even) { border-right: none; }
+  /* Tighter type so cards read at one glance */
+  .v22-stat .val { font-size: clamp(2rem, 8vw, 2.6rem); padding-left: 12px; }
+  .v22-stat .lbl { font-size: 0.6rem; line-height: 1.4; }
+  .v22-stat .coord { font-size: 0.52rem; }
+  .v22-stat::before { top: 10px; left: 10px; }
+  /* Orphan rule — when there's an odd number of stats, the last card spans
+     both columns instead of sitting alone. */
+  .v22-stat:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+
+/* Phones — keep 2 columns for shorter section height, just compress more.
+   The orphan-span rule above handles the odd 5th card. */
+@media (max-width: 420px) {
+  .v22-stats-grid { gap: 8px; }
+  .v22-stat { padding: 16px 14px 14px; gap: 8px; }
+  .v22-stat .val { font-size: 1.8rem; padding-left: 10px; }
+  .v22-stat .lbl { font-size: 0.55rem; letter-spacing: 0.1em; }
+  .v22-stat .coord { font-size: 0.5rem; }
+  .v22-stat::before { width: 5px; height: 5px; top: 8px; left: 8px; }
 }
 
 /* ---------- SECTION ---------- */
@@ -1458,7 +1504,7 @@
     cursor: pointer;
     transition: background 0.2s ease;
   }
-  .v22-cap-arrow:last-child { border-right: none; border-left: 1px solid var(--v22-hair); }
+  .v22-cap-arrow:last-of-type { border-right: none; border-left: 1px solid var(--v22-hair); }
   .v22-cap-arrow:hover { background: rgba(240, 123, 47, 0.08); }
   .v22-cap-mobile-label {
     flex: 1;
@@ -1715,12 +1761,25 @@
   position: relative;
 }
 
-/* Beige light-mode override for capabilities section */
+/* Capabilities — lighter off-white paper to separate from the warm cream
+   stats section directly above. Dot pattern is kept but more subtle so the
+   boundary between the two light surfaces reads clearly. */
 .v22-scope section#solutions[data-surface="light"] {
-  background-color: #F3F0EC;
-  background-image: radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.08) 1px, transparent 0);
-  background-size: 24px 24px;
+  background-color: #FAFAFA;
+  background-image: radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.05) 1px, transparent 0);
+  background-size: 28px 28px;
   color: var(--v22-ink);
+  position: relative;
+}
+/* Soft hairline separator above the section so the eye registers the change. */
+.v22-scope section#solutions[data-surface="light"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(13, 27, 62, 0.1) 20%, rgba(13, 27, 62, 0.1) 80%, transparent);
 }
 .v22-scope section#solutions[data-surface="light"] .v22-section-head h2,
 .v22-scope section#solutions[data-surface="light"] .v22-cs-detail h3,
@@ -1831,6 +1890,212 @@
 .v22-scope section#solutions[data-surface="light"] .v22-cs-detail-body { color: rgba(13, 27, 62, 0.8); }
 .v22-scope section#solutions[data-surface="light"] .v22-cs-detail-tags span { color: var(--brand-navy); border-color: rgba(13, 27, 62, 0.3); }
 .v22-scope section#solutions[data-surface="light"] .v22-cs-detail-cta { color: var(--v22-accent); }
+
+/* ---------- v16-style numbered tabs + detail panel — light-mode overrides ---------- */
+/* Drop the heavy outer box: no border, no corner accent. Let the section paper
+   carry the structure; only a vertical hairline divides tabs from detail. */
+.v22-scope section#solutions[data-surface="light"] .v22-cap-head {
+  margin-bottom: 28px;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-interactive {
+  background: transparent;
+  border: none;
+  margin-top: 0;
+  grid-template-columns: 300px 1fr;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-interactive::after {
+  display: none;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-tabs {
+  border-right: none;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-tab {
+  border-bottom-color: rgba(13, 27, 62, 0.08);
+  color: rgba(13, 27, 62, 0.7);
+  padding: 11px 22px;
+  gap: 14px;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-tab .tab-label { gap: 3px; }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-tab .tab-title { font-size: 0.88rem; line-height: 1.25; }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail {
+  padding: 4px 0 4px 44px;
+  gap: 48px;
+  align-items: stretch;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content {
+  gap: 16px;
+  padding-top: 2px;
+  justify-content: center;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-icon {
+  align-items: center;
+  padding: 0;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta { gap: 4px; flex: none; }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta h3 { margin-top: 2px; font-size: clamp(1.2rem, 1.7vw, 1.55rem); }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail > .v22-cap-detail-content > p,
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content > p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  max-width: 56ch;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-pills { gap: 8px; margin-top: 2px; }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-cta {
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(13, 27, 62, 0.1);
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring { width: 220px; height: 220px; padding: 32px; }
+
+/* ── Tablet/phone (≤ 960px) ── icon sits side-by-side with the title meta on
+   row 1; body, pills, and CTA span both columns below.
+   Trick: `display: contents` on .v22-cap-detail-content lets its children
+   participate directly in the parent grid, so we can place .v22-cap-detail-meta
+   in column 1 next to the icon without restructuring the JSX. */
+@media (max-width: 960px) {
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-head { margin-bottom: 20px; }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-interactive {
+    grid-template-columns: 1fr;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 16px;
+    row-gap: 14px;
+    padding: 24px 0 8px;
+    align-items: start;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content {
+    display: contents;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-icon {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: flex-end;
+    align-self: center;
+    padding: 0;
+    order: 0;
+  }
+  /* Body, pills, CTA span both columns and flow underneath the header row. */
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content > p,
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-pills,
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-cta {
+    grid-column: 1 / -1;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring {
+    width: 96px;
+    height: 96px;
+    padding: 18px;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring::after {
+    width: 140px;
+    height: 140px;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta h3 {
+    font-size: clamp(1.15rem, 4.2vw, 1.4rem);
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content > p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    max-width: 100%;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-cta {
+    margin-top: 8px;
+    padding-top: 14px;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-mobile-label { padding: 10px 12px; }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-mobile-label .mob-title { font-size: 0.92rem; line-height: 1.25; }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-pill { padding: 8px 14px; font-size: 0.65rem; }
+}
+
+/* ── Phone (≤ 480px) — sharper compression ── */
+@media (max-width: 480px) {
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail {
+    padding: 20px 0 4px;
+    column-gap: 14px;
+    row-gap: 12px;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring {
+    width: 80px;
+    height: 80px;
+    padding: 14px;
+  }
+  .v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring::after {
+    width: 110px;
+    height: 110px;
+  }
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-tab:hover {
+  color: var(--brand-navy);
+  background: rgba(13, 27, 62, 0.04);
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-tab.active {
+  color: var(--brand-navy);
+  background: rgba(240, 123, 47, 0.08);
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-tab .tab-num { color: #A8420E; }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-tab .tab-kicker { color: rgba(13, 27, 62, 0.5); }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-tab.active .tab-kicker { color: #A8420E; opacity: 1; }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta .detail-kicker { color: #A8420E; }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta h3 { color: var(--brand-navy); }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta .detail-subtitle { color: rgba(13, 27, 62, 0.55); }
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail > .v22-cap-detail-content > p,
+.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content > p {
+  color: rgba(13, 27, 62, 0.8);
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-pill {
+  color: var(--brand-navy);
+  border-color: rgba(13, 27, 62, 0.3);
+  background: transparent;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-cta {
+  color: #A8420E;
+  border-top-color: rgba(13, 27, 62, 0.12);
+  border-bottom-color: #A8420E;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-cta:hover {
+  color: var(--brand-navy);
+  border-color: var(--brand-navy);
+}
+
+/* Icon ring — flip hardcoded white rgba to navy on beige */
+.v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring {
+  border: 1px dashed rgba(13, 27, 62, 0.25);
+  background-image:
+    linear-gradient(to right, rgba(13, 27, 62, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 27, 62, 0.05) 1px, transparent 1px);
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring::before {
+  border-color: rgba(13, 27, 62, 0.14);
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring svg circle[stroke-dasharray] {
+  stroke: rgba(13, 27, 62, 0.25);
+}
+
+/* Mobile prev/next nav — light-mode strokes.
+   Each arrow has its divider line on the LABEL side: line BEFORE the right
+   arrow, line AFTER the left arrow. Strengthened to 0.22 alpha so the dividers
+   register against the cream paper. */
+.v22-scope section#solutions[data-surface="light"] .v22-cap-arrow {
+  border: none;
+  border-right: 1px solid rgba(13, 27, 62, 0.22);
+  color: #A8420E;
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-arrow:last-of-type {
+  border-right: none;
+  border-left: 1px solid rgba(13, 27, 62, 0.22);
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-mobile-nav {
+  border-bottom-color: rgba(13, 27, 62, 0.18);
+}
+.v22-scope section#solutions[data-surface="light"] .v22-cap-mobile-label .mob-num { color: #A8420E; }
+.v22-scope section#solutions[data-surface="light"] .mob-dot { background: rgba(13, 27, 62, 0.18); }
+.v22-scope section#solutions[data-surface="light"] .mob-dot.active { background: var(--v22-accent); }
 
 /* ---------- PROVEN (light-mode editorial — three sectioned bands) ---------- */
 .v22-proven[data-surface="light"] {
@@ -2234,6 +2499,92 @@
   .v22-proven-card { flex: 0 0 85%; min-width: 280px; }
 }
 
+/* ── Mobile (≤ 760px) — filter bar becomes a horizontal-scroll tab strip,
+   search button is hidden. Applies to both default and light surfaces. ── */
+@media (max-width: 760px) {
+  /* Filterbar: drop the box framing, become a clean tab rail under the head */
+  .v22-proven-filterbar,
+  .v22-proven[data-surface="light"] .v22-proven-filterbar {
+    margin-top: 20px;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid rgba(13, 27, 62, 0.12);
+    border-radius: 0;
+    gap: 0;
+  }
+  /* Filters: single horizontal row, scroll-X like a tab carousel.
+     `flex: 1 1 0; min-width: 0` lets the filters element fill the filterbar
+     (and shrink below its content size), while overflow-x: auto makes the
+     inner buttons scroll horizontally inside the rail instead of pushing the
+     parent past the viewport edge. */
+  .v22-proven-filters,
+  .v22-proven[data-surface="light"] .v22-proven-filters {
+    display: flex !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .v22-proven-filters::-webkit-scrollbar { display: none; }
+  /* Filterbar wraps the rail tightly + a soft right-edge fade so the clipped
+     trailing tab reads as "more this way" rather than awkward truncation.
+     Subtle: 36px gradient, no chevron, no animation. */
+  .v22-proven-filterbar,
+  .v22-proven[data-surface="light"] .v22-proven-filterbar {
+    overflow: hidden;
+    max-width: 100%;
+    position: relative;
+  }
+  .v22-proven-filterbar::after,
+  .v22-proven[data-surface="light"] .v22-proven-filterbar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 1px;            /* sit above the bottom hairline */
+    width: 36px;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(243, 240, 236, 0) 0%,
+      rgba(243, 240, 236, 0.9) 65%,
+      rgba(243, 240, 236, 1) 100%
+    );
+    z-index: 2;
+  }
+  /* Filter pill: tab-style underline button, no vertical dividers */
+  .v22-proven-filter,
+  .v22-proven[data-surface="light"] .v22-proven-filter {
+    flex: 0 0 auto;
+    padding: 14px 18px;
+    border: none !important;
+    border-right: none !important;
+    border-left: none !important;
+    scroll-snap-align: start;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    white-space: nowrap;
+  }
+  .v22-proven-filter + .v22-proven-filter { border-left: none !important; }
+  /* Active filter — same orange underline pattern, just slightly tighter */
+  .v22-proven-filter.active::after,
+  .v22-proven[data-surface="light"] .v22-proven-filter.active::after {
+    left: 14px;
+    right: 14px;
+    bottom: -1px;
+    height: 2px;
+  }
+  /* Hide the search toggle on mobile entirely */
+  .v22-proven-search-toggle,
+  .v22-proven[data-surface="light"] .v22-proven-search-toggle {
+    display: none !important;
+  }
+}
+
 /* ─── Light-mode Proven section: editorial filmstrip with expanding filters ─── */
 .v22-proven[data-surface="light"] .v22-proven-header-left .num { color: var(--v22-accent); }
 .v22-proven[data-surface="light"] .v22-proven-header-left h2 { color: var(--proven-ink); }
@@ -2353,14 +2704,15 @@
   margin-right: 8px;
 }
 .v22-proven[data-surface="light"] .v22-proven-subchip {
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-  padding: 7px 14px;
+  font-family: var(--font-mono);            /* mono — matches v22 schematic vocabulary */
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 9px 14px;
   background: transparent;
-  border: 1px solid var(--proven-rule);
-  border-radius: 100px;
+  border: 1px solid rgba(13, 27, 62, 0.2);
+  border-radius: 2px;                        /* near-rectangular, just enough to soften */
   color: var(--proven-ink-2);
   cursor: pointer;
   transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
@@ -2683,8 +3035,21 @@
 @media (max-width: 720px) {
   .v22-proven[data-surface="light"] .v22-proven-nav { grid-template-columns: 1fr; gap: 16px; }
   .v22-proven-nav-meta,
-  .v22-proven[data-surface="light"] .v22-proven-nav-center,
-  .v22-proven[data-surface="light"] .v22-proven-foot-link { justify-self: start; }
+  .v22-proven[data-surface="light"] .v22-proven-nav-center { justify-self: start; }
+
+  /* Foot link spans the full row on mobile — one-line CTA, content split between
+     label and arrow so it reads as a button rather than a small inline link. */
+  .v22-proven[data-surface="light"] .v22-proven-foot-link {
+    justify-self: stretch;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 4px;
+    white-space: nowrap;
+  }
+  .v22-proven[data-surface="light"] .v22-proven-foot-link:hover { gap: 12px; }
 }
 
 /* ---------- QUOTE (V5 framed) ---------- */
@@ -3319,51 +3684,70 @@
   display: block;
 }
 
-/* ─── Card text content ─── */
+/* ─── Card text content ───
+   Reading order via CSS `order`: TITLE → BODY → hairline → meta (num·label)
+   → foot. The DOM order is preserved (meta still first in JSX); we just flip
+   the visual stacking so the differentiator content leads the eye. */
 .v22-why-card-meta {
+  order: 4;                       /* demoted to bottom of card */
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 10px;
+  align-items: center;            /* center vertically — both lines are similar small mono caps */
+  gap: 8px;
+  margin: 0 0 6px;
+  opacity: 0.75;
+  line-height: 1;
 }
 .v22-why-card-idx {
   font-family: var(--font-mono);
-  font-size: 2.4rem;
-  font-weight: 700;
-  letter-spacing: -0.04em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   color: var(--brand-navy);
-  line-height: 0.95;
+  line-height: 1;
   position: relative;
+  /* Vertical bar separator follows after the number */
+}
+.v22-why-card-idx::before {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  width: 1px;
+  height: 9px;
+  transform: translateY(-50%);
+  background: rgba(13, 27, 62, 0.25);
 }
 .v22-why-card-idx::after {
   content: '';
   position: absolute;
-  right: -10px;
-  bottom: 4px;
-  width: 6px;
-  height: 6px;
+  left: -10px;
+  top: 50%;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--v22-accent);
+  transform: translateY(-50%) scale(0.4);
   opacity: 0;
-  transform: scale(0.4);
   transition: opacity 240ms ease 200ms, transform 240ms cubic-bezier(.2,.7,.1,1) 200ms;
 }
+.v22-why-card.is-active .v22-why-card-idx::after { transform: translateY(-50%) scale(1); }
 .v22-why-card.is-active .v22-why-card-idx::after { opacity: 1; transform: scale(1); }
 
 .v22-why-card-label {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.62rem;             /* shrunk to match the demoted meta */
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   color: rgba(13, 27, 62, 0.55);
   text-transform: uppercase;
 }
 .v22-why-card.is-active .v22-why-card-label { color: var(--v22-accent); }
 
 .v22-why-card-rule {
+  order: 3;                       /* hairline sits between body and meta now */
   height: 1px;
   background: rgba(13, 27, 62, 0.12);
-  margin: 0 0 14px;
+  margin: 22px 0 12px;            /* more space above (separates from body), tighter below */
   position: relative;
   overflow: hidden;
 }
@@ -3379,23 +3763,47 @@
 .v22-why-card.is-active .v22-why-card-rule::after { transform: scaleX(1); }
 
 .v22-why-card-title {
+  order: 1;                       /* TITLE leads — first thing the eye lands on */
   font-family: var(--font-sans);
-  font-size: 1.18rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 1.22;
+  font-size: clamp(1.55rem, 2vw, 1.85rem);   /* hero element of the card */
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   color: var(--brand-navy);
-  margin: 0 0 10px;
+  margin: 0 0 14px;
 }
 .v22-why-card-body {
+  order: 2;                       /* body follows the title directly */
   font-family: var(--font-sans);
-  font-size: 0.92rem;
+  font-size: 1rem;                /* nudged up so copy reads, not just glances */
   line-height: 1.55;
-  color: rgba(13, 27, 62, 0.72);
-  margin: 0 0 18px;
+  color: rgba(13, 27, 62, 0.78);
+  margin: 0;
   max-width: 38ch;
 }
+/* ─── Stage-only spotlight (active state) ───
+   Whichever card is currently active gets its stage area transformed: navy
+   gradient + orange halo + white-with-alpha SVG strokes. Card itself stays
+   paper. Title/body/meta all stay navy. Bg transitions smoothly; inline SVG
+   stroke/fill attrs snap (single frame, contained to a small zone). */
+.v22-why-card .v22-why-card-stage {
+  transition: background 360ms cubic-bezier(.2,.7,.1,1), border-color 280ms ease;
+}
+.v22-why-card.is-active .v22-why-card-stage {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(240, 123, 47, 0.28), transparent 62%),
+    linear-gradient(155deg, var(--brand-navy) 0%, var(--brand-navy-deep) 100%);
+  border-color: rgba(240, 123, 47, 0.5);
+}
+/* Recolour stage SVG strokes/fills so the schematic reads on dark when active.
+   Inline attrs snap rather than transition, but the change is localised to a
+   small zone so the snap is acceptable. */
+.v22-why-card.is-active .v22-why-glyph-svg [stroke="rgba(13,27,62,0.55)"] { stroke: rgba(255, 255, 255, 0.62) !important; }
+.v22-why-card.is-active .v22-why-glyph-svg [stroke="rgba(13,27,62,0.32)"] { stroke: rgba(255, 255, 255, 0.32) !important; }
+.v22-why-card.is-active .v22-why-glyph-svg [fill="rgba(13,27,62,0.32)"] { fill: rgba(255, 255, 255, 0.32) !important; }
+
 .v22-why-card-foot {
+  order: 5;                       /* tail caption stays last */
   font-family: var(--font-mono);
   font-size: 0.66rem;
   font-weight: 500;
@@ -3770,6 +4178,8 @@
 .v22-footer {
   padding: 96px 0 40px;
   position: relative;
+  background-color: var(--brand-navy-deep);
+  color: var(--v22-ink);
 }
 .v22-foot-top {
   display: grid;
@@ -4402,10 +4812,19 @@
   padding: 64px 0 72px;
   position: relative;
   scroll-margin-top: 100px;         /* clear the sticky nav when scroll-anchored */
-  /* Match the disc housing bg so the whole framework reads as one illustration */
-  background-color: var(--brand-navy-deep);
-  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0);
-  background-size: 24px 24px;
+  /* DBiz blue → navy blue gradient. Brand-navy-light at the top edge fades
+     into brand-navy through the middle and deepens to brand-navy-deep at the
+     bottom — same family as the hero, slightly more energy. */
+  background-color: var(--brand-navy);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0),
+    linear-gradient(180deg,
+      var(--brand-navy-light) 0%,
+      var(--brand-navy) 35%,
+      var(--brand-navy) 70%,
+      var(--brand-navy-deep) 100%
+    );
+  background-size: 24px 24px, 100% 100%;
 }
 .v22-section.v22-framework .v22-fw-head {
   border-bottom: none;
@@ -4593,58 +5012,94 @@
 .v22-fw-card-mini { display: none; }
 
 @media (max-width: 760px) {
+  /* Tighter section header on mobile. */
+  .v22-section.v22-framework .v22-fw-head { margin-bottom: 12px; }
+  .v22-section.v22-framework .v22-fw-head .lead {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    max-width: 36ch;
+  }
+  .v22-fw-top-strip { padding: 8px 4px 10px; }
+
+  /* MOBILE: hide the master diagram. Each layer becomes a full card (icon +
+     L-label + offering + accelerator) and the 7 cards line up in a horizontal
+     scroller. Free pan, no snap, no carousel pagination. */
   .v22-fw-scroller {
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: none;
     scroll-behavior: smooth;
-    padding-bottom: 8px;
-    scrollbar-width: none;
+    padding-bottom: 14px;
+    scrollbar-width: thin;
   }
-  .v22-fw-scroller::-webkit-scrollbar { display: none; }
-
-  /* Hide the master diagram on narrow phones — each card renders its own mini disc. */
+  .v22-fw-scroller::-webkit-scrollbar { height: 6px; display: block; }
   .v22-fw-scroller .v22-fw-diagram-wrap { display: none; }
+  /* Hide the desktop-only edge fades on mobile — the peeking next card is the
+     scroll affordance, the navy gradients just read as random stripes. */
+  .v22-fw-scroller .v22-fw-scroll-edge { display: none; }
+  .v22-fw-scroller .v22-fw-scroll-hint { display: none; }
 
-  /* Cards become the scroll track, one card per viewport. */
   .v22-fw-scroller .v22-fw-cards {
-    min-width: calc(7 * 100vw);
     display: flex !important;
+    flex-direction: row;
+    gap: 14px;
     grid-template-columns: none !important;
     grid-template-rows: none !important;
+    width: max-content;
+    min-width: max-content;
+    padding: 4px 4px 0;
   }
   .v22-fw-card {
     display: flex !important;
     flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    width: 78vw;
+    max-width: 320px;
+    flex: 0 0 78vw;
+    padding: 18px 18px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    scroll-snap-align: none;
     grid-row: auto !important;
     grid-template-rows: none !important;
-    width: 100vw;
-    flex: 0 0 100vw;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
-    padding: 12px 20px 24px;
   }
-
-  /* Mini disc — sized to fit its card column, stays at "normal" visual size. */
+  /* Mini-disc + L-label header */
   .v22-fw-card-mini {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    margin-bottom: 18px;
+    margin: 0 0 4px;
   }
-  .v22-fw-mini-disc {
-    width: 160px;
-    height: 160px;
-    display: block;
-  }
+  .v22-fw-mini-disc { width: 132px; height: 132px; display: block; }
   .v22-fw-card-layer {
     font-family: var(--font-mono);
     font-size: 10px;
     letter-spacing: 0.22em;
     color: rgba(255, 255, 255, 0.6);
     text-transform: uppercase;
+    text-align: center;
   }
+  /* Offering item */
+  .v22-fw-card .v22-fw-card-item:nth-of-type(1) { display: block; }
+  /* Separator becomes a thin orange hairline between offering and accelerator */
+  .v22-fw-card .v22-fw-card-link {
+    display: block;
+    height: 1px;
+    background: rgba(240, 123, 47, 0.35);
+    width: 100%;
+    margin: 2px 0;
+  }
+  /* Accelerator item */
+  .v22-fw-card .v22-fw-card-item:nth-of-type(2) { display: block; }
+
+  .v22-fw-card-name { font-size: 1rem; line-height: 1.2; }
+  .v22-fw-card-desc { font-size: 0.82rem; line-height: 1.45; margin-top: 4px; }
+  .v22-fw-card-kicker { font-size: 9px; letter-spacing: 0.18em; color: var(--v22-accent); margin-bottom: 4px; }
+
+  .v22-fw-pagination { display: none !important; }
 }
 
 /* ----- Pagination (carousel indicators) ----- */

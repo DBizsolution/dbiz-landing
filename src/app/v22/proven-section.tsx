@@ -127,6 +127,9 @@ export default function ProvenSection() {
   const [search, setSearch] = useState('')
   const [searchOpen, setSearchOpen] = useState(false)
   const [activeIdx, setActiveIdx] = useState(0)
+  /* Mobile-only: filterbar collapses behind a quiet trigger so cards lead the
+     section. Desktop shows the filterbar as usual (CSS controls visibility). */
+  const [filtersOpen, setFiltersOpen] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
   const searchInputRef = useRef<HTMLInputElement>(null)
 
@@ -242,12 +245,6 @@ export default function ProvenSection() {
             ) : filter !== 'all' ? (
               <div className='v22-proven-subchips' role='tablist' aria-label={`Filter by ${filterLabels[filter].replace('By ', '').toLowerCase()}`}>
                 <span className='v22-proven-sub-label'>{filter === 'technology' ? 'TECHNOLOGY' : filter === 'solution' ? 'SOLUTION' : 'INDUSTRY'}</span>
-                <button
-                  className={`v22-proven-subchip ${sub === null ? 'active' : ''}`}
-                  onClick={() => setSub(null)}
-                >
-                  Show all
-                </button>
                 {subOptions.map((o) => (
                   <button
                     key={o}
@@ -258,6 +255,12 @@ export default function ProvenSection() {
                     {o}
                   </button>
                 ))}
+                <button
+                  className={`v22-proven-subchip is-secondary ${sub === null ? 'active' : ''}`}
+                  onClick={() => setSub(null)}
+                >
+                  Show all
+                </button>
               </div>
             ) : null}
           </div>

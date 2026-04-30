@@ -310,12 +310,17 @@ export default function FrameworkSection() {
   useEffect(() => {
     const el = cardsRef.current
     if (!el) return
+    /* threshold: 0 fires on first pixel of intersection.
+       The previous 0.15 threshold never fired on mobile — the cards rail is
+       max-content wide (~2140px for 7 cards) but only ~375px of viewport is
+       visible, so the *ratio* of visible area to total target area was below
+       15%, leaving the cards stuck at opacity 0 forever. */
     const io = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         setVisible(true)
         io.disconnect()
       }
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' })
+    }, { threshold: 0, rootMargin: '0px 0px -8% 0px' })
     io.observe(el)
     return () => io.disconnect()
   }, [])
@@ -374,12 +379,12 @@ export default function FrameworkSection() {
     <section className='v22-section v22-framework' id='framework'>
       <div className='v22-container'>
         <div className='v22-section-head v22-fw-head'>
-          <div className='num'>N°04 / How we do it</div>
+          <div className='num'>N°04 / A preview of our AI stack</div>
           <h2>
-            Our AI Transformation Stack, <span style={{ color: 'var(--v22-accent)' }}>deconstructed.</span>
+            <span style={{ color: 'var(--v22-accent)' }}>AI-native</span> at every layer.
           </h2>
           <p className='lead'>
-            Seven layers. Each one pairs a proprietary offering with a custom accelerator — mapped to an exploded assembly of the Frontier Enterprise.
+            Custom DBiz accelerators, frameworks, and products — built for every layer of enterprise AI transformation.
           </p>
         </div>
 

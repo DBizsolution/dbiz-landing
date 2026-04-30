@@ -10,10 +10,11 @@ import TestimonialsSection from './testimonials-section'
 import WhySection from './why-section'
 
 const stats = [
-  { coord: '[A·01]', val: '500+', lbl: 'Engineers' },
-  { coord: '[A·02]', val: '50+', lbl: 'Enterprise Clients' },
-  { coord: '[A·03]', val: '120', lbl: 'Solutions delivered' },
-  { coord: '[A·04]', val: '6', lbl: 'Countries' },
+  { coord: '[A·01]', val: '6', lbl: 'Countries' },
+  { coord: '[A·02]', val: '10', lbl: 'Offices' },
+  { coord: '[A·03]', val: '50+', lbl: 'Enterprise Clients' },
+  { coord: '[A·04]', val: '120+', lbl: 'Solutions delivered' },
+  { coord: '[A·05]', val: '500+', lbl: 'Engineers' },
 ]
 
 const trust = ['ACFS Logistics', 'Aldar', 'Carlisle Homes', 'Custom Fleet', 'Southern Cross Care', 'Angle Auto', 'Smart Group', 'Nationwide Towing', 'Fleet Partners', 'Ventia']
@@ -394,25 +395,13 @@ export default function V22Page() {
       {/* TRUST — client register */}
       <LogoWall />
 
-      {/* CAPABILITIES — N°03 / What we do */}
-      <CapabilitiesSection />
-
-      {/* FRAMEWORK — N°04 / How we do it (AI Transformation Stack) */}
-      <FrameworkSection />
-
-      {/* TESTIMONIALS */}
-      <TestimonialsSection />
-
-      {/* PROVEN — tabbed filter cards */}
-      <ProvenSection />
-
-      {/* STATS — placed after Proven ("where it matters") */}
+      {/* STATS — by the numbers (moved right below client register) */}
       <section className='v22-stats' data-surface='light'>
         <div className='v22-container'>
           <div className='v22-section-head'>
             <div className='num'>N°02 / By the numbers</div>
             <h2>A track record<br />of enterprise <em>delivery.</em></h2>
-            <p className='lead'>Not a POC — measurable, deployed, running in production today.</p>
+            <p className='lead'>Not pilots. Not slides. Production systems running in regulated enterprises today.</p>
           </div>
           <div className='v22-stats-grid'>
             {stats.map((s) => (
@@ -425,6 +414,18 @@ export default function V22Page() {
           </div>
         </div>
       </section>
+
+      {/* CAPABILITIES — N°03 / What we do */}
+      <CapabilitiesSection />
+
+      {/* FRAMEWORK — N°04 / How we do it (AI Transformation Stack) */}
+      <FrameworkSection />
+
+      {/* TESTIMONIALS */}
+      <TestimonialsSection />
+
+      {/* PROVEN — tabbed filter cards */}
+      <ProvenSection />
 
       {/* WHY — interactive diagram */}
       <WhySection />
@@ -459,7 +460,7 @@ export default function V22Page() {
               <div className='v22-logo'>
                 <img src='/dbiz-logo.svg' alt='DBiz.ai' width='80' height='45' />
               </div>
-              <div className='tag'>Human-Led &nbsp;|&nbsp; Agent-Operated &nbsp;|&nbsp; Data-Powered</div>
+              <div className='tag'>Impact at scale.</div>
               <div className='meta'>10 offices · 6 countries · 800+ people</div>
             </div>
             <div className='v22-foot-col'>
