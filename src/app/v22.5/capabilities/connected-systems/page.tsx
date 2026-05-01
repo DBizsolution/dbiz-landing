@@ -555,7 +555,7 @@ export default function ConnectedSystemsPage() {
         <div className='v22-container'>
           <span className='v22-cdp-toc-kicker'>On this page</span>
           <ul className='v22-cdp-toc-list'>
-            <li><a href='#pillars'>Pillars</a></li>
+            <li><a href='#pillars'>Services</a></li>
             <li><a href='#accelerators'>Accelerators</a></li>
             <li><a href='#patterns'>Patterns</a></li>
             <li><a href='#telemetry'>Telemetry</a></li>
