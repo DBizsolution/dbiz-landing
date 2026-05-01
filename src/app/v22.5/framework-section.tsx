@@ -399,19 +399,13 @@ export default function FrameworkSection() {
     <section className='v22-section v22-framework' id='framework'>
       <div className='v22-container'>
         <div className='v22-section-head v22-fw-head'>
-          <div className='num'>N°04 / A preview of our AI stack</div>
+          <div className='num'>N°04 / Our AI stack</div>
           <h2>
             <span style={{ color: 'var(--v22-accent)' }}>AI-native</span> at every layer.
           </h2>
           <p className='lead'>
             Custom DBiz accelerators, frameworks, and products — built for every layer of enterprise AI transformation.
           </p>
-        </div>
-
-        <div className='v22-fw-top-strip' aria-hidden='true'>
-          <span className='v22-fw-top-code'>SCALE 1:1</span>
-          <span className='v22-fw-top-promise'>FULL STACK · NO CAPABILITY GAPS · NO VENDOR LOCK-IN</span>
-          <span className='v22-fw-top-code'>SHEET A1</span>
         </div>
 
         <div className='v22-fw-scroller is-at-start' ref={scrollerRef}>
@@ -462,6 +456,12 @@ export default function FrameworkSection() {
             </article>
           ))}
         </div>
+        </div>
+
+        <div className='v22-fw-top-strip v22-fw-bottom-strip' aria-hidden='true'>
+          <span className='v22-fw-top-code'>SCALE 1:1</span>
+          <span className='v22-fw-top-promise'>FULL STACK · NO CAPABILITY GAPS · NO VENDOR LOCK-IN</span>
+          <span className='v22-fw-top-code'>SHEET A1</span>
         </div>
 
         <div className='v22-fw-pagination' role='tablist' aria-label='Layer navigation'>

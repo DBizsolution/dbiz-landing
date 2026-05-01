@@ -4,7 +4,7 @@
    blueprint canvas. Mathematical rhythm meets schematic aesthetic.
    ========================================================================== */
 
-.v22-scope {
+.v23-scope {
   /* V5 dark blueprint tokens — accessibility-tuned (WCAG AA on --brand-navy) */
   --v22-paper: var(--brand-navy);
   --v22-paper-2: #132347;
@@ -17,8 +17,6 @@
   --v22-hair-strong: rgba(255, 255, 255, 0.2);
   --v22-orange-hair: rgba(240, 123, 47, 0.55);
   --v22-orange-hair-soft: rgba(240, 123, 47, 0.28);
-  /* Lifted brand-navy hue — readable blue on the dark v22 surface. */
-  --v22-blue: oklch(from var(--brand-navy) 0.78 0.12 h);
 
   /* V5 SVG ink tokens */
   --v22-ink-grid: #1a2646;
@@ -67,16 +65,16 @@
   background-size: 24px 24px;
 }
 
-.v22-scope *,
-.v22-scope *::before,
-.v22-scope *::after {
+.v23-scope *,
+.v23-scope *::before,
+.v23-scope *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 /* ---------- Light surface (V4 style) ---------- */
-.v22-scope [data-surface="light"] {
+.v23-scope [data-surface="light"] {
   --v22-paper: #FAFAFA;
   --v22-paper-2: #F3F0EC;
   --v22-ink: #111111;
@@ -124,61 +122,61 @@
 }
 
 /* Light surface — buttons keep navy-on-orange for AA contrast (5.7:1) */
-.v22-scope [data-surface="light"] .v22-cta-primary { color: var(--brand-navy-deep); }
+.v23-scope [data-surface="light"] .v22-cta-primary { color: var(--brand-navy-deep); }
 
 /* Light surface — small kickers use navy (orange on white = 2.9:1, fails AA body).
    Large display words (italic emphasis) stay orange — large-text threshold 3:1 passes. */
-.v22-scope [data-surface="light"] .v22-section-head .num,
-.v22-scope [data-surface="light"] .v22-quote-meta,
-.v22-scope [data-surface="light"] .v22-hero-meta .num {
+.v23-scope [data-surface="light"] .v22-section-head .num,
+.v23-scope [data-surface="light"] .v22-quote-meta,
+.v23-scope [data-surface="light"] .v22-hero-meta .num {
   color: var(--brand-navy);
 }
-.v22-scope [data-surface="light"] .v22-cta-primary::before,
-.v22-scope [data-surface="light"] .v22-cta-primary::after { border-color: #000000; }
+.v23-scope [data-surface="light"] .v22-cta-primary::before,
+.v23-scope [data-surface="light"] .v22-cta-primary::after { border-color: #000000; }
 
 /* Light surface — stat card accents stay orange */
-.v22-scope [data-surface="light"] .v22-stat .val::before,
-.v22-scope [data-surface="light"] .v22-stat .val::after { background: #F07B2F; }
-.v22-scope [data-surface="light"] .v22-stat::before { border-color: #F07B2F; }
+.v23-scope [data-surface="light"] .v22-stat .val::before,
+.v23-scope [data-surface="light"] .v22-stat .val::after { background: #F07B2F; }
+.v23-scope [data-surface="light"] .v22-stat::before { border-color: #F07B2F; }
 
 /* Light surface — stack frame uses navy corners */
-.v22-scope [data-surface="light"] .v22-stack-frame { border-color: rgba(13, 27, 62, 0.16); }
-.v22-scope [data-surface="light"] .v22-stack-frame::before,
-.v22-scope [data-surface="light"] .v22-stack-frame::after { border-color: #0D1B3E; }
-.v22-scope [data-surface="light"] .v22-stack-label { border-top-color: #0D1B3E; }
+.v23-scope [data-surface="light"] .v22-stack-frame { border-color: rgba(13, 27, 62, 0.16); }
+.v23-scope [data-surface="light"] .v22-stack-frame::before,
+.v23-scope [data-surface="light"] .v22-stack-frame::after { border-color: #0D1B3E; }
+.v23-scope [data-surface="light"] .v22-stack-label { border-top-color: #0D1B3E; }
 
 
 /* Light surface — why grid cards */
-.v22-scope [data-surface="light"] .v22-why-grid { border-color: rgba(13, 27, 62, 0.1); }
-.v22-scope [data-surface="light"] .v22-why-card { border-color: rgba(13, 27, 62, 0.1); }
+.v23-scope [data-surface="light"] .v22-why-grid { border-color: rgba(13, 27, 62, 0.1); }
+.v23-scope [data-surface="light"] .v22-why-card { border-color: rgba(13, 27, 62, 0.1); }
 
 /* Light surface — partner row */
-.v22-scope [data-surface="light"] .v22-partner-row { border-top-color: #0D1B3E; }
+.v23-scope [data-surface="light"] .v22-partner-row { border-top-color: #0D1B3E; }
 
 /* Light surface — cap row hover */
-.v22-scope [data-surface="light"] .v22-cap-row:hover { background: rgba(13, 27, 62, 0.03); }
+.v23-scope [data-surface="light"] .v22-cap-row:hover { background: rgba(13, 27, 62, 0.03); }
 
 /* Light surface — mini diagrams with navy/orange strokes */
-.v22-scope [data-surface="light"] .v22-mini-diagram rect[stroke='var(--v22-ink-corner)'] { stroke: #0D1B3E; }
-.v22-scope [data-surface="light"] .v22-mini-diagram line[stroke='var(--v22-ink-corner)'] { stroke: #0D1B3E; }
-.v22-scope [data-surface="light"] .v22-mini-diagram circle[stroke='var(--v22-ink-corner)'] { stroke: #0D1B3E; }
+.v23-scope [data-surface="light"] .v22-mini-diagram rect[stroke='var(--v22-ink-corner)'] { stroke: #0D1B3E; }
+.v23-scope [data-surface="light"] .v22-mini-diagram line[stroke='var(--v22-ink-corner)'] { stroke: #0D1B3E; }
+.v23-scope [data-surface="light"] .v22-mini-diagram circle[stroke='var(--v22-ink-corner)'] { stroke: #0D1B3E; }
 
-.v22-scope a { color: inherit; text-decoration: none; }
+.v23-scope a { color: inherit; text-decoration: none; }
 
 /* ---------- Focus-visible (WCAG 2.4.7 / 2.4.11) ---------- */
-.v22-scope :focus { outline: none; }
-.v22-scope :focus-visible {
+.v23-scope :focus { outline: none; }
+.v23-scope :focus-visible {
   outline: 2px solid var(--v22-accent);
   outline-offset: 3px;
   border-radius: 2px;
 }
-.v22-scope [data-surface="light"] :focus-visible {
+.v23-scope [data-surface="light"] :focus-visible {
   outline-color: var(--brand-orange-hover);
 }
 /* Dots & small chips — use box-shadow so the ring doesn't clip inside tight containers */
-.v22-scope .v22-quote-dot:focus-visible,
-.v22-scope .v22-why-detail-dot:focus-visible,
-.v22-scope .v22-proven-filter:focus-visible {
+.v23-scope .v22-quote-dot:focus-visible,
+.v23-scope .v22-why-detail-dot:focus-visible,
+.v23-scope .v22-proven-filter:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px var(--brand-navy), 0 0 0 4px var(--v22-accent);
 }
@@ -462,13 +460,13 @@
   padding: 48px 0 56px;
   border-bottom: 1px solid var(--v22-hair);
   position: relative;
-  background-color: var(--brand-navy-deep);
+  background-color: var(--brand-navy-deep);        /* fallback */
   background-image: linear-gradient(
     180deg,
-    var(--brand-navy) 0%,
-    #0A1530 18%,
-    #08122E 50%,
-    #08122E 100%
+    var(--brand-navy) 0%,                          /* top edge — 16.9:1 */
+    #0A1530 18%,                                   /* quick fade into mid */
+    #08122E 50%,                    /* dark dominates from mid down */
+    #08122E 100%                    /* bottom — 19.1:1 */
   );
   color: var(--v22-ink);
 }
@@ -590,11 +588,16 @@
   grid-column: 8 / 13;
   grid-row: 2 / 6;
   position: relative;
-  /* No frame — diagram sits directly on the hero gradient. The SVG's own
-     internal grid + corner ticks give it structure without an outer container. */
-  border: none;
-  padding: 0;
-  background: transparent;
+  border: 1px solid var(--v22-hair-strong);
+  padding: 28px;
+}
+.v22-hero-diagram::before,
+.v22-hero-diagram::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--v22-accent);
 }
 .v22-hero-diagram::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
 .v22-hero-diagram::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
@@ -603,10 +606,8 @@
 .v22-diagram-label,
 .v22-diagram-foot {
   position: absolute;
-  /* Pulled inward so the labels don't collide with the SVG corner brackets
-     (which sit at x=20→40 and x=480→500 in the 520-wide viewBox). */
-  left: clamp(56px, 6%, 80px);
-  right: clamp(56px, 6%, 80px);
+  left: 28px;
+  right: 28px;
   display: flex;
   justify-content: space-between;
   font-family: var(--font-mono);
@@ -615,21 +616,21 @@
   color: var(--v22-ink-3);
   text-transform: uppercase;
 }
-.v22-diagram-label { top: 18px; }
-.v22-diagram-foot { bottom: 18px; }
+.v22-diagram-label { top: 12px; }
+.v22-diagram-foot { bottom: 12px; }
 
 /* ---------- CTA buttons ---------- */
-.v22-scope a.v22-cta-primary,
+.v23-scope a.v22-cta-primary,
 .v22-cta-primary {
   display: inline-flex;
   align-items: center;
   gap: 14px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  font-weight: 600;                  /* bumped from 500 — heavier weight buys ~10% perceived contrast */
+  font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #ffffff;                    /* white per design request */
+  color: var(--brand-navy-deep);     /* a11y: navy-on-orange = 5.7:1, was inheriting white (3.4:1 FAIL) */
   padding: 14px 22px;
   background: var(--brand-orange-hover);
   border: 1px solid var(--brand-orange-hover);
@@ -651,7 +652,6 @@
 .v22-cta-primary:hover::before { top: -4px; left: -4px; }
 .v22-cta-primary:hover::after { bottom: -4px; right: -4px; }
 .v22-cta-primary .arrow { margin-left: auto; font-weight: 400; }
-
 
 .v22-cta-secondary {
   display: inline-flex;
@@ -711,28 +711,29 @@
   padding: 24px 0 28px;
   overflow-x: hidden;
   overflow-y: visible;
-  background-color: #050B1C;
-  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0);
+  background-color: #E8E2D4;
+  background-image: radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.06) 1px, transparent 0);
   background-size: 24px 24px;
   position: relative;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(13, 27, 62, 0.08);
+  border-bottom: 1px solid rgba(13, 27, 62, 0.08);
 }
 
 .v22-logos-head {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--v22-col-gap);
   align-items: baseline;
   padding-bottom: 8px;
   margin-bottom: 4px;
-  text-align: center;
 }
 .v22-logos-kicker {
+  grid-column: 1 / 4;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(13, 27, 62, 0.55);
   text-transform: uppercase;
   padding-top: 4px;
 }
@@ -779,7 +780,7 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(13, 27, 62, 0.62);
   white-space: nowrap;
   transition: color 160ms;
 }
@@ -790,7 +791,7 @@
   display: inline-block;
   width: 1px;
   height: 14px;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(13, 27, 62, 0.18);
   margin-left: 32px;
 }
 
@@ -878,60 +879,31 @@
 .v22-section-head.v22-with-diagram h2 { margin-bottom: 20px; }
 
 /* ---------- STATS (V5 boxed style) ---------- */
-/* Switched from a flat off-white to the brand cream paper with a visible
-   blueprint dot grid + an orange schematic tick rule, so the section reads as
-   a "data sheet" moment rather than dull off-white filler. */
 .v22-stats {
   padding: var(--v22-rhythm) 0;
-  border-bottom: 1px solid rgba(13, 27, 62, 0.08);
-  background-color: #F3F0EC !important;
+  border-bottom: 1px solid var(--v22-hair);
+  background-color: #F0EEEB !important;
   background-image:
-    /* blueprint dot grid — matches capabilities and framework rhythm */
-    radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.10) 1px, transparent 0) !important;
-  background-size: 22px 22px !important;
-  background-position: 0 0 !important;
-  position: relative;
-}
-.v22-stats::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    transparent 8%,
-    var(--v22-accent) 8%,
-    var(--v22-accent) 24%,
-    transparent 24%,
-    transparent 100%);
-  opacity: 0.55;
+    radial-gradient(rgba(20, 18, 16, 0.025) 1px, transparent 1px),
+    radial-gradient(rgba(20, 18, 16, 0.018) 1px, transparent 1px) !important;
+  background-size: 3px 3px, 7px 7px !important;
+  background-position: 0 0, 1px 2px !important;
 }
 .v22-stats-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: 1fr;        /* equalise card heights row-by-row */
-  gap: clamp(10px, 1vw, 18px);
-  border: none;
-  align-items: stretch;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--v22-hair);
 }
 .v22-stat {
   padding: 40px 28px;
+  border-right: 1px solid var(--v22-hair);
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background: #FFFFFF;                       /* lighter than the beige bg */
-  border: 1px solid rgba(13, 27, 62, 0.06);
-  border-radius: 6px;
-  box-shadow: 0 1px 0 rgba(13, 27, 62, 0.03), 0 6px 18px -8px rgba(13, 27, 62, 0.06);
-  transition: transform 220ms ease, box-shadow 220ms ease;
 }
-.v22-stat:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 1px 0 rgba(13, 27, 62, 0.04), 0 14px 32px -12px rgba(13, 27, 62, 0.12);
-}
+.v22-stat:last-child { border-right: none; }
 .v22-stat::before {
   content: '';
   position: absolute;
@@ -986,35 +958,9 @@
   line-height: 1.5;
 }
 @media (max-width: 960px) {
-  .v22-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .v22-stat {
-    padding: 22px 18px 20px;          /* compress vertical padding */
-    gap: 10px;                         /* tighter internal stack */
-    border-bottom: 1px solid var(--v22-hair);
-  }
+  .v22-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .v22-stat { border-bottom: 1px solid var(--v22-hair); }
   .v22-stat:nth-child(even) { border-right: none; }
-  /* Tighter type so cards read at one glance */
-  .v22-stat .val { font-size: clamp(2rem, 8vw, 2.6rem); padding-left: 12px; }
-  .v22-stat .lbl { font-size: 0.6rem; line-height: 1.4; }
-  .v22-stat .coord { font-size: 0.52rem; }
-  .v22-stat::before { top: 10px; left: 10px; }
-  /* Orphan rule — when there's an odd number of stats, the last card spans
-     both columns instead of sitting alone. */
-  .v22-stat:last-child:nth-child(odd) { grid-column: 1 / -1; }
-}
-
-/* Phones — keep 2 columns for shorter section height, just compress more.
-   The orphan-span rule above handles the odd 5th card. */
-@media (max-width: 420px) {
-  .v22-stats-grid { gap: 8px; }
-  .v22-stat { padding: 16px 14px 14px; gap: 8px; }
-  .v22-stat .val { font-size: 1.8rem; padding-left: 10px; }
-  .v22-stat .lbl { font-size: 0.55rem; letter-spacing: 0.1em; }
-  .v22-stat .coord { font-size: 0.5rem; }
-  .v22-stat::before { width: 5px; height: 5px; top: 8px; left: 8px; }
 }
 
 /* ---------- SECTION ---------- */
@@ -1504,7 +1450,7 @@
     cursor: pointer;
     transition: background 0.2s ease;
   }
-  .v22-cap-arrow:last-of-type { border-right: none; border-left: 1px solid var(--v22-hair); }
+  .v22-cap-arrow:last-child { border-right: none; border-left: 1px solid var(--v22-hair); }
   .v22-cap-arrow:hover { background: rgba(240, 123, 47, 0.08); }
   .v22-cap-mobile-label {
     flex: 1;
@@ -1745,7 +1691,7 @@
 }
 
 /* ---------- What we do (Capabilities) — gradient matches hero/proven ---------- */
-.v22-scope section#solutions {
+.v23-scope section#solutions {
   background-color: var(--brand-navy-deep);
   background-image:
     radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0),  /* grid dots */
@@ -1761,371 +1707,18 @@
   position: relative;
 }
 
-/* Capabilities — lighter off-white paper to separate from the warm cream
-   stats section directly above. Dot pattern is kept but more subtle so the
-   boundary between the two light surfaces reads clearly. */
-.v22-scope section#solutions[data-surface="light"] {
-  background-color: #FAFAFA;
-  background-image: radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.05) 1px, transparent 0);
-  background-size: 28px 28px;
-  color: var(--v22-ink);
-  position: relative;
-}
-/* Soft hairline separator above the section so the eye registers the change. */
-.v22-scope section#solutions[data-surface="light"]::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(13, 27, 62, 0.1) 20%, rgba(13, 27, 62, 0.1) 80%, transparent);
-}
-.v22-scope section#solutions[data-surface="light"] .v22-section-head h2,
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail h3,
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail p,
-.v22-scope section#solutions[data-surface="light"] .v22-section-head .lead {
-  color: var(--v22-ink);
-}
-.v22-scope section#solutions[data-surface="light"] .v22-section-head .num {
-  color: var(--brand-navy);
-}
-
-/* Stack SVG — flip ALL white fills/strokes to navy in beige mode.
-   Uses attribute prefix match to catch every rgba(255,255,255,*) value. */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack text[fill^="rgba(255,255,255"],
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack text[fill="#ffffff"],
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack text[fill="#fff"] {
-  fill: var(--brand-navy) !important;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack [stroke^="rgba(255,255,255"] {
-  stroke: rgba(13, 27, 62, 0.62) !important;
-}
-/* Layer texture patterns — keep far more subtle on beige so text stays legible.
-   These override the global stroke-flip above, which would otherwise make the
-   crosshatch too dense against the paper. */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack pattern#v22-cs-tex-0 line,
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack pattern#v22-cs-tex-3 path,
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack pattern#v22-cs-tex-3 line {
-  stroke: rgba(13, 27, 62, 0.09) !important;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack pattern#v22-cs-tex-5 circle {
-  fill: rgba(13, 27, 62, 0.12) !important;
-}
-/* Inactive layer boxes — solid navy outline for clarity (AA-level contrast on beige) */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) polygon,
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) rect {
-  stroke: rgba(13, 27, 62, 0.55) !important;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:hover polygon,
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:hover rect {
-  stroke: var(--brand-navy) !important;
-}
-/* Active layer keeps orange accent + soft orange fill for selection clarity */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer.is-active polygon,
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer.is-active rect {
-  stroke: var(--v22-accent) !important;
-}
-/* Focus ring for keyboard users — 3px navy ring, 4.5:1+ on beige */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:focus-visible {
-  outline: 3px solid var(--brand-navy);
-  outline-offset: 4px;
-  border-radius: 4px;
-}
-
-/* WCAG 2.2 AA — darken active-state orange text to reach 4.5:1 on beige paper.
-   Applies to text only; box strokes and fills stay brand orange (UI component
-   contrast threshold is 3:1 which brand orange meets). */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer.is-active text[fill="var(--v22-accent)"] {
-  fill: #A8420E !important;
-}
-/* Active box — brand orange stroke + soft orange wash (kept as-is for DBiz colour identity). */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer.is-active polygon,
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer.is-active rect[stroke] {
-  stroke: var(--v22-accent) !important;
-  stroke-width: 1.75 !important;
-}
-
-/* Non-color differentiation for active state (WCAG 1.4.1):
-   add a leading bar via an extra SVG marker via pseudo-element on the wrapper.
-   Already have a stroke-width bump above; that plus darker stroke gives 2+ visual cues. */
-
-/* Detail-side links and pills — ensure 4.5:1 on beige. */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-kicker { color: #A8420E; }
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-cta { color: #A8420E; }
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-cta:hover { color: var(--brand-navy); }
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-tags span {
-  color: var(--brand-navy);
-  border-color: rgba(13, 27, 62, 0.4);  /* 3:1+ against beige — UI component */
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-cta:focus-visible,
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-tags span:focus-visible {
-  outline: 3px solid var(--brand-navy);
-  outline-offset: 3px;
-}
-
-/* Inactive-state strokes — bump to 2.2:1+ (non-text UI = 3:1 minimum).
-   rgba(13,27,62,0.55) on beige ≈ 5.6:1 ✓ already; ensure it applies. */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) polygon,
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) rect {
-  stroke-width: 1.1 !important;
-}
-
-/* Eyebrow labels in inactive rows — ensure 4.5:1.
-   Navy 0.85 ≈ 10:1 on beige. */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) text {
-  fill: rgba(13, 27, 62, 0.85) !important;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) text[fill^="rgba(255,255,255,0.5"],
-.v22-scope section#solutions[data-surface="light"] .v22-cs-stack .v22-cs-layer:not(.is-active) text[fill^="rgba(255,255,255,0.55"] {
-  fill: rgba(13, 27, 62, 0.7) !important;  /* ≈ 8.3:1 on beige */
-}
-/* Grid + dot patterns — flip their stroke color to navy via CSS (SVG patterns
-   inherit fill/stroke through presentation attribute overrides — use !important
-   on the elements rendered by the pattern) */
-/* Detail panel text — navy on beige */
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-kicker { color: var(--v22-accent); }
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-title { color: var(--brand-navy); }
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-sub { color: rgba(13, 27, 62, 0.7); }
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-body { color: rgba(13, 27, 62, 0.8); }
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-tags span { color: var(--brand-navy); border-color: rgba(13, 27, 62, 0.3); }
-.v22-scope section#solutions[data-surface="light"] .v22-cs-detail-cta { color: var(--v22-accent); }
-
-/* ---------- v16-style numbered tabs + detail panel — light-mode overrides ---------- */
-/* Drop the heavy outer box: no border, no corner accent. Let the section paper
-   carry the structure; only a vertical hairline divides tabs from detail. */
-.v22-scope section#solutions[data-surface="light"] .v22-cap-head {
-  margin-bottom: 28px;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-interactive {
-  background: transparent;
-  border: none;
-  margin-top: 0;
-  grid-template-columns: 300px 1fr;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-interactive::after {
-  display: none;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-tabs {
-  border-right: none;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-tab {
-  border-bottom-color: rgba(13, 27, 62, 0.08);
-  color: rgba(13, 27, 62, 0.7);
-  padding: 11px 22px;
-  gap: 14px;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-tab .tab-label { gap: 3px; }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-tab .tab-title { font-size: 0.88rem; line-height: 1.25; }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail {
-  padding: 4px 0 4px 44px;
-  gap: 48px;
-  align-items: stretch;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content {
-  gap: 16px;
-  padding-top: 2px;
-  justify-content: center;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-icon {
-  align-items: center;
-  padding: 0;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta { gap: 4px; flex: none; }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta h3 { margin-top: 2px; font-size: clamp(1.2rem, 1.7vw, 1.55rem); }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail > .v22-cap-detail-content > p,
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content > p {
-  font-size: 0.92rem;
-  line-height: 1.6;
-  max-width: 56ch;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-pills { gap: 8px; margin-top: 2px; }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-cta {
-  margin-top: 12px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(13, 27, 62, 0.1);
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring { width: 220px; height: 220px; padding: 32px; }
-
-/* ── Tablet/phone (≤ 960px) ── icon sits side-by-side with the title meta on
-   row 1; body, pills, and CTA span both columns below.
-   Trick: `display: contents` on .v22-cap-detail-content lets its children
-   participate directly in the parent grid, so we can place .v22-cap-detail-meta
-   in column 1 next to the icon without restructuring the JSX. */
-@media (max-width: 960px) {
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-head { margin-bottom: 20px; }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-interactive {
-    grid-template-columns: 1fr;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    column-gap: 16px;
-    row-gap: 14px;
-    padding: 24px 0 8px;
-    align-items: start;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content {
-    display: contents;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta {
-    grid-column: 1;
-    grid-row: 1;
-    align-self: center;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-icon {
-    grid-column: 2;
-    grid-row: 1;
-    justify-content: flex-end;
-    align-self: center;
-    padding: 0;
-    order: 0;
-  }
-  /* Body, pills, CTA span both columns and flow underneath the header row. */
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content > p,
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-pills,
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-cta {
-    grid-column: 1 / -1;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring {
-    width: 96px;
-    height: 96px;
-    padding: 18px;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring::after {
-    width: 140px;
-    height: 140px;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta h3 {
-    font-size: clamp(1.15rem, 4.2vw, 1.4rem);
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content > p {
-    font-size: 0.92rem;
-    line-height: 1.6;
-    max-width: 100%;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-cta {
-    margin-top: 8px;
-    padding-top: 14px;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-mobile-label { padding: 10px 12px; }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-mobile-label .mob-title { font-size: 0.92rem; line-height: 1.25; }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-pill { padding: 8px 14px; font-size: 0.65rem; }
-}
-
-/* ── Phone (≤ 480px) — sharper compression ── */
-@media (max-width: 480px) {
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-detail {
-    padding: 20px 0 4px;
-    column-gap: 14px;
-    row-gap: 12px;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring {
-    width: 80px;
-    height: 80px;
-    padding: 14px;
-  }
-  .v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring::after {
-    width: 110px;
-    height: 110px;
-  }
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-tab:hover {
-  color: var(--brand-navy);
-  background: rgba(13, 27, 62, 0.04);
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-tab.active {
-  color: var(--brand-navy);
-  background: rgba(240, 123, 47, 0.08);
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-tab .tab-num { color: #A8420E; }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-tab .tab-kicker { color: rgba(13, 27, 62, 0.5); }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-tab.active .tab-kicker { color: #A8420E; opacity: 1; }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta .detail-kicker { color: #A8420E; }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta h3 { color: var(--brand-navy); }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-meta .detail-subtitle { color: rgba(13, 27, 62, 0.55); }
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail > .v22-cap-detail-content > p,
-.v22-scope section#solutions[data-surface="light"] .v22-cap-detail-content > p {
-  color: rgba(13, 27, 62, 0.8);
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-pill {
-  color: var(--brand-navy);
-  border-color: rgba(13, 27, 62, 0.3);
-  background: transparent;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-cta {
-  color: #A8420E;
-  border-top-color: rgba(13, 27, 62, 0.12);
-  border-bottom-color: #A8420E;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-cta:hover {
-  color: var(--brand-navy);
-  border-color: var(--brand-navy);
-}
-
-/* Icon ring — flip hardcoded white rgba to navy on beige */
-.v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring {
-  border: 1px dashed rgba(13, 27, 62, 0.25);
-  background-image:
-    linear-gradient(to right, rgba(13, 27, 62, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(13, 27, 62, 0.05) 1px, transparent 1px);
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring::before {
-  border-color: rgba(13, 27, 62, 0.14);
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-icon-ring svg circle[stroke-dasharray] {
-  stroke: rgba(13, 27, 62, 0.25);
-}
-
-/* Mobile prev/next nav — light-mode strokes.
-   Each arrow has its divider line on the LABEL side: line BEFORE the right
-   arrow, line AFTER the left arrow. Strengthened to 0.22 alpha so the dividers
-   register against the cream paper. */
-.v22-scope section#solutions[data-surface="light"] .v22-cap-arrow {
-  border: none;
-  border-right: 1px solid rgba(13, 27, 62, 0.22);
-  color: #A8420E;
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-arrow:last-of-type {
-  border-right: none;
-  border-left: 1px solid rgba(13, 27, 62, 0.22);
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-mobile-nav {
-  border-bottom-color: rgba(13, 27, 62, 0.18);
-}
-.v22-scope section#solutions[data-surface="light"] .v22-cap-mobile-label .mob-num { color: #A8420E; }
-.v22-scope section#solutions[data-surface="light"] .mob-dot { background: rgba(13, 27, 62, 0.18); }
-.v22-scope section#solutions[data-surface="light"] .mob-dot.active { background: var(--v22-accent); }
-
-/* ---------- PROVEN (light-mode editorial — three sectioned bands) ---------- */
-.v22-proven[data-surface="light"] {
-  --proven-paper:    #F3F0EC;
-  --proven-card-bg:  #FFFFFF;
-  --proven-ink:      var(--brand-navy);
-  --proven-ink-2:    rgba(13, 27, 62, 0.7);
-  --proven-ink-3:    rgba(13, 27, 62, 0.45);
-  --proven-rule:     rgba(13, 27, 62, 0.12);
-  --proven-rule-2:   rgba(13, 27, 62, 0.06);
-
-  overflow: hidden;
-  background-color: var(--proven-paper);
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.10) 1px, transparent 0);
-  background-size: 22px 22px;
-  color: var(--proven-ink);
-}
-/* Legacy dark-mode block kept for any non-light usage. */
+/* ---------- PROVEN (carousel with image cards) ---------- */
 .v22-proven {
   overflow: hidden;
-  background-color: var(--brand-navy-deep);
+  background-color: var(--brand-navy-deep);        /* fallback */
   background-image:
     radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0),
     linear-gradient(
       180deg,
-      var(--brand-navy) 0%,
-      #0A1530 18%,
-      #08122E 50%,
-      #08122E 100%
+      var(--brand-navy) 0%,                        /* top — 16.9:1 */
+      #0A1530 18%,                                  /* quick fade into mid */
+      #08122E 50%,                   /* dark dominates from mid down */
+      #08122E 100%                   /* bottom — 19.1:1 */
     );
   background-size: 24px 24px, 100% 100%;
   padding: var(--v22-rhythm) 0;
@@ -2454,7 +2047,7 @@
   justify-content: center;
   margin-top: 32px;
 }
-.v22-scope .v22-proven-all-cta {
+.v23-scope .v22-proven-all-cta {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -2497,559 +2090,6 @@
   .v22-proven-header-right .lead { margin-left: 0; }
   .v22-proven-filters { margin-left: 0; }
   .v22-proven-card { flex: 0 0 85%; min-width: 280px; }
-}
-
-/* ── Mobile (≤ 760px) — filter bar becomes a horizontal-scroll tab strip,
-   search button is hidden. Applies to both default and light surfaces. ── */
-@media (max-width: 760px) {
-  /* Filterbar: drop the box framing, become a clean tab rail under the head */
-  .v22-proven-filterbar,
-  .v22-proven[data-surface="light"] .v22-proven-filterbar {
-    margin-top: 20px;
-    border: none;
-    background: transparent;
-    border-bottom: 1px solid rgba(13, 27, 62, 0.12);
-    border-radius: 0;
-    gap: 0;
-  }
-  /* Filters: single horizontal row, scroll-X like a tab carousel.
-     `flex: 1 1 0; min-width: 0` lets the filters element fill the filterbar
-     (and shrink below its content size), while overflow-x: auto makes the
-     inner buttons scroll horizontally inside the rail instead of pushing the
-     parent past the viewport edge. */
-  .v22-proven-filters,
-  .v22-proven[data-surface="light"] .v22-proven-filters {
-    display: flex !important;
-    flex: 1 1 0 !important;
-    min-width: 0 !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-  }
-  .v22-proven-filters::-webkit-scrollbar { display: none; }
-  /* Filterbar wraps the rail tightly + a soft right-edge fade so the clipped
-     trailing tab reads as "more this way" rather than awkward truncation.
-     Subtle: 36px gradient, no chevron, no animation. */
-  .v22-proven-filterbar,
-  .v22-proven[data-surface="light"] .v22-proven-filterbar {
-    overflow: hidden;
-    max-width: 100%;
-    position: relative;
-  }
-  .v22-proven-filterbar::after,
-  .v22-proven[data-surface="light"] .v22-proven-filterbar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 1px;            /* sit above the bottom hairline */
-    width: 36px;
-    pointer-events: none;
-    background: linear-gradient(
-      to right,
-      rgba(243, 240, 236, 0) 0%,
-      rgba(243, 240, 236, 0.9) 65%,
-      rgba(243, 240, 236, 1) 100%
-    );
-    z-index: 2;
-  }
-  /* Filter pill: tab-style underline button, no vertical dividers */
-  .v22-proven-filter,
-  .v22-proven[data-surface="light"] .v22-proven-filter {
-    flex: 0 0 auto;
-    padding: 14px 18px;
-    border: none !important;
-    border-right: none !important;
-    border-left: none !important;
-    scroll-snap-align: start;
-    font-size: 10.5px;
-    letter-spacing: 0.16em;
-    white-space: nowrap;
-  }
-  .v22-proven-filter + .v22-proven-filter { border-left: none !important; }
-  /* Active filter — same orange underline pattern, just slightly tighter */
-  .v22-proven-filter.active::after,
-  .v22-proven[data-surface="light"] .v22-proven-filter.active::after {
-    left: 14px;
-    right: 14px;
-    bottom: -1px;
-    height: 2px;
-  }
-  /* Hide the search toggle on mobile entirely */
-  .v22-proven-search-toggle,
-  .v22-proven[data-surface="light"] .v22-proven-search-toggle {
-    display: none !important;
-  }
-}
-
-/* ─── Light-mode Proven section: editorial filmstrip with expanding filters ─── */
-.v22-proven[data-surface="light"] .v22-proven-header-left .num { color: var(--v22-accent); }
-.v22-proven[data-surface="light"] .v22-proven-header-left h2 { color: var(--proven-ink); }
-.v22-proven[data-surface="light"] .v22-proven-header-right .lead { color: var(--proven-ink-2); }
-
-/* ── Filter bar: top-level filters on the left, search toggle on the right ── */
-.v22-proven[data-surface="light"] .v22-proven-filterbar {
-  display: flex;
-  align-items: stretch;
-  gap: 16px;
-  margin-top: clamp(32px, 4vw, 48px);
-  margin-bottom: 0;
-  border: 1px solid var(--proven-rule);
-  border-radius: 2px;
-  background: var(--proven-card-bg);
-}
-
-.v22-proven[data-surface="light"] .v22-proven-filters {
-  display: flex;
-  flex: 1;
-  flex-wrap: wrap;
-  border: none;
-  margin: 0;
-  background: transparent;
-}
-
-.v22-proven[data-surface="light"] .v22-proven-filter {
-  flex: 0 0 auto;
-  position: relative;
-  padding: 14px 22px;
-  background: transparent;
-  border: none;
-  border-right: 1px solid var(--proven-rule-2);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--proven-ink-2);
-  cursor: pointer;
-  transition: color 200ms ease, background 200ms ease;
-}
-.v22-proven[data-surface="light"] .v22-proven-filter:hover { color: var(--proven-ink); }
-.v22-proven[data-surface="light"] .v22-proven-filter.active {
-  color: var(--proven-ink);
-  background: rgba(240, 123, 47, 0.06);
-}
-.v22-proven[data-surface="light"] .v22-proven-filter.active::after {
-  content: '';
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: -1px;
-  height: 2px;
-  background: var(--v22-accent);
-}
-.v22-proven[data-surface="light"] .v22-proven-filter:focus-visible {
-  outline: 2px solid var(--v22-accent);
-  outline-offset: -2px;
-}
-
-/* Search toggle (magnifier icon) — sits at the right edge of the filterbar */
-.v22-proven[data-surface="light"] .v22-proven-search-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  width: 50px;
-  background: transparent;
-  border: none;
-  border-left: 1px solid var(--proven-rule-2);
-  color: var(--proven-ink-2);
-  cursor: pointer;
-  transition: color 200ms ease, background 200ms ease;
-}
-.v22-proven[data-surface="light"] .v22-proven-search-toggle:hover { color: var(--v22-accent); background: rgba(240, 123, 47, 0.04); }
-.v22-proven[data-surface="light"] .v22-proven-search-toggle.is-open { color: var(--v22-accent); background: rgba(240, 123, 47, 0.08); }
-.v22-proven[data-surface="light"] .v22-proven-search-toggle:focus-visible {
-  outline: 2px solid var(--v22-accent);
-  outline-offset: -2px;
-}
-
-/* ── Sub-bar: expands inline below the filter bar when a non-"all" filter is
-   active OR when search is open. Uses grid-template-rows trick for a
-   layout-safe height transition. ── */
-.v22-proven-subbar {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 360ms cubic-bezier(.2,.7,.1,1);
-}
-.v22-proven-subbar.is-open { grid-template-rows: 1fr; }
-.v22-proven-subbar-inner {
-  overflow: hidden;
-  min-height: 0;
-}
-.v22-proven[data-surface="light"] .v22-proven-subbar.is-open .v22-proven-subbar-inner {
-  border: 1px solid var(--proven-rule);
-  border-top: none;
-  background: rgba(255, 255, 255, 0.6);
-}
-
-/* Sub-chip row — the inline list of industries / solutions / technologies */
-.v22-proven-subchips {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 18px;
-}
-.v22-proven-sub-label {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--proven-ink-3);
-  margin-right: 8px;
-}
-.v22-proven[data-surface="light"] .v22-proven-subchip {
-  font-family: var(--font-mono);            /* mono — matches v22 schematic vocabulary */
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 9px 14px;
-  background: transparent;
-  border: 1px solid rgba(13, 27, 62, 0.2);
-  border-radius: 2px;                        /* near-rectangular, just enough to soften */
-  color: var(--proven-ink-2);
-  cursor: pointer;
-  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
-}
-.v22-proven[data-surface="light"] .v22-proven-subchip:hover {
-  color: var(--proven-ink);
-  border-color: rgba(13, 27, 62, 0.28);
-}
-.v22-proven[data-surface="light"] .v22-proven-subchip.active {
-  color: #fff;
-  background: var(--brand-navy);
-  border-color: var(--brand-navy);
-}
-.v22-proven[data-surface="light"] .v22-proven-subchip:focus-visible {
-  outline: 2px solid var(--v22-accent);
-  outline-offset: 2px;
-}
-
-/* Inline search row */
-.v22-proven-search-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-}
-.v22-proven-search-label {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--proven-ink-3);
-}
-.v22-proven[data-surface="light"] .v22-proven-search-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--proven-rule);
-  padding: 6px 0;
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  color: var(--proven-ink);
-  outline: none;
-  transition: border-color 180ms ease;
-}
-.v22-proven[data-surface="light"] .v22-proven-search-input::placeholder {
-  color: var(--proven-ink-3);
-}
-.v22-proven[data-surface="light"] .v22-proven-search-input:focus {
-  border-bottom-color: var(--v22-accent);
-}
-
-/* ── Filmstrip / carousel ── */
-.v22-proven[data-surface="light"] .v22-proven-carousel {
-  margin-top: 28px;
-}
-.v22-proven[data-surface="light"] .v22-proven-track {
-  display: flex;
-  gap: clamp(16px, 1.6vw, 24px);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
-  padding: 4px 0 12px;
-  -webkit-overflow-scrolling: touch;
-}
-.v22-proven[data-surface="light"] .v22-proven-track::-webkit-scrollbar { height: 6px; }
-.v22-proven[data-surface="light"] .v22-proven-track::-webkit-scrollbar-track { background: rgba(13, 27, 62, 0.06); }
-.v22-proven[data-surface="light"] .v22-proven-track::-webkit-scrollbar-thumb { background: rgba(240, 123, 47, 0.5); }
-
-.v22-proven[data-surface="light"] .v22-proven-card {
-  position: relative;
-  flex: 0 0 calc((100% - 2 * clamp(16px, 1.6vw, 24px)) / 3);
-  min-width: 280px;
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  background: var(--proven-card-bg);
-  border: 1px solid var(--proven-rule);
-  border-radius: 2px;
-  overflow: hidden;
-  isolation: isolate;
-  cursor: pointer;
-  transition: border-color 240ms ease, box-shadow 280ms ease, transform 320ms cubic-bezier(.2,.7,.1,1), opacity 240ms ease;
-  animation: none;
-}
-@media (max-width: 960px) {
-  .v22-proven[data-surface="light"] .v22-proven-card { flex: 0 0 calc((100% - clamp(16px, 1.6vw, 24px)) / 2); }
-}
-@media (max-width: 640px) {
-  .v22-proven[data-surface="light"] .v22-proven-card { flex: 0 0 86%; }
-}
-.v22-proven[data-surface="light"] .v22-proven-card:hover {
-  border-color: rgba(240, 123, 47, 0.45);
-  box-shadow: 0 18px 36px -22px rgba(13, 27, 62, 0.28);
-  transform: translateY(-3px);
-}
-.v22-proven[data-surface="light"] .v22-proven-card:not(.active):not(:hover) { opacity: 0.85; }
-.v22-proven[data-surface="light"] .v22-proven-card.active {
-  border-color: rgba(240, 123, 47, 0.55);
-  box-shadow: 0 24px 40px -22px rgba(13, 27, 62, 0.3);
-}
-.v22-proven[data-surface="light"] .v22-proven-card::before,
-.v22-proven[data-surface="light"] .v22-proven-card::after { content: none; }
-
-.v22-proven[data-surface="light"] .v22-proven-img {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border-bottom: 1px solid var(--proven-rule-2);
-}
-.v22-proven[data-surface="light"] .v22-proven-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 600ms cubic-bezier(.2,.7,.1,1);
-}
-.v22-proven[data-surface="light"] .v22-proven-card:hover .v22-proven-img img { transform: scale(1.04); }
-.v22-proven[data-surface="light"] .v22-proven-img-overlay,
-.v22-proven[data-surface="light"] .v22-proven-img-dots { display: none; }
-.v22-proven[data-surface="light"] .v22-proven-metric {
-  position: absolute;
-  left: 14px;
-  bottom: 12px;
-  z-index: 2;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #fff;
-  padding: 5px 10px;
-  background: var(--brand-navy);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.v22-proven[data-surface="light"] .v22-proven-content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 22px 22px 24px;
-}
-.v22-proven[data-surface="light"] .v22-proven-kicker {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--v22-accent);
-  margin-bottom: 4px;
-}
-.v22-proven[data-surface="light"] .v22-proven-card h4 {
-  font-family: var(--font-sans);
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: -0.018em;
-  line-height: 1.25;
-  color: var(--proven-ink);
-  margin: 0;
-}
-.v22-proven[data-surface="light"] .v22-proven-card p {
-  font-family: var(--font-sans);
-  font-size: 0.86rem;
-  line-height: 1.55;
-  color: var(--proven-ink-2);
-  margin: 0;
-}
-.v22-proven[data-surface="light"] .v22-proven-techs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px dashed var(--proven-rule-2);
-}
-.v22-proven[data-surface="light"] .v22-proven-tech-pill {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 4px 9px;
-  border: 1px solid var(--proven-rule);
-  color: var(--proven-ink-2);
-  background: transparent;
-}
-
-/* ── Empty state when filters return nothing ── */
-.v22-proven-empty {
-  padding: 64px 32px;
-  text-align: center;
-  border: 1px dashed var(--proven-rule);
-  background: rgba(255, 255, 255, 0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-.v22-proven-empty-mono {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: var(--v22-accent);
-}
-.v22-proven-empty p {
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  color: var(--proven-ink-2);
-  margin: 0;
-  max-width: 42ch;
-}
-.v22-proven-empty-reset {
-  margin-top: 8px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--v22-accent);
-  background: transparent;
-  border: 1px solid var(--v22-accent);
-  padding: 10px 18px;
-  cursor: pointer;
-  transition: color 200ms ease, background 200ms ease;
-}
-.v22-proven-empty-reset:hover { color: #fff; background: var(--v22-accent); }
-
-/* ── Navigation row (counter | arrows + dots | see all link) ── */
-.v22-proven[data-surface="light"] .v22-proven-nav {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 24px;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--proven-rule);
-}
-.v22-proven-nav-meta {
-  justify-self: start;
-}
-.v22-proven-counter {
-  font-family: var(--font-mono);
-  font-size: 0.84rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  font-variant-numeric: tabular-nums;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-  color: var(--proven-ink);
-}
-.v22-proven-counter-now { color: var(--v22-accent); font-size: 1.1rem; }
-.v22-proven-counter-sep { color: var(--proven-ink-3); }
-.v22-proven-counter-total { color: var(--proven-ink-2); }
-
-.v22-proven[data-surface="light"] .v22-proven-nav-center {
-  justify-self: center;
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-}
-.v22-proven[data-surface="light"] .v22-proven-arrow {
-  width: 38px;
-  height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: 1px solid var(--proven-rule);
-  color: var(--proven-ink);
-  cursor: pointer;
-  transition: border-color 200ms ease, color 200ms ease, background 200ms ease, transform 200ms ease;
-}
-.v22-proven[data-surface="light"] .v22-proven-arrow:hover {
-  border-color: var(--v22-accent);
-  color: var(--v22-accent);
-  background: rgba(240, 123, 47, 0.06);
-}
-.v22-proven[data-surface="light"] .v22-proven-arrow:active { transform: scale(0.96); }
-
-.v22-proven[data-surface="light"] .v22-proven-dots {
-  display: inline-flex;
-  gap: 6px;
-}
-.v22-proven[data-surface="light"] .v22-proven-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(13, 27, 62, 0.22);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: background 180ms ease, transform 220ms ease;
-}
-.v22-proven[data-surface="light"] .v22-proven-dot.active {
-  background: var(--v22-accent);
-  transform: scale(1.5);
-  box-shadow: 0 0 0 3px rgba(240, 123, 47, 0.18);
-}
-
-.v22-proven[data-surface="light"] .v22-proven-foot-link {
-  justify-self: end;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--v22-accent);
-  text-decoration: none;
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--v22-accent);
-  transition: gap 240ms ease, color 240ms ease;
-}
-.v22-proven[data-surface="light"] .v22-proven-foot-link:hover { gap: 18px; }
-
-@media (max-width: 720px) {
-  .v22-proven[data-surface="light"] .v22-proven-nav { grid-template-columns: 1fr; gap: 16px; }
-  .v22-proven-nav-meta,
-  .v22-proven[data-surface="light"] .v22-proven-nav-center { justify-self: start; }
-
-  /* Foot link spans the full row on mobile — one-line CTA, content split between
-     label and arrow so it reads as a button rather than a small inline link. */
-  .v22-proven[data-surface="light"] .v22-proven-foot-link {
-    justify-self: stretch;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 4px;
-    white-space: nowrap;
-  }
-  .v22-proven[data-surface="light"] .v22-proven-foot-link:hover { gap: 12px; }
 }
 
 /* ---------- QUOTE (V5 framed) ---------- */
@@ -3478,603 +2518,6 @@
 }
 .v22-why-detail-dot:hover { background: var(--v22-accent); opacity: 0.7; }
 
-/* ---------- Why DBiz — motion card grid (blueprint feel) ---------- */
-/* ─── Why DBiz — specimen rail ────────────────────────────────────
-   Six numbered specimen cards on a horizontal scroll-snap rail.
-   Each card has its own "paper" background (graph / dot / rule /
-   ledger / radial / cell-grid) so the row reads as a draftsman's
-   typology rather than identical containers. The centered card
-   becomes "active" and replays a glyph-specific signature animation.
-   ────────────────────────────────────────────────────────────── */
-
-.v22-why-rail-wrap {
-  position: relative;
-  margin: 56px calc(var(--v22-gutter) * -1) 0;
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 700ms cubic-bezier(.2,.7,.1,1), transform 700ms cubic-bezier(.2,.7,.1,1);
-}
-.v22-why-rail-wrap.is-visible { opacity: 1; transform: none; }
-
-.v22-why-rail {
-  display: flex;
-  gap: 24px;
-  overflow-x: auto;
-  overflow-y: visible;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: max(var(--v22-gutter), calc((100% - 380px) / 2));
-  padding: 32px max(var(--v22-gutter), calc((100% - 380px) / 2)) 36px;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-}
-.v22-why-rail::-webkit-scrollbar { display: none; }
-
-.v22-why-rail-fade {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 96px;
-  pointer-events: none;
-  z-index: 2;
-}
-.v22-why-rail-fade-l { left: 0;  background: linear-gradient(to right, var(--v22-paper) 8%, rgba(243, 240, 236, 0)); }
-.v22-why-rail-fade-r { right: 0; background: linear-gradient(to left,  var(--v22-paper) 8%, rgba(243, 240, 236, 0)); }
-
-/* ─── Card ─── */
-.v22-why-card {
-  position: relative;
-  flex: 0 0 380px;
-  scroll-snap-align: center;
-  display: flex;
-  flex-direction: column;
-  padding: 28px 28px 24px;
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(13, 27, 62, 0.12);
-  border-radius: 2px;
-  outline: none;
-  isolation: isolate;
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 700ms cubic-bezier(.2,.7,.1,1) var(--why-delay, 0ms),
-    transform 600ms cubic-bezier(.2,.7,.1,1) var(--why-delay, 0ms),
-    border-color 280ms ease,
-    background-color 280ms ease,
-    box-shadow 320ms ease;
-  will-change: transform, opacity;
-}
-.v22-why-rail-wrap.is-visible .v22-why-card {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Inactive cards on the rail dim slightly to draw the eye to the active one. */
-.v22-why-card:not(.is-active) {
-  filter: saturate(0.85);
-}
-.v22-why-rail-wrap.is-visible .v22-why-card:not(.is-active) {
-  opacity: 0.6;
-}
-.v22-why-rail-wrap.is-visible .v22-why-card.is-active {
-  opacity: 1;
-  border-color: rgba(240, 123, 47, 0.55);
-  box-shadow: 0 28px 48px -28px rgba(13, 27, 62, 0.32);
-}
-.v22-why-card:focus-visible {
-  outline: 2px solid var(--v22-accent);
-  outline-offset: 3px;
-}
-
-/* Orange corner brackets — visible only on the active card, blueprint marker. */
-.v22-why-card-corner {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border: 1.5px solid var(--v22-accent);
-  opacity: 0;
-  transform: scale(0.7);
-  transition: opacity 320ms ease, transform 320ms cubic-bezier(.2,.7,.1,1);
-  pointer-events: none;
-  z-index: 3;
-}
-.v22-why-card-corner.tl { top: -1px;    left: -1px;    border-right: none; border-bottom: none; }
-.v22-why-card-corner.tr { top: -1px;    right: -1px;   border-left: none;  border-bottom: none; }
-.v22-why-card-corner.bl { bottom: -1px; left: -1px;    border-right: none; border-top: none; }
-.v22-why-card-corner.br { bottom: -1px; right: -1px;   border-left: none;  border-top: none; }
-.v22-why-card.is-active .v22-why-card-corner {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* ─── Per-card paper backgrounds — six different drafting surfaces ─── */
-.v22-why-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.55;
-  transition: opacity 280ms ease;
-  background-color: rgba(255, 255, 255, 0.55);
-}
-.v22-why-card.is-active::before { opacity: 0.95; }
-
-/* 01 — graph paper (fine grid) */
-.v22-why-paper-0::before {
-  background-image:
-    linear-gradient(to right, rgba(13, 27, 62, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(13, 27, 62, 0.06) 1px, transparent 1px);
-  background-size: 16px 16px;
-}
-/* 02 — dot grid */
-.v22-why-paper-1::before {
-  background-image: radial-gradient(circle, rgba(13, 27, 62, 0.18) 1px, transparent 1.4px);
-  background-size: 14px 14px;
-}
-/* 03 — calibration ladder (horizontal rules of varying weight) */
-.v22-why-paper-2::before {
-  background-image:
-    repeating-linear-gradient(to bottom,
-      rgba(13, 27, 62, 0.12) 0 1px,
-      transparent 1px 24px,
-      rgba(13, 27, 62, 0.05) 24px 25px,
-      transparent 25px 48px);
-}
-/* 04 — stack ledger (heavy horizontals every 32px) */
-.v22-why-paper-3::before {
-  background-image:
-    linear-gradient(to bottom, rgba(13, 27, 62, 0.10) 1px, transparent 1px);
-  background-size: 100% 32px;
-}
-/* 05 — radial concentrics (subtle) */
-.v22-why-paper-4::before {
-  background-image:
-    radial-gradient(circle at center,
-      transparent 0 18%,
-      rgba(13, 27, 62, 0.06) 18% 18.4%,
-      transparent 18.4% 32%,
-      rgba(13, 27, 62, 0.05) 32% 32.4%,
-      transparent 32.4% 48%,
-      rgba(13, 27, 62, 0.04) 48% 48.4%,
-      transparent 48.4%);
-}
-/* 06 — cell grid (3×3 read) */
-.v22-why-paper-5::before {
-  background-image:
-    linear-gradient(to right, rgba(13, 27, 62, 0.10) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(13, 27, 62, 0.10) 1px, transparent 1px);
-  background-size: 33.333% 33.333%;
-}
-
-/* ─── Glyph stage (top half of card) ─── */
-.v22-why-card-stage {
-  position: relative;
-  width: 100%;
-  height: 168px;
-  margin-bottom: 22px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(13, 27, 62, 0.08);
-  background: rgba(255, 255, 255, 0.4);
-  overflow: hidden;
-}
-.v22-why-card.is-active .v22-why-card-stage {
-  border-color: rgba(240, 123, 47, 0.32);
-  background: rgba(255, 255, 255, 0.6);
-}
-
-/* Construction-line guides — appear on active */
-.v22-why-card-guide {
-  position: absolute;
-  background: rgba(240, 123, 47, 0.55);
-  opacity: 0;
-  transition: opacity 280ms ease, transform 480ms cubic-bezier(.2,.7,.1,1);
-}
-.v22-why-card-guide.v-line { left: 50%; top: 6px; bottom: 6px; width: 1px; transform: scaleY(0); transform-origin: top; }
-.v22-why-card-guide.h-line { top: 50%; left: 6px; right: 6px; height: 1px; transform: scaleX(0); transform-origin: left; }
-.v22-why-card.is-active .v22-why-card-guide {
-  opacity: 1;
-  transform: none;
-}
-
-.v22-why-glyph-svg {
-  position: relative;
-  z-index: 1;
-  width: 144px;
-  height: 144px;
-  display: block;
-}
-
-/* ─── Card text content ───
-   Reading order via CSS `order`: TITLE → BODY → hairline → meta (num·label)
-   → foot. The DOM order is preserved (meta still first in JSX); we just flip
-   the visual stacking so the differentiator content leads the eye. */
-.v22-why-card-meta {
-  order: 4;                       /* demoted to bottom of card */
-  display: flex;
-  align-items: center;            /* center vertically — both lines are similar small mono caps */
-  gap: 8px;
-  margin: 0 0 6px;
-  opacity: 0.75;
-  line-height: 1;
-}
-.v22-why-card-idx {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: var(--brand-navy);
-  line-height: 1;
-  position: relative;
-  /* Vertical bar separator follows after the number */
-}
-.v22-why-card-idx::before {
-  content: '';
-  position: absolute;
-  right: -5px;
-  top: 50%;
-  width: 1px;
-  height: 9px;
-  transform: translateY(-50%);
-  background: rgba(13, 27, 62, 0.25);
-}
-.v22-why-card-idx::after {
-  content: '';
-  position: absolute;
-  left: -10px;
-  top: 50%;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--v22-accent);
-  transform: translateY(-50%) scale(0.4);
-  opacity: 0;
-  transition: opacity 240ms ease 200ms, transform 240ms cubic-bezier(.2,.7,.1,1) 200ms;
-}
-.v22-why-card.is-active .v22-why-card-idx::after { transform: translateY(-50%) scale(1); }
-.v22-why-card.is-active .v22-why-card-idx::after { opacity: 1; transform: scale(1); }
-
-.v22-why-card-label {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;             /* shrunk to match the demoted meta */
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  color: rgba(13, 27, 62, 0.55);
-  text-transform: uppercase;
-}
-.v22-why-card.is-active .v22-why-card-label { color: var(--v22-accent); }
-
-.v22-why-card-rule {
-  order: 3;                       /* hairline sits between body and meta now */
-  height: 1px;
-  background: rgba(13, 27, 62, 0.12);
-  margin: 22px 0 12px;            /* more space above (separates from body), tighter below */
-  position: relative;
-  overflow: hidden;
-}
-.v22-why-card-rule::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--v22-accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 600ms cubic-bezier(.2,.7,.1,1) 100ms;
-}
-.v22-why-card.is-active .v22-why-card-rule::after { transform: scaleX(1); }
-
-.v22-why-card-title {
-  order: 1;                       /* TITLE leads — first thing the eye lands on */
-  font-family: var(--font-sans);
-  font-size: clamp(1.55rem, 2vw, 1.85rem);   /* hero element of the card */
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  color: var(--brand-navy);
-  margin: 0 0 14px;
-}
-.v22-why-card-body {
-  order: 2;                       /* body follows the title directly */
-  font-family: var(--font-sans);
-  font-size: 1rem;                /* nudged up so copy reads, not just glances */
-  line-height: 1.55;
-  color: rgba(13, 27, 62, 0.78);
-  margin: 0;
-  max-width: 38ch;
-}
-/* ─── Stage-only spotlight (active state) ───
-   Whichever card is currently active gets its stage area transformed: navy
-   gradient + orange halo + white-with-alpha SVG strokes. Card itself stays
-   paper. Title/body/meta all stay navy. Bg transitions smoothly; inline SVG
-   stroke/fill attrs snap (single frame, contained to a small zone). */
-.v22-why-card .v22-why-card-stage {
-  transition: background 360ms cubic-bezier(.2,.7,.1,1), border-color 280ms ease;
-}
-.v22-why-card.is-active .v22-why-card-stage {
-  background:
-    radial-gradient(circle at 50% 50%, rgba(240, 123, 47, 0.28), transparent 62%),
-    linear-gradient(155deg, var(--brand-navy) 0%, var(--brand-navy-deep) 100%);
-  border-color: rgba(240, 123, 47, 0.5);
-}
-/* Recolour stage SVG strokes/fills so the schematic reads on dark when active.
-   Inline attrs snap rather than transition, but the change is localised to a
-   small zone so the snap is acceptable. */
-.v22-why-card.is-active .v22-why-glyph-svg [stroke="rgba(13,27,62,0.55)"] { stroke: rgba(255, 255, 255, 0.62) !important; }
-.v22-why-card.is-active .v22-why-glyph-svg [stroke="rgba(13,27,62,0.32)"] { stroke: rgba(255, 255, 255, 0.32) !important; }
-.v22-why-card.is-active .v22-why-glyph-svg [fill="rgba(13,27,62,0.32)"] { fill: rgba(255, 255, 255, 0.32) !important; }
-
-.v22-why-card-foot {
-  order: 5;                       /* tail caption stays last */
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: rgba(13, 27, 62, 0.36);
-  margin-top: auto;
-  padding-top: 14px;
-  border-top: 1px dashed rgba(13, 27, 62, 0.14);
-}
-
-/* ─── Per-glyph signature animations — fire when card becomes active ─── */
-
-/* g0 EXPERTISE — compass bezel rotates one revolution then settles */
-.v22-why-card .g-compass-bezel { transform-origin: 60px 60px; }
-.v22-why-card.is-active .g-compass-bezel { animation: v22w-spin 4.2s cubic-bezier(.2,.7,.1,1) 1; }
-.v22-why-card.is-active .g0 .g-ring-in { animation: v22w-pulse 1800ms ease-in-out 1.2s 2 alternate; }
-.v22-why-card.is-active .g0 .g-dot   { animation: v22w-dot-bloom 480ms cubic-bezier(.2,.7,.1,1) 1.4s 1 both; }
-@keyframes v22w-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-@keyframes v22w-pulse { from { opacity: 1; transform: scale(1); } to { opacity: 0.45; transform: scale(1.08); transform-origin: center; } }
-@keyframes v22w-dot-bloom { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.v22-why-card.is-active .g0 .g-ring-in { transform-origin: 60px 60px; transform-box: fill-box; }
-
-/* g1 SCALE — sonar pings expand outward */
-.v22-why-card .g1 .g-sonar { transform-origin: 60px 60px; transform-box: fill-box; }
-.v22-why-card.is-active .g1 .g-sonar-1 { animation: v22w-sonar 2.2s cubic-bezier(.1,.7,.2,1) 0.3s infinite; }
-.v22-why-card.is-active .g1 .g-sonar-2 { animation: v22w-sonar 2.2s cubic-bezier(.1,.7,.2,1) 1.4s infinite; }
-.v22-why-card.is-active .g1 .g-vtx     { animation: v22w-vtx-pop 1600ms ease 1 both; }
-.v22-why-card.is-active .g1 .g-vtx-0 { animation-delay: 0.20s; }
-.v22-why-card.is-active .g1 .g-vtx-1 { animation-delay: 0.32s; }
-.v22-why-card.is-active .g1 .g-vtx-2 { animation-delay: 0.44s; }
-.v22-why-card.is-active .g1 .g-vtx-3 { animation-delay: 0.56s; }
-.v22-why-card.is-active .g1 .g-vtx-4 { animation-delay: 0.68s; }
-.v22-why-card.is-active .g1 .g-vtx-5 { animation-delay: 0.80s; }
-@keyframes v22w-sonar {
-  0%   { opacity: 0;    transform: scale(0.4); }
-  20%  { opacity: 0.9; }
-  100% { opacity: 0;    transform: scale(2.4); }
-}
-@keyframes v22w-vtx-pop {
-  0%   { r: 1.6; opacity: 0; }
-  60%  { r: 3;   opacity: 1; }
-  100% { r: 1.6; opacity: 1; }
-}
-
-/* g2 DELIVERY — arrow advances along timeline, ticks light sequentially */
-.v22-why-card .g2 .g-arrow-track { transform: translateX(0); }
-.v22-why-card.is-active .g2 .g-arrow-track { animation: v22w-arrow 2400ms cubic-bezier(.4,0,.2,1) 0.4s 1 forwards; }
-@keyframes v22w-arrow {
-  0%   { transform: translateX(0); opacity: 0.6; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { transform: translateX(64px); opacity: 1; }
-}
-.v22-why-card.is-active .g2 .g-target     { animation: v22w-target-spin 3600ms linear 1.6s infinite; transform-origin: 102px 60px; transform-box: fill-box; }
-.v22-why-card.is-active .g2 .g-target-dot { animation: v22w-dot-bloom 360ms ease 1.6s 1 both; }
-.v22-why-card.is-active .g2 .g-tick       { animation: v22w-tick-up 320ms ease 1 both; }
-.v22-why-card.is-active .g2 .g-tick-0  { animation-delay: 0.40s; }
-.v22-why-card.is-active .g2 .g-tick-1  { animation-delay: 0.52s; }
-.v22-why-card.is-active .g2 .g-tick-2  { animation-delay: 0.64s; }
-.v22-why-card.is-active .g2 .g-tick-3  { animation-delay: 0.76s; }
-.v22-why-card.is-active .g2 .g-tick-4  { animation-delay: 0.88s; }
-.v22-why-card.is-active .g2 .g-tick-5  { animation-delay: 1.00s; }
-.v22-why-card.is-active .g2 .g-tick-6  { animation-delay: 1.12s; }
-.v22-why-card.is-active .g2 .g-tick-7  { animation-delay: 1.24s; }
-.v22-why-card.is-active .g2 .g-tick-8  { animation-delay: 1.36s; }
-.v22-why-card.is-active .g2 .g-tick-9  { animation-delay: 1.48s; }
-.v22-why-card.is-active .g2 .g-tick-10 { animation-delay: 1.60s; }
-@keyframes v22w-tick-up {
-  0%   { stroke: rgba(13,27,62,0.20); }
-  60%  { stroke: #F07B2F; }
-  100% { stroke: rgba(13,27,62,0.55); }
-}
-@keyframes v22w-target-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-
-/* g3 PLATFORMS — layers settle in from above (raster build) */
-.v22-why-card .g3 .g-layer { transform: translateY(-20px); opacity: 0; }
-.v22-why-card.is-active .g3 .g-layer { animation: v22w-layer-drop 600ms cubic-bezier(.2,.7,.1,1) 1 forwards; }
-.v22-why-card.is-active .g3 .g-layer-0 { animation-delay: 0.20s; }
-.v22-why-card.is-active .g3 .g-layer-1 { animation-delay: 0.34s; }
-.v22-why-card.is-active .g3 .g-layer-2 { animation-delay: 0.48s; }
-.v22-why-card.is-active .g3 .g-layer-3 { animation-delay: 0.62s; }
-.v22-why-card.is-active .g3 .g-layer-4 { animation-delay: 0.76s; }
-.v22-why-card.is-active .g3 .g-port    { transform: scale(0.3); opacity: 0; transform-box: fill-box; transform-origin: center; animation: v22w-port-pop 360ms ease 1 forwards; }
-.v22-why-card.is-active .g3 .g-port-0 { animation-delay: 0.50s; }
-.v22-why-card.is-active .g3 .g-port-1 { animation-delay: 0.64s; }
-.v22-why-card.is-active .g3 .g-port-2 { animation-delay: 0.78s; }
-.v22-why-card.is-active .g3 .g-port-3 { animation-delay: 0.92s; }
-.v22-why-card.is-active .g3 .g-port-4 { animation-delay: 1.06s; }
-@keyframes v22w-layer-drop {
-  0%   { transform: translateY(-20px); opacity: 0; }
-  100% { transform: translateY(0);     opacity: 1; }
-}
-@keyframes v22w-port-pop {
-  0%   { transform: scale(0.3); opacity: 0; }
-  100% { transform: scale(1);   opacity: 1; }
-}
-
-/* g4 PARTNERS — hub pings, nodes wake */
-.v22-why-card .g4 .g-ping { transform-origin: 60px 60px; transform-box: fill-box; }
-.v22-why-card.is-active .g4 .g-ping-1 { animation: v22w-ping 2400ms cubic-bezier(.1,.7,.2,1) 0.3s infinite; }
-.v22-why-card.is-active .g4 .g-ping-2 { animation: v22w-ping 2400ms cubic-bezier(.1,.7,.2,1) 1.5s infinite; }
-.v22-why-card.is-active .g4 .g-node   { opacity: 0.4; animation: v22w-node-light 480ms ease 1 forwards; }
-.v22-why-card.is-active .g4 .g-node-0 { animation-delay: 0.30s; }
-.v22-why-card.is-active .g4 .g-node-1 { animation-delay: 0.50s; }
-.v22-why-card.is-active .g4 .g-node-2 { animation-delay: 0.70s; }
-.v22-why-card.is-active .g4 .g-node-3 { animation-delay: 0.90s; }
-.v22-why-card.is-active .g4 .g-hub    { animation: v22w-hub-breathe 2200ms ease-in-out 1.2s infinite alternate; transform-origin: 60px 60px; transform-box: fill-box; }
-@keyframes v22w-ping {
-  0%   { opacity: 0;    transform: scale(0.5); }
-  20%  { opacity: 0.85; }
-  100% { opacity: 0;    transform: scale(2.6); }
-}
-@keyframes v22w-node-light {
-  0%   { opacity: 0.4; }
-  100% { opacity: 1; }
-}
-@keyframes v22w-hub-breathe {
-  from { transform: scale(1);    fill-opacity: 0.16; }
-  to   { transform: scale(1.06); fill-opacity: 0.28; }
-}
-
-/* g5 DOMAIN — cells light in raster scan order */
-.v22-why-card .g5 .g-cell { transform-origin: center; transform-box: fill-box; opacity: 0.4; }
-.v22-why-card.is-active .g5 .g-cell { animation: v22w-cell-light 360ms ease 1 forwards; }
-.v22-why-card.is-active .g5 .g-cell-0 { animation-delay: 0.30s; }
-.v22-why-card.is-active .g5 .g-cell-1 { animation-delay: 0.40s; }
-.v22-why-card.is-active .g5 .g-cell-2 { animation-delay: 0.50s; }
-.v22-why-card.is-active .g5 .g-cell-3 { animation-delay: 0.60s; }
-.v22-why-card.is-active .g5 .g-cell-4 { animation-delay: 0.72s; animation-name: v22w-cell-fill; }
-.v22-why-card.is-active .g5 .g-cell-5 { animation-delay: 0.80s; }
-.v22-why-card.is-active .g5 .g-cell-6 { animation-delay: 0.90s; }
-.v22-why-card.is-active .g5 .g-cell-7 { animation-delay: 1.00s; }
-.v22-why-card.is-active .g5 .g-cell-8 { animation-delay: 1.10s; }
-@keyframes v22w-cell-light {
-  0%   { opacity: 0.4;  transform: scale(0.92); }
-  60%  { opacity: 1;    transform: scale(1.06); }
-  100% { opacity: 1;    transform: scale(1); }
-}
-@keyframes v22w-cell-fill {
-  0%   { opacity: 0.4;  fill-opacity: 0.4;  transform: scale(0.92); }
-  60%  { opacity: 1;    fill-opacity: 1;    transform: scale(1.1); }
-  100% { opacity: 1;    fill-opacity: 1;    transform: scale(1); }
-}
-
-/* ─── Controls strip below the rail ─── */
-.v22-why-controls {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-top: 4px;
-  padding-top: 4px;
-}
-.v22-why-nav {
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(13, 27, 62, 0.18);
-  background: transparent;
-  color: var(--brand-navy);
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  transition: border-color 200ms ease, color 200ms ease, background 200ms ease, transform 200ms ease;
-  flex-shrink: 0;
-}
-.v22-why-nav svg { width: 18px; height: 18px; display: block; }
-.v22-why-nav:hover:not(:disabled) {
-  border-color: var(--v22-accent);
-  color: var(--v22-accent);
-  background: rgba(240, 123, 47, 0.06);
-}
-.v22-why-nav:active:not(:disabled) { transform: scale(0.95); }
-.v22-why-nav:disabled { opacity: 0.3; cursor: default; }
-.v22-why-nav:focus-visible { outline: 2px solid var(--v22-accent); outline-offset: 3px; }
-
-.v22-why-progress {
-  position: relative;
-  flex: 1;
-  height: 12px;
-  display: flex;
-  align-items: center;
-}
-.v22-why-progress::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  background: rgba(13, 27, 62, 0.18);
-  transform: translateY(-50%);
-}
-.v22-why-progress-fill {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 100%;
-  height: 1px;
-  background: var(--v22-accent);
-  transform-origin: left;
-  transform: scaleX(0);
-  transition: transform 480ms cubic-bezier(.2,.7,.1,1);
-  pointer-events: none;
-  translate: 0 -0.5px;
-}
-.v22-why-progress-stops {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.v22-why-progress-dot {
-  width: 12px;
-  height: 12px;
-  border: none;
-  background: transparent;
-  position: relative;
-  cursor: pointer;
-  padding: 0;
-}
-.v22-why-progress-dot::after {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  background: rgba(13, 27, 62, 0.32);
-  border-radius: 50%;
-  transition: background 200ms ease, transform 240ms cubic-bezier(.2,.7,.1,1);
-}
-.v22-why-progress-dot.is-passed::after { background: var(--v22-accent); }
-.v22-why-progress-dot.is-current::after {
-  background: var(--v22-accent);
-  transform: scale(1.6);
-  box-shadow: 0 0 0 3px rgba(240, 123, 47, 0.18);
-}
-.v22-why-progress-dot:focus-visible { outline: 2px solid var(--v22-accent); outline-offset: 3px; }
-
-.v22-why-counter {
-  font-family: var(--font-mono);
-  font-size: 0.84rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--brand-navy);
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-  flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
-}
-.v22-why-counter-now { color: var(--v22-accent); font-size: 1.1rem; }
-.v22-why-counter-sep { opacity: 0.4; }
-.v22-why-counter-total { opacity: 0.6; }
-
-/* ─── Responsive ─── */
-@media (max-width: 720px) {
-  .v22-why-card { flex-basis: 320px; padding: 24px 22px 22px; }
-  .v22-why-card-stage { height: 144px; }
-  .v22-why-glyph-svg { width: 120px; height: 120px; }
-  .v22-why-card-idx { font-size: 2rem; }
-  .v22-why-card-title { font-size: 1.06rem; }
-  .v22-why-rail { gap: 16px; padding: 24px max(var(--v22-gutter), calc((100% - 320px) / 2)) 28px; scroll-padding-inline: max(var(--v22-gutter), calc((100% - 320px) / 2)); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .v22-why-rail-wrap,
-  .v22-why-card { transition-duration: 0.001s; opacity: 1; transform: none; }
-  .v22-why-card.is-active *,
-  .v22-why-rail-wrap.is-visible .v22-why-card * { animation: none !important; }
-  .v22-why-card.is-active .g-compass-bezel { transform: none; }
-}
-
 /* Responsive */
 @media (max-width: 960px) {
   .v22-why-interactive {
@@ -4178,8 +2621,6 @@
 .v22-footer {
   padding: 96px 0 40px;
   position: relative;
-  background-color: var(--brand-navy-deep);
-  color: var(--v22-ink);
 }
 .v22-foot-top {
   display: grid;
@@ -4342,7 +2783,7 @@
 
 /* ---------- Responsive collapse ---------- */
 @media (max-width: 960px) {
-  .v22-scope {
+  .v23-scope {
     --v22-rhythm: 72px;
     --v22-rhythm-lg: 96px;
   }
@@ -4717,7 +3158,7 @@
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: var(--brand-navy);
+  color: rgba(255, 255, 255, 0.92);
   text-transform: uppercase;
   line-height: 1.15;
 }
@@ -4726,7 +3167,7 @@
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.14em;
-  color: rgba(13, 27, 62, 0.6);
+  color: rgba(255, 255, 255, 0.45);
   text-transform: uppercase;
 }
 .v22-csm-row.is-open .v22-csm-kicker { color: var(--v22-accent); }
@@ -4812,19 +3253,7 @@
   padding: 64px 0 72px;
   position: relative;
   scroll-margin-top: 100px;         /* clear the sticky nav when scroll-anchored */
-  /* DBiz blue → navy blue gradient. Brand-navy-light at the top edge fades
-     into brand-navy through the middle and deepens to brand-navy-deep at the
-     bottom — same family as the hero, slightly more energy. */
-  background-color: var(--brand-navy);
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0),
-    linear-gradient(180deg,
-      var(--brand-navy-light) 0%,
-      var(--brand-navy) 35%,
-      var(--brand-navy) 70%,
-      var(--brand-navy-deep) 100%
-    );
-  background-size: 24px 24px, 100% 100%;
+  /* Inherits the scope's dark bg + dot grid */
 }
 .v22-section.v22-framework .v22-fw-head {
   border-bottom: none;
@@ -4845,10 +3274,22 @@
 
 /* ---------- Framework — AI Transformation Stack (Deconstructed Assembly, ported from v20) ---------- */
 .v22-fw-diagram-wrap {
+  border: 1px solid var(--v22-hair-strong);
   position: relative;
   padding: 0;
   overflow: hidden;
 }
+.v22-fw-diagram-wrap::before,
+.v22-fw-diagram-wrap::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--v22-accent);
+  z-index: 2;
+}
+.v22-fw-diagram-wrap::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.v22-fw-diagram-wrap::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
 .v22-fw-diagram {
   display: block;
@@ -4856,426 +3297,15 @@
   height: auto;
 }
 
-/* ---------- Framework — card grid (offering + accelerator per layer) ----------
-   Uses CSS subgrid so offering / separator / accelerator rows align across
-   all 7 cards — accelerators always sit at the same y regardless of how much
-   copy the offering above has. */
-.v22-fw-cards {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  /* 3 shared rows across all cards: offering, separator, accelerator.
-     subgrid on each card syncs its children into these rows. */
-  grid-template-rows: auto auto auto;
-  gap: clamp(8px, 0.9vw, 14px);
-  margin-top: 0;
-}
-/* ----- Top strip — FULL STACK · NO CAPABILITY GAPS · NO VENDOR LOCK-IN ----- */
-.v22-fw-top-strip {
-  display: flex;
-  align-items: center;
-  gap: clamp(10px, 1.6vw, 24px);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.55);
-  padding: 14px 4px 16px;
-  position: relative;
-}
-.v22-fw-top-code {
-  flex: 0 0 auto;
-  color: rgba(255, 255, 255, 0.55);
-  white-space: nowrap;
-}
-.v22-fw-top-promise {
-  flex: 1 1 auto;
-  color: rgba(255, 255, 255, 0.42);
-  text-align: center;
-  letter-spacing: 0.22em;
-  border-top: 1px solid rgba(240, 123, 47, 0.5);
-  border-bottom: 1px solid rgba(240, 123, 47, 0.5);
-  padding: 6px 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-@media (max-width: 720px) {
-  .v22-fw-top-strip { flex-wrap: wrap; justify-content: space-between; font-size: 9px; }
-  .v22-fw-top-promise {
-    flex-basis: 100%;
-    order: 3;
-    text-align: center;
-    letter-spacing: 0.16em;
-    font-size: 9px;
-    white-space: normal;
-    padding: 8px 6px;
-    margin-top: 6px;
-  }
-}
-
-/* ----- Scroller — turns into a carousel below 1100px ----- */
-.v22-fw-scroller {
-  display: block;
-  position: relative;
-}
-
-/* Scroll-affordance: visible custom scrollbar + right-edge fade + nudge hint
-   on first reveal. Only applies when the scroller is actually scrollable
-   (mid-viewport range and below). */
-.v22-fw-scroller.is-scrollable {
-  --scroll-thumb: rgba(240, 123, 47, 0.55);
-  --scroll-track: rgba(255, 255, 255, 0.08);
-  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
-  scrollbar-width: thin;
-}
-.v22-fw-scroller.is-scrollable::-webkit-scrollbar { height: 8px; display: block; }
-.v22-fw-scroller.is-scrollable::-webkit-scrollbar-track { background: var(--scroll-track); }
-.v22-fw-scroller.is-scrollable::-webkit-scrollbar-thumb {
-  background: var(--scroll-thumb);
-  border-radius: 4px;
-}
-
-/* Fading right edge on the scroller — signals "more content to the right". */
-.v22-fw-scroll-edge {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 64px;
-  pointer-events: none;
-  z-index: 5;
-  opacity: 0;
-  transition: opacity 240ms ease;
-}
-.v22-fw-scroll-edge.right {
-  right: 0;
-  background: linear-gradient(to left, var(--v22-paper) 5%, rgba(13, 27, 62, 0));
-}
-.v22-fw-scroll-edge.left {
-  left: 0;
-  background: linear-gradient(to right, var(--v22-paper) 5%, rgba(13, 27, 62, 0));
-}
-.v22-fw-scroller.is-scrollable .v22-fw-scroll-edge { opacity: 1; }
-.v22-fw-scroller.is-at-start .v22-fw-scroll-edge.left { opacity: 0; }
-.v22-fw-scroller.is-at-end   .v22-fw-scroll-edge.right { opacity: 0; }
-
-/* Scroll hint pill — a subtle label that fades in once and gently nudges
-   to reveal the gesture. Disappears after the user starts scrolling. */
-.v22-fw-scroll-hint {
-  position: absolute;
-  right: 12px;
-  bottom: 18px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 12px;
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--v22-accent);
-  background: rgba(13, 27, 62, 0.7);
-  border: 1px solid rgba(240, 123, 47, 0.35);
-  border-radius: 100px;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateX(8px);
-  transition: opacity 320ms ease, transform 320ms ease;
-  z-index: 6;
-  backdrop-filter: blur(4px);
-}
-.v22-fw-scroller.is-scrollable .v22-fw-scroll-hint {
-  opacity: 1;
-  transform: translateX(0);
-  animation: v22-fw-scroll-hint-nudge 2.6s cubic-bezier(.4,0,.2,1) 0.6s 3;
-}
-.v22-fw-scroller.is-scrolling .v22-fw-scroll-hint {
-  opacity: 0;
-  transform: translateX(8px);
-  animation: none;
-}
-.v22-fw-scroll-hint-arrow {
-  display: inline-block;
-  width: 14px;
-  font-weight: 700;
-  letter-spacing: 0;
-}
-@keyframes v22-fw-scroll-hint-nudge {
-  0%, 70%, 100% { transform: translateX(0); }
-  78%           { transform: translateX(-6px); }
-  86%           { transform: translateX(0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .v22-fw-scroller.is-scrollable .v22-fw-scroll-hint { animation: none; }
-}
-
-/* Mini disc is desktop-hidden — master SVG above handles discs. */
-.v22-fw-card-mini { display: none; }
-
-@media (max-width: 760px) {
-  /* Tighter section header on mobile. */
-  .v22-section.v22-framework .v22-fw-head { margin-bottom: 12px; }
-  .v22-section.v22-framework .v22-fw-head .lead {
-    font-size: 0.92rem;
-    line-height: 1.5;
-    max-width: 36ch;
-  }
-  .v22-fw-top-strip { padding: 8px 4px 10px; }
-
-  /* MOBILE: hide the master diagram. Each layer becomes a full card (icon +
-     L-label + offering + accelerator) and the 7 cards line up in a horizontal
-     scroller. Free pan, no snap, no carousel pagination. */
-  .v22-fw-scroller {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: none;
-    scroll-behavior: smooth;
-    padding-bottom: 14px;
-    scrollbar-width: thin;
-  }
-  .v22-fw-scroller::-webkit-scrollbar { height: 6px; display: block; }
-  .v22-fw-scroller .v22-fw-diagram-wrap { display: none; }
-  /* Hide the desktop-only edge fades on mobile — the peeking next card is the
-     scroll affordance, the navy gradients just read as random stripes. */
-  .v22-fw-scroller .v22-fw-scroll-edge { display: none; }
-  .v22-fw-scroller .v22-fw-scroll-hint { display: none; }
-
-  .v22-fw-scroller .v22-fw-cards {
-    display: flex !important;
-    flex-direction: row;
-    gap: 14px;
-    grid-template-columns: none !important;
-    grid-template-rows: none !important;
-    width: max-content;
-    min-width: max-content;
-    padding: 4px 4px 0;
-  }
-  .v22-fw-card {
-    display: flex !important;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-    width: 78vw;
-    max-width: 320px;
-    flex: 0 0 78vw;
-    padding: 18px 18px 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.02);
-    scroll-snap-align: none;
-    grid-row: auto !important;
-    grid-template-rows: none !important;
-  }
-  /* Mini-disc + L-label header */
-  .v22-fw-card-mini {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin: 0 0 4px;
-  }
-  .v22-fw-mini-disc { width: 132px; height: 132px; display: block; }
-  .v22-fw-card-layer {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    text-align: center;
-  }
-  /* Offering item */
-  .v22-fw-card .v22-fw-card-item:nth-of-type(1) { display: block; }
-  /* Separator becomes a thin orange hairline between offering and accelerator */
-  .v22-fw-card .v22-fw-card-link {
-    display: block;
-    height: 1px;
-    background: rgba(240, 123, 47, 0.35);
-    width: 100%;
-    margin: 2px 0;
-  }
-  /* Accelerator item */
-  .v22-fw-card .v22-fw-card-item:nth-of-type(2) { display: block; }
-
-  .v22-fw-card-name { font-size: 1rem; line-height: 1.2; }
-  .v22-fw-card-desc { font-size: 0.82rem; line-height: 1.45; margin-top: 4px; }
-  .v22-fw-card-kicker { font-size: 9px; letter-spacing: 0.18em; color: var(--v22-accent); margin-bottom: 4px; }
-
-  .v22-fw-pagination { display: none !important; }
-}
-
-/* ----- Pagination (carousel indicators) ----- */
-.v22-fw-pagination {
-  display: none;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  padding: 18px 8px 4px;
-}
-@media (max-width: 760px) {
-  .v22-fw-pagination { display: flex; flex-wrap: wrap; }
-}
-.v22-fw-dot {
-  appearance: none;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: rgba(255, 255, 255, 0.5);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 220ms ease, border-color 220ms ease, color 220ms ease, transform 220ms ease;
-  padding: 0;
-}
-.v22-fw-dot:hover,
-.v22-fw-dot:focus-visible {
-  border-color: var(--v22-accent);
-  color: var(--v22-accent);
-  outline: none;
-}
-.v22-fw-dot.is-active {
-  background: var(--v22-accent);
-  border-color: var(--v22-accent);
-  color: #fff;
-  transform: scale(1.08);
-}
-.v22-fw-dot-idx { pointer-events: none; }
-
-/* Borderless card. Uses CSS subgrid so the offering block, separator, and
-   accelerator block align in the same rows across all 7 cards. */
-.v22-fw-card {
-  position: relative;
-  display: grid;
-  grid-template-rows: subgrid;
-  grid-row: span 3;
-  justify-items: center;
-  padding: 8px 12px 18px;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  text-align: center;
-
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 600ms cubic-bezier(.2,.7,.1,1) var(--card-delay, 0ms),
-    transform 600ms cubic-bezier(.2,.7,.1,1) var(--card-delay, 0ms);
-  will-change: transform, opacity;
-}
-.v22-fw-cards.is-visible .v22-fw-card {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* (Solid entry line + bubble removed per user request.) */
-
-/* Dotted separator between offering and accelerator */
-.v22-fw-card-link {
-  display: block;
-  width: 1px;
-  height: 28px;
-  margin: 4px auto 8px;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 50%
-  );
-  background-size: 1px 4px;
-  transition: background-image 220ms ease;
-}
-
-/* Active / hover state — line + bubble + names go brand orange */
-.v22-fw-card.is-active,
-.v22-fw-card:hover,
-.v22-fw-card:focus-visible { outline: none; }
-.v22-fw-card.is-active .v22-fw-card-link,
-.v22-fw-card:hover .v22-fw-card-link,
-.v22-fw-card:focus-visible .v22-fw-card-link {
-  background-image: linear-gradient(
-    to bottom,
-    rgba(240, 123, 47, 0.9) 50%,
-    transparent 50%
-  );
-}
-.v22-fw-card.is-active .v22-fw-card-name,
-.v22-fw-card:hover .v22-fw-card-name,
-.v22-fw-card:focus-visible .v22-fw-card-name {
-  color: var(--v22-accent);
-}
-.v22-fw-card:focus-visible {
-  outline: 1px dashed var(--v22-accent);
-  outline-offset: 4px;
-}
-
-.v22-fw-card-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 6px;
-  padding: 0;
-  background: transparent;
-  width: 100%;
-  text-align: center;
-}
-.v22-fw-card-kicker {
-  font-family: var(--font-mono);
-  font-size: 7.5px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.35);
-  text-transform: uppercase;
-  margin-bottom: 2px;
-}
-.v22-fw-card-name {
-  font-family: var(--font-sans);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: -0.003em;
-  color: rgba(255, 255, 255, 0.92);
-  line-height: 1.3;
-  /* Reserve 2 lines so single-line and double-line names align consistently. */
-  min-height: 2.6em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 220ms ease;
-}
-.v22-fw-card-desc {
-  font-family: var(--font-sans);
-  font-size: 10px;
-  line-height: 1.45;
-  color: rgba(255, 255, 255, 0.42);
-  margin: 0;
-  /* Reserve 2 lines so all desc rows line up across cards. */
-  min-height: calc(10px * 1.45 * 2);
-}
-.v22-fw-card-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.08);
-  margin: 4px -12px;
-}
-
 /* Layer reveal animation — staggered entrance */
 .v22-fw-stack-layer {
   opacity: 0;
   animation: v22-fw-layer-appear 0.5s ease-out forwards;
   animation-delay: calc(var(--layer-index) * 0.12s + 0.2s);
-  transition: transform 360ms cubic-bezier(.2,.7,.1,1), filter 360ms ease;
 }
 @keyframes v22-fw-layer-appear {
   from { opacity: 0; transform: translateY(-10px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Active disc (its card is hovered/focused) — small highlight only. */
-.v22-fw-stack-layer.is-active {
-  filter: drop-shadow(0 0 10px rgba(240, 123, 47, 0.35));
 }
 
 /* Connector draw-in */
@@ -5303,45 +3333,15 @@
 }
 @keyframes v22-fw-disc-halo-sweep {
   0%, 22%, 100% { opacity: 0;    transform: scale(1); }
-  5%            { opacity: 0.32; transform: scale(1.04); }
-  10%           { opacity: 0.16; transform: scale(1.01); }
-  18%           { opacity: 0.03; transform: scale(1); }
+  5%            { opacity: 0.7;  transform: scale(1.08); }
+  10%           { opacity: 0.35; transform: scale(1.02); }
+  18%           { opacity: 0.05; transform: scale(1); }
 }
 
-/* Card title turns orange in two situations:
-   1. Auto: in lockstep with the disc halo above so the highlighted disc
-      and its title light up as one moment. Tight window, two states only
-      (orange / inherit) — no interpolated midpoint that would muddy the
-      row when several titles are mid-cycle.
-   2. Engaged: on hover, focus, or when the corresponding disc is hovered
-      (sets .is-active via onHover state). The hover state pins the title
-      orange and overrides the auto-cycle. */
-/* Title turns orange only when the user is engaged with that layer —
-   hover, keyboard focus, or hovering the corresponding disc on the master
-   diagram (which sets .is-active via onHover state). The disc halo is the
-   only ambient motion; titles stay calm until interacted with. */
-.v22-fw-card:hover .v22-fw-card-name,
-.v22-fw-card:focus-visible .v22-fw-card-name,
-.v22-fw-card.is-active .v22-fw-card-name {
-  color: var(--v22-accent);
-}
-
-/* Responsive — when the SVG is forced to its readable min-width, the cards
-   must share that same coordinate space so disc x-positions and card columns
-   line up. Move horizontal scroll up to .v22-fw-scroller so the diagram and
-   cards scroll together as one unit. */
-@media (max-width: 1100px) and (min-width: 761px) {
-  .v22-fw-scroller {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-  }
-  .v22-fw-diagram-wrap,
-  .v22-fw-cards {
-    min-width: 1000px;
-  }
-  .v22-fw-diagram-wrap { overflow: visible; }
-  .v22-fw-diagram { min-width: 0; width: 100%; }
+/* Responsive */
+@media (max-width: 960px) {
+  .v22-fw-diagram-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .v22-fw-diagram { min-width: 1000px; }
 }
 
 /* ---------- AI Transformation Stack — lightbox modal (legacy, kept for fallback) ---------- */

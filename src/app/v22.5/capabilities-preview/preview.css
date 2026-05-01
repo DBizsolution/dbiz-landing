@@ -1,0 +1,806 @@
+/* ==========================================================================
+   Capabilities preview — three layout options side by side.
+   All three use v22 brand tokens from theme.css.
+   ========================================================================== */
+
+/* ---------- Preview chrome ---------- */
+.capX-preview-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 32px;
+  background: var(--brand-navy-deep);
+  border-bottom: 1px solid var(--v22-hair);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.capX-preview-nav a {
+  color: var(--v22-ink-2);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.capX-preview-nav a:hover { color: var(--v22-accent); }
+.capX-preview-nav-links { display: flex; gap: 24px; }
+
+.capX-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  background: var(--brand-navy-deep);
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--v22-hair);
+  border-bottom: 1px solid var(--v22-hair);
+}
+.capX-divider span {
+  padding: 0 24px;
+  position: relative;
+}
+.capX-divider span::before,
+.capX-divider span::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 80px;
+  height: 1px;
+  background: var(--v22-hair-strong);
+}
+.capX-divider span::before { right: 100%; }
+.capX-divider span::after  { left: 100%; }
+
+/* Apply v22 section gradient to each option section */
+.v22-scope section#cap-a,
+.v22-scope section#cap-a-mobile,
+.v22-scope section#cap-b,
+.v22-scope section#cap-c {
+  background-color: var(--brand-navy-deep);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0),
+    linear-gradient(
+      180deg,
+      var(--brand-navy) 0%,
+      #0B1836 18%,
+      #08122E 50%,
+      #08122E 100%
+    );
+  background-size: 24px 24px, 100% 100%;
+  padding: 64px 0 80px;
+  position: relative;
+}
+/* Option C is designed to fit in one viewport */
+.v22-scope section#cap-c {
+  padding: 36px 0 44px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.v22-scope section#cap-a .v22-section-head,
+.v22-scope section#cap-a-mobile .v22-section-head,
+.v22-scope section#cap-b .v22-section-head,
+.v22-scope section#cap-c .v22-section-head {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 32px;
+  align-items: start;
+}
+.v22-scope section#cap-c .v22-section-head {
+  margin-bottom: 18px;
+}
+
+/* ============================================================
+   OPTION A — Exploded isometric stack (organic, side-positioned)
+   ============================================================ */
+/* Section designed to fit one viewport */
+.v22-scope section#cap-a {
+  padding: 36px 0 44px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.v22-scope section#cap-a .v22-section-head {
+  margin-bottom: 18px;
+}
+
+.capA-grid {
+  display: grid;
+  grid-template-columns: minmax(340px, 440px) 1fr;  /* stack left, detail right */
+  gap: 56px;
+  align-items: center;
+}
+.capA-stack-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  justify-self: start;
+}
+.capA-stack {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Layer interaction */
+.capA-layer {
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+.capA-layer:hover { filter: brightness(1.15); }
+.capA-layer.is-active {
+  filter: drop-shadow(0 0 12px rgba(240, 123, 47, 0.35));
+}
+
+/* Particle flow between adjacent layers — mirrors hero stack pattern */
+.capA-flow-particle {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: capA-flow 2.4s ease-in-out infinite;
+  animation-delay: var(--capA-flow-delay, 0s);
+}
+@keyframes capA-flow {
+  0%   { opacity: 0; transform: translateY(0); }
+  15%  { opacity: 1; transform: translateY(4px); }
+  85%  { opacity: 1; transform: translateY(calc(var(--capA-flow-distance) - 4px)); }
+  100% { opacity: 0; transform: translateY(var(--capA-flow-distance)); }
+}
+
+/* Resume auto-cycle link — small mono link below CTA */
+.capA-resume {
+  display: block;
+  margin-top: 22px;
+  padding: 8px 0;
+  background: transparent;
+  border: none;
+  color: var(--v22-ink-3);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.capA-resume:hover { color: var(--v22-accent); }
+.capA-layer:focus { outline: none; }
+.capA-layer:focus-visible rect:nth-child(2) {
+  stroke: var(--v22-accent);
+  stroke-width: 2;
+}
+
+.capA-detail {
+  padding: 0;
+  animation: capA-slide-in 0.35s ease-out;
+}
+@keyframes capA-slide-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.capA-detail-kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--v22-accent);
+  text-transform: uppercase;
+}
+.capA-detail-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);     /* hero text */
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  margin: 14px 0 12px;
+}
+.capA-detail-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--v22-ink-2);
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.capA-detail-body {
+  color: var(--v22-ink);
+  line-height: 1.6;
+  font-size: 1.02rem;
+  margin-bottom: 24px;
+  max-width: 62ch;
+}
+.capA-detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+.capA-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--v22-hair-strong);
+  color: var(--v22-ink-2);
+}
+.capA-detail-cta {
+  display: inline-flex;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--v22-accent);
+}
+.capA-detail-cta:hover { color: var(--brand-orange-hover); }
+
+@media (max-width: 960px) {
+  .capA-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   OPTION B — Scroll cascade
+   ============================================================ */
+.capB-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.capB-sticky {
+  position: sticky;
+  top: 100px;
+  align-self: start;
+  display: grid;
+  grid-template-columns: 3px 1fr;
+  gap: 24px;
+}
+.capB-progress {
+  position: relative;
+  height: 320px;
+  background: var(--v22-hair);
+}
+.capB-progress-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: var(--v22-accent);
+  transition: height 0.4s ease;
+}
+.capB-sticky-inner {
+  animation: capA-slide-in 0.35s ease-out;
+}
+.capB-sticky-num {
+  font-family: var(--font-mono);
+  font-size: 64px;
+  font-weight: 800;
+  color: var(--v22-accent);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.capB-sticky-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--v22-ink-2);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.capB-sticky-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.capB-sticky-body {
+  color: var(--v22-ink-2);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 50ch;
+}
+.capB-sticky-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+.capB-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--v22-hair-strong);
+  color: var(--v22-ink-2);
+}
+.capB-sticky-cta {
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  border-bottom: 1px solid var(--v22-accent);
+  padding-bottom: 4px;
+}
+
+.capB-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.capB-panel {
+  padding: 32px 28px;
+  border: 1px solid var(--v22-hair);
+  border-left: 2px solid var(--v22-hair-strong);
+  background: rgba(255, 255, 255, 0.02);
+  min-height: 160px;
+  transition: all 0.4s ease;
+  opacity: 0.5;
+  transform: translateX(0);
+}
+.capB-panel.is-active {
+  opacity: 1;
+  border-color: var(--v22-accent);
+  border-left: 2px solid var(--v22-accent);
+  background: rgba(240, 123, 47, 0.06);
+  transform: translateX(8px);
+}
+.capB-panel-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+.capB-panel-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--v22-accent);
+  letter-spacing: 0.08em;
+}
+.capB-panel-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--v22-ink-2);
+  text-transform: uppercase;
+}
+.capB-panel-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0 0 6px;
+}
+.capB-panel-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--v22-ink-3);
+  text-transform: uppercase;
+}
+
+@media (max-width: 960px) {
+  .capB-grid { grid-template-columns: 1fr; }
+  .capB-sticky { position: relative; top: 0; }
+}
+
+/* ============================================================
+   OPTION C — Orbital constellation (no icon containers)
+   ============================================================ */
+.capC-orbit-grid {
+  display: grid;
+  grid-template-columns: minmax(360px, 440px) 1fr;   /* stage capped, detail gets the rest */
+  gap: 40px;
+  align-items: center;
+}
+
+/* Stage — square, sized to fit viewport */
+.capC-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 440px;
+  justify-self: start;
+}
+.capC-stage-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Only the central hue breathes — everything else is static or transition-only.
+   Less ambient motion = viewer reads the text, not the background. */
+.capC-hub-hue {
+  animation: capC-hue-breathe 6s ease-in-out infinite;
+}
+@keyframes capC-hue-breathe {
+  0%, 100% { opacity: 1;    transform: scale(1); }
+  50%      { opacity: 0.88; transform: scale(1.03); }
+}
+
+/* Icons float on the orbit — NO boxes */
+.capC-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  background: transparent;
+  border: none;
+  color: var(--v22-ink);
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.35s ease, filter 0.3s ease;
+  z-index: 2;
+}
+/* Top-half nodes put the label above the icon — stops spokes from
+   passing through the label text */
+.capC-node--top { flex-direction: column-reverse; }
+.capC-node-frame {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.capC-node-icon {
+  width: 72px;
+  height: 72px;
+  display: block;
+  transition: opacity 0.35s ease;
+  position: relative;
+  z-index: 2;
+  opacity: 0.55;            /* inactive icons sit back — anchor, not spotlight */
+}
+.capC-node.is-active .capC-node-icon,
+.capC-node:hover .capC-node-icon { opacity: 1; }
+.capC-node-icon svg { width: 100%; height: 100%; display: block; }
+
+/* Orange hue backdrop — only visible on active */
+.capC-node-hue {
+  position: absolute;
+  inset: -8px;
+  border-radius: 2px;
+  background:
+    radial-gradient(circle at center, rgba(240,123,47,0.28) 0%, rgba(240,123,47,0.10) 50%, transparent 80%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 12px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Corner tick brackets — no full border */
+.capC-node-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1.4px solid var(--v22-accent);
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.25s ease, height 0.25s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+.capC-node-corner.tl { top: -4px; left: -4px;  border-right: none; border-bottom: none; }
+.capC-node-corner.tr { top: -4px; right: -4px; border-left: none;  border-bottom: none; }
+.capC-node-corner.bl { bottom: -4px; left: -4px;  border-right: none; border-top: none; }
+.capC-node-corner.br { bottom: -4px; right: -4px; border-left: none;  border-top: none; }
+
+.capC-node.is-active .capC-node-hue { opacity: 1; }
+.capC-node.is-active .capC-node-corner { opacity: 1; }
+.capC-node:hover .capC-node-hue { opacity: 0.8; }
+.capC-node:hover .capC-node-corner { opacity: 0.9; }
+
+.capC-node-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-mono);
+  line-height: 1.2;
+  opacity: 0.55;           /* dimmed by default — active state brightens below */
+  transition: opacity 0.25s ease;
+  max-width: 120px;
+}
+.capC-node-num {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--v22-accent);
+}
+.capC-node-kicker {
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--v22-ink-2);
+  text-transform: uppercase;
+  text-align: center;
+  white-space: normal;    /* allow wrapping */
+  word-break: break-word;
+}
+
+.capC-node:hover,
+.capC-node.is-active {
+  transform: translate(-50%, -50%) scale(1.06);
+  z-index: 3;
+}
+/* Drop-shadow removed — the hue backdrop + corner ticks now convey highlight */
+.capC-node:hover .capC-node-label,
+.capC-node.is-active .capC-node-label {
+  opacity: 1;
+}
+.capC-node.is-active .capC-node-kicker {
+  color: var(--v22-ink);
+}
+.capC-node:focus-visible {
+  outline: 2px solid var(--v22-accent);
+  outline-offset: 6px;
+}
+
+.capC-detail {
+  padding: 0;
+  max-width: none;
+}
+.capC-detail-inner {
+  animation: capA-slide-in 0.35s ease-out;
+}
+.capC-detail-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--v22-accent);
+  text-transform: uppercase;
+}
+.capC-detail-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);     /* bigger — hero of the view */
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  margin: 14px 0 12px;
+}
+.capC-detail-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--v22-ink-2);
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.capC-detail-body {
+  color: var(--v22-ink);
+  line-height: 1.6;
+  font-size: 1.02rem;
+  margin-bottom: 24px;
+  max-width: 62ch;             /* wider measure since detail has more width */
+}
+.capC-detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+.capC-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--v22-hair-strong);
+  color: var(--v22-ink-2);
+}
+.capC-detail-cta {
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  border-bottom: 1px solid var(--v22-accent);
+  padding-bottom: 4px;
+}
+.capC-resume {
+  display: block;
+  margin-top: 22px;
+  padding: 8px 0;
+  background: transparent;
+  border: none;
+  color: var(--v22-ink-3);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.capC-resume:hover { color: var(--v22-accent); }
+
+@media (max-width: 960px) {
+  .capC-orbit-grid { grid-template-columns: 1fr; }
+  .capC-detail { position: relative; top: 0; }
+}
+
+/* ============================================================
+   OPTION A — Mobile accordion (vertical stack, tap to expand)
+   ============================================================ */
+.v22-scope section#cap-a-mobile {
+  padding: 36px 0 48px;
+  min-height: auto;
+  display: block;
+}
+.v22-scope section#cap-a-mobile .v22-section-head {
+  margin-bottom: 24px;
+}
+
+.capAm-accordion {
+  display: flex;
+  flex-direction: column;
+  max-width: 520px;
+  margin: 0 auto;
+  border-top: 1px solid var(--v22-hair);
+}
+.capAm-row {
+  border-bottom: 1px solid var(--v22-hair);
+  transition: background 0.25s ease;
+}
+.capAm-row.is-open {
+  background: rgba(240, 123, 47, 0.04);
+}
+.capAm-row-trigger {
+  display: grid;
+  grid-template-columns: 72px 1fr 24px;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 16px;
+  background: transparent;
+  border: none;
+  color: var(--v22-ink);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.capAm-row-trigger:hover { background: rgba(255, 255, 255, 0.02); }
+.capAm-row-trigger:focus-visible {
+  outline: 2px solid var(--v22-accent);
+  outline-offset: -2px;
+}
+
+.capAm-row-mark {
+  width: 72px;
+  height: 44px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.capAm-row-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.capAm-row-kicker {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.92);
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+.capAm-row-alt {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+}
+.capAm-row.is-open .capAm-row-kicker { color: var(--v22-accent); }
+.capAm-row.is-open .capAm-row-alt { color: var(--v22-accent); opacity: 0.75; }
+
+.capAm-row-chevron {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s ease;
+  justify-self: end;
+}
+.capAm-row.is-open .capAm-row-chevron { color: var(--v22-accent); }
+
+.capAm-row-body {
+  padding: 4px 20px 24px;              /* even margins; natural reading width */
+  animation: capAm-slide-in 0.3s ease-out;
+}
+@keyframes capAm-slide-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.capAm-body-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+}
+.capAm-body-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--v22-ink-2);
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+.capAm-body-copy {
+  color: var(--v22-ink);
+  line-height: 1.6;
+  font-size: 0.98rem;
+  margin: 0 0 18px;
+}
+.capAm-body-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.capAm-body-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border: 1px solid var(--v22-hair-strong);
+  color: var(--v22-ink-2);
+}
+.capAm-body-cta {
+  display: inline-flex;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--v22-accent);
+}
+
+@media (max-width: 480px) {
+  .capAm-row-trigger { grid-template-columns: 60px 1fr 22px; gap: 12px; padding: 16px 12px; }
+  .capAm-row-mark { width: 60px; height: 38px; }
+  .capAm-row-body { padding: 4px 16px 20px; }
+  .capAm-row-kicker { font-size: 11.5px; }
+}
