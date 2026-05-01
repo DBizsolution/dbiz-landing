@@ -4625,6 +4625,116 @@
 .v22-cdp-pillar--infrastructure .v22-cdp-platform {
   background: rgba(255, 255, 255, 0.6);
 }
+
+/* ─── SERVICES TABS — interactive §01 What we do ─────────────────────────
+   Three service types shown as a tab list at the top of the body column.
+   Click switches the panel below. Surfaces all three categories upfront
+   (scannable) without making the reader scroll through stacked pillars. */
+.v22-cdp-services-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.v22-cdp-services-tablist {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed rgba(13, 27, 62, 0.18);
+}
+.v22-cdp-services-tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 16px 18px 14px;
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.12);
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: border-color 200ms ease, background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+.v22-cdp-services-tab:hover {
+  border-color: rgba(240, 123, 47, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px -16px rgba(13, 27, 62, 0.18);
+}
+.v22-cdp-services-tab.is-active {
+  border-color: var(--v22-accent);
+  background: rgba(240, 123, 47, 0.04);
+  cursor: default;
+}
+.v22-cdp-services-tab.is-active:hover {
+  transform: none;
+  box-shadow: none;
+}
+/* Schematic corner ticks on the active tab */
+.v22-cdp-services-tab.is-active::before,
+.v22-cdp-services-tab.is-active::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--v22-accent);
+}
+.v22-cdp-services-tab.is-active::before {
+  top: -1px; left: -1px;
+  border-right: none; border-bottom: none;
+}
+.v22-cdp-services-tab.is-active::after {
+  bottom: -1px; right: -1px;
+  border-left: none; border-top: none;
+}
+.v22-cdp-services-tab-marker {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.55);
+}
+.v22-cdp-services-tab.is-active .v22-cdp-services-tab-marker {
+  color: var(--v22-accent);
+}
+.v22-cdp-services-tab-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  line-height: 1.25;
+  color: var(--v22-ink);
+}
+.v22-cdp-services-tab.is-active .v22-cdp-services-tab-name {
+  color: var(--v22-accent);
+}
+.v22-cdp-services-tab-count {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.45);
+  margin-top: auto;
+}
+.v22-cdp-services-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.v22-cdp-services-panel-lede {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(13, 27, 62, 0.7);
+  margin: 0;
+  max-width: 70ch;
+}
+@media (max-width: 720px) {
+  .v22-cdp-services-tablist {
+    grid-template-columns: 1fr;
+  }
+}
 .v22-cdp-platform {
   background: #ffffff;
   border: 1px solid rgba(13, 27, 62, 0.1);
@@ -4951,26 +5061,23 @@
 @media (max-width: 880px) {
   .v22-cdp-accel-grid { grid-template-columns: 1fr; }
 }
-/* Static 3-card grid — replaced the marquee. Cards align with the parent
-   container, larger schematic glyphs (matching why-section visual language),
-   metric block sits below the glyph rather than inline. */
+/* Vertical stack — cards sit in the block-body right column, each one
+   horizontal with the schematic glyph on the left and metric/title/body
+   stacked on the right. */
 .v22-cdp-patterns-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-  margin-top: 36px;
-}
-@media (max-width: 980px) {
-  .v22-cdp-patterns-grid { grid-template-columns: 1fr; }
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 .v22-cdp-pattern {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 28px 24px 26px;
+  padding: 22px 24px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
   transition: border-color 200ms ease, background 200ms ease, transform 200ms ease;
 }
 .v22-cdp-pattern:hover {
@@ -4987,20 +5094,36 @@
   border-right: none; border-bottom: none;
 }
 .v22-cdp-pattern-glyph-wrap {
-  width: 96px;
-  height: 96px;
-  margin-bottom: 4px;
+  width: 88px;
+  height: 88px;
+  flex: 0 0 88px;
 }
 .v22-cdp-pattern-glyph {
   width: 100%;
   height: 100%;
 }
-.v22-cdp-pattern-metric {
+.v22-cdp-pattern-content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding-top: 14px;
-  border-top: 1px dashed rgba(255, 255, 255, 0.18);
+  gap: 10px;
+  min-width: 0;
+}
+@media (max-width: 720px) {
+  .v22-cdp-pattern {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .v22-cdp-pattern-glyph-wrap {
+    width: 72px;
+    height: 72px;
+    flex: 0 0 72px;
+  }
+}
+.v22-cdp-pattern-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 .v22-cdp-pattern-val {
   font-family: var(--font-sans);
@@ -5147,6 +5270,10 @@
   letter-spacing: -0.025em;
   margin: 0;
   color: var(--brand-navy);
+}
+.v22-cdp-block-title em {
+  font-style: normal;
+  color: var(--v22-accent);
 }
 .v22-cdp-block-body {
   font-family: var(--font-sans);
@@ -6692,12 +6819,16 @@
 }
 
 /* ─── ON-THIS-PAGE ANCHOR STRIP ─────────────────────────────────────────
-   Thin band between partnerships and §01. Mono pill nav, scroll-anchor
-   targets are the section ids. Cream paper continues from partnerships. */
+   Thin dark navy band between partnerships and §01. Mono pill nav,
+   scroll-anchor targets are the section ids. Dark surface for contrast
+   against the cream partnerships above and cream §01 below. */
 .v22-cdp-toc {
-  background: var(--v22-paper);
-  border-top: 1px solid rgba(13, 27, 62, 0.08);
-  border-bottom: 1px solid rgba(13, 27, 62, 0.08);
+  background: var(--brand-navy-deep);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 22px 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   padding: 18px 0;
 }
 .v22-cdp-toc .v22-container {
@@ -6712,7 +6843,7 @@
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(13, 27, 62, 0.5);
+  color: rgba(255, 255, 255, 0.5);
   flex: 0 0 auto;
 }
 .v22-cdp-toc-list {
@@ -6730,17 +6861,17 @@
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--v22-ink);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   padding: 6px 12px;
-  border: 1px solid rgba(13, 27, 62, 0.12);
-  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
   transition: border-color 200ms ease, background 200ms ease, color 200ms ease;
 }
 .v22-cdp-toc-list a:hover {
   border-color: var(--v22-accent);
   color: var(--v22-accent);
-  background: rgba(240, 123, 47, 0.06);
+  background: rgba(240, 123, 47, 0.08);
 }
 
 /* ─── FOCUS-VISIBLE — keyboard navigation affordance ──────────────────── */
