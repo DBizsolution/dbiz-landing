@@ -17,9 +17,10 @@ export function Slide15Part1Collab({ meta }: { meta: SlideMeta }) {
         </h1>
 
         <p className='deck-lede' style={{ maxWidth: 1300 }}>
-          Roni, Kavya, Ranjith, and me. We added to it, argued in it, marked
-          things approved or pending. The artifact mattered, but the practice of
-          editing it together is what kept us aligned.
+          The BA, the designer, and the tech lead — all in the same doc. We
+          added to it, argued in it, marked things approved or pending. The
+          artifact mattered, but the practice of editing it together is what
+          kept us aligned.
         </p>
 
         <div style={{ display: 'flex', gap: 16, marginTop: 24, flexWrap: 'wrap' }}>

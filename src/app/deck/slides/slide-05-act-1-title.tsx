@@ -15,7 +15,7 @@ export function Slide05Act1Title({ meta }: { meta: SlideMeta }) {
         </div>
 
         <h1 className='deck-display'>
-          BRD plus AI <em>breaks in three ways.</em>
+          BRD &rarr; AI &rarr; Screen <em> <br /> breaks in three ways.</em>
         </h1>
 
         <p className='deck-lede' style={{ maxWidth: 1300 }}>

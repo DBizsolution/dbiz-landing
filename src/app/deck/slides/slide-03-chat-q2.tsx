@@ -9,15 +9,15 @@ export function Slide03ChatQ2({ meta }: { meta: SlideMeta }) {
             <span className='bar' />
             Opening · Question 02
           </span>
-          <div className='deck-mono'>For those of you who said &quot;1&quot; just now.</div>
+          <div className='deck-mono'>For everyone who said Y.</div>
         </div>
 
         <div className='deck-stack-lg' style={{ maxWidth: 1500 }}>
           <h1 className='deck-display' style={{ fontSize: '5.4rem' }}>
-            What happened <em>when the requirements changed?</em>
+            What didn&apos;t work? <em> <br /> Speak up.</em>
           </h1>
           <p className='deck-lede'>
-            One line in chat. I&apos;ll read two or three out loud. Then we move on.
+            Unmute and shout it out. I&apos;ll let two or three voices land before we move on.
           </p>
         </div>
 

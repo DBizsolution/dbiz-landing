@@ -10,79 +10,117 @@ export function Slide22WorkingRepo({ meta }: { meta: SlideMeta }) {
             <span className='bar' />
             Act 3 · Phase 0
           </span>
-          <h1 className='deck-h1' style={{ maxWidth: 1400 }}>
-            The working <em>repository.</em>
+          <h1 className='deck-h1' style={{ maxWidth: 1500 }}>
+            From canvas to <em>working repository.</em>
           </h1>
           <p className='deck-body-text' style={{ maxWidth: 1300 }}>
-            One folder holds two kinds of specs. The AI reads from this single
-            place. That&apos;s what keeps the build coherent when we regenerate.
+            Once the canvas is finalised, it lands in a single working repo
+            alongside the design system. The AI reads from this one place. That&apos;s
+            what keeps the build coherent when we regenerate.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1.6fr auto 0.9fr', alignItems: 'stretch', gap: 0, marginTop: 40 }}>
-          {/* Working repository box (left) */}
-          <div className='deck-box' style={{ padding: 36 }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '0.95fr auto 1.5fr auto 0.9fr',
+            alignItems: 'stretch',
+            gap: 0,
+            marginTop: 32,
+          }}
+        >
+          {/* DBiz Canvas (input) */}
+          <div className='deck-box deck-box-hot' style={{ display: 'flex', flexDirection: 'column', padding: 28, justifyContent: 'space-between' }}>
+            <div className='deck-box-head'>
+              <span style={{ color: 'var(--d-accent)' }}>DBiz Canvas</span>
+              <span className='k'>FIN</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, padding: '24px 0 16px' }}>
+              <Icon icon='lucide:file-code-2' width={72} color='var(--d-accent)' strokeWidth={3} />
+              <div className='deck-mono-accent' style={{ fontSize: '0.7rem', textAlign: 'center' }}>
+                Finalised intent model
+              </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center' }}>
+              <span className='deck-mono' style={{ fontSize: '0.62rem' }}>.ts</span>
+              <span className='deck-mono' style={{ fontSize: '0.62rem' }}>.md</span>
+            </div>
+          </div>
+
+          {/* Arrow 1 */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 20px' }}>
+            <Icon icon='lucide:arrow-right' width={32} color='var(--d-accent)' strokeWidth={3} />
+          </div>
+
+          {/* Working repository */}
+          <div className='deck-box' style={{ padding: 28 }}>
             <div className='deck-box-head'>
               <span>Working repository</span>
               <span className='k'>R·00</span>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28, marginTop: 16 }}>
-              {/* Canvas specs */}
-              <div className='deck-box deck-box-hot' style={{ padding: 24 }}>
-                <div className='deck-box-head'>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginTop: 14 }}>
+              <div className='deck-box deck-box-hot' style={{ padding: 18 }}>
+                <div className='deck-box-head' style={{ marginBottom: 10, paddingBottom: 8 }}>
                   <span style={{ color: 'var(--d-accent)' }}>Canvas specs</span>
                   <span className='k'>R·01</span>
                 </div>
-                <ul className='deck-list' style={{ gap: 10 }}>
-                  <li data-marker='.md'>intent-model.md</li>
-                  <li data-marker='.json'>actors.json</li>
-                  <li data-marker='.json'>entities.json</li>
-                  <li data-marker='.md'>journeys.md</li>
-                  <li data-marker='.md'>rules.md</li>
+                <ul className='deck-list' style={{ gap: 8 }}>
+                  <li data-marker='.ts' style={{ fontSize: '0.95rem' }}>intent-model.ts</li>
+                  <li data-marker='.ts' style={{ fontSize: '0.95rem' }}>actors.ts</li>
+                  <li data-marker='.ts' style={{ fontSize: '0.95rem' }}>entities.ts</li>
+                  <li data-marker='.md' style={{ fontSize: '0.95rem' }}>journeys.md</li>
+                  <li data-marker='.md' style={{ fontSize: '0.95rem' }}>rules.md</li>
                 </ul>
               </div>
 
-              {/* Design system specs (layered) */}
-              <div className='deck-box' style={{ padding: 24 }}>
-                <div className='deck-box-head'>
+              <div className='deck-box' style={{ padding: 18 }}>
+                <div className='deck-box-head' style={{ marginBottom: 10, paddingBottom: 8 }}>
                   <span>Design system specs</span>
                   <span className='k'>R·02</span>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
-                  <div style={{ border: '1px solid var(--d-orange-hair-soft)', padding: '14px 16px', background: 'var(--d-accent-bg)' }}>
-                    <div className='deck-mono-accent' style={{ fontSize: '0.74rem' }}>Layer 03 · Registry</div>
-                    <div className='deck-body-text' style={{ fontSize: '1.1rem', marginTop: 6, color: 'var(--d-ink)' }}>Project binding · theming</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4 }}>
+                  <div style={{ border: '1px solid var(--d-orange-hair-soft)', padding: '10px 12px', background: 'var(--d-accent-bg)' }}>
+                    <div className='deck-mono-accent' style={{ fontSize: '0.66rem' }}>Layer 03 · Registry</div>
+                    <div className='deck-body-text' style={{ fontSize: '0.95rem', marginTop: 4, color: 'var(--d-ink)' }}>
+                      Custom theming · client binding
+                    </div>
                   </div>
-                  <div style={{ border: '1px solid var(--d-hair-strong)', padding: '14px 16px' }}>
-                    <div className='deck-mono' style={{ fontSize: '0.74rem' }}>Layer 02 · Components</div>
-                    <div className='deck-body-text' style={{ fontSize: '1.1rem', marginTop: 6, color: 'var(--d-ink)' }}>Buttons · inputs · tables · cards</div>
+                  <div style={{ border: '1px solid var(--d-hair-strong)', padding: '10px 12px' }}>
+                    <div className='deck-mono' style={{ fontSize: '0.66rem' }}>Layer 02 · Components</div>
+                    <div className='deck-body-text' style={{ fontSize: '0.95rem', marginTop: 4, color: 'var(--d-ink)' }}>
+                      Buttons · inputs · tables · cards
+                    </div>
                   </div>
-                  <div style={{ border: '1px solid var(--d-hair)', padding: '14px 16px' }}>
-                    <div className='deck-mono' style={{ fontSize: '0.74rem' }}>Layer 01 · Tokens</div>
-                    <div className='deck-body-text' style={{ fontSize: '1.1rem', marginTop: 6, color: 'var(--d-ink-2)' }}>Colour · spacing · type · radii</div>
+                  <div style={{ border: '1px solid var(--d-hair)', padding: '10px 12px' }}>
+                    <div className='deck-mono' style={{ fontSize: '0.66rem' }}>Layer 01 · Tokens</div>
+                    <div className='deck-body-text' style={{ fontSize: '0.95rem', marginTop: 4, color: 'var(--d-ink-2)' }}>
+                      Colour · spacing · type · radii
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Arrow */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 32px' }}>
-            <Icon icon='ph:arrow-right-bold' width={36} color='var(--d-ink-3)' />
+          {/* Arrow 2 */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 20px' }}>
+            <Icon icon='lucide:arrow-right' width={32} color='var(--d-ink-3)' strokeWidth={3} />
           </div>
 
-          {/* AI builder box (right) */}
-          <div className='deck-box deck-box-mute' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: 32, gap: 20 }}>
-            <Icon icon='ph:sparkle-bold' width={48} color='var(--d-accent)' />
-            <div style={{ textAlign: 'center' }}>
-              <div className='deck-h3'>AI build</div>
-              <div className='deck-mono' style={{ marginTop: 10 }}>Cursor · Claude · Lovable</div>
+          {/* AI build */}
+          <div className='deck-box deck-box-mute' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', padding: 28, gap: 16 }}>
+            <div className='deck-box-head' style={{ width: '100%' }}>
+              <span>AI build</span>
+              <span className='k'>BLD</span>
             </div>
-            <div className='deck-divider-dashed' style={{ width: '100%' }} />
-            <div className='deck-mono' style={{ textAlign: 'center', maxWidth: 280, lineHeight: 1.6 }}>
-              Reads canvas specs <br />
-              <span style={{ color: 'var(--d-accent)' }}>+</span> design system <br />
-              from one place
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
+              <Icon icon='lucide:sparkles' width={56} color='var(--d-accent)' strokeWidth={3} />
+              <div className='deck-mono' style={{ fontSize: '0.66rem', textAlign: 'center' }}>
+                Cursor · Claude · Lovable
+              </div>
+            </div>
+            <div className='deck-mono' style={{ fontSize: '0.62rem', textAlign: 'center', lineHeight: 1.5 }}>
+              Reads canvas + design system from one place
             </div>
           </div>
         </div>

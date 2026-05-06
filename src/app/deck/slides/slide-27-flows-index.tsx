@@ -1,29 +1,7 @@
 import { Icon } from '@/components/icon'
 import { SlideShell, type SlideMeta } from '../slide-shell'
 
-type Route = { actor: string; path: string; status: 'built' | 'wip' | 'pending' }
-
-const routes: Route[] = [
-  { actor: 'Wharf', path: '/wharf/dashboard', status: 'built' },
-  { actor: 'Wharf', path: '/wharf/inbound', status: 'built' },
-  { actor: 'Wharf', path: '/wharf/unpack', status: 'built' },
-  { actor: 'Wharf', path: '/wharf/delegate', status: 'wip' },
-  { actor: 'Wharf', path: '/wharf/audit', status: 'pending' },
-  { actor: 'Driver', path: '/driver/pickups', status: 'built' },
-  { actor: 'Driver', path: '/driver/pickup/:id', status: 'built' },
-  { actor: 'Driver', path: '/driver/confirm', status: 'wip' },
-  { actor: 'Consignee', path: '/book/browse', status: 'built' },
-  { actor: 'Consignee', path: '/book/new', status: 'built' },
-  { actor: 'Consignee', path: '/book/mine', status: 'built' },
-  { actor: 'Admin', path: '/admin/coverage', status: 'built' },
-  { actor: 'Admin', path: '/admin/fees', status: 'pending' },
-]
-
-const statusMeta = {
-  built: { color: 'var(--d-accent)', label: 'BUILT' },
-  wip: { color: 'rgba(255,255,255,0.55)', label: 'WIP' },
-  pending: { color: 'var(--d-ink-3)', label: 'PENDING' },
-} as const
+const DEV_URL = 'https://vbsportal.dbizapps.ai/dev'
 
 export function Slide27FlowsIndex({ meta }: { meta: SlideMeta }) {
   return (
@@ -37,66 +15,85 @@ export function Slide27FlowsIndex({ meta }: { meta: SlideMeta }) {
           <h1 className='deck-h1' style={{ maxWidth: 1500 }}>
             One page in dev tools. <em>Engineer&apos;s first stop.</em>
           </h1>
+          <p className='deck-body-text' style={{ maxWidth: 1300 }}>
+            A single index inside the app. Every actor, every route, build
+            status. Pinned to the canvas — so when the canvas changes, this is
+            where the engineer sees it first.
+          </p>
         </div>
 
-        <div className='deck-box' style={{ flex: 1, minHeight: 0, padding: 28, display: 'flex', flexDirection: 'column' }}>
-          <div className='deck-box-head'>
-            <span>/dev/flows</span>
+        <div className='deck-box' style={{ flex: 1, minHeight: 0, padding: 0, display: 'flex', flexDirection: 'column', background: '#ffffff' }}>
+          <div className='deck-box-head' style={{ padding: '14px 18px 12px', margin: 0 }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              /dev · live in the app
+              <a
+                href={DEV_URL}
+                target='_blank'
+                rel='noopener noreferrer'
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  color: 'var(--d-accent)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.6rem',
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  textDecoration: 'none',
+                }}
+              >
+                open
+                <Icon icon='lucide:arrow-up-right' width={11} />
+              </a>
+            </span>
             <span className='k'>FIG · 27</span>
           </div>
-          <div
+          <a
+            href={DEV_URL}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='deck-mockup'
             style={{
-              display: 'grid',
-              gridTemplateColumns: '120px 1fr 120px 90px',
-              padding: '12px 0',
-              borderBottom: '1px dashed var(--d-hair)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.66rem',
-              letterSpacing: '0.14em',
-              color: 'var(--d-ink-3)',
-              textTransform: 'uppercase',
-              marginTop: 14,
+              flex: 1,
+              minHeight: 0,
+              padding: 0,
+              overflow: 'hidden',
+              alignItems: 'center',
+              justifyContent: 'center',
+              display: 'flex',
+              cursor: 'pointer',
+              textDecoration: 'none',
+              background: '#ffffff',
             }}
           >
-            <span>Actor</span>
-            <span>Route</span>
-            <span>Status</span>
-            <span>Open</span>
-          </div>
-          <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-            {routes.map((r) => {
-              const m = statusMeta[r.status]
-              return (
-                <div
-                  key={r.path}
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: '120px 1fr 120px 90px',
-                    alignItems: 'center',
-                    padding: '12px 0',
-                    borderBottom: '1px solid var(--d-hair)',
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.95rem',
-                    color: 'var(--d-ink)',
-                  }}
-                >
-                  <span className='deck-mono' style={{ fontSize: '0.66rem' }}>{r.actor}</span>
-                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.92rem', color: 'var(--d-ink)' }}>{r.path}</span>
-                  <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ width: 8, height: 8, background: m.color }} />
-                    <span className='deck-mono' style={{ fontSize: '0.62rem', color: m.color }}>{m.label}</span>
-                  </span>
-                  <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', color: 'var(--d-ink-3)' }}>
-                    <Icon icon='ph:arrow-up-right-bold' width={14} />
-                  </span>
-                </div>
-              )
-            })}
-          </div>
+            <img
+              src='/deck/dev-tools.png'
+              alt='VBS Portal /dev — Portal Flows, Intent Model Coverage, Component Showcase'
+              style={{ height: '100%', width: 'auto', maxWidth: 'none', display: 'block' }}
+            />
+          </a>
         </div>
 
-        <div className='deck-mono'>
-          Engineer reads canvas → looks at design system → checks this list → builds the next page.
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 16,
+          }}
+        >
+          <div className='deck-mono'>
+            Engineer reads canvas → looks at design system → checks this list → builds the next page.
+          </div>
+          <a
+            href={DEV_URL}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='deck-mono-accent'
+            style={{ fontSize: '0.72rem', textDecoration: 'none' }}
+          >
+            ↪ live demo: jump to /dev in the app
+          </a>
         </div>
       </div>
     </SlideShell>

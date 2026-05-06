@@ -64,20 +64,34 @@ export function Slide20SwimLane({ meta }: { meta: SlideMeta }) {
           {lanes.map((lane) => (
             <div
               key={lane.marker}
-              className={`deck-box ${lane.active ? 'deck-box-hot' : 'deck-box-mute'}`}
+              className={`deck-box ${lane.active ? 'deck-box-hot' : ''}`}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 padding: 24,
-                opacity: lane.active ? 1 : 0.55,
               }}
             >
               <div className='deck-box-head'>
                 <span style={{ color: lane.active ? 'var(--d-accent)' : undefined }}>{lane.name}</span>
                 <span className='k'>{lane.marker}</span>
               </div>
-              <div className='deck-mono' style={{ marginTop: 12, fontSize: '0.66rem' }}>
-                {lane.active ? 'Today · in scope' : 'Out of scope today'}
+              <div
+                style={{
+                  marginTop: 12,
+                  fontSize: '0.66rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  width: 'fit-content',
+                  padding: '4px 10px',
+                  border: `1px solid ${lane.active ? 'var(--d-orange-hair)' : 'var(--d-hair-strong)'}`,
+                  color: lane.active ? 'var(--d-accent)' : 'var(--d-ink-2)',
+                  fontFamily: 'var(--font-mono)',
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {lane.active ? 'Today · in scope' : 'WIP · in canvas'}
               </div>
               <ul className='deck-list' style={{ gap: 12, marginTop: 16 }}>
                 {lane.artifacts.map((a, i) => (

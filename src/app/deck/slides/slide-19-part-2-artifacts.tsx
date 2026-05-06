@@ -13,7 +13,7 @@ export function Slide19Part2Artifacts({ meta }: { meta: SlideMeta }) {
         </div>
 
         <h1 className='deck-display'>
-          Artifacts: <em>structured specs the build can consume.</em>
+          Artifacts: <em>structured specs </em> the build can consume.
         </h1>
 
         <p className='deck-lede' style={{ maxWidth: 1300 }}>

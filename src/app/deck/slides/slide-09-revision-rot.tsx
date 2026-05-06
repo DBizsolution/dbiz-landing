@@ -1,14 +1,15 @@
-import { Icon } from '@/components/icon'
 import { SlideShell, type SlideMeta } from '../slide-shell'
 
 export function Slide09RevisionRot({ meta }: { meta: SlideMeta }) {
   return (
     <SlideShell meta={meta}>
+      <style>{`.deck-body:has([data-slide="09"]) { padding-bottom: 0; }`}</style>
       <div
+        data-slide='09'
         style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 0.9fr) minmax(0, 1.1fr)',
-          gap: 96,
+          gridTemplateColumns: 'minmax(0, 0.85fr) minmax(0, 1.15fr)',
+          gap: 64,
           height: '100%',
           alignItems: 'center',
         }}
@@ -17,54 +18,76 @@ export function Slide09RevisionRot({ meta }: { meta: SlideMeta }) {
           <span className='deck-marker'>Problem · 3 of 3</span>
           <h1 className='deck-h1'>Revision rot.</h1>
           <p className='deck-body-text'>
-            BRD changes. Small change. You re-prompt. The new output is fine on
-            its own — but it doesn&apos;t fit the app you already built around the
-            first version.
+            BRD changes. You re-prompt. The new output is fine on its own — but
+            it doesn&apos;t fit the app you already built around the first
+            version.
           </p>
           <ul className='deck-list' style={{ marginTop: 8 }}>
             <li data-marker='S·07'>
-              <strong>Re-build from scratch.</strong> Throw away yesterday&apos;s
-              work.
+              <strong>Fields rename. </strong>{' '}
+              <code>consignor</code> becomes <code>shipper</code>. Same column,
+              new word.
             </li>
             <li data-marker='S·08'>
-              <strong>Or stitch incompatible halves.</strong> Old code beside new
-              code, both half-right.
+              <strong>New steps appear. </strong> Step 0 — &quot;booking on
+              behalf of an LSP&quot; — pushes the whole form down.
             </li>
             <li data-marker='S·09'>
-              <strong>Either way: telephone game.</strong> Every revision loses
-              something.
+              <strong>New billing line. </strong> &quot;Pay&quot; becomes
+              &quot;invoice&quot;. New fee, new total, new CTA.
             </li>
           </ul>
         </div>
 
-        <div className='deck-box' style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div className='deck-box-head'>
-            <span>App shell · before vs after</span>
-            <span className='k'>FIG · 09</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <div className='deck-mockup' style={{ height: 220, flex: 1 }}>
-              <div className='label'>
-                <Icon icon='ph:image-square-bold' width={32} />
-                <span>App built on v1</span>
-              </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, height: '100%', minHeight: 0 }}>
+          <div className='deck-box' style={{ display: 'flex', flexDirection: 'column', padding: 0, flex: 1, minHeight: 0 }}>
+            <div className='deck-box-head' style={{ padding: '14px 18px 12px', margin: 0 }}>
+              <span>App · built on BRD v1</span>
+              <span className='k'>FIG · 09A</span>
             </div>
-            <Icon icon='ph:arrow-right-bold' width={28} color='var(--d-ink-3)' />
-            <div className='deck-mockup' style={{ height: 220, flex: 1, borderColor: 'var(--d-orange-hair)' }}>
-              <div className='label'>
-                <Icon icon='ph:warning-bold' width={32} color='var(--d-accent)' />
-                <span style={{ color: 'var(--d-accent)' }}>v2 dropped into same shell</span>
-                <span className='k'>fields don&apos;t line up</span>
-              </div>
+            <div
+              className='deck-mockup'
+              style={{
+                flex: 1,
+                minHeight: 0,
+                padding: 0,
+                overflowY: 'auto',
+                overflowX: 'hidden',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+              }}
+            >
+              <img
+                src='/deck/rev-rot-v1.png'
+                alt='Pickup booking screen built on BRD v1 — LSP self-books, two steps, "Confirm booking & pay"'
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
             </div>
           </div>
-          <div className='deck-rule'>
-            <span className='line' />
-            <span className='lbl'>after one BRD clarification</span>
-            <span className='line' />
-          </div>
-          <div className='deck-mono' style={{ color: 'var(--d-accent)' }}>
-            ↑ Visibly broken at field-name boundaries.
+
+          <div className='deck-box deck-box-mute' style={{ display: 'flex', flexDirection: 'column', padding: 0, flex: 1, minHeight: 0 }}>
+            <div className='deck-box-head' style={{ padding: '14px 18px 12px', margin: 0 }}>
+              <span>BRD v2 · same shell, fields don&apos;t line up</span>
+              <span className='k'>FIG · 09B</span>
+            </div>
+            <div
+              className='deck-mockup'
+              style={{
+                flex: 1,
+                minHeight: 0,
+                padding: 0,
+                overflowY: 'auto',
+                overflowX: 'hidden',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+              }}
+            >
+              <img
+                src='/deck/rev-rot-v2.png'
+                alt='Same screen after a BRD revision — Terminal Operator books on behalf of LSP. New Step 0, consignor renamed to shipper, new LSP fee, "Confirm & invoice"'
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </div>
           </div>
         </div>
       </div>

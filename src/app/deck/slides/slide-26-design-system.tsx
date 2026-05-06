@@ -83,99 +83,59 @@ export function Slide26DesignSystem({ meta }: { meta: SlideMeta }) {
             </div>
           </div>
 
-          {/* Annotated card */}
-          <div className='deck-box deck-box-mute' style={{ display: 'flex', flexDirection: 'column', padding: 28 }}>
-            <div className='deck-box-head'>
-              <span>One VBS card · annotated</span>
+          {/* Styleguide screenshot */}
+          <div className='deck-box deck-box-mute' style={{ display: 'flex', flexDirection: 'column', padding: 0, minHeight: 0 }}>
+            <div className='deck-box-head' style={{ padding: '14px 18px 12px', margin: 0 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                Component showcase · live
+                <a
+                  href='https://vbsportal.dbizapps.ai/dev/components'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    color: 'var(--d-accent)',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.6rem',
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    textDecoration: 'none',
+                  }}
+                >
+                  open
+                  <Icon icon='lucide:arrow-up-right' width={11} />
+                </a>
+              </span>
               <span className='k'>FIG · 26</span>
             </div>
-            <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 16 }}>
-              <div
-                style={{
-                  width: '100%',
-                  border: '1px solid var(--d-hair-strong)',
-                  padding: 24,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 14,
-                  background: 'rgba(255,255,255,0.02)',
-                  position: 'relative',
-                }}
-              >
-                <Tag corner='tl' label='L·01 · tokens (colour, type)' />
-
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span className='deck-mono-accent' style={{ fontSize: '0.66rem' }}>SHIP-2026-0048</span>
-                  <span style={{ padding: '4px 10px', border: '1px solid var(--d-orange-hair)', color: 'var(--d-accent)', fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-                    Ready
-                  </span>
-                </div>
-                <div style={{ fontFamily: 'var(--font-sans)', fontSize: '1.3rem', fontWeight: 700, color: 'var(--d-ink)' }}>
-                  Acme Pty Ltd
-                </div>
-                <div className='deck-mono' style={{ fontSize: '0.7rem' }}>ETA · 14 Apr · 1,250 kg</div>
-                <div style={{ display: 'flex', gap: 10, marginTop: 6 }}>
-                  <button
-                    style={{
-                      padding: '8px 16px',
-                      background: 'var(--d-accent)',
-                      border: '1px solid var(--d-accent)',
-                      color: '#fff',
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '0.85rem',
-                      fontWeight: 600,
-                      cursor: 'default',
-                    }}
-                  >
-                    Release
-                  </button>
-                  <button
-                    style={{
-                      padding: '8px 16px',
-                      background: 'transparent',
-                      border: '1px solid var(--d-hair-strong)',
-                      color: 'var(--d-ink-2)',
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '0.85rem',
-                      fontWeight: 600,
-                      cursor: 'default',
-                    }}
-                  >
-                    Delegate
-                  </button>
-                  <Tag corner='br' label='L·02 · components (button)' />
-                </div>
-              </div>
-            </div>
-            <div className='deck-mono' style={{ marginTop: 16, fontSize: '0.66rem' }}>
-              <Icon icon='ph:layers-bold' width={14} style={{ verticalAlign: 'middle', marginRight: 8 }} />
-              Layer 03 (registry) flips this whole card light/dark with one token swap.
-            </div>
+            <a
+              href='https://vbsportal.dbizapps.ai/dev/components'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='deck-mockup'
+              style={{
+                flex: 1,
+                minHeight: 0,
+                padding: 0,
+                overflow: 'hidden',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+                display: 'flex',
+                cursor: 'pointer',
+                textDecoration: 'none',
+              }}
+            >
+              <img
+                src='/deck/comp-showcase.png'
+                alt='VBS Portal — live component showcase, primitives and domain components'
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </a>
           </div>
         </div>
       </div>
     </SlideShell>
-  )
-}
-
-function Tag({ corner, label }: { corner: 'tl' | 'br'; label: string }) {
-  const pos = corner === 'tl' ? { top: -10, left: 16 } : { bottom: -10, right: 16 }
-  return (
-    <span
-      style={{
-        position: 'absolute',
-        padding: '3px 8px',
-        background: 'var(--d-paper)',
-        border: '1px solid var(--d-orange-hair)',
-        color: 'var(--d-accent)',
-        fontFamily: 'var(--font-mono)',
-        fontSize: '0.58rem',
-        letterSpacing: '0.14em',
-        textTransform: 'uppercase',
-        ...pos,
-      }}
-    >
-      {label}
-    </span>
   )
 }

@@ -82,14 +82,14 @@ export function Slide25RouteMap({ meta }: { meta: SlideMeta }) {
                       display: 'grid',
                       gridTemplateColumns: 'auto 1fr auto',
                       alignItems: 'center',
-                      gap: 10,
-                      padding: '8px 10px',
+                      gap: 12,
+                      padding: '11px 14px',
                       border: '1px dashed var(--d-hair)',
                     }}
                   >
-                    <Icon icon='ph:file-bold' width={14} color='var(--d-accent)' />
-                    <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.9rem', color: 'var(--d-ink)' }}>{p}</span>
-                    <span className='deck-mono' style={{ fontSize: '0.58rem' }}>p{String(i + 1).padStart(2, '0')}</span>
+                    <Icon icon='lucide:file' width={16} color='var(--d-accent)' />
+                    <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1.05rem', color: 'var(--d-ink)' }}>{p}</span>
+                    <span className='deck-mono' style={{ fontSize: '0.66rem' }}>p{String(i + 1).padStart(2, '0')}</span>
                   </div>
                 ))}
               </div>
@@ -97,7 +97,7 @@ export function Slide25RouteMap({ meta }: { meta: SlideMeta }) {
           ))}
         </div>
 
-        <div className='deck-mono'>17 routes total · grouped by actor · derived from the canvas</div>
+        <div className='deck-mono' style={{ fontSize: '1rem' }}>17 routes total · grouped by actor · derived from the canvas</div>
       </div>
     </SlideShell>
   )

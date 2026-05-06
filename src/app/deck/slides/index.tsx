@@ -9,6 +9,7 @@ import { Slide06Setup } from './slide-06-setup'
 import { Slide07Hallucination } from './slide-07-hallucination'
 import { Slide08Drift } from './slide-08-drift'
 import { Slide09RevisionRot } from './slide-09-revision-rot'
+import { Slide09bPivot } from './slide-09b-pivot'
 import { Slide10Act2Title } from './slide-10-act-2-title'
 import { Slide11Pipeline } from './slide-11-pipeline'
 import { Slide12Mess } from './slide-12-mess'
@@ -17,7 +18,6 @@ import { Slide14TwoUses } from './slide-14-two-uses'
 import { Slide15Part1Collab } from './slide-15-part-1-collab'
 import { Slide16OpenQuestionsDay1 } from './slide-16-open-questions-day-1'
 import { Slide17OpenQuestionsWeekLater } from './slide-17-open-questions-week-later'
-import { Slide18HandoffMoment } from './slide-18-handoff-moment'
 import { Slide19Part2Artifacts } from './slide-19-part-2-artifacts'
 import { Slide20SwimLane } from './slide-20-swim-lane'
 import { Slide21Act3Title } from './slide-21-act-3-title'
@@ -52,6 +52,7 @@ export const slides: SlideEntry[] = [
   { marker: 'S·07', act: 'Act 1', title: 'Hallucination', time: '1m 30s', Component: Slide07Hallucination },
   { marker: 'S·08', act: 'Act 1', title: 'Drift', time: '1m 30s', Component: Slide08Drift },
   { marker: 'S·09', act: 'Act 1', title: 'Revision rot', time: '2m', Component: Slide09RevisionRot },
+  { marker: 'S·09·5', act: 'Act 1', title: 'Pivot · what was missing?', time: '20s', Component: Slide09bPivot },
   { marker: 'S·10', act: 'Act 2', title: 'Act 2 · title', time: '10s', Component: Slide10Act2Title },
   { marker: 'S·11', act: 'Act 2', title: 'Pipeline · the bigger picture', time: '1m 30s', Component: Slide11Pipeline },
   { marker: 'S·12', act: 'Act 2', title: 'What went in · the mess', time: '1m 30s', Component: Slide12Mess },
@@ -60,7 +61,6 @@ export const slides: SlideEntry[] = [
   { marker: 'S·15', act: 'Act 2', title: 'Part 1 · Collaboration', time: '30s', Component: Slide15Part1Collab },
   { marker: 'S·16', act: 'Act 2', title: 'Open questions · day 1', time: '1m', Component: Slide16OpenQuestionsDay1 },
   { marker: 'S·17', act: 'Act 2', title: 'Open questions · a week later', time: '45s', Component: Slide17OpenQuestionsWeekLater },
-  { marker: 'S·18', act: 'Act 2', title: 'Handoff question · concrete moment', time: '1m 30s', Component: Slide18HandoffMoment },
   { marker: 'S·19', act: 'Act 2', title: 'Part 2 · Artifacts for build', time: '30s', Component: Slide19Part2Artifacts },
   { marker: 'S·20', act: 'Act 2', title: 'Artifacts by swim lane', time: '1m', Component: Slide20SwimLane },
   { marker: 'S·21', act: 'Act 3', title: 'Act 3 · title', time: '10s', Component: Slide21Act3Title },

@@ -50,10 +50,58 @@ export function Slide29BuildHonestly({ meta }: { meta: SlideMeta }) {
               </div>
             ))}
           </div>
+
+          {/* Effort timeline */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '120px 1fr auto 1fr auto 1fr auto 120px',
+              gap: 14,
+              marginTop: 22,
+              paddingTop: 18,
+              borderTop: '1px dashed var(--d-hair)',
+              alignItems: 'center',
+            }}
+          >
+            <span />
+            <div
+              style={{
+                gridColumn: '2 / 7',
+                padding: '10px 16px',
+                border: '1px solid var(--d-hair-strong)',
+                background: 'rgba(255,255,255,0.025)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.78rem',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: 'var(--d-ink-2)',
+                textAlign: 'center',
+              }}
+            >
+              2 weeks · human effort
+            </div>
+            <span />
+            <div
+              style={{
+                gridColumn: '8 / 9',
+                padding: '10px 16px',
+                border: '1px solid var(--d-orange-hair)',
+                background: 'var(--d-accent-bg)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.78rem',
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: 'var(--d-accent)',
+                textAlign: 'center',
+              }}
+            >
+              3 weeks · shipping
+            </div>
+          </div>
         </div>
 
         <div className='deck-mono'>
-          We shipped in a week because there was always a stable place to come back to.
+          We shipped in 3 weeks because there was always a stable place to come back to.
         </div>
       </div>
     </SlideShell>
@@ -85,7 +133,7 @@ function Step({ kind, title, detail, accent }: { kind: string; title: string; de
 function Arrow() {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <Icon icon='ph:arrow-right-bold' width={18} color='var(--d-ink-3)' />
+      <Icon icon='lucide:arrow-right' width={18} color='var(--d-ink-3)' />
     </div>
   )
 }

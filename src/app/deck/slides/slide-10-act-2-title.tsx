@@ -7,13 +7,13 @@ export function Slide10Act2Title({ meta }: { meta: SlideMeta }) {
         <div className='deck-stack-md'>
           <span className='deck-eyebrow'>
             <span className='bar' />
-            Act 02 · 9 min
+            Act 02 · 7–8 min
           </span>
           <div className='deck-coord' style={{ fontSize: '1rem' }}>The canvas in the bigger picture</div>
         </div>
 
         <h1 className='deck-display'>
-          We put a stable thing <em>between the BRD and the AI.</em>
+          We put a <em> stable thing </em> <br /> between the BRD and the AI.
         </h1>
 
         <p className='deck-lede' style={{ maxWidth: 1300 }}>

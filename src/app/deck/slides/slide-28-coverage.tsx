@@ -1,20 +1,12 @@
+import { Icon } from '@/components/icon'
 import { SlideShell, type SlideMeta } from '../slide-shell'
 
-type Coverage = { name: string; required: number; built: number }
-
-const coverage: Coverage[] = [
-  { name: 'Flows', required: 7, built: 5 },
-  { name: 'Screens', required: 17, built: 13 },
-  { name: 'Business rules', required: 23, built: 21 },
-  { name: 'Lifecycle stages', required: 5, built: 5 },
-  { name: 'Data fields', required: 28, built: 26 },
-  { name: 'Validation rules', required: 14, built: 11 },
-]
+const COVERAGE_URL = 'https://vbsportal.dbizapps.ai/dev/drift'
 
 export function Slide28Coverage({ meta }: { meta: SlideMeta }) {
   return (
     <SlideShell meta={meta}>
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 32 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 24 }}>
         <div className='deck-stack-md'>
           <span className='deck-eyebrow'>
             <span className='bar' />
@@ -25,47 +17,60 @@ export function Slide28Coverage({ meta }: { meta: SlideMeta }) {
           </h1>
         </div>
 
-        <div className='deck-box' style={{ flex: 1, minHeight: 0, padding: 32, display: 'flex', flexDirection: 'column' }}>
-          <div className='deck-box-head'>
-            <span>VBS · coverage</span>
-            <span className='k'>computed nightly</span>
+        <div className='deck-box' style={{ flex: 1, minHeight: 0, padding: 0, display: 'flex', flexDirection: 'column', background: '#ffffff' }}>
+          <div className='deck-box-head' style={{ padding: '14px 18px 12px', margin: 0 }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              /dev/drift · live in the app
+              <a
+                href={COVERAGE_URL}
+                target='_blank'
+                rel='noopener noreferrer'
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  color: 'var(--d-accent)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.6rem',
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  textDecoration: 'none',
+                }}
+              >
+                open
+                <Icon icon='lucide:arrow-up-right' width={11} />
+              </a>
+            </span>
+            <span className='k'>FIG · 28</span>
           </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: 24, flex: 1 }}>
-            {coverage.map((c, i) => {
-              const pct = Math.round((c.built / c.required) * 100)
-              return (
-                <div key={c.name} style={{ display: 'grid', gridTemplateColumns: '220px 1fr 100px', gap: 24, alignItems: 'center' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                    <span className='deck-mono-accent' style={{ fontSize: '0.6rem' }}>{`COV·${String(i + 1).padStart(2, '0')}`}</span>
-                    <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1.1rem', fontWeight: 600, color: 'var(--d-ink)' }}>
-                      {c.name}
-                    </span>
-                  </div>
-                  <div style={{ position: 'relative', height: 14, border: '1px solid var(--d-hair)' }}>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        width: `${pct}%`,
-                        background: pct >= 90 ? 'var(--d-accent)' : 'var(--d-orange-hair)',
-                      }}
-                    />
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 2, textAlign: 'right' }}>
-                    <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1.4rem', fontWeight: 800, color: pct >= 90 ? 'var(--d-accent)' : 'var(--d-ink)', letterSpacing: '-0.02em' }}>
-                      {pct}%
-                    </span>
-                    <span className='deck-mono' style={{ fontSize: '0.6rem' }}>{c.built} / {c.required}</span>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+          <a
+            href={COVERAGE_URL}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='deck-mockup'
+            style={{
+              flex: 1,
+              minHeight: 0,
+              padding: 0,
+              overflow: 'auto',
+              alignItems: 'flex-start',
+              justifyContent: 'center',
+              display: 'flex',
+              cursor: 'pointer',
+              textDecoration: 'none',
+              background: '#ffffff',
+            }}
+          >
+            <img
+              src='/deck/coverage.png'
+              alt='VBS Portal /dev/coverage — Intent Model Coverage with field and rule verification'
+              style={{ height: '150%', width: 'auto', maxWidth: 'none', display: 'block' }}
+            />
+          </a>
         </div>
 
         <div className='deck-mono'>
-          Built · stale · missing — visible at a glance, every day, for everyone.
+          Built · missing — visible at a glance, every day, for everyone.
         </div>
       </div>
     </SlideShell>

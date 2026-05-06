@@ -36,7 +36,7 @@ export function Slide14TwoUses({ meta }: { meta: SlideMeta }) {
               <span className='lbl'>who lives here</span>
               <span className='line' />
             </div>
-            <div className='deck-mono'>Roni · Kavya · Ranjith · Rahul</div>
+            <div className='deck-mono'>BA · Designer · Tech lead</div>
           </div>
 
           <div className='deck-box' style={{ display: 'flex', flexDirection: 'column' }}>
@@ -48,11 +48,32 @@ export function Slide14TwoUses({ meta }: { meta: SlideMeta }) {
               <div className='deck-mono-accent'>Artifacts for build</div>
               <h2 className='deck-h2'>Generate the structured specs the build can consume.</h2>
               <ul className='deck-list' style={{ marginTop: 8 }}>
-                <li data-marker='A·01'>Stages &amp; lifecycles</li>
-                <li data-marker='A·02'>Data fields (shape, optional, choices)</li>
+                <li data-marker='A·01'>
+                  Stages &amp; lifecycles{' '}
+                  <span style={{ color: 'var(--d-ink-3)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+                    (Zod schemas)
+                  </span>
+                </li>
+                <li data-marker='A·02'>
+                  Data fields{' '}
+                  <span style={{ color: 'var(--d-ink-3)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+                    (TypeScript types)
+                  </span>
+                </li>
                 <li data-marker='A·03'>Information architecture</li>
                 <li data-marker='A·04'>Screen list</li>
-                <li data-marker='A·05'>Validation &amp; transitions</li>
+                <li data-marker='A·05'>
+                  API integration{' '}
+                  <span style={{ color: 'var(--d-ink-3)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+                    (endpoints, contracts)
+                  </span>
+                </li>
+                <li data-marker='A·06'>
+                  DB schema{' '}
+                  <span style={{ color: 'var(--d-ink-3)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+                    (DBML)
+                  </span>
+                </li>
               </ul>
             </div>
             <div className='deck-rule'>

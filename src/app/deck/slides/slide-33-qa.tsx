@@ -2,9 +2,15 @@ import { SlideShell, type SlideMeta } from '../slide-shell'
 
 const expected = [
   { q: 'Could we have shipped without the canvas?', a: 'Yes — but rebuilding screens every BRD change.' },
-  { q: 'How long did the canvas take to build?', a: 'About a week and a half, in parallel with discovery.' },
-  { q: 'Does this work for small projects?', a: 'Probably overkill below ~3 actors and ~3 stages.' },
-  { q: 'Can BAs really write the canvas themselves?', a: 'Not yet. That’s the next step.' },
+  { q: 'How long did the canvas take to build?', a: 'About 3 weeks, in parallel with discovery.' },
+  {
+    q: 'Does this work for small projects?',
+    a: 'The canvas alone is great for scope finalisation at pre-discovery. Helps avoid scope creep from the very first conversation.',
+  },
+  {
+    q: 'Can BAs really write the canvas themselves?',
+    a: 'Not yet. We’re working on releasing a version for you to use.',
+  },
   { q: 'What didn’t the canvas catch?', a: 'Visual density · real-data overflow on the dashboard.' },
 ]
 
@@ -43,17 +49,17 @@ export function Slide33QA({ meta }: { meta: SlideMeta }) {
                 key={e.q}
                 style={{
                   border: '1px dashed var(--d-hair)',
-                  padding: 14,
+                  padding: 18,
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 6,
+                  gap: 10,
                 }}
               >
-                <span className='deck-mono-accent' style={{ fontSize: '0.62rem' }}>Q · {String(i + 1).padStart(2, '0')}</span>
-                <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', fontWeight: 600, color: 'var(--d-ink)' }}>
+                <span className='deck-mono-accent' style={{ fontSize: '0.7rem' }}>Q · {String(i + 1).padStart(2, '0')}</span>
+                <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1.2rem', fontWeight: 700, color: 'var(--d-ink)', letterSpacing: '-0.01em', lineHeight: 1.3 }}>
                   {e.q}
                 </span>
-                <span className='deck-mono' style={{ fontSize: '0.66rem', textTransform: 'none', letterSpacing: 0 }}>
+                <span style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', color: 'var(--d-ink-2)', lineHeight: 1.5 }}>
                   {e.a}
                 </span>
               </div>
