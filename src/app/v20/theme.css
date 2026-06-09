@@ -41,6 +41,11 @@
   --v20-ink-text-accent: #a54f28;
   --v20-ink-blob: #bb5828;
 
+  /* Iso assembly face fills (algo-v2) */
+  --v20-iso-top: #11203f;
+  --v20-iso-front: #0a1733;
+  --v20-iso-right: #060e22;
+
   /* V4 grid tokens — adapted for dark bg */
   --v20-rule: rgba(255, 255, 255, 0.16);
   --v20-hairline: rgba(255, 255, 255, 0.08);
@@ -422,7 +427,7 @@
 
 /* ---------- HERO ---------- */
 .v20-hero {
-  padding: 48px 0 56px;
+  padding: 80px 0 88px;
   border-bottom: 1px solid var(--v20-hair);
   position: relative;
   background-color: var(--brand-navy-deep);
@@ -665,7 +670,7 @@
 
 /* ---------- LOGO CAROUSEL (from v9) ---------- */
 .v20-logos-wrap {
-  padding: 24px 0 28px;
+  padding: 48px 0 56px;
   overflow-x: hidden;
   overflow-y: visible;
   background-color: #E8E2D4;
@@ -681,32 +686,18 @@
   grid-template-columns: repeat(12, 1fr);
   gap: var(--v20-col-gap);
   align-items: baseline;
-  padding-bottom: 8px;
-  margin-bottom: 4px;
+  padding-bottom: 16px;
+  margin-bottom: 12px;
 }
 .v20-logos-kicker {
-  grid-column: 1 / 4;
+  grid-column: 1 / -1;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.14em;
   color: rgba(13, 27, 62, 0.55);
   text-transform: uppercase;
-  padding-top: 4px;
-}
-.v20-logos-statement {
-  grid-column: 4 / 13;
-  font-family: var(--font-sans);
-  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-  color: var(--v20-ink);
-  margin: 0;
-}
-.v20-logos-statement em {
-  font-style: normal;
-  color: var(--v20-accent);
+  text-align: center;
 }
 
 .v20-logos-marquee {
@@ -719,6 +710,7 @@
 .v20-logos-track {
   display: flex;
   align-items: center;
+  gap: 12px;
   width: max-content;
   animation: v20-marquee 56s linear infinite;
 }
@@ -727,29 +719,66 @@
   to { transform: translateX(-50%); }
 }
 
-.v20-logo-item {
+.v20-logo-tile {
   flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  aspect-ratio: 5 / 3;
+  background: color-mix(in srgb, #E8E2D4 55%, #fff 45%);
+  border: 1px solid rgba(13, 27, 62, 0.07);
+  border-radius: 0;
+  transition: transform 200ms, background 200ms, border-color 200ms;
+  cursor: default;
+}
+.v20-logo-tile:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, #E8E2D4 35%, #fff 65%);
+  border-color: rgba(13, 27, 62, 0.14);
+}
+
+.v20-tile-wm {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  color: rgba(13, 27, 62, 0.78);
+  white-space: nowrap;
+  line-height: 1;
+}
+.v20-tile-cap {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.42);
+  margin-top: 4px;
+}
+.v20-tile-with-mark {
   display: inline-flex;
   align-items: center;
-  padding: 0 32px;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(13, 27, 62, 0.62);
-  white-space: nowrap;
-  transition: color 160ms;
+  gap: 7px;
 }
-.v20-logo-item:hover .v20-logo-name {
-  color: var(--v20-accent);
+.v20-tile-suf {
+  color: var(--brand-orange);
+  margin-left: 1px;
 }
-.v20-logo-sep {
-  display: inline-block;
-  width: 1px;
-  height: 14px;
-  background: rgba(13, 27, 62, 0.18);
-  margin-left: 32px;
+.v20-tile-stacked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+.v20-tile-top {
+  display: block;
+}
+.v20-tile-bot {
+  display: block;
+  font-size: 0.72em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(13, 27, 62, 0.5);
 }
 
 .v20-logos-tease {
@@ -846,6 +875,7 @@
   background-size: 3px 3px, 7px 7px !important;
   background-position: 0 0, 1px 2px !important;
 }
+.v20-stats .v20-section-head { border-bottom: none; }
 .v20-stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1478,6 +1508,58 @@
   height: auto;
 }
 
+/* ---------- STACK SECTION (full-width 3D assembly) ---------- */
+.v20-stack-section {
+  padding: clamp(80px, 10vw, 140px) 0;
+}
+.v20-stack-head {
+  max-width: 760px;
+  margin: 0 auto clamp(48px, 6vw, 88px);
+  padding: 0 var(--v20-gutter);
+  text-align: center;
+}
+.v20-stack-head .num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v20-accent);
+  margin-bottom: 20px;
+}
+.v20-stack-head h2 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.4vw, 2.9rem);
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  color: var(--v20-ink);
+  margin: 0 0 20px;
+}
+.v20-stack-head .lead {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--v20-ink-2);
+  margin: 0;
+}
+.v20-stack-3d-frame {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  display: block;
+}
+.v20-stack-3d {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+@media (max-width: 720px) {
+  .v20-stack-3d { height: 90vh; }
+}
+
 /* Layer reveal animation */
 .v20-stack-layer {
   opacity: 0;
@@ -1533,6 +1615,26 @@
   5% { opacity: 0.7; transform: scale(1.08); }
   10% { opacity: 0.35; transform: scale(1.02); }
   18% { opacity: 0.05; transform: scale(1); }
+}
+
+/* CLOUD layer — three rhombus lamellae cycle through orange, one at a time */
+.v20-cloud-rhombus {
+  stroke: rgba(255, 255, 255, 0.38);
+  stroke-width: 1;
+  animation: v20-cloud-rhombus-cycle 3s ease-in-out infinite;
+}
+.v20-cloud-rhombus-1 { animation-delay: 0s; }
+.v20-cloud-rhombus-2 { animation-delay: 1s; }
+.v20-cloud-rhombus-3 { animation-delay: 2s; }
+@keyframes v20-cloud-rhombus-cycle {
+  0%, 12%, 55%, 100% {
+    stroke: rgba(255, 255, 255, 0.38);
+    stroke-width: 1;
+  }
+  22%, 42% {
+    stroke: var(--v20-accent);
+    stroke-width: 1.3;
+  }
 }
 
 /* Responsive */
@@ -2345,7 +2447,7 @@
 }
 /* Active ring spin */
 .v20-why-active-ring {
-  animation: v20-why-ring-spin 8s linear infinite;
+  animation: v20-why-ring-spin 30s linear infinite;
   transform-origin: center;
 }
 @keyframes v20-why-ring-spin {
@@ -2462,11 +2564,36 @@
   position: relative;
   background-color: #0e1e42;
   background-image:
-    radial-gradient(ellipse 80% 80% at center, transparent 35%, rgba(4, 10, 28, 0.85) 100%),
     linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 100% 100%, 80px 80px, 80px 80px;
-  background-position: center, center, center;
+  background-size: 80px 80px, 80px 80px;
+  background-position: center, center;
+  isolation: isolate;
+}
+
+.v20-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 2.6 -0.8'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 320px 320px;
+  opacity: 0.09;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+
+.v20-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 2.2 -0.75'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 320px 320px;
+  background-position: 40px 40px;
+  opacity: 0.16;
+  mix-blend-mode: multiply;
+  z-index: 0;
 }
 
 .v20-cta-inner {
@@ -2648,11 +2775,7 @@
   transform-origin: center;
   opacity: 1;
 }
-.v20-hero-svg .v20-particle {
-  opacity: 0;
-  animation: v20-particle-flow 2.5s ease-in-out infinite;
-  animation-delay: var(--particle-delay);
-}
+/* Particles now use SMIL animations directly in SVG */
 
 /* Light-up cascades slowly top→bottom, one layer at a time (12s full cycle) */
 .v20-hero-svg .v20-box-border {
@@ -2674,12 +2797,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes v20-line-draw { to { stroke-dashoffset: 0; } }
-@keyframes v20-particle-flow {
-  0% { opacity: 0; transform: translateY(0); }
-  15% { opacity: 1; transform: translateY(8px); }
-  85% { opacity: 1; transform: translateY(58px); }
-  100% { opacity: 0; transform: translateY(66px); }
-}
+/* v20-particle-flow removed — SMIL handles particle motion */
 @keyframes v20-border-flash {
   0%, 100% { stroke: var(--v20-ink-corner); stroke-width: 1; stroke-opacity: 1; }
   2%, 6% { stroke: #c86830; stroke-width: 1.4; stroke-opacity: 0.8; }
