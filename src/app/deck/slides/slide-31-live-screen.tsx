@@ -6,10 +6,31 @@ export function Slide31LiveScreen({ meta }: { meta: SlideMeta }) {
     <SlideShell meta={meta}>
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 24 }}>
         <div className='deck-stack-md'>
-          <span className='deck-eyebrow'>
-            <span className='bar' />
-            Phase 06 · A live screen
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+            <span className='deck-eyebrow'>
+              <span className='bar' />
+              Phase 06b · A live screen
+            </span>
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '4px 10px',
+                border: '1px solid var(--d-orange-hair)',
+                background: 'var(--d-accent-bg)',
+                color: 'var(--d-accent)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.66rem',
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                fontWeight: 600,
+              }}
+            >
+              <Icon icon='lucide:external-link' width={12} />
+              Demo live · skip in deck
+            </span>
+          </div>
           <h1 className='deck-h1' style={{ maxWidth: 1500 }}>
             This is <em>what shipped.</em>
           </h1>
@@ -36,12 +57,24 @@ export function Slide31LiveScreen({ meta }: { meta: SlideMeta }) {
             </span>
             <span>FIG · 31</span>
           </div>
-          <div className='deck-mockup' style={{ flex: 1, minHeight: 540, border: 'none', background: 'transparent' }}>
-            <div className='label'>
-              <Icon icon='lucide:image' width={42} />
-              <span>[ SCREENSHOT · /wharf/dashboard — original VBS shipped screen ]</span>
-              <span className='k'>add manually</span>
-            </div>
+          <div
+            className='deck-mockup'
+            style={{
+              flex: 1,
+              minHeight: 0,
+              padding: 0,
+              border: 'none',
+              background: '#ffffff',
+              display: 'block',
+              overflowY: 'auto',
+              overflowX: 'hidden',
+            }}
+          >
+            <img
+              src='/deck/live-screen.png'
+              alt='VBS Pickup Portal — live Bookings dashboard with booking detail drawer'
+              style={{ width: '100%', height: 'auto', display: 'block' }}
+            />
           </div>
         </div>
 
@@ -51,14 +84,22 @@ export function Slide31LiveScreen({ meta }: { meta: SlideMeta }) {
             justifyContent: 'space-between',
             alignItems: 'center',
             gap: 16,
+            flexWrap: 'wrap',
           }}
         >
           <div className='deck-mono'>
             Built spec-first. Same fields as the canvas, same stages as the lifecycle.
           </div>
-          <div className='deck-mono-accent' style={{ fontSize: '0.72rem' }}>
-            ↪ live demo: jump to the running app
-          </div>
+          <a
+            href='https://vbsportal.dbizapps.ai/'
+            target='_blank'
+            rel='noreferrer'
+            className='deck-mono-accent'
+            style={{ fontSize: '0.72rem', display: 'inline-flex', alignItems: 'center', gap: 6 }}
+          >
+            <Icon icon='lucide:arrow-up-right' width={12} />
+            vbsportal.dbizapps.ai
+          </a>
         </div>
       </div>
     </SlideShell>

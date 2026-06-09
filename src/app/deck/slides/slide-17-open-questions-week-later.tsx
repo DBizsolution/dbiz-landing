@@ -109,23 +109,8 @@ export function Slide17OpenQuestionsWeekLater({ meta }: { meta: SlideMeta }) {
           </div>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 16,
-          }}
-        >
-          <div className='deck-mono'>
-            The visible-until-resolved pattern is what kept the BAs on the same page as us.
-          </div>
-          <div
-            className='deck-mono-accent'
-            style={{ fontSize: '0.72rem' }}
-          >
-            ↪ live demo: jump to the canvas — show approved / disapproved / comments
-          </div>
+        <div className='deck-mono'>
+          The visible-until-resolved pattern is what kept the BAs on the same page as us.
         </div>
       </div>
     </SlideShell>

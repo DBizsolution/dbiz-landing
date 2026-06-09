@@ -3,11 +3,11 @@ import { SlideShell, type SlideMeta } from '../slide-shell'
 type Q = { mark: string; status: 'open' | 'pending' | 'answered'; text: string; owner?: string }
 
 const questions: Q[] = [
-  { mark: 'OQ·01', status: 'open', text: 'Can the wharf actor delegate to a driver before unpack?', owner: 'Roni' },
+  { mark: 'OQ·01', status: 'open', text: 'Can the wharf actor delegate to a driver before unpack?', owner: 'Team' },
   { mark: 'OQ·02', status: 'pending', text: 'How is fee calculated for split shipments?', owner: 'Client' },
-  { mark: 'OQ·03', status: 'open', text: 'Auth model: SSO, magic link, or both?', owner: 'Roni' },
+  { mark: 'OQ·03', status: 'open', text: 'Auth model: SSO, magic link, or both?', owner: 'Team' },
   { mark: 'OQ·04', status: 'open', text: 'DO hierarchy: parent / child or flat?', owner: 'Client' },
-  { mark: 'OQ·05', status: 'pending', text: 'Slot booking — exclusive or contested?', owner: 'Roni' },
+  { mark: 'OQ·05', status: 'pending', text: 'Slot booking — exclusive or contested?', owner: 'Team' },
   { mark: 'OQ·06', status: 'open', text: 'What triggers a status change to "Ready"?' },
   { mark: 'OQ·07', status: 'open', text: 'Notifications on every state change or daily digest?' },
   { mark: 'OQ·08', status: 'pending', text: 'Audit trail granularity — every action or stages only?' },

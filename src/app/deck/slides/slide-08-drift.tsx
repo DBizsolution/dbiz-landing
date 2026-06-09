@@ -17,6 +17,9 @@ export function Slide08Drift({ meta }: { meta: SlideMeta }) {
         <div className='deck-stack-lg'>
           <span className='deck-marker'>Problem · 2 of 3</span>
           <h1 className='deck-h1'>Drift.</h1>
+          <p className='deck-payoff'>
+            <em>One prompt.</em> Different outputs.
+          </p>
           <p className='deck-body-text'>
             Same prompt. Different day. Different output. Not wildly different —
             just enough that two teammates working from two runs are building
@@ -24,12 +27,11 @@ export function Slide08Drift({ meta }: { meta: SlideMeta }) {
           </p>
           <ul className='deck-list' style={{ marginTop: 8 }}>
             <li data-marker='S·04'>
-              <strong>Field names shift. </strong> &quot;FCFS terminal&quot; in v1,
-              &quot;ACFS&quot; in v2.
+              <strong>Field names shift. </strong> Same concept, different names across runs.
             </li>
             <li data-marker='S·05'>
               <strong>Layout shifts.</strong> Sidebar reframes, slot picker
-              recolors, tenant lockup appears.
+              recolors.
             </li>
             <li data-marker='S·06'>
               <strong>No single source.</strong> Whichever output you happened to

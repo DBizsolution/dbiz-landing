@@ -1,7 +1,12 @@
+'use client'
+
+import { useState } from 'react'
 import { Icon } from '@/components/icon'
 import { SlideShell, type SlideMeta } from '../slide-shell'
 
 export function Slide06Setup({ meta }: { meta: SlideMeta }) {
+  const [revealed, setRevealed] = useState(false)
+  const [aiRevealed, setAiRevealed] = useState(false)
   return (
     <SlideShell meta={meta}>
       <style>{`.deck-body:has([data-slide="06"]) { padding-bottom: 0; }`}</style>
@@ -15,8 +20,9 @@ export function Slide06Setup({ meta }: { meta: SlideMeta }) {
             One BRD chunk. <em>One AI prompt.</em>
           </h1>
           <p className='deck-body-text'>
-            Real text from the VBS BRD. Pasted into an AI tool. Asked for the
-            booking screen. Here&apos;s what came back.
+            Real text from a vehicle booking system BRD we built for a client.
+            Pasted into an AI tool. Asked for the booking screen. Here&apos;s
+            what came back.
           </p>
         </div>
 
@@ -30,7 +36,11 @@ export function Slide06Setup({ meta }: { meta: SlideMeta }) {
             minHeight: 0,
           }}
         >
-          <div className='deck-box' style={{ display: 'flex', flexDirection: 'column', minHeight: 0, padding: 0 }}>
+          <div
+            onClick={() => setRevealed((r) => !r)}
+            className='deck-box'
+            style={{ display: 'flex', flexDirection: 'column', minHeight: 0, padding: 0, cursor: 'pointer' }}
+          >
             <div className='deck-box-head' style={{ padding: '14px 18px 12px', margin: 0 }}>
               <span>BRD · Section 4.2</span>
               <span className='k'>IN · 01</span>
@@ -47,11 +57,34 @@ export function Slide06Setup({ meta }: { meta: SlideMeta }) {
                 justifyContent: 'flex-start',
               }}
             >
-              <img
-                src='/deck/brd-section-4-2.png'
-                alt='VBS BRD section 4.2 — LSP Pickup Booking Journey'
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
+              <div style={{ position: 'relative', width: '100%' }}>
+                <img
+                  src='/deck/brd-snap1.png'
+                  alt='VBS BRD section 4.2 — LSP Pickup Booking Journey'
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    opacity: revealed ? 0 : 1,
+                    transition: 'opacity 350ms ease',
+                  }}
+                />
+                <img
+                  src='/deck/brd-snap2.png'
+                  alt='VBS BRD section 4.2 — LSP Pickup Booking Journey, with the 13 HBL fields highlighted'
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    opacity: revealed ? 1 : 0,
+                    transition: 'opacity 350ms ease',
+                    pointerEvents: 'none',
+                  }}
+                />
+              </div>
             </div>
           </div>
 
@@ -59,7 +92,11 @@ export function Slide06Setup({ meta }: { meta: SlideMeta }) {
             <Icon icon='lucide:arrow-right' width={36} color='var(--d-accent)' />
           </div>
 
-          <div className='deck-box' style={{ display: 'flex', flexDirection: 'column', minHeight: 0, padding: 0 }}>
+          <div
+            onClick={() => setAiRevealed((r) => !r)}
+            className='deck-box'
+            style={{ display: 'flex', flexDirection: 'column', minHeight: 0, padding: 0, cursor: 'pointer' }}
+          >
             <div className='deck-box-head' style={{ padding: '14px 18px 12px', margin: 0 }}>
               <span>AI output · v1</span>
               <span className='k'>OUT · 01</span>
@@ -76,11 +113,34 @@ export function Slide06Setup({ meta }: { meta: SlideMeta }) {
                 justifyContent: 'flex-start',
               }}
             >
-              <img
-                src='/deck/vbs-ai-output.png'
-                alt='AI-generated VBS booking screen'
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
+              <div style={{ position: 'relative', width: '100%' }}>
+                <img
+                  src='/deck/vbs-ai-output.png'
+                  alt='AI-generated VBS booking screen'
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    opacity: aiRevealed ? 0 : 1,
+                    transition: 'opacity 350ms ease',
+                  }}
+                />
+                <img
+                  src='/deck/vbs-ai-output-highlighted.png'
+                  alt='AI-generated VBS booking screen with the invented Consignor column highlighted'
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    opacity: aiRevealed ? 1 : 0,
+                    transition: 'opacity 350ms ease',
+                    pointerEvents: 'none',
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

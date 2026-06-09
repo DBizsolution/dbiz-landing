@@ -8,17 +8,19 @@ export function Slide27FlowsIndex({ meta }: { meta: SlideMeta }) {
     <SlideShell meta={meta}>
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 24 }}>
         <div className='deck-stack-md'>
-          <span className='deck-eyebrow'>
-            <span className='bar' />
-            Phase 04 · The handoff page
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+            <span className='deck-eyebrow'>
+              <span className='bar' />
+              Phase 04b · Flows index
+            </span>
+            <LiveDemoCue label='Demo live · skip in deck' />
+          </div>
           <h1 className='deck-h1' style={{ maxWidth: 1500 }}>
             One page in dev tools. <em>Engineer&apos;s first stop.</em>
           </h1>
           <p className='deck-body-text' style={{ maxWidth: 1300 }}>
-            A single index inside the app. Every actor, every route, build
-            status. Pinned to the canvas — so when the canvas changes, this is
-            where the engineer sees it first.
+            Every actor, every route, build status — pinned to the canvas. Show
+            this live in the app rather than in the deck.
           </p>
         </div>
 
@@ -74,28 +76,34 @@ export function Slide27FlowsIndex({ meta }: { meta: SlideMeta }) {
           </a>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: 16,
-          }}
-        >
-          <div className='deck-mono'>
-            Engineer reads canvas → looks at design system → checks this list → builds the next page.
-          </div>
-          <a
-            href={DEV_URL}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='deck-mono-accent'
-            style={{ fontSize: '0.72rem', textDecoration: 'none' }}
-          >
-            ↪ live demo: jump to /dev in the app
-          </a>
+        <div className='deck-mono'>
+          Engineer reads canvas → looks at design system → checks this list → builds the next page.
         </div>
       </div>
     </SlideShell>
+  )
+}
+
+function LiveDemoCue({ label }: { label: string }) {
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '4px 10px',
+        border: '1px solid var(--d-orange-hair)',
+        background: 'var(--d-accent-bg)',
+        color: 'var(--d-accent)',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.66rem',
+        letterSpacing: '0.16em',
+        textTransform: 'uppercase',
+        fontWeight: 600,
+      }}
+    >
+      <Icon icon='lucide:external-link' width={12} />
+      {label}
+    </span>
   )
 }

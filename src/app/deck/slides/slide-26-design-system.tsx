@@ -1,5 +1,16 @@
+'use client'
+
+import { useState, type CSSProperties } from 'react'
 import { Icon } from '@/components/icon'
 import { SlideShell, type SlideMeta } from '../slide-shell'
+
+const compCards = [
+  { src: '/deck/comp-showcase-1.png', alt: 'Button — primary, secondary, outline, ghost variants' },
+  { src: '/deck/comp-showcase-2.png', alt: 'Input — text, password, email with validation states' },
+  { src: '/deck/comp-showcase-3.png', alt: 'Card — header, body, footer composition' },
+  { src: '/deck/comp-showcase-4.png', alt: 'Status pill — booked, pending, processed, collected' },
+  { src: '/deck/comp-showcase-5.png', alt: 'Badge — default, secondary, destructive, outline, with icons' },
+]
 
 const layers = [
   {
@@ -21,24 +32,32 @@ const layers = [
 ]
 
 export function Slide26DesignSystem({ meta }: { meta: SlideMeta }) {
+  const [order, setOrder] = useState(0)
+  const cycle = () => setOrder((o) => (o + 1) % compCards.length)
+
   return (
     <SlideShell meta={meta}>
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 32 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 28 }}>
         <div className='deck-stack-md'>
           <span className='deck-eyebrow'>
             <span className='bar' />
-            Phase 04 · Design system, layered
+            Phase 04a · Design system, layered
           </span>
           <h1 className='deck-h1' style={{ maxWidth: 1500 }}>
             Three layers. <em>The AI uses all three.</em>
           </h1>
+          <p className='deck-body-text' style={{ maxWidth: 1300 }}>
+            One breath each — tokens, components, registry. There&rsquo;s a structure
+            to the design side too, separate from the canvas. Not going into the
+            details today; live showcase next.
+          </p>
         </div>
 
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
-            gap: 64,
+            gridTemplateColumns: 'minmax(0, 40fr) minmax(0, 60fr)',
+            gap: 56,
             flex: 1,
             minHeight: 0,
             alignItems: 'stretch',
@@ -110,29 +129,33 @@ export function Slide26DesignSystem({ meta }: { meta: SlideMeta }) {
               </span>
               <span className='k'>FIG · 26</span>
             </div>
-            <a
-              href='https://vbsportal.dbizapps.ai/dev/components'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='deck-mockup'
-              style={{
-                flex: 1,
-                minHeight: 0,
-                padding: 0,
-                overflow: 'hidden',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                display: 'flex',
-                cursor: 'pointer',
-                textDecoration: 'none',
-              }}
+            <div
+              className='deck-comp-carousel'
+              role='button'
+              tabIndex={-1}
+              onClick={cycle}
+              aria-label='Cycle component showcase'
             >
-              <img
-                src='/deck/comp-showcase.png'
-                alt='VBS Portal — live component showcase, primitives and domain components'
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
-            </a>
+              {compCards.map((card, originalIdx) => {
+                const i = (originalIdx - order + compCards.length) % compCards.length
+                const rise = -i * 64
+                const depth = -i * 170
+                const layer = compCards.length - i
+                return (
+                  <div
+                    key={card.src}
+                    className='deck-comp-card'
+                    style={{
+                      ['--rise' as string]: `${rise}px`,
+                      ['--depth' as string]: `${depth}px`,
+                      ['--layer' as string]: `${layer}`,
+                    } as CSSProperties}
+                  >
+                    <img src={card.src} alt={card.alt} />
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </div>

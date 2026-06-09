@@ -29,6 +29,10 @@ export default function DeckRuntime() {
   const safeIndex = Math.max(0, Math.min(index, total - 1))
   const entry = slides[safeIndex]
   const stageRef = useRef<HTMLDivElement>(null)
+  const channelRef = useRef<BroadcastChannel | null>(null)
+  const indexRef = useRef(safeIndex)
+  indexRef.current = safeIndex
+  const skipNextBroadcastRef = useRef(true)
 
   /** Keep ?s= in sync with state. Pure DOM mutation, no React state writes. */
   useEffect(() => {
@@ -36,6 +40,33 @@ export default function DeckRuntime() {
     const url = new URL(window.location.href)
     url.searchParams.set('s', String(safeIndex + 1))
     window.history.replaceState(null, '', url.toString())
+  }, [safeIndex])
+
+  /** Cross-window sync. Either /deck or /deck/speaker can drive; the other
+   *  follows. Receivers compare incoming vs current, so the natural echo
+   *  posted by the receiving window's own effect is a no-op (same value). */
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof BroadcastChannel === 'undefined') return
+    const channel = new BroadcastChannel('dbiz-deck')
+    channelRef.current = channel
+    channel.onmessage = (event) => {
+      const next = event.data?.index
+      if (typeof next === 'number' && next !== indexRef.current) {
+        setIndex(next)
+      }
+    }
+    return () => {
+      channel.close()
+      channelRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    if (skipNextBroadcastRef.current) {
+      skipNextBroadcastRef.current = false
+      return
+    }
+    channelRef.current?.postMessage({ index: safeIndex })
   }, [safeIndex])
 
   /** Fit the 1920×1080 stage into the viewport via DOM mutation on the ref —
@@ -120,7 +151,7 @@ export default function DeckRuntime() {
       </div>
 
       <div className='deck-nav'>
-        <span className='hint'>← →</span>
+        <span className='hint'>← → · t</span>
         <span className='counter'>
           {String(safeIndex + 1).padStart(2, '0')} · {String(total).padStart(2, '0')}
         </span>

@@ -7,7 +7,7 @@ export function Slide05Act1Title({ meta }: { meta: SlideMeta }) {
         <div className='deck-stack-md'>
           <span className='deck-eyebrow'>
             <span className='bar' />
-            Act 01 · 6 min
+            Act 01 · ~5 min
           </span>
           <div className='deck-coord' style={{ fontSize: '1rem' }}>
             What goes wrong
@@ -19,7 +19,7 @@ export function Slide05Act1Title({ meta }: { meta: SlideMeta }) {
         </h1>
 
         <p className='deck-lede' style={{ maxWidth: 1300 }}>
-          A real chunk of the VBS BRD, fed to an AI tool, asking for a screen.
+          A real chunk of a vehicle booking system BRD we built for a client, fed to an AI tool, asking for a screen.
           Three failure modes that show up before any product owner has time to
           push back.
         </p>

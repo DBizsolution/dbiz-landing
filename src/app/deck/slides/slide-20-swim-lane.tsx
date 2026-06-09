@@ -12,7 +12,7 @@ const lanes: Lane[] = [
     marker: 'L·01',
     name: 'Design',
     active: true,
-    artifacts: ['Information architecture', 'Screen list', 'User journeys', 'Personas'],
+    artifacts: ['Canonical BRD', 'Information architecture', 'Screen list', 'User journeys'],
   },
   {
     marker: 'L·02',
@@ -91,7 +91,7 @@ export function Slide20SwimLane({ meta }: { meta: SlideMeta }) {
                   textTransform: 'uppercase',
                 }}
               >
-                {lane.active ? 'Today · in scope' : 'WIP · in canvas'}
+                {lane.active ? 'Today · in scope' : 'Work in progress'}
               </div>
               <ul className='deck-list' style={{ gap: 12, marginTop: 16 }}>
                 {lane.artifacts.map((a, i) => (

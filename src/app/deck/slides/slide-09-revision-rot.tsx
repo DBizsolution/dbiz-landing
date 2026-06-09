@@ -17,6 +17,9 @@ export function Slide09RevisionRot({ meta }: { meta: SlideMeta }) {
         <div className='deck-stack-lg'>
           <span className='deck-marker'>Problem · 3 of 3</span>
           <h1 className='deck-h1'>Revision rot.</h1>
+          <p className='deck-payoff'>
+            <em>BRD changes.</em> New features. New layout. New app.
+          </p>
           <p className='deck-body-text'>
             BRD changes. You re-prompt. The new output is fine on its own — but
             it doesn&apos;t fit the app you already built around the first

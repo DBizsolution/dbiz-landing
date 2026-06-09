@@ -8,10 +8,31 @@ export function Slide28Coverage({ meta }: { meta: SlideMeta }) {
     <SlideShell meta={meta}>
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 24 }}>
         <div className='deck-stack-md'>
-          <span className='deck-eyebrow'>
-            <span className='bar' />
-            Phase 04 · Coverage tracker
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+            <span className='deck-eyebrow'>
+              <span className='bar' />
+              Phase 04c · Coverage tracker
+            </span>
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '4px 10px',
+                border: '1px solid var(--d-orange-hair)',
+                background: 'var(--d-accent-bg)',
+                color: 'var(--d-accent)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.66rem',
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                fontWeight: 600,
+              }}
+            >
+              <Icon icon='lucide:external-link' width={12} />
+              Demo live · skip in deck
+            </span>
+          </div>
           <h1 className='deck-h1' style={{ maxWidth: 1500 }}>
             What the canvas requires <em>vs. what the app actually has.</em>
           </h1>

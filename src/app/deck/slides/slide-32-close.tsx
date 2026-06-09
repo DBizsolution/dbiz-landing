@@ -3,8 +3,8 @@ import { SlideShell, type SlideMeta } from '../slide-shell'
 const worked = [
   {
     mark: 'W·01',
-    title: 'Stable canvas as the source.',
-    body: 'Three BRD revisions during build. We changed the canvas, not the screens.',
+    title: 'Generated screens with confidence.',
+    body: 'Knew it wouldn’t break. Didn’t have to backtrack AI slop on every regeneration.',
   },
   {
     mark: 'W·02',
@@ -21,23 +21,18 @@ const worked = [
 const didnt = [
   {
     mark: 'D·01',
-    title: 'Dev didn’t use the intent model.',
-    body: 'Backend folks worked off the BRD instead of the canvas. Handoff had gaps for that reason.',
-  },
-  {
-    mark: 'D·02',
     title: 'One-person bottleneck early.',
     body: 'Initial canvas was built by prompting alone. Collaboration features got introduced midway, not from day one.',
   },
   {
-    mark: 'D·03',
-    title: 'Missing user stories layer.',
+    mark: 'D·02',
+    title: 'Missing user-stories layer.',
     body: 'Requirements weren’t turned into user stories inside the canvas — that gap surfaced at handoff.',
   },
   {
-    mark: 'D·04',
-    title: 'Backend + dev not in the canvas.',
-    body: 'Backend requirements and dev integration weren’t represented. Next iteration must include them upstream.',
+    mark: 'D·03',
+    title: 'Devs unable to use the intent model.',
+    body: 'Backend folks worked off the BRD instead of the canvas. Handoff had gaps because of that — fixable upstream.',
   },
 ]
 
@@ -89,8 +84,33 @@ export function Slide32Close({ meta }: { meta: SlideMeta }) {
           </div>
         </div>
 
-        <div className='deck-mono'>
-          Next: BAs and PMs authoring the canvas directly, with backend + dev represented from day one.
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+            gap: 24,
+            flexWrap: 'wrap',
+          }}
+        >
+          <div
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 700,
+              fontSize: '1.7rem',
+              letterSpacing: '-0.02em',
+              color: 'var(--d-ink)',
+              flex: 1,
+              minWidth: 0,
+            }}
+          >
+            Human effort{' '}
+            <em style={{ fontStyle: 'normal', color: 'var(--d-accent)' }}>&gt; shipping.</em>{' '}
+            Structure is what made the ship possible.
+          </div>
+          <div className='deck-mono' style={{ color: 'var(--d-ink-3)' }}>
+            Next: BAs &amp; PMs authoring directly · backend + dev from day 1
+          </div>
         </div>
       </div>
     </SlideShell>
@@ -112,14 +132,14 @@ function ReflectionItem({
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       <span
         className={accent ? 'deck-mono-accent' : 'deck-mono'}
-        style={{ fontSize: '0.66rem' }}
+        style={{ fontSize: '0.72rem' }}
       >
         {mark}
       </span>
       <div
         style={{
           fontFamily: 'var(--font-sans)',
-          fontSize: '1.2rem',
+          fontSize: '1.4rem',
           fontWeight: 700,
           color: 'var(--d-ink)',
           letterSpacing: '-0.01em',
@@ -131,7 +151,7 @@ function ReflectionItem({
       <div
         style={{
           fontFamily: 'var(--font-sans)',
-          fontSize: '0.95rem',
+          fontSize: '1.1rem',
           color: 'var(--d-ink-2)',
           lineHeight: 1.5,
         }}

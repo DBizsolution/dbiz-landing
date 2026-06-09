@@ -34,7 +34,7 @@ export function Slide02ChatQ1({ meta }: { meta: SlideMeta }) {
         </div>
 
         <div className='deck-mono'>
-          Cursor · Claude · v0 · Lovable · whatever you reach for
+          Cursor · Claude · v0 · Codex · Gemini · whatever you reach for
         </div>
       </div>
     </SlideShell>

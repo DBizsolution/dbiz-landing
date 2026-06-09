@@ -5,13 +5,13 @@ import { Icon } from '@/components/icon'
 import { SlideShell, type SlideMeta } from '../slide-shell'
 
 const sections = [
-  { mark: 'CV·01', name: 'Consensus', count: '12 facts' },
-  { mark: 'CV·02', name: 'Actors', count: '4 roles' },
-  { mark: 'CV·03', name: 'Entities', count: '9 things' },
-  { mark: 'CV·04', name: 'Journeys', count: '7 flows' },
-  { mark: 'CV·05', name: 'Business rules', count: '23 rules' },
-  { mark: 'CV·06', name: 'Constraints', count: '6 limits' },
-  { mark: 'CV·07', name: 'Open questions', count: '5 open · 14 resolved' },
+  { mark: 'CV·01', name: 'Actors', desc: 'who uses it', count: '4 roles' },
+  { mark: 'CV·02', name: 'Entities', desc: 'what they work with', count: '9 things' },
+  { mark: 'CV·03', name: 'Journeys', desc: 'how they get things done', count: '7 flows' },
+  { mark: 'CV·04', name: 'Business rules', desc: 'what constrains them', count: '23 rules' },
+  { mark: 'CV·05', name: 'Constraints', desc: 'system limits', count: '6 limits' },
+  { mark: 'CV·06', name: 'Consensus', desc: 'decisions, kept visible', count: '12 facts' },
+  { mark: 'CV·07', name: 'Open questions', desc: 'still up for debate', count: '5 open · 14 resolved' },
 ]
 
 const PILL_HOLD_MS = 700
@@ -43,24 +43,19 @@ export function Slide13Canvas({ meta }: { meta: SlideMeta }) {
         >
           <span className='deck-eyebrow'>
             <span className='bar' />
-            Act 2 · Inside the pill
+            Act 2 · Structure
           </span>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 24, flexWrap: 'wrap' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontWeight: 800,
-                fontSize: '2.2rem',
-                letterSpacing: '-0.04em',
-                color: 'var(--d-accent)',
-              }}
-            >
-              DBiz<span style={{ color: 'var(--d-ink)' }}>·</span>Canvas
-            </span>
-            <h1 className='deck-h1' style={{ maxWidth: 1500 }}>
-              One structured doc. <em>Same fields every time.</em>
-            </h1>
-          </div>
+          <h1 className='deck-h1' style={{ maxWidth: 1600 }}>
+            We put <em>structure</em> between the BRD and the AI. <br />
+            We call it the <em>DBiz Canvas.</em>
+          </h1>
+          <p className='deck-body-text' style={{ maxWidth: 1500 }}>
+            One structured doc, same five sections every project: <strong style={{ color: 'var(--d-ink)' }}>actors</strong> (who uses it),
+            <strong style={{ color: 'var(--d-ink)' }}> entities</strong> (what they work with),
+            <strong style={{ color: 'var(--d-ink)' }}> journeys</strong> (how they get things done),
+            <strong style={{ color: 'var(--d-ink)' }}> rules</strong> (what constrains them),
+            and <strong style={{ color: 'var(--d-ink)' }}>open questions</strong> (still up for debate).
+          </p>
         </div>
 
         <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
@@ -186,12 +181,13 @@ export function Slide13Canvas({ meta }: { meta: SlideMeta }) {
 type CanvasSectionProps = {
   mark: string
   name: string
+  desc: string
   count: string
   index: number
   open: boolean
 }
 
-function CanvasSection({ mark, name, count, index, open }: CanvasSectionProps) {
+function CanvasSection({ mark, name, desc, count, index, open }: CanvasSectionProps) {
   return (
     <div
       style={{
@@ -199,7 +195,7 @@ function CanvasSection({ mark, name, count, index, open }: CanvasSectionProps) {
         padding: 16,
         display: 'flex',
         flexDirection: 'column',
-        gap: 8,
+        gap: 6,
         position: 'relative',
         minWidth: 0,
         opacity: open ? 1 : 0,
@@ -212,7 +208,18 @@ function CanvasSection({ mark, name, count, index, open }: CanvasSectionProps) {
       <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: '1.05rem', color: 'var(--d-ink)' }}>
         {name}
       </div>
-      <div className='deck-mono' style={{ fontSize: '0.66rem' }}>{count}</div>
+      <div
+        style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: '0.82rem',
+          color: 'var(--d-ink-2)',
+          lineHeight: 1.35,
+          flex: 1,
+        }}
+      >
+        {desc}
+      </div>
+      <div className='deck-mono' style={{ fontSize: '0.66rem', color: 'var(--d-ink-2)' }}>{count}</div>
     </div>
   )
 }

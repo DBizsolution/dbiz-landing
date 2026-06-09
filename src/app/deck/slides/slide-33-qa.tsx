@@ -11,7 +11,7 @@ const expected = [
     q: 'Can BAs really write the canvas themselves?',
     a: 'Not yet. We’re working on releasing a version for you to use.',
   },
-  { q: 'What didn’t the canvas catch?', a: 'Visual density · real-data overflow on the dashboard.' },
+  { q: 'What didn’t the canvas catch?', a: 'UX/UI.' },
 ]
 
 export function Slide33QA({ meta }: { meta: SlideMeta }) {
@@ -27,7 +27,7 @@ export function Slide33QA({ meta }: { meta: SlideMeta }) {
             Questions <em>?</em>
           </h1>
           <p className='deck-lede' style={{ maxWidth: 1300 }}>
-            Drop them in chat as we close, or unmute now.
+            Unmute and ask — or drop them in chat.
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export function Slide33QA({ meta }: { meta: SlideMeta }) {
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 32 }}>
           <div className='deck-mono'>
-            Thanks. Catch me after if you&apos;d rather not ask in front of everyone.
+            Catch me after if you&apos;d rather not ask in front of everyone.
           </div>
           <div className='deck-mono-accent'>End · sheet 33 / 33</div>
         </div>

@@ -1,4 +1,5 @@
 import './theme.css'
+import { DeckThemeProvider } from './deck-theme-provider'
 
 export const metadata = {
   title: 'DBiz Canvas — Talk Deck',
@@ -8,9 +9,5 @@ export const metadata = {
 export default function DeckLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <div className='deck-scope' data-theme='dark'>
-      {children}
-    </div>
-  )
+  return <DeckThemeProvider>{children}</DeckThemeProvider>
 }

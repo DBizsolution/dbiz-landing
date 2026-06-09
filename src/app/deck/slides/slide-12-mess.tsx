@@ -4,34 +4,46 @@ import { useState } from 'react'
 import { Icon } from '@/components/icon'
 import { SlideShell, type SlideMeta } from '../slide-shell'
 
-type Thumb = {
-  marker: string
+type Bucket = {
+  key: string
   icon: string
+  count: number
   kind: string
   label: string
-  hint?: string
+  hint: string
 }
 
-const thumbs: Thumb[] = [
-  { marker: 'BRD · 01', icon: 'lucide:file-text', kind: 'BRD', label: 'V1', hint: 'first draft' },
-  { marker: 'BRD · 02', icon: 'lucide:file-text', kind: 'BRD', label: 'V2', hint: 'scope adds' },
-  { marker: 'BRD · 03', icon: 'lucide:file-text', kind: 'BRD', label: 'V3', hint: 'scope expanded' },
-  { marker: 'BRD · 04', icon: 'lucide:file-text', kind: 'BRD', label: 'V4', hint: 'edge cases' },
-  { marker: 'BRD · 05', icon: 'lucide:file-text', kind: 'BRD', label: 'V5', hint: 'rules rewrite' },
-  { marker: 'BRD · 06', icon: 'lucide:file-text', kind: 'BRD', label: 'V6', hint: 'approvals' },
-  { marker: 'BRD · 07', icon: 'lucide:file-text', kind: 'BRD', label: 'V7 · final', hint: 'signed off' },
-  { marker: 'JM · 01', icon: 'lucide:network', kind: 'Journey map', label: 'Wharf actor', hint: 'actor map' },
-  { marker: 'JM · 02', icon: 'lucide:network', kind: 'Journey map', label: 'Booking flow', hint: 'happy path' },
-  { marker: 'JM · 03', icon: 'lucide:network', kind: 'Journey map', label: 'Driver pickup', hint: 'edge cases' },
-  { marker: 'NT · 01', icon: 'lucide:message-circle', kind: 'Call', label: 'Call · 14 Mar', hint: 'fees' },
-  { marker: 'NT · 02', icon: 'lucide:message-circle', kind: 'Call', label: 'Call · 19 Mar', hint: 'auth' },
+const buckets: Bucket[] = [
+  {
+    key: 'brd',
+    icon: 'lucide:file-text',
+    count: 8,
+    kind: 'BRD',
+    label: '8 versions of the BRD',
+    hint: 'first draft → scope adds → edits → sign-off',
+  },
+  {
+    key: 'flows',
+    icon: 'lucide:network',
+    count: 3,
+    kind: 'Process flows',
+    label: 'Distinct process flows',
+    hint: 'on Miro · actors, journeys, exceptions',
+  },
+  {
+    key: 'notes',
+    icon: 'lucide:message-circle',
+    count: 4,
+    kind: 'Meeting notes',
+    label: '4 meeting / call notes',
+    hint: 'fees · auth · approvals · pickup',
+  },
 ]
 
-const COLS = 6
-const TILE_DURATION_MS = 3600
-const TILE_STAGGER_MS = 60
-const CANVAS_DELAY_MS = 1800
-const CANVAS_DURATION_MS = 1600
+const TILE_DURATION_MS = 2200
+const TILE_STAGGER_MS = 140
+const CANVAS_DELAY_MS = 1300
+const CANVAS_DURATION_MS = 1400
 
 export function Slide12Mess({ meta }: { meta: SlideMeta }) {
   const [phase, setPhase] = useState<'rest' | 'collapsing'>('rest')
@@ -45,6 +57,11 @@ export function Slide12Mess({ meta }: { meta: SlideMeta }) {
 
   return (
     <SlideShell meta={meta}>
+      <style>{`
+        .bucket-icons-grid svg {
+          stroke-width: 1.5;
+        }
+      `}</style>
       <div
         onClick={trigger}
         style={{
@@ -64,8 +81,8 @@ export function Slide12Mess({ meta }: { meta: SlideMeta }) {
             All of <em>this.</em> Over 3 weeks.
           </h1>
           <p className='deck-body-text' style={{ maxWidth: 1300 }}>
-            BRD revisions. Journey maps. Call notes. Different people, different
-            shapes of input. None of it bad. All of it inconsistent.
+            Structured and unstructured. Different people, different shapes of input.
+            None of it bad. All of it inconsistent.
           </p>
         </div>
 
@@ -73,63 +90,72 @@ export function Slide12Mess({ meta }: { meta: SlideMeta }) {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
-              gap: 16,
+              gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+              gap: 48,
               height: '100%',
+              alignItems: 'stretch',
             }}
           >
-            {thumbs.map((t, i) => {
-              const col = i % COLS
-              const row = Math.floor(i / COLS)
-              const rows = Math.ceil(thumbs.length / COLS)
-              const cx = (COLS - 1) / 2
-              const cy = (rows - 1) / 2
-              const dx = cx - col
-              const dy = cy - row
+            {buckets.map((bucket, i) => {
+              const cx = 1
+              const dx = cx - i
               const collapsing = phase === 'collapsing'
+
               return (
                 <div
-                  key={t.marker}
-                  className='deck-box deck-box-mute'
+                  key={bucket.key}
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    padding: '14px 16px',
-                    minWidth: 0,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 22,
+                    padding: '24px 16px',
                     transformOrigin: 'center center',
                     transform: collapsing
-                      ? `translate(calc(${dx} * (100% + 16px)), calc(${dy} * (100% + 16px))) scale(0.05)`
-                      : 'translate(0, 0) scale(1)',
+                      ? `translateX(calc(${dx} * (100% + 48px))) scale(0.08)`
+                      : 'translateX(0) scale(1)',
                     opacity: collapsing ? 0 : 1,
                     transition: `transform ${TILE_DURATION_MS}ms cubic-bezier(.65,.02,.35,1), opacity ${TILE_DURATION_MS}ms cubic-bezier(.65,.02,.35,1)`,
                     transitionDelay: `${i * TILE_STAGGER_MS}ms`,
                     willChange: 'transform, opacity',
                   }}
                 >
-                  <div className='deck-box-head' style={{ marginBottom: 8, paddingBottom: 6, fontSize: '0.62rem' }}>
-                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.kind}</span>
-                    <span className='k' style={{ fontSize: '0.6rem' }}>{t.marker}</span>
-                  </div>
-                  <div
-                    style={{
-                      flex: 1,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 10,
-                      border: '1px dashed var(--d-hair)',
-                      padding: 16,
-                      minHeight: 140,
-                    }}
-                  >
-                    <Icon icon={t.icon} width={56} color='var(--d-ink-3)' />
-                    <div style={{ fontFamily: 'var(--font-sans)', fontSize: '0.92rem', color: 'var(--d-ink)', textAlign: 'center', lineHeight: 1.3 }}>
-                      {t.label}
+                  <BucketIcons icon={bucket.icon} count={bucket.count} />
+                  <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.74rem',
+                        letterSpacing: '0.18em',
+                        textTransform: 'uppercase',
+                        color: 'var(--d-accent)',
+                      }}
+                    >
+                      {bucket.kind}
                     </div>
-                    {t.hint ? (
-                      <div className='deck-mono' style={{ fontSize: '0.6rem', textAlign: 'center' }}>{t.hint}</div>
-                    ) : null}
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontWeight: 700,
+                        fontSize: '1.55rem',
+                        color: 'var(--d-ink)',
+                        lineHeight: 1.15,
+                        letterSpacing: '-0.015em',
+                      }}
+                    >
+                      {bucket.label}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '0.95rem',
+                        color: 'var(--d-ink-2)',
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {bucket.hint}
+                    </div>
                   </div>
                 </div>
               )
@@ -189,13 +215,51 @@ export function Slide12Mess({ meta }: { meta: SlideMeta }) {
           </div>
         </div>
 
-        <div className='deck-mono'>
+        <div className='deck-mono' style={{ color: 'var(--d-ink-2)' }}>
           The canvas gives all of this one shape — independent of how it arrived.
-          {phase === 'rest' ? (
-            <span style={{ opacity: 0.55, marginLeft: 8 }}>(click anywhere)</span>
-          ) : null}
         </div>
       </div>
     </SlideShell>
+  )
+}
+
+const GRID_LAYOUTS: Record<number, { cols: number; rows: number }> = {
+  3: { cols: 3, rows: 1 },
+  4: { cols: 2, rows: 2 },
+  8: { cols: 4, rows: 2 },
+}
+
+function BucketIcons({ icon, count }: { icon: string; count: number }) {
+  const visible = Math.min(count, 8)
+  const layout = GRID_LAYOUTS[visible] ?? { cols: visible, rows: 1 }
+  const iconSize = 44
+  const gap = 12
+  return (
+    <div
+      className='bucket-icons-grid'
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${layout.cols}, ${iconSize}px)`,
+        gridAutoRows: `${iconSize}px`,
+        gap,
+        minHeight: 110,
+        alignContent: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {Array.from({ length: visible }).map((_, idx) => (
+        <div
+          key={idx}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            filter: 'drop-shadow(0 6px 14px rgba(0,0,0,0.25))',
+          }}
+        >
+          <Icon icon={icon} width={iconSize} color='var(--d-ink)' />
+        </div>
+      ))}
+    </div>
   )
 }

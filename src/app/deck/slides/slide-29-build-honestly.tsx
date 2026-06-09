@@ -34,19 +34,19 @@ export function Slide29BuildHonestly({ meta }: { meta: SlideMeta }) {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 20, flex: 1 }}>
             {events.map((e, i) => (
-              <div key={e.date} style={{ display: 'grid', gridTemplateColumns: '120px 1fr auto 1fr auto 1fr auto 120px', gap: 14, alignItems: 'stretch' }}>
+              <div key={e.date} style={{ display: 'grid', gridTemplateColumns: '120px 1fr auto 1fr auto 1fr auto 340px', gap: 14, alignItems: 'stretch' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
                   <span className='deck-mono-accent' style={{ fontSize: '0.62rem' }}>EV·{String(i + 1).padStart(2, '0')}</span>
                   <span className='deck-mono' style={{ fontSize: '0.72rem' }}>{e.date}</span>
                 </div>
 
-                <Step kind='change' title='BRD change' detail={e.change} />
+                <Step kind='change' icon='lucide:file-pen' title='BRD change' detail={e.change} />
                 <Arrow />
-                <Step kind='canvas' title='Canvas update' detail={e.updates} />
+                <Step kind='canvas' icon='lucide:layout-grid' title='Canvas update' detail={e.updates} />
                 <Arrow />
-                <Step kind='regen' title='Regenerate' detail={e.regen} />
+                <Step kind='regen' icon='lucide:refresh-cw' title='Regenerate' detail={e.regen} />
                 <Arrow />
-                <Step kind='ship' title='Ship' detail='same day' accent />
+                <Step kind='ship' icon='lucide:ship' title='Ship' detail='same day' accent />
               </div>
             ))}
           </div>
@@ -55,7 +55,7 @@ export function Slide29BuildHonestly({ meta }: { meta: SlideMeta }) {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: '120px 1fr auto 1fr auto 1fr auto 120px',
+              gridTemplateColumns: '120px 1fr auto 1fr auto 1fr auto 340px',
               gap: 14,
               marginTop: 22,
               paddingTop: 18,
@@ -78,7 +78,7 @@ export function Slide29BuildHonestly({ meta }: { meta: SlideMeta }) {
                 textAlign: 'center',
               }}
             >
-              2 weeks · human effort
+              3 weeks · human effort
             </div>
             <span />
             <div
@@ -95,20 +95,20 @@ export function Slide29BuildHonestly({ meta }: { meta: SlideMeta }) {
                 textAlign: 'center',
               }}
             >
-              3 weeks · shipping
+              1.5 weeks · shipping
             </div>
           </div>
         </div>
 
         <div className='deck-mono'>
-          We shipped in 3 weeks because there was always a stable place to come back to.
+          1.5 weeks to ship because the canvas was always a stable place to come back to.
         </div>
       </div>
     </SlideShell>
   )
 }
 
-function Step({ kind, title, detail, accent }: { kind: string; title: string; detail: string; accent?: boolean }) {
+function Step({ kind, icon, title, detail, accent }: { kind: string; icon: string; title: string; detail: string; accent?: boolean }) {
   return (
     <div
       style={{
@@ -121,7 +121,10 @@ function Step({ kind, title, detail, accent }: { kind: string; title: string; de
         minWidth: 0,
       }}
     >
-      <span className='deck-mono' style={{ fontSize: '0.6rem', color: accent ? 'var(--d-accent)' : undefined }}>{kind}</span>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+        <span className='deck-mono' style={{ fontSize: '0.6rem', color: accent ? 'var(--d-accent)' : undefined }}>{kind}</span>
+        <Icon icon={icon} width={14} color={accent ? 'var(--d-accent)' : 'var(--d-ink-3)'} />
+      </div>
       <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.95rem', fontWeight: 600, color: 'var(--d-ink)', lineHeight: 1.3 }}>
         {title}
       </span>

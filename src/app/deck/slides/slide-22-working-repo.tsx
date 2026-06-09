@@ -8,15 +8,16 @@ export function Slide22WorkingRepo({ meta }: { meta: SlideMeta }) {
         <div className='deck-stack-md'>
           <span className='deck-eyebrow'>
             <span className='bar' />
-            Act 3 · Phase 0
+            Phase 0 · Repository to build
           </span>
           <h1 className='deck-h1' style={{ maxWidth: 1500 }}>
             From canvas to <em>working repository.</em>
           </h1>
-          <p className='deck-body-text' style={{ maxWidth: 1300 }}>
-            Once the canvas is finalised, it lands in a single working repo
-            alongside the design system. The AI reads from this one place. That&apos;s
-            what keeps the build coherent when we regenerate.
+          <p className='deck-body-text' style={{ maxWidth: 1400 }}>
+            Canvas specs and the UI kit go in as a pair — one canvas spec, one
+            design-system spec. The AI reads from this one place. The
+            design-system side has its own structure; we&rsquo;re not going into it
+            today.
           </p>
         </div>
 
@@ -35,10 +36,22 @@ export function Slide22WorkingRepo({ meta }: { meta: SlideMeta }) {
               <span style={{ color: 'var(--d-accent)' }}>DBiz Canvas</span>
               <span className='k'>FIN</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, padding: '24px 0 16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, padding: '24px 0 16px' }}>
               <Icon icon='lucide:file-code-2' width={72} color='var(--d-accent)' strokeWidth={3} />
               <div className='deck-mono-accent' style={{ fontSize: '0.7rem', textAlign: 'center' }}>
                 Finalised intent model
+              </div>
+              <div
+                className='deck-mono'
+                style={{
+                  fontSize: '0.62rem',
+                  textAlign: 'center',
+                  color: 'var(--d-ink-2)',
+                  textTransform: 'none',
+                  letterSpacing: 0,
+                }}
+              >
+                (collaboration + artifacts)
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center' }}>
@@ -79,19 +92,19 @@ export function Slide22WorkingRepo({ meta }: { meta: SlideMeta }) {
                   <span className='k'>R·02</span>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 4 }}>
-                  <div style={{ border: '1px solid var(--d-orange-hair-soft)', padding: '10px 12px', background: 'var(--d-accent-bg)' }}>
-                    <div className='deck-mono-accent' style={{ fontSize: '0.66rem' }}>Layer 03 · Registry</div>
-                    <div className='deck-body-text' style={{ fontSize: '0.95rem', marginTop: 4, color: 'var(--d-ink)' }}>
-                      Custom theming · client binding
+                  <div style={{ border: '1px solid var(--d-hair-strong)', padding: '10px 12px' }}>
+                    <div className='deck-mono' style={{ fontSize: '0.66rem' }}>Layer 03 · Registry</div>
+                    <div className='deck-body-text' style={{ fontSize: '0.95rem', marginTop: 4, color: 'var(--d-ink-2)' }}>
+                      Theme tokens · light/dark · project binding
                     </div>
                   </div>
                   <div style={{ border: '1px solid var(--d-hair-strong)', padding: '10px 12px' }}>
                     <div className='deck-mono' style={{ fontSize: '0.66rem' }}>Layer 02 · Components</div>
-                    <div className='deck-body-text' style={{ fontSize: '0.95rem', marginTop: 4, color: 'var(--d-ink)' }}>
+                    <div className='deck-body-text' style={{ fontSize: '0.95rem', marginTop: 4, color: 'var(--d-ink-2)' }}>
                       Buttons · inputs · tables · cards
                     </div>
                   </div>
-                  <div style={{ border: '1px solid var(--d-hair)', padding: '10px 12px' }}>
+                  <div style={{ border: '1px solid var(--d-hair-strong)', padding: '10px 12px' }}>
                     <div className='deck-mono' style={{ fontSize: '0.66rem' }}>Layer 01 · Tokens</div>
                     <div className='deck-body-text' style={{ fontSize: '0.95rem', marginTop: 4, color: 'var(--d-ink-2)' }}>
                       Colour · spacing · type · radii
@@ -116,7 +129,7 @@ export function Slide22WorkingRepo({ meta }: { meta: SlideMeta }) {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
               <Icon icon='lucide:sparkles' width={56} color='var(--d-accent)' strokeWidth={3} />
               <div className='deck-mono' style={{ fontSize: '0.66rem', textAlign: 'center' }}>
-                Cursor · Claude · Lovable
+                Cursor · Claude · Codex · Gemini
               </div>
             </div>
             <div className='deck-mono' style={{ fontSize: '0.62rem', textAlign: 'center', lineHeight: 1.5 }}>

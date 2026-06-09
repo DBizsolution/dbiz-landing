@@ -19,7 +19,7 @@ export function Slide07Hallucination({ meta }: { meta: SlideMeta }) {
           <span className='deck-marker'>Problem · 1 of 3</span>
           <h1 className='deck-h1'>Hallucination.</h1>
           <p className='deck-body-text'>
-            The AI invented a column. The BRD lists thirteen fields for an HBL.
+            The AI invented multiple columns. The BRD lists thirteen fields for an HBL.
             Consignor isn&apos;t one of them.
           </p>
           <ul className='deck-list' style={{ marginTop: 8 }}>

@@ -2,7 +2,16 @@ import { SlideShell, type SlideMeta } from '../slide-shell'
 
 export function Slide01Title({ meta }: { meta: SlideMeta }) {
   return (
-    <SlideShell meta={meta} bgImage='/deck/title-bg.jpg' bgSize='100% 100%' bgOverlay={0.55} noFrame>
+    <SlideShell
+      meta={meta}
+      bgImage='/deck/title-bg.jpg'
+      bgImageLight='/deck/title-bg-light.png'
+      bgSize='100% 100%'
+      bgOverlay={0.55}
+      bgOverlayLight={0}
+      bgFullBleed
+      noFrame
+    >
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <img
@@ -10,9 +19,7 @@ export function Slide01Title({ meta }: { meta: SlideMeta }) {
             alt='DBiz'
             style={{ height: 56, width: 'auto', display: 'block' }}
           />
-          <span className='deck-mono' style={{ color: 'rgba(255,255,255,0.55)' }}>
-            DBiz · Talk · 2026-04
-          </span>
+          <span className='deck-mono'>DBiz · Talk · 2026-04</span>
         </div>
 
         <div className='deck-stack-lg'>
@@ -30,7 +37,7 @@ export function Slide01Title({ meta }: { meta: SlideMeta }) {
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
           <div className='deck-stack-md'>
             <div className='deck-mono'>Speaker</div>
-            <div className='deck-h3'>Rahul · Design</div>
+            <div className='deck-h3'>Rahul Hareendran · Experience Design</div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end' }}>
             <span className='deck-marker'>Case study · VBS Pickup Portal</span>

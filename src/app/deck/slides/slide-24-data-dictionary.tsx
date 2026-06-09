@@ -19,15 +19,29 @@ export function Slide24DataDictionary({ meta }: { meta: SlideMeta }) {
   const [annotated, setAnnotated] = useState(false)
   return (
     <SlideShell meta={meta}>
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 24 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 20 }}>
         <div className='deck-stack-md'>
           <span className='deck-eyebrow'>
             <span className='bar' />
-            Phase 02 · Data dictionary — three views, one source
+            Phase 02 · Data dictionary
           </span>
           <h1 className='deck-h1' style={{ maxWidth: 1500 }}>
-            One field list. <em>Three views. No ambiguity.</em>
+            From <em>canvas → artifact → screen.</em> Same fields, no fabrication.
           </h1>
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+            gap: 24,
+            alignItems: 'end',
+            marginBottom: -8,
+          }}
+        >
+          <ColumnLabel kicker='Step 1' name='Consensus' detail='Field list in the canvas — name, type, required' />
+          <ColumnLabel kicker='Step 2' name='Artifact' detail='Generated entity model the AI reads' />
+          <ColumnLabel kicker='Step 3' name='Screen' detail='Live UI rendering those exact fields' />
         </div>
 
         <div
@@ -39,13 +53,13 @@ export function Slide24DataDictionary({ meta }: { meta: SlideMeta }) {
             minHeight: 0,
           }}
         >
-          {/* Canonical (canvas) */}
+          {/* Intent model (canvas) */}
           <div
             className='deck-box deck-box-hot'
             style={{ display: 'flex', flexDirection: 'column', padding: 24 }}
           >
             <div className='deck-box-head'>
-              <span style={{ color: 'var(--d-accent)' }}>DBiz Canvas · canonical</span>
+              <span style={{ color: 'var(--d-accent)' }}>DBiz Canvas · intent model</span>
               <span className='k'>D · 01</span>
             </div>
             <div className='deck-mono' style={{ marginTop: 12, fontSize: '0.66rem' }}>
@@ -107,14 +121,14 @@ export function Slide24DataDictionary({ meta }: { meta: SlideMeta }) {
                 minHeight: 0,
                 padding: 0,
                 overflow: 'hidden',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               <img
                 src='/deck/data-dictionary.png'
                 alt='Generated TypeScript entity model for HBL'
-                style={{ height: '100%', width: 'auto', maxWidth: 'none', display: 'block' }}
+                style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </div>
           </div>
@@ -168,7 +182,7 @@ export function Slide24DataDictionary({ meta }: { meta: SlideMeta }) {
               />
               <img
                 src='/deck/hbl-card-annotated.png'
-                alt='HBL summary card with field-name annotations mapping each value back to the canonical model'
+                alt='HBL summary card with field-name annotations mapping each value back to the intent model'
                 style={{
                   position: 'absolute',
                   top: 24,
@@ -187,7 +201,51 @@ export function Slide24DataDictionary({ meta }: { meta: SlideMeta }) {
             </div>
           </div>
         </div>
+
+        <div className='deck-mono' style={{ color: 'var(--d-ink-2)' }}>
+          From canvas → artifact → screen. <span style={{ color: 'var(--d-accent)' }}>No hallucination.</span>
+        </div>
       </div>
     </SlideShell>
+  )
+}
+
+function ColumnLabel({ kicker, name, detail }: { kicker: string; name: string; detail: string }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '0 4px' }}>
+      <span
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.62rem',
+          letterSpacing: '0.18em',
+          textTransform: 'uppercase',
+          color: 'var(--d-accent)',
+        }}
+      >
+        {kicker}
+      </span>
+      <span
+        style={{
+          fontFamily: 'var(--font-sans)',
+          fontWeight: 700,
+          fontSize: '1.4rem',
+          color: 'var(--d-ink)',
+          letterSpacing: '-0.015em',
+          lineHeight: 1.05,
+        }}
+      >
+        {name}
+      </span>
+      <span
+        style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: '0.86rem',
+          color: 'var(--d-ink-2)',
+          lineHeight: 1.35,
+        }}
+      >
+        {detail}
+      </span>
+    </div>
   )
 }
