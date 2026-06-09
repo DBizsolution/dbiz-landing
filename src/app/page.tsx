@@ -1,10 +1,10 @@
-import './v20/theme.css'
-import V20Page from './v20/page'
+import './v22.5/theme.css'
+import V225Page from './v22.5/page'
 
 export default function Home() {
   return (
-    <div className='v20-scope' data-theme='dark'>
-      <V20Page />
+    <div className='v22-scope' data-theme='dark'>
+      <V225Page />
     </div>
   )
 }
