@@ -5011,6 +5011,46 @@
    Operator → Composition (Agent Studio + Copilots) → Runtime (NEXUS) →
    Integration (iConnector) → Substrate (Boomi/MuleSoft/Workato) → Platforms
    Inline flow annotations between layers describe what passes through. */
+/* §02 framing statement above the accelerator schematic */
+.v22-cdp-accel-intro {
+  max-width: 64ch;
+  margin: 0 0 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.v22-cdp-accel-intro-lead {
+  font-family: var(--font-sans);
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--brand-navy);
+  margin: 0;
+}
+.v22-cdp-accel-intro-lead em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--v22-accent);
+}
+.v22-cdp-accel-intro-body {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.2vw, 1.08rem);
+  line-height: 1.6;
+  color: rgba(13, 27, 62, 0.74);
+  margin: 0;
+}
+.v22-cdp-accel-intro-note {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: rgba(13, 27, 62, 0.5);
+  margin: 4px 0 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--v22-accent);
+}
+
 .v22-cdp-accel-stack {
   display: flex;
   flex-direction: column;

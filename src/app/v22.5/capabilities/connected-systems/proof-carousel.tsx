@@ -109,6 +109,7 @@ const caseStudies = [
 
 export default function ProofCarousel() {
   const trackRef = useRef<HTMLDivElement>(null)
+  const snapTimer = useRef<number>(0)
   const [active, setActive] = useState(0)
   const count = caseStudies.length
 
@@ -119,8 +120,17 @@ export default function ProofCarousel() {
     const card = track.children[clamped] as HTMLElement | undefined
     if (!card) return
     /* Rect-based delta is robust regardless of offsetParent / padding. */
-    const delta = card.getBoundingClientRect().left - track.getBoundingClientRect().left
-    track.scrollTo({ left: track.scrollLeft + delta, behavior: 'smooth' })
+    const target = track.scrollLeft + (card.getBoundingClientRect().left - track.getBoundingClientRect().left)
+    /* `scroll-snap-type: mandatory` cancels a programmatic scrollTo (the snap
+       engine yanks it back to the current point), so disable snapping for the
+       duration of the button-driven scroll, then restore it once we've landed. */
+    track.style.scrollSnapType = 'none'
+    track.scrollTo({ left: target, behavior: 'smooth' })
+    setActive(clamped)
+    window.clearTimeout(snapTimer.current)
+    snapTimer.current = window.setTimeout(() => {
+      if (trackRef.current) trackRef.current.style.scrollSnapType = ''
+    }, 550)
   }, [count])
 
   /* Sync the active index to whichever card sits closest to the track centre. */

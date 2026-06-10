@@ -646,10 +646,22 @@ export default function ConnectedSystemsPage() {
           <div className='v22-cdp-block-grid'>
             <div className='v22-cdp-block-head'>
               <span className='v22-cdp-block-num'>Built in-house</span>
-              <h2 className='v22-cdp-block-title'>AI accelerators</h2>
+              <h2 className='v22-cdp-block-title'>AI that works <em>within</em> your systems, not outside them.</h2>
               <p className='v22-cdp-block-kicker'>Proprietary frameworks. Months of platform engineering, in weeks.</p>
             </div>
             <div className='v22-cdp-block-body'>
+              {/* Framing statement above the accelerator schematic */}
+              <div className='v22-cdp-accel-intro'>
+                <p className='v22-cdp-accel-intro-body'>
+                  We enhance enterprise platforms with AI to automate decisions, improve accuracy, and enable intelligent workflows across finance, sales, and operations.
+                </p>
+                <p className='v22-cdp-accel-intro-body'>
+                  Our approach embeds AI directly into your existing applications and integrations — so you can modernise without disrupting what already works.
+                </p>
+                <p className='v22-cdp-accel-intro-note'>
+                  Supported by internal accelerators for faster deployment and scalable execution.
+                </p>
+              </div>
               <AcceleratorStack />
             </div>
           </div>
