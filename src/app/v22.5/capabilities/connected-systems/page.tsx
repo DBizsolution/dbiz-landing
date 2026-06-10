@@ -3,9 +3,33 @@
    Execution in action → In production → Engagement → Proof → CTA.
    Positioning: implementation depth first, AI built in not bolted on. */
 
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { capabilities } from '../../capabilities-data'
+import { Icon } from '@/components/icon'
 import ServicesSection from './services-section'
+import ProofCarousel from './proof-carousel'
+
+/* Boomi & Workato use their official wordmarks served from public/. Both are
+   wide lockups, so Workato sits slightly shorter to balance its long mark. */
+function BoomiMark() {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src='/boomi-logo.svg' alt='' height={26} style={{ height: 26, width: 'auto' }} />
+}
+function WorkatoMark() {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src='/workato-logo.png' alt='' height={22} style={{ height: 22, width: 'auto' }} />
+}
+
+/* Partner marks. Microsoft/Salesforce/MuleSoft use real library logos;
+   Boomi/Workato fall back to the brand-coloured monograms above. */
+const PARTNER_MARKS: Record<string, ReactNode> = {
+  Microsoft: <Icon icon='logos:microsoft' height={26} aria-hidden='true' />,
+  Salesforce: <Icon icon='logos:salesforce' height={26} aria-hidden='true' />,
+  MuleSoft: <Icon icon='simple-icons:mulesoft' height={24} color='#00A0DF' aria-hidden='true' />,
+  Boomi: <BoomiMark />,
+  Workato: <WorkatoMark />,
+}
 
 const SLUG = 'connected-systems'
 const idx = capabilities.findIndex(c => c.slug === SLUG)
@@ -191,109 +215,98 @@ function AcceleratorSystem() {
   )
 }
 
-/* ─── Accelerator stack — single-viewport infographic.
-   Replaces the previous multi-card layered stack with one cohesive SVG.
-   Fits ~480×760 viewBox (responsive width). Schematic blueprint style:
-   corner ticks, mono labels, dashed flow lines, NEXUS center with subtle
-   pulse animation. */
+/* ─── Accelerator stack — the four accelerators rendered as a layered
+   card diagram (the cards *are* the architecture): Operator → Composition
+   (Agent Studio + Copilots) → Runtime (NEXUS, the spine) → Integration
+   (iConnector) → Substrate (Boomi/MuleSoft/Workato) → enterprise platforms.
+   Reads as a flow top-to-bottom; each layer is a real, scannable card with
+   its schematic glyph. Data + glyphs come from `accelerators` / AccelGlyph. */
 function AcceleratorStack() {
-  const ink = 'rgba(13, 27, 62, 0.85)'
-  const dim = 'rgba(13, 27, 62, 0.32)'
-  const dim2 = 'rgba(13, 27, 62, 0.55)'
-  const acc = 'var(--v22-accent)'
-  const accBg = 'rgba(240, 123, 47, 0.05)'
-  const accBgStrong = 'rgba(240, 123, 47, 0.1)'
+  const composition = accelerators.filter(a => a.layer === 'Composition')
+  const nexus = accelerators.find(a => a.name === 'NEXUS')!
+  const iconnector = accelerators.find(a => a.name === 'iConnector')!
+  const nexusJobs = [
+    'Validates the plan before execution',
+    'Enforces role-based permissions',
+    'Logs every action — agent or human',
+  ]
 
   return (
-    <svg
-      viewBox='0 0 760 480'
-      role='img'
-      aria-label='Accelerator stack: Operator → Composition (Agent Studio + Productivity Copilots) → NEXUS runtime → iConnector integration → Substrate (Boomi, MuleSoft, Workato) → Enterprise platforms'
-      className='v22-cdp-accel-infographic'
-    >
-      {/* Schematic frame — corner ticks */}
-      <g stroke={dim} strokeWidth='0.8'>
-        <line x1='8' y1='8' x2='28' y2='8' /><line x1='8' y1='8' x2='8' y2='28' />
-        <line x1='752' y1='8' x2='732' y2='8' /><line x1='752' y1='8' x2='752' y2='28' />
-        <line x1='8' y1='472' x2='28' y2='472' /><line x1='8' y1='472' x2='8' y2='452' />
-        <line x1='752' y1='472' x2='732' y2='472' /><line x1='752' y1='472' x2='752' y2='452' />
-      </g>
-      <text x='20' y='28' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.6' fill={dim2}>FIG 02 · ACCELERATOR STACK</text>
-      <text x='740' y='28' textAnchor='end' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.6' fill={acc}>FLOW ↓</text>
+    <div className='v22-cdp-accel-stack'>
+      {/* Origin — who/what triggers the workflow */}
+      <div className='v22-cdp-accel-origin'>
+        <span className='v22-cdp-accel-origin-label'>Operator</span>
+        <span className='v22-cdp-accel-origin-tag'>Human or agent trigger</span>
+      </div>
 
-      {/* TOP — Operator badge */}
-      <rect x='320' y='46' width='120' height='30' fill='none' stroke={dim} strokeWidth='0.9' strokeDasharray='3 3' />
-      <text x='380' y='66' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='10' fontWeight='700' letterSpacing='1.6' fill={ink}>OPERATOR</text>
-      <line x1='380' y1='76' x2='380' y2='100' stroke={dim2} strokeWidth='1' strokeDasharray='3 3' />
+      <div className='v22-cdp-accel-flow'>
+        <span className='v22-cdp-accel-flow-text'>A · Composition</span>
+      </div>
 
-      {/* LAYER A · Composition — Agent Studio + Productivity Copilots */}
-      <text x='40' y='100' fontFamily='var(--font-mono)' fontSize='8' fontWeight='700' letterSpacing='1.6' fill={acc}>A · COMPOSITION</text>
-      <g>
-        <rect x='40' y='108' width='340' height='62' fill='#ffffff' stroke={ink} strokeWidth='1.2' />
-        <line x1='40' y1='110' x2='380' y2='110' stroke={acc} strokeWidth='3' />
-        <text x='210' y='134' textAnchor='middle' fontFamily='var(--font-sans)' fontSize='14' fontWeight='700' fill={ink}>Agent Studio</text>
-        <text x='210' y='154' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.2' fill={dim2}>multi-agent workflows · governed</text>
-      </g>
-      <g>
-        <rect x='400' y='108' width='320' height='62' fill='#ffffff' stroke={ink} strokeWidth='1.2' />
-        <line x1='400' y1='110' x2='720' y2='110' stroke={acc} strokeWidth='3' />
-        <text x='560' y='134' textAnchor='middle' fontFamily='var(--font-sans)' fontSize='14' fontWeight='700' fill={ink}>Productivity Copilots</text>
-        <text x='560' y='154' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.2' fill={dim2}>Agentforce · Copilot Studio · Now Assist</text>
-      </g>
-      {/* Merging connectors to NEXUS */}
-      <line x1='210' y1='170' x2='380' y2='198' stroke={acc} strokeWidth='1' strokeDasharray='3 3' />
-      <line x1='560' y1='170' x2='380' y2='198' stroke={acc} strokeWidth='1' strokeDasharray='3 3' />
-      <circle cx='380' cy='198' r='2.5' fill={acc} />
-      <text x='400' y='192' fontFamily='var(--font-mono)' fontSize='8' letterSpacing='1.4' fill={acc}>WORKFLOWS · TOOL-USE PLANS ↓</text>
+      {/* Layer A — Composition: two lightweight cards side by side */}
+      <div className='v22-cdp-accel-layer v22-cdp-accel-layer--composition'>
+        <div className='v22-cdp-accel-layer-cards'>
+          {composition.map((a) => (
+            <article key={a.name} className='v22-cdp-accel-card v22-cdp-accel-card--slim'>
+              <div className='v22-cdp-accel-glyph-wrap'><AccelGlyph i={a.glyphIndex} /></div>
+              <h3 className='v22-cdp-accel-name'>{a.name}</h3>
+              <p className='v22-cdp-accel-role'>{a.role}</p>
+            </article>
+          ))}
+        </div>
+      </div>
 
-      {/* LAYER B · Runtime — NEXUS (spine, orange-tinted, biggest visual) */}
-      <text x='40' y='218' fontFamily='var(--font-mono)' fontSize='8' fontWeight='700' letterSpacing='1.6' fill={acc}>B · RUNTIME</text>
-      <rect x='40' y='206' width='680' height='84' fill={accBgStrong} stroke={acc} strokeWidth='1.6' />
-      {/* Schematic NEXUS glyph at left of bar */}
-      <circle cx='90' cy='248' r='28' fill='none' stroke={dim} strokeWidth='0.7' strokeDasharray='1.5 2.5' />
-      <circle cx='90' cy='248' r='20' fill='none' stroke={ink} strokeWidth='1' />
-      <circle className='v22-cdp-info-nexus-ring' cx='90' cy='248' r='12' fill='none' stroke={acc} strokeWidth='1.4' />
-      <circle className='v22-cdp-info-nexus-pulse' cx='90' cy='248' r='3.5' fill={acc} />
-      {/* Title + subtitle */}
-      <text x='150' y='244' fontFamily='var(--font-sans)' fontSize='22' fontWeight='800' letterSpacing='-0.02em' fill={ink}>NEXUS</text>
-      <text x='150' y='266' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.4' fill={dim2}>governed runtime · permissions · observability</text>
-      {/* Right-side responsibilities (3 inline jobs) */}
-      <g fontFamily='var(--font-mono)' fontSize='8.5' letterSpacing='1.2' fill={ink}>
-        <text x='450' y='230'>→ VALIDATES THE PLAN</text>
-        <text x='450' y='250'>→ ENFORCES PERMISSIONS</text>
-        <text x='450' y='270'>→ LOGS EVERY ACTION</text>
-      </g>
-      {/* Connector down */}
-      <line x1='380' y1='290' x2='380' y2='314' stroke={acc} strokeWidth='1' strokeDasharray='3 3' />
-      <text x='400' y='308' fontFamily='var(--font-mono)' fontSize='8' letterSpacing='1.4' fill={acc}>GOVERNED ACTIONS ↓</text>
+      <div className='v22-cdp-accel-flow'>
+        <span className='v22-cdp-accel-flow-text'>Workflows · tool-use plans</span>
+      </div>
 
-      {/* LAYER C · Integration — iConnector */}
-      <text x='40' y='332' fontFamily='var(--font-mono)' fontSize='8' fontWeight='700' letterSpacing='1.6' fill={acc}>C · INTEGRATION</text>
-      <rect x='40' y='320' width='680' height='56' fill={accBg} stroke={acc} strokeWidth='1.4' />
-      <text x='380' y='346' textAnchor='middle' fontFamily='var(--font-sans)' fontSize='16' fontWeight='700' letterSpacing='-0.018em' fill={ink}>iConnector</text>
-      <text x='380' y='364' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.2' fill={dim2}>MCP-compliant interfaces · agent-readable APIs</text>
-      {/* 3 diverging connector lines to substrate */}
-      <line x1='180' y1='376' x2='180' y2='402' stroke={dim2} strokeWidth='0.9' strokeDasharray='2 3' />
-      <line x1='380' y1='376' x2='380' y2='402' stroke={dim2} strokeWidth='0.9' strokeDasharray='2 3' />
-      <line x1='580' y1='376' x2='580' y2='402' stroke={dim2} strokeWidth='0.9' strokeDasharray='2 3' />
+      {/* Layer B — Runtime: NEXUS, the spine. Carries its 3 jobs inline. */}
+      <div className='v22-cdp-accel-layer v22-cdp-accel-layer--runtime'>
+        <div className='v22-cdp-accel-layer-cards'>
+          <article className='v22-cdp-accel-card v22-cdp-accel-card--row v22-cdp-accel-card--runtime'>
+            <div className='v22-cdp-accel-glyph-wrap'><AccelGlyph i={nexus.glyphIndex} /></div>
+            <div className='v22-cdp-accel-meta'>
+              <span className='v22-cdp-accel-kind'>{nexus.kind}</span>
+              <h3 className='v22-cdp-accel-name'>{nexus.name}</h3>
+              <p className='v22-cdp-accel-role'>{nexus.role}</p>
+            </div>
+            <ul className='v22-cdp-accel-runtime-jobs'>
+              {nexusJobs.map((j) => <li key={j}>{j}</li>)}
+            </ul>
+          </article>
+        </div>
+      </div>
 
-      {/* LAYER D · Substrate — 3 platform boxes */}
-      <text x='40' y='418' fontFamily='var(--font-mono)' fontSize='8' fontWeight='700' letterSpacing='1.6' fill={dim2}>ALREADY YOURS · SUBSTRATE</text>
-      <rect x='100' y='406' width='160' height='30' fill='none' stroke={ink} strokeWidth='1' />
-      <text x='180' y='425' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='10' fontWeight='600' letterSpacing='1.6' fill={ink}>BOOMI</text>
-      <rect x='300' y='406' width='160' height='30' fill='none' stroke={ink} strokeWidth='1' />
-      <text x='380' y='425' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='10' fontWeight='600' letterSpacing='1.6' fill={ink}>MULESOFT</text>
-      <rect x='500' y='406' width='160' height='30' fill='none' stroke={ink} strokeWidth='1' />
-      <text x='580' y='425' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='10' fontWeight='600' letterSpacing='1.6' fill={ink}>WORKATO</text>
-      {/* Down to platforms */}
-      <line x1='180' y1='436' x2='180' y2='450' stroke={dim} strokeWidth='0.8' strokeDasharray='2 3' />
-      <line x1='380' y1='436' x2='380' y2='450' stroke={dim} strokeWidth='0.8' strokeDasharray='2 3' />
-      <line x1='580' y1='436' x2='580' y2='450' stroke={dim} strokeWidth='0.8' strokeDasharray='2 3' />
+      <div className='v22-cdp-accel-flow'>
+        <span className='v22-cdp-accel-flow-text'>Governed actions</span>
+      </div>
 
-      {/* BOTTOM — enterprise platforms (the bedrock that's already there) */}
-      <line x1='40' y1='450' x2='720' y2='450' stroke={dim} strokeWidth='0.8' strokeDasharray='2 3' />
-      <text x='380' y='466' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='10' fontWeight='600' letterSpacing='1.6' fill={dim2}>SALESFORCE · DYNAMICS · ORACLE · NETSUITE · SERVICENOW</text>
-    </svg>
+      {/* Layer C — Integration: iConnector, full-width row */}
+      <div className='v22-cdp-accel-layer v22-cdp-accel-layer--integration'>
+        <div className='v22-cdp-accel-layer-cards'>
+          <article className='v22-cdp-accel-card v22-cdp-accel-card--row v22-cdp-accel-card--integration'>
+            <div className='v22-cdp-accel-glyph-wrap'><AccelGlyph i={iconnector.glyphIndex} /></div>
+            <div className='v22-cdp-accel-meta'>
+              <span className='v22-cdp-accel-kind'>{iconnector.kind}</span>
+              <h3 className='v22-cdp-accel-name'>{iconnector.name}</h3>
+              <p className='v22-cdp-accel-role'>{iconnector.role}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      {/* Substrate — the platforms the stack already runs on */}
+      <div className='v22-cdp-accel-substrate'>
+        <div className='v22-cdp-accel-substrate-row'>
+          <span className='v22-cdp-accel-substrate-label'>Substrate</span>
+          <span className='v22-cdp-accel-substrate-list'>Boomi · MuleSoft · Workato</span>
+        </div>
+        <div className='v22-cdp-accel-substrate-row'>
+          <span className='v22-cdp-accel-substrate-label'>Platforms</span>
+          <span className='v22-cdp-accel-substrate-list'>Salesforce · Dynamics · Oracle · NetSuite · ServiceNow</span>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -348,76 +361,6 @@ function HeroDiagram() {
       ))}
       <text x='20' y='360' fontFamily='var(--font-mono)' fontSize='8' letterSpacing='1.5' fill='rgba(255,255,255,0.4)'>SCALE 1:1</text>
       <text x='440' y='360' fontFamily='var(--font-mono)' fontSize='8' letterSpacing='1.5' fill='rgba(255,255,255,0.4)' textAnchor='end'>SHEET A4</text>
-    </svg>
-  )
-}
-
-/* ─── AI pattern glyphs — schematic style matching why-section.
-   Larger 120×120 viewbox, technical drawing language: dim guide marks +
-   ink primary lines + accent details. */
-function PatternGlyph({ i }: { i: number }) {
-  const ink = 'rgba(255,255,255,0.85)'
-  const dim = 'rgba(255,255,255,0.28)'
-  const acc = 'var(--v22-accent)'
-
-  if (i === 0) return (
-    /* QUALITY REGISTRATION — concentric scan rings + agent lock-on */
-    <svg viewBox='0 0 120 120' aria-hidden='true' className='v22-cdp-pattern-glyph'>
-      <circle cx='60' cy='60' r='52' fill='none' stroke={dim} strokeWidth='0.7' strokeDasharray='1.5 2.5' />
-      {[0, 45, 90, 135, 180, 225, 270, 315].map((a, k) => {
-        const rad = (a * Math.PI) / 180
-        const x1 = 60 + Math.cos(rad) * 48
-        const y1 = 60 + Math.sin(rad) * 48
-        const x2 = 60 + Math.cos(rad) * (k % 2 === 0 ? 56 : 52)
-        const y2 = 60 + Math.sin(rad) * (k % 2 === 0 ? 56 : 52)
-        return <line key={k} x1={x1.toFixed(2)} y1={y1.toFixed(2)} x2={x2.toFixed(2)} y2={y2.toFixed(2)} stroke={dim} strokeWidth='0.8' />
-      })}
-      <circle cx='60' cy='60' r='34' fill='none' stroke={ink} strokeWidth='1' />
-      <circle cx='60' cy='60' r='18' fill='none' stroke={acc} strokeWidth='1.4' />
-      <line x1='4' y1='60' x2='14' y2='60' stroke={ink} strokeWidth='0.9' />
-      <line x1='106' y1='60' x2='116' y2='60' stroke={ink} strokeWidth='0.9' />
-      <line x1='60' y1='4' x2='60' y2='14' stroke={ink} strokeWidth='0.9' />
-      <line x1='60' y1='106' x2='60' y2='116' stroke={ink} strokeWidth='0.9' />
-      <circle cx='60' cy='60' r='3.2' fill={acc} />
-    </svg>
-  )
-
-  if (i === 1) return (
-    /* COMPLIANCE — shield envelope + verified checkmark */
-    <svg viewBox='0 0 120 120' aria-hidden='true' className='v22-cdp-pattern-glyph'>
-      <path d='M 60 12 L 100 28 L 100 64 Q 100 92 60 108 Q 20 92 20 64 L 20 28 Z'
-        fill='none' stroke={ink} strokeWidth='1.1' strokeLinejoin='round' />
-      <path d='M 60 22 L 92 35 L 92 64 Q 92 86 60 98 Q 28 86 28 64 L 28 35 Z'
-        fill='none' stroke={dim} strokeWidth='0.7' strokeDasharray='2 2.5' strokeLinejoin='round' />
-      <path d='M 40 60 L 54 74 L 82 44' stroke={acc} strokeWidth='2.4' fill='none' strokeLinecap='round' strokeLinejoin='round' />
-      <text x='60' y='118' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='6.5' letterSpacing='1.2' fill={dim}>VERIFIED</text>
-    </svg>
-  )
-
-  return (
-    /* PROCUREMENT ROUTING — multi-system network with central agent hub */
-    <svg viewBox='0 0 120 120' aria-hidden='true' className='v22-cdp-pattern-glyph'>
-      {/* Outer system nodes (4 corners) */}
-      {[
-        { cx: 24, cy: 24, label: 'ERP' },
-        { cx: 96, cy: 24, label: 'CRM' },
-        { cx: 24, cy: 96, label: 'PRL' },
-        { cx: 96, cy: 96, label: 'API' },
-      ].map((n, k) => (
-        <g key={k}>
-          <rect x={n.cx - 11} y={n.cy - 11} width='22' height='22' fill='none' stroke={ink} strokeWidth='0.9' />
-          <text x={n.cx} y={n.cy + 2.5} textAnchor='middle' fontFamily='var(--font-mono)' fontSize='6.5' fontWeight='600' fill={ink}>{n.label}</text>
-        </g>
-      ))}
-      {/* Connection lines from corners to center */}
-      <line x1='35' y1='35' x2='52' y2='52' stroke={dim} strokeWidth='0.9' strokeDasharray='2 2.5' />
-      <line x1='85' y1='35' x2='68' y2='52' stroke={dim} strokeWidth='0.9' strokeDasharray='2 2.5' />
-      <line x1='35' y1='85' x2='52' y2='68' stroke={dim} strokeWidth='0.9' strokeDasharray='2 2.5' />
-      <line x1='85' y1='85' x2='68' y2='68' stroke={dim} strokeWidth='0.9' strokeDasharray='2 2.5' />
-      {/* Central agent hub */}
-      <circle cx='60' cy='60' r='14' fill='none' stroke={acc} strokeWidth='1.4' />
-      <circle cx='60' cy='60' r='7' fill='none' stroke={ink} strokeWidth='0.9' />
-      <circle cx='60' cy='60' r='2.5' fill={acc} />
     </svg>
   )
 }
@@ -542,25 +485,6 @@ const aiPatterns = [
   },
 ]
 
-const outcomeGroups = [
-  {
-    label: 'Delivery depth',
-    items: [
-      { val: '10+ yrs', label: 'Microsoft enterprise delivery' },
-      { val: '50+', label: 'Dynamics 365 deployments delivered' },
-      { val: '200+', label: 'certified Microsoft engineers' },
-    ],
-  },
-  {
-    label: 'Operational outcomes',
-    items: [
-      { val: '1,500+', label: 'pre-built integration connectors' },
-      { val: '40–60%', label: 'improvement in data accuracy' },
-      { val: '80%', label: 'reduction in ERP integration time' },
-    ],
-  },
-]
-
 const engagementModels = [
   {
     name: 'Fixed Scope Delivery',
@@ -582,36 +506,6 @@ const engagementModels = [
 
 /* Cases mapped to the three §03 use cases above, so the "Where the use cases
    shipped" promise is honoured. Meta = technical scope, not client claim. */
-const caseStudies = [
-  {
-    use: 'Use case 01',
-    scope: 'CRM + integration',
-    title: 'Quality Registration',
-    body: 'MuleSoft MCP servers expose internal APIs to Salesforce. Agents retrieve valuation data, validate compliance, assess risk, and complete registrations end-to-end.',
-    metric: '−70%',
-    metricLabel: 'manual effort',
-    platforms: ['Salesforce Agentforce', 'MuleSoft Anypoint', 'NEXUS iConnector'],
-  },
-  {
-    use: 'Use case 02',
-    scope: 'service automation',
-    title: 'Sales Compliance',
-    body: 'Agentforce processes escalation tickets continuously, updates compliance fields against policy, and generates audit summaries — without human triage.',
-    metric: '↑ accuracy',
-    metricLabel: 'over manual baseline',
-    platforms: ['Salesforce Agentforce', 'Service Cloud', 'Data Cloud'],
-  },
-  {
-    use: 'Use case 03',
-    scope: 'multi-system orchestration',
-    title: 'Procurement Routing',
-    body: 'MuleSoft MCP architecture enables real-time vendor validation and automated PRL approvals across ERP systems — coordinated end-to-end.',
-    metric: 'real-time',
-    metricLabel: 'across ERPs',
-    platforms: ['MuleSoft MCP', 'Oracle ERP', 'NEXUS iConnector'],
-  },
-]
-
 export default function ConnectedSystemsPage() {
   return (
     <main className='v22-cap-detail-page'>
@@ -656,7 +550,7 @@ export default function ConnectedSystemsPage() {
               </h1>
               <p className='v22-cdp-subtitle'>{cap.subtitle}</p>
               <p className='v22-cdp-lead'>
-                Salesforce, Dynamics, the integration stack — already running your business. We make them run agents too, without rebuilding what works. Existing investments stay; agents read, write, and act across them.
+                We design, implement, and scale enterprise applications across Microsoft Dynamics 365, Salesforce, and Oracle ERP Cloud — connecting systems, streamlining workflows, and enabling real-time, intelligent operations.
               </p>
               <div className='v22-cdp-hero-actions'>
                 <Link href='#pillars' className='v22-cta-primary'>
@@ -681,7 +575,7 @@ export default function ConnectedSystemsPage() {
       <section id='partners' className='v22-cdp-partners' data-surface='light' aria-label='Technology partners and platforms'>
         <div className='v22-container'>
           <div className='v22-cdp-partners-head'>
-            <span className='v22-cdp-partners-kicker'>Technology partners &amp; platforms</span>
+            <span className='v22-cdp-partners-kicker'>Ecosystem</span>
             <h2 className='v22-cdp-partners-title'>
               Inside every <em>enterprise ecosystem</em> at certified delivery depth.
             </h2>
@@ -692,6 +586,11 @@ export default function ConnectedSystemsPage() {
           <div className='v22-cdp-partners-grid'>
             {partnerships.map((p) => (
               <article key={p.name} className='v22-cdp-partners-card'>
+                {PARTNER_MARKS[p.name] && (
+                  <span className='v22-cdp-partners-logo'>
+                    {PARTNER_MARKS[p.name]}
+                  </span>
+                )}
                 <div className='v22-cdp-partners-card-head'>
                   <h3 className='v22-cdp-partners-name'>{p.name}</h3>
                   <span className='v22-cdp-partners-tier'>{p.tier}</span>
@@ -721,11 +620,11 @@ export default function ConnectedSystemsPage() {
       </section>
 
       {/* §02 AI ACCELERATORS — DBiz proprietary IP */}
-      <section id='accelerators' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
+      <section id='accelerators' className='v22-cdp-block' data-surface='light'>
         <div className='v22-container'>
           <div className='v22-cdp-block-grid'>
             <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>§02</span>
+              <span className='v22-cdp-block-num'>Built in-house</span>
               <h2 className='v22-cdp-block-title'>AI accelerators</h2>
               <p className='v22-cdp-block-kicker'>Proprietary frameworks. Months of platform engineering, in weeks.</p>
             </div>
@@ -743,79 +642,27 @@ export default function ConnectedSystemsPage() {
         <div className='v22-container'>
           <div className='v22-cdp-block-grid'>
             <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>§03</span>
+              <span className='v22-cdp-block-num'>Proof</span>
               <h2 className='v22-cdp-block-title'>AI in <em>action</em></h2>
               <p className='v22-cdp-block-kicker'>
                 Three use cases shipped. Same patterns, real environments — each measured in production.
               </p>
             </div>
             <div className='v22-cdp-block-body'>
-              <div className='v22-cdp-proof-grid'>
-                {caseStudies.map((cs, i) => (
-                  <article key={cs.title} className='v22-cdp-proof-card'>
-                    <header className='v22-cdp-proof-head'>
-                      <div className='v22-cdp-proof-glyph'>
-                        <PatternGlyph i={i} />
-                      </div>
-                      <div className='v22-cdp-proof-head-meta'>
-                        <span className='v22-cdp-proof-use'>{cs.use}</span>
-                        <span className='v22-cdp-proof-scope'>{cs.scope}</span>
-                      </div>
-                    </header>
-                    <h3 className='v22-cdp-proof-title'>{cs.title}</h3>
-                    <p className='v22-cdp-proof-body'>{cs.body}</p>
-                    <div className='v22-cdp-proof-metric'>
-                      <span className='v22-cdp-proof-metric-val'>{cs.metric}</span>
-                      <span className='v22-cdp-proof-metric-lbl'>{cs.metricLabel}</span>
-                    </div>
-                    <ul className='v22-cdp-proof-platforms' aria-label='Platforms used'>
-                      {cs.platforms.map((p) => <li key={p}>{p}</li>)}
-                    </ul>
-                  </article>
-                ))}
-              </div>
+              <ProofCarousel />
             </div>
           </div>
         </div>
       </section>
 
-      {/* §04 IN PRODUCTION — numbers, grouped: depth + outcomes */}
-      <section id='numbers' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
-        <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>§04</span>
-              <h2 className='v22-cdp-block-title'>In production</h2>
-              <p className='v22-cdp-block-kicker'>Enterprise platform engineering at certified delivery depth.</p>
-            </div>
-            <div className='v22-cdp-block-body'>
-              <div className='v22-cdp-telemetry-groups'>
-                {outcomeGroups.map((g) => (
-                  <div key={g.label} className='v22-cdp-telemetry-group'>
-                    <span className='v22-cdp-telemetry-group-label'>{g.label}</span>
-                    <ul className='v22-cdp-telemetry-list'>
-                      {g.items.map((o) => (
-                        <li key={o.label}>
-                          <span className='v22-cdp-telemetry-val'>{o.val}</span>
-                          <span className='v22-cdp-telemetry-lbl'>{o.label}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §05 ENGAGEMENT MODELS — light cream band (renumbered after merging
-           the old §03 use cases + §05 proof into the new §03 AI in action) */}
+      {/* §04 ENGAGEMENT MODELS — warm cream band. (The old "In production"
+           numbers section was dropped; its proof metrics now live in the §01
+           credibility band, the single stats home on the page.) */}
       <section id='engagement' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
         <div className='v22-container'>
           <div className='v22-cdp-block-grid'>
             <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>§05</span>
+              <span className='v22-cdp-block-num'>How we work</span>
               <h2 className='v22-cdp-block-title'>Engagement models</h2>
               <p className='v22-cdp-block-kicker'>Four shapes. Pick the one that fits how you want to work with us.</p>
             </div>

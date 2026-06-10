@@ -4648,6 +4648,8 @@
    Tab strip lives above the card grid as a clear navigation row. Tabs are
    borderless with an underline indicator (active state) — visually
    separate from the cards below so users read them as clickable. */
+/* Capability picker — horizontal underline tabs above the active platform
+   panel. Single-column body flow, consistent with §02/§04/§05. */
 .v22-cdp-services-tabs {
   display: flex;
   flex-direction: column;
@@ -4665,6 +4667,7 @@
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
   text-align: left;
   cursor: pointer;
   font-family: var(--font-sans);
@@ -4673,7 +4676,6 @@
   letter-spacing: -0.012em;
   color: rgba(13, 27, 62, 0.55);
   white-space: nowrap;
-  margin-bottom: -1px;
   transition: border-color 200ms ease, color 200ms ease;
 }
 .v22-cdp-services-tab:first-child {
@@ -4711,6 +4713,12 @@
   max-width: 70ch;
 }
 @media (max-width: 720px) {
+  /* Horizontal scroll strip when the tabs no longer fit */
+  .v22-cdp-services-tablist {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .v22-cdp-services-tablist::-webkit-scrollbar { display: none; }
   .v22-cdp-services-tab { padding: 10px 14px 12px; font-size: 0.86rem; }
   .v22-cdp-services-tab:first-child { padding-left: 0; }
 }
@@ -4909,66 +4917,6 @@
   line-height: 1.5;
   color: rgba(13, 27, 62, 0.7);
 }
-.v22-cdp-telemetry {
-  border-top: 1px solid rgba(13, 27, 62, 0.12);
-  padding-top: 24px;
-}
-.v22-cdp-telemetry-head {
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--v22-accent);
-  margin-bottom: 16px;
-}
-/* Telemetry groups — split into "Delivery depth" and "Operational outcomes"
-   so the 6 stats have hierarchy instead of competing as equals. */
-.v22-cdp-telemetry-groups {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-.v22-cdp-telemetry-group-label {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--v22-accent);
-  margin-bottom: 8px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--v22-accent);
-}
-.v22-cdp-telemetry-list {
-  list-style: none;
-  margin: 0; padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-.v22-cdp-telemetry-list li {
-  display: grid;
-  grid-template-columns: minmax(96px, auto) 1fr;
-  gap: 24px;
-  padding: 14px 0;
-  border-bottom: 1px solid rgba(13, 27, 62, 0.08);
-  align-items: baseline;
-}
-.v22-cdp-telemetry-list li:last-child { border-bottom: none; }
-.v22-cdp-telemetry-val {
-  font-family: var(--font-sans);
-  font-weight: 800;
-  font-size: 1.5rem;
-  letter-spacing: -0.03em;
-  color: var(--brand-navy);
-  font-feature-settings: 'tnum' 1;
-}
-.v22-cdp-telemetry-lbl {
-  font-family: var(--font-sans);
-  font-size: 0.92rem;
-  color: rgba(13, 27, 62, 0.7);
-}
-
 /* AI AS ENHANCEMENT (§03) — dark navy band */
 .v22-cdp-ai {
   background-color: var(--brand-navy);
@@ -5537,7 +5485,6 @@
   .v22-cdp-outcome-pillars { grid-template-columns: 1fr; }
   .v22-cdp-patterns { grid-template-columns: 1fr; }
   .v22-cdp-cta-inner { grid-template-columns: 1fr; gap: 32px; }
-  .v22-cdp-telemetry-list li { grid-template-columns: 1fr; gap: 4px; }
 }
 
 /* CONTENT BLOCKS — cream paper */
@@ -5586,6 +5533,10 @@
   font-size: clamp(1rem, 1.2vw, 1.1rem);
   line-height: 1.7;
   color: rgba(13, 27, 62, 0.78);
+  /* Allow the grid item to shrink below its content's intrinsic width so
+     scroll containers (e.g. the proof carousel) scroll internally instead
+     of blowing out the column at narrow widths. */
+  min-width: 0;
 }
 /* Constrain prose for readability, but let grids/lists/cards run full width */
 .v22-cdp-block-body > p { max-width: 60ch; margin: 0 0 16px; }
@@ -5722,7 +5673,8 @@
 
 @media (max-width: 880px) {
   .v22-cdp-hero-grid { grid-template-columns: 1fr; }
-  .v22-cdp-hero-aside { order: -1; }
+  /* Drop the schematic diagram on small screens to preserve vertical space */
+  .v22-cdp-hero-aside { display: none; }
   .v22-cdp-block-grid { grid-template-columns: 1fr; gap: 20px; }
   .v22-cdp-block-head { position: static; }
   .v22-cdp-deliver li { grid-template-columns: 12px 1fr; }
@@ -7003,12 +6955,19 @@
    prominent partnership tiers — establishes credibility before the page
    moves into capability areas. */
 .v22-cdp-partners {
-  background: var(--v22-paper);
+  /* Warm cream surface (paper-2) so it differs from the plain-light §01 above
+     and §02 below — part of the page's light/cream/dark rhythm. */
+  background: var(--v22-paper-2);
   background-image:
     radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.06) 1px, transparent 0);
   background-size: 22px 22px;
   border-bottom: 1px solid rgba(13, 27, 62, 0.08);
   padding: clamp(48px, 6vw, 84px) 0;
+}
+/* Beat the scope-level [data-surface=light] paper background (0,2,0) so the
+   cream surface actually lands. */
+.v22-scope [data-surface="light"].v22-cdp-partners {
+  background-color: var(--v22-paper-2);
 }
 .v22-cdp-partners-head {
   display: flex;
@@ -7086,6 +7045,131 @@
   bottom: -1px; right: -1px;
   border-left: none;
   border-top: none;
+}
+/* §01 credibility band — delivery proof above the services tabs. Sits in a
+   faint schematic panel with orange corner ticks so it reads as a distinct
+   "proof" module, clearly separate from the capability tabs below. */
+.v22-cdp-cred {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 30px 32px;
+  background: linear-gradient(180deg, rgba(13, 27, 62, 0.032), rgba(13, 27, 62, 0.014));
+  border: 1px solid rgba(13, 27, 62, 0.1);
+}
+.v22-cdp-cred::before,
+.v22-cdp-cred::after {
+  content: '';
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--v22-accent);
+}
+.v22-cdp-cred::before {
+  top: -1px; left: -1px;
+  border-right: none; border-bottom: none;
+}
+.v22-cdp-cred::after {
+  bottom: -1px; right: -1px;
+  border-left: none; border-top: none;
+}
+/* Clear divide between the proof panel and the capability tabs — a solid
+   hairline led by a short orange accent segment. */
+.v22-cdp-cred + .v22-cdp-services-tabs {
+  position: relative;
+  margin-top: 40px;
+  padding-top: 34px;
+  border-top: 1px solid rgba(13, 27, 62, 0.14);
+}
+.v22-cdp-cred + .v22-cdp-services-tabs::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 0;
+  width: 52px;
+  border-top: 2px solid var(--v22-accent);
+}
+.v22-cdp-cred-lede {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.2vw, 1.08rem);
+  line-height: 1.6;
+  color: rgba(13, 27, 62, 0.8);
+  max-width: 70ch;
+  margin: 0;
+}
+.v22-cdp-cred-proof {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.v22-cdp-cred-proof-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+}
+.v22-cdp-cred-stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* 1px gap over a navy backdrop draws schematic gridlines between cells */
+  gap: 1px;
+  background: rgba(13, 27, 62, 0.12);
+  border: 1px solid rgba(13, 27, 62, 0.12);
+}
+.v22-cdp-cred-stats li {
+  background: #ffffff;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: background 180ms ease;
+}
+.v22-cdp-cred-stats li:hover {
+  background: rgba(240, 123, 47, 0.05);
+}
+.v22-cdp-cred-stat-val {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--brand-navy);
+}
+.v22-cdp-cred-stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.55);
+  line-height: 1.35;
+}
+.v22-cdp-cred-foot {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.6);
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .v22-cdp-cred-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.v22-cdp-partners-logo {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  margin-bottom: 2px;
+}
+.v22-cdp-partners-logo svg {
+  height: 26px;
+  width: auto;
+  display: block;
 }
 .v22-cdp-partners-card-head {
   display: flex;
@@ -7332,6 +7416,108 @@
   flex-direction: column;
   gap: 14px;
 }
+
+/* ─── Carousel — one case-study card per view, horizontal scroll-snap ──── */
+.v22-cdp-proof-carousel {
+  position: relative;
+}
+.v22-cdp-proof-track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 2px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* Breathing room so the cards' schematic corner ticks aren't clipped */
+  padding: 4px 2px 6px;
+  margin: -4px -2px -6px;
+}
+.v22-cdp-proof-track::-webkit-scrollbar { display: none; }
+.v22-cdp-proof-carousel .v22-cdp-proof-card {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+/* Inactive cards dim slightly so the centred one reads as focused */
+.v22-cdp-proof-carousel .v22-cdp-proof-card[aria-hidden='true'] {
+  opacity: 0.55;
+  transition: opacity 300ms ease, border-color 200ms ease, background 200ms ease, transform 200ms ease;
+}
+
+/* Controls — schematic arrows flanking a dot rail + index counter */
+.v22-cdp-proof-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-top: 26px;
+}
+.v22-cdp-proof-arrow {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--v22-ink);
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+.v22-cdp-proof-arrow:hover:not(:disabled) {
+  border-color: var(--v22-accent);
+  color: var(--v22-accent);
+  background: rgba(240, 123, 47, 0.06);
+  transform: translateY(-2px);
+}
+.v22-cdp-proof-arrow:disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+}
+.v22-cdp-proof-rail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.v22-cdp-proof-dots {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.v22-cdp-proof-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  cursor: pointer;
+  transition: width 220ms ease, background 220ms ease, border-color 220ms ease;
+}
+.v22-cdp-proof-dot:hover {
+  border-color: var(--v22-accent);
+}
+.v22-cdp-proof-dot--active {
+  width: 28px;
+  background: var(--v22-accent);
+  border-color: var(--v22-accent);
+}
+.v22-cdp-proof-counter {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.55);
+  min-width: 5ch;
+  text-align: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .v22-cdp-proof-track { scroll-behavior: auto; }
+}
+
 .v22-cdp-proof-card {
   position: relative;
   padding: 24px 26px 22px;

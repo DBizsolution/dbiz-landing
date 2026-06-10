@@ -6,7 +6,6 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 
 /* ─── Brand-evocative platform marks (line-art, navy + orange) ──────────── */
 
@@ -208,6 +207,19 @@ const pillars: Pillar[] = [
   },
 ]
 
+/* Delivery proof — the single stats home on the page (the old §04 "In
+   production" block was merged in here). Counts are the established Microsoft
+   figures; the two outcome metrics came from §04. Replace any you can with
+   verified Salesforce / Oracle numbers when available. */
+const credStats = [
+  { val: '10+ yrs', label: 'Microsoft delivery' },
+  { val: '50+', label: 'Dynamics 365 implementations' },
+  { val: '200+', label: 'certified consultants' },
+  { val: '1,500+', label: 'integration connectors' },
+  { val: '40–60%', label: 'data accuracy improvement' },
+  { val: '80%', label: 'faster ERP integration' },
+]
+
 export default function ServicesSection() {
   const [active, setActive] = useState(0)
   const pillar = pillars[active]
@@ -217,13 +229,32 @@ export default function ServicesSection() {
       <div className='v22-container'>
         <div className='v22-cdp-block-grid'>
           <div className='v22-cdp-block-head'>
-            <span className='v22-cdp-block-num'>§01</span>
+            <span className='v22-cdp-block-num'>Capabilities</span>
             <h2 className='v22-cdp-block-title'>What we do</h2>
-            <p className='v22-cdp-block-kicker'>
-              We transform passive systems of record into intelligent control surfaces — and connect them through one operational layer.
-            </p>
           </div>
           <div className='v22-cdp-block-body'>
+            {/* Credibility band — delivery proof up top, framing the
+                capabilities that follow. Human framing first, then numbers. */}
+            <div className='v22-cdp-cred'>
+              <p className='v22-cdp-cred-lede'>
+                We deliver end-to-end transformation across business applications and integration platforms — implementation, integration, modernisation, and continuous optimisation. From ERP and CRM systems to enterprise integrations, we help organisations move from disconnected processes to unified, intelligent operations.
+              </p>
+              <div className='v22-cdp-cred-proof'>
+                <span className='v22-cdp-cred-proof-label'>Proven delivery across enterprise platforms</span>
+                <ul className='v22-cdp-cred-stats'>
+                  {credStats.map((s) => (
+                    <li key={s.label}>
+                      <span className='v22-cdp-cred-stat-val'>{s.val}</span>
+                      <span className='v22-cdp-cred-stat-lbl'>{s.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <p className='v22-cdp-cred-foot'>
+                Certified expertise across Microsoft, Salesforce, Oracle, and leading integration platforms.
+              </p>
+            </div>
+
             <div className='v22-cdp-services-tabs'>
               {/* Tab list — horizontal at top of body, scannable upfront */}
               <div className='v22-cdp-services-tablist' role='tablist' aria-label='Service types'>
@@ -275,13 +306,6 @@ export default function ServicesSection() {
                       ) : (
                         <p className='v22-cdp-platform-summary'>{p.summary}</p>
                       )}
-                      <Link
-                        href={p.href}
-                        className='v22-cdp-platform-link'
-                        aria-label={`View ${p.name} capabilities`}
-                      >
-                        Full capabilities <span aria-hidden='true'>→</span>
-                      </Link>
                     </article>
                   ))}
                 </div>
