@@ -100,7 +100,7 @@ const pillars: Pillar[] = [
     id: 'apps',
     tabLabel: 'Applications',
     name: 'AI-Enabled Business Applications',
-    lede: 'Passive systems of record become intelligent control surfaces.',
+    lede: 'Run your business on platforms built for scale and intelligence.',
     cols: 2,
     items: [
       {
@@ -138,8 +138,8 @@ const pillars: Pillar[] = [
   {
     id: 'integration',
     tabLabel: 'Integrations',
-    name: 'Integration & Automation Platforms',
-    lede: 'API-led architectures that connect applications, data, and workflows into a unified operational layer.',
+    name: 'Connect systems. Enable real-time execution.',
+    lede: 'We integrate applications, data, and workflows using MuleSoft Anypoint Platform, Boomi AtomSphere, and Workato — eliminating silos and enabling end-to-end process visibility across the enterprise. This foundation enables intelligent automation and AI-driven workflows across connected systems.',
     cols: 2,
     items: [
       {

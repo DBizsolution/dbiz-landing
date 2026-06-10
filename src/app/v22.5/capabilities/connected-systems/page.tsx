@@ -31,6 +31,26 @@ const PARTNER_MARKS: Record<string, ReactNode> = {
   Workato: <WorkatoMark />,
 }
 
+/* Real logos for the wider-ecosystem marquee, keyed by wordmark. Brands with
+   no library/official logo (Dynamics, NetSuite, ServiceNow, Jitterbit, Workday,
+   Power Platform, Copilot Studio, Agentforce) keep their text wordmark. */
+const MARQUEE_LOGOS: Record<string, ReactNode> = {
+  Salesforce: <Icon icon='logos:salesforce' height={20} aria-hidden='true' />,
+  'Oracle ERP': <Icon icon='logos:oracle' height={15} aria-hidden='true' />,
+  AWS: <Icon icon='logos:aws' height={22} aria-hidden='true' />,
+  Azure: <Icon icon='logos:microsoft-azure' height={20} aria-hidden='true' />,
+  SAP: <Icon icon='logos:sap' height={20} aria-hidden='true' />,
+  'Anthropic Claude': <Icon icon='logos:anthropic' height={15} aria-hidden='true' />,
+  Zapier: <Icon icon='logos:zapier' height={18} aria-hidden='true' />,
+  'Informatica IDMC': <Icon icon='simple-icons:informatica' height={18} color='#FF4D00' aria-hidden='true' />,
+  n8n: <Icon icon='simple-icons:n8n' height={18} color='#EA4B71' aria-hidden='true' />,
+  MuleSoft: <Icon icon='simple-icons:mulesoft' height={18} color='#00A0DF' aria-hidden='true' />,
+  // eslint-disable-next-line @next/next/no-img-element
+  Boomi: <img src='/boomi-logo.svg' alt='' style={{ height: 18, width: 'auto' }} />,
+  // eslint-disable-next-line @next/next/no-img-element
+  Workato: <img src='/workato-logo.png' alt='' style={{ height: 14, width: 'auto' }} />,
+}
+
 const SLUG = 'connected-systems'
 const idx = capabilities.findIndex(c => c.slug === SLUG)
 const cap = capabilities[idx]
@@ -607,10 +627,11 @@ export default function ConnectedSystemsPage() {
                 {[...partnerLogos, ...partnerLogos].map((name, i) => (
                   <span
                     key={`${name}-${i}`}
-                    className='v22-cdp-partner-marquee-item'
+                    className={`v22-cdp-partner-marquee-item${MARQUEE_LOGOS[name] ? ' v22-cdp-partner-marquee-item--logo' : ''}`}
+                    aria-label={name}
                     aria-hidden={i >= partnerLogos.length}
                   >
-                    {name}
+                    {MARQUEE_LOGOS[name] ?? name}
                   </span>
                 ))}
               </div>
