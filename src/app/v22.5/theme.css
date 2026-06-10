@@ -6995,19 +6995,14 @@
    prominent partnership tiers — establishes credibility before the page
    moves into capability areas. */
 .v22-cdp-partners {
-  /* Warm cream surface (paper-2) so it differs from the plain-light §01 above
-     and §02 below — part of the page's light/cream/dark rhythm. */
-  background: var(--v22-paper-2);
+  /* Plain light surface — sits between the dark §03 above and cream §04 below
+     in the page's light/cream/dark rhythm. */
+  background: var(--v22-paper);
   background-image:
     radial-gradient(circle at 1px 1px, rgba(13, 27, 62, 0.06) 1px, transparent 0);
   background-size: 22px 22px;
   border-bottom: 1px solid rgba(13, 27, 62, 0.08);
   padding: clamp(48px, 6vw, 84px) 0;
-}
-/* Beat the scope-level [data-surface=light] paper background (0,2,0) so the
-   cream surface actually lands. */
-.v22-scope [data-surface="light"].v22-cdp-partners {
-  background-color: var(--v22-paper-2);
 }
 .v22-cdp-partners-head {
   display: flex;

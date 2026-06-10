@@ -589,9 +589,56 @@ export default function ConnectedSystemsPage() {
 {/* §01 WHAT WE DO — three service types as left tabs, click-to-reveal */}
       <ServicesSection />
 
-      {/* PARTNERSHIPS STRIP — credentialing the practice (sits between
-           §01 What we do and §02 Accelerators so partner platforms come
-           before our own IP) */}
+      {/* §02 AI ACCELERATORS — DBiz proprietary IP */}
+      <section id='accelerators' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
+        <div className='v22-container'>
+          <div className='v22-cdp-block-grid'>
+            <div className='v22-cdp-block-head'>
+              <span className='v22-cdp-block-num'>Built in-house</span>
+              <h2 className='v22-cdp-block-title'>AI that works <em>within</em> your systems, not outside them.</h2>
+              <p className='v22-cdp-block-kicker'>Proprietary frameworks. Months of platform engineering, in weeks.</p>
+            </div>
+            <div className='v22-cdp-block-body'>
+              {/* Framing statement above the accelerator schematic */}
+              <div className='v22-cdp-accel-intro'>
+                <p className='v22-cdp-accel-intro-body'>
+                  We enhance enterprise platforms with AI to automate decisions, improve accuracy, and enable intelligent workflows across finance, sales, and operations.
+                </p>
+                <p className='v22-cdp-accel-intro-body'>
+                  Our approach embeds AI directly into your existing applications and integrations — so you can modernise without disrupting what already works.
+                </p>
+                <p className='v22-cdp-accel-intro-note'>
+                  Supported by internal accelerators for faster deployment and scalable execution.
+                </p>
+              </div>
+              <AcceleratorStack />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §03 AI IN ACTION — merged use cases + proof, rich case-study cards
+           with schematic glyphs. Replaces the previous separate §03 patterns
+           and §05 proof sections, which were redundant. */}
+      <section id='use-cases' className='v22-cdp-block v22-cdp-proof' data-surface='dark'>
+        <div className='v22-container'>
+          <div className='v22-cdp-block-grid'>
+            <div className='v22-cdp-block-head'>
+              <span className='v22-cdp-block-num'>Proof</span>
+              <h2 className='v22-cdp-block-title'>AI in <em>action</em></h2>
+              <p className='v22-cdp-block-kicker'>
+                Three use cases shipped. Same patterns, real environments — each measured in production.
+              </p>
+            </div>
+            <div className='v22-cdp-block-body'>
+              <ProofCarousel />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ECOSYSTEM — partner platforms + wider ecosystem marquee. Sits after
+           the proof (§03) so the use cases lead, then the credentials. */}
       <section id='partners' className='v22-cdp-partners' data-surface='light' aria-label='Technology partners and platforms'>
         <div className='v22-container'>
           <div className='v22-cdp-partners-head'>
@@ -635,54 +682,6 @@ export default function ConnectedSystemsPage() {
                   </span>
                 ))}
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §02 AI ACCELERATORS — DBiz proprietary IP */}
-      <section id='accelerators' className='v22-cdp-block' data-surface='light'>
-        <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>Built in-house</span>
-              <h2 className='v22-cdp-block-title'>AI that works <em>within</em> your systems, not outside them.</h2>
-              <p className='v22-cdp-block-kicker'>Proprietary frameworks. Months of platform engineering, in weeks.</p>
-            </div>
-            <div className='v22-cdp-block-body'>
-              {/* Framing statement above the accelerator schematic */}
-              <div className='v22-cdp-accel-intro'>
-                <p className='v22-cdp-accel-intro-body'>
-                  We enhance enterprise platforms with AI to automate decisions, improve accuracy, and enable intelligent workflows across finance, sales, and operations.
-                </p>
-                <p className='v22-cdp-accel-intro-body'>
-                  Our approach embeds AI directly into your existing applications and integrations — so you can modernise without disrupting what already works.
-                </p>
-                <p className='v22-cdp-accel-intro-note'>
-                  Supported by internal accelerators for faster deployment and scalable execution.
-                </p>
-              </div>
-              <AcceleratorStack />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* §03 AI IN ACTION — merged use cases + proof, rich case-study cards
-           with schematic glyphs. Replaces the previous separate §03 patterns
-           and §05 proof sections, which were redundant. */}
-      <section id='use-cases' className='v22-cdp-block v22-cdp-proof' data-surface='dark'>
-        <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>Proof</span>
-              <h2 className='v22-cdp-block-title'>AI in <em>action</em></h2>
-              <p className='v22-cdp-block-kicker'>
-                Three use cases shipped. Same patterns, real environments — each measured in production.
-              </p>
-            </div>
-            <div className='v22-cdp-block-body'>
-              <ProofCarousel />
             </div>
           </div>
         </div>
