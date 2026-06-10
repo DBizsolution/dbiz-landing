@@ -89,7 +89,7 @@ type PlatformItem = {
 
 type Pillar = {
   id: string
-  marker: string
+  tabLabel: string
   name: string
   lede: string
   cols: 2 | 1
@@ -99,7 +99,7 @@ type Pillar = {
 const pillars: Pillar[] = [
   {
     id: 'apps',
-    marker: 'A — Applications',
+    tabLabel: 'Applications',
     name: 'AI-Enabled Business Applications',
     lede: 'Passive systems of record become intelligent control surfaces.',
     cols: 2,
@@ -138,7 +138,7 @@ const pillars: Pillar[] = [
   },
   {
     id: 'integration',
-    marker: 'B — Integration',
+    tabLabel: 'Integrations',
     name: 'Integration & Automation Platforms',
     lede: 'API-led architectures that connect applications, data, and workflows into a unified operational layer.',
     cols: 2,
@@ -188,7 +188,7 @@ const pillars: Pillar[] = [
   },
   {
     id: 'infrastructure',
-    marker: 'C — Infrastructure',
+    tabLabel: 'Infrastructure',
     name: 'Platform Infrastructure',
     lede: 'The substrate everything runs on — code-defined, governed, observable.',
     cols: 1,
@@ -239,11 +239,7 @@ export default function ServicesSection() {
                     className={`v22-cdp-services-tab${i === active ? ' is-active' : ''}`}
                     onClick={() => setActive(i)}
                   >
-                    <span className='v22-cdp-services-tab-marker'>{p.marker}</span>
-                    <span className='v22-cdp-services-tab-name'>{p.name}</span>
-                    <span className='v22-cdp-services-tab-count'>
-                      {p.items.length} {p.items.length === 1 ? 'platform' : 'platforms'}
-                    </span>
+                    {p.tabLabel}
                   </button>
                 ))}
               </div>
@@ -255,6 +251,7 @@ export default function ServicesSection() {
                 aria-labelledby={`services-tab-${pillar.id}`}
                 className='v22-cdp-services-panel'
               >
+                <h3 className='v22-cdp-services-panel-name'>{pillar.name}</h3>
                 <p className='v22-cdp-services-panel-lede'>{pillar.lede}</p>
                 <div className='v22-cdp-platform-grid' data-cols={pillar.cols}>
                   {pillar.items.map(({ Mark, ...p }) => (
