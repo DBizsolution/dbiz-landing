@@ -1,0 +1,24 @@
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="40" cy="40" r="35" stroke="var(--v22-ink-2)" stroke-width="0.8" stroke-dasharray="4 3" class="v22-icon-circle-draw v22-icon-delay-1">
+</circle>
+<polygon points="40,8 68,23 68,57 40,72 12,57 12,23" stroke="var(--v22-ink-2)" stroke-width="1.2" fill="none" class="v22-icon-polygon-draw v22-icon-delay-2">
+</polygon>
+<polygon points="40,20 56,29 56,51 40,60 24,51 24,29" stroke="var(--v22-accent)" stroke-width="1.5" fill="none" class="v22-icon-polygon-draw v22-icon-delay-3">
+</polygon>
+<circle cx="40" cy="40" r="6" fill="var(--v22-accent)" opacity="0.15" stroke="var(--v22-accent)" stroke-width="1.2" class="v22-icon-fade-in-el v22-icon-delay-4">
+</circle>
+<circle cx="40" cy="40" r="2.5" fill="var(--v22-accent)" class="v22-icon-scale-in v22-icon-delay-5">
+</circle>
+<circle cx="40" cy="26" r="2" fill="var(--v22-accent)" opacity="0.6" class="v22-icon-scale-in" style="animation-delay:0.6s">
+</circle>
+<circle cx="52.124355652982146" cy="33" r="2" fill="var(--v22-accent)" opacity="0.6" class="v22-icon-scale-in" style="animation-delay:0.6799999999999999s">
+</circle>
+<circle cx="52.124355652982146" cy="47" r="2" fill="var(--v22-accent)" opacity="0.6" class="v22-icon-scale-in" style="animation-delay:0.76s">
+</circle>
+<circle cx="40" cy="54" r="2" fill="var(--v22-accent)" opacity="0.6" class="v22-icon-scale-in" style="animation-delay:0.84s">
+</circle>
+<circle cx="27.875644347017857" cy="47" r="2" fill="var(--v22-accent)" opacity="0.6" class="v22-icon-scale-in" style="animation-delay:0.9199999999999999s">
+</circle>
+<circle cx="27.87564434701786" cy="33" r="2" fill="var(--v22-accent)" opacity="0.6" class="v22-icon-scale-in" style="animation-delay:1s">
+</circle>
+</svg>

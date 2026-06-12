@@ -6,73 +6,35 @@
 'use client'
 
 import { useState } from 'react'
+import { InlineSvg } from '@/components/inline-svg'
+import {
+  platformMarkInfrastructure,
+  platformMarkIntegration,
+  platformMarkMicrosoft,
+  platformMarkOracle,
+  platformMarkSalesforce,
+} from '@/lib/svg-assets'
 
-/* ─── Brand-evocative platform marks (line-art, navy + orange) ──────────── */
-
+/* ─── Brand-evocative platform marks — file-based assets (public/assets/svg)
+   injected inline so currentColor and the v22 accent token resolve. ────── */
 function MicrosoftMark() {
-  return (
-    <svg viewBox='0 0 40 40' aria-hidden='true' className='v22-cdp-platform-mark'>
-      <rect x='4' y='4' width='15' height='15' fill='var(--v22-accent)' opacity='0.95' />
-      <rect x='21' y='4' width='15' height='15' stroke='currentColor' strokeWidth='1.2' fill='none' />
-      <rect x='4' y='21' width='15' height='15' stroke='currentColor' strokeWidth='1.2' fill='none' />
-      <rect x='21' y='21' width='15' height='15' fill='currentColor' opacity='0.65' />
-    </svg>
-  )
+  return <InlineSvg markup={platformMarkMicrosoft} />
 }
 
 function SalesforceMark() {
-  return (
-    <svg viewBox='0 0 40 40' aria-hidden='true' className='v22-cdp-platform-mark'>
-      <path
-        d='M9 24 c -3,0 -5,-2.5 -5,-5.5 c 0,-3 2,-5 5,-5 c 0.5,-3.5 4,-6 8,-6 c 3.5,0 6.5,2 7.5,5 c 1,-0.8 2.5,-1.3 4,-1.3 c 3.5,0 6.5,2.8 6.5,6.5 c 0,3.5 -3,6.3 -6.5,6.3 z'
-        stroke='currentColor' strokeWidth='1.2' fill='none' strokeLinejoin='round'
-      />
-      <circle cx='15' cy='18' r='1.6' fill='var(--v22-accent)' />
-      <circle cx='22' cy='18' r='1.6' fill='var(--v22-accent)' />
-      <circle cx='29' cy='18' r='1.6' fill='currentColor' />
-    </svg>
-  )
+  return <InlineSvg markup={platformMarkSalesforce} />
 }
 
 function OracleMark() {
-  return (
-    <svg viewBox='0 0 40 40' aria-hidden='true' className='v22-cdp-platform-mark'>
-      <ellipse cx='20' cy='10' rx='14' ry='4' stroke='currentColor' strokeWidth='1.2' fill='none' />
-      <path d='M6 10 v20 a 14 4 0 0 0 28 0 v-20' stroke='currentColor' strokeWidth='1.2' fill='none' />
-      <ellipse cx='20' cy='20' rx='14' ry='4' stroke='currentColor' strokeWidth='0.9' opacity='0.5' fill='none' />
-      <ellipse cx='20' cy='30' rx='14' ry='4' stroke='var(--v22-accent)' strokeWidth='1.4' fill='none' />
-    </svg>
-  )
+  return <InlineSvg markup={platformMarkOracle} />
 }
 
 function IntegrationMark() {
-  return (
-    <svg viewBox='0 0 40 40' aria-hidden='true' className='v22-cdp-platform-mark'>
-      <line x1='8' y1='10' x2='20' y2='20' stroke='currentColor' strokeWidth='1' />
-      <line x1='32' y1='10' x2='20' y2='20' stroke='currentColor' strokeWidth='1' />
-      <line x1='8' y1='30' x2='20' y2='20' stroke='currentColor' strokeWidth='1' />
-      <line x1='32' y1='30' x2='20' y2='20' stroke='currentColor' strokeWidth='1' />
-      <circle cx='8' cy='10' r='2.5' fill='currentColor' />
-      <circle cx='32' cy='10' r='2.5' fill='currentColor' />
-      <circle cx='8' cy='30' r='2.5' fill='currentColor' />
-      <circle cx='32' cy='30' r='2.5' fill='currentColor' />
-      <circle cx='20' cy='20' r='4.5' fill='var(--v22-accent)' />
-      <circle cx='20' cy='20' r='1.6' fill='var(--brand-navy-deep)' />
-    </svg>
-  )
+  return <InlineSvg markup={platformMarkIntegration} />
 }
 
 function InfrastructureMark() {
-  return (
-    <svg viewBox='0 0 40 40' aria-hidden='true' className='v22-cdp-platform-mark'>
-      <rect x='6' y='8' width='28' height='6' fill='currentColor' opacity='0.65' />
-      <rect x='6' y='17' width='28' height='6' fill='var(--v22-accent)' opacity='0.95' />
-      <rect x='6' y='26' width='28' height='6' stroke='currentColor' strokeWidth='1.2' fill='none' />
-      <circle cx='10' cy='11' r='1.2' fill='#fff' />
-      <circle cx='10' cy='20' r='1.2' fill='#fff' />
-      <circle cx='10' cy='29' r='1.2' fill='currentColor' />
-    </svg>
-  )
+  return <InlineSvg markup={platformMarkInfrastructure} />
 }
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */

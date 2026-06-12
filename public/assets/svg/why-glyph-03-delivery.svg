@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" class="v22-why-glyph-svg g2">
+<rect x="12" y="52" width="96" height="16" fill="none" stroke="rgba(13,27,62,0.55)" stroke-width="1">
+</rect>
+<line class="g-tick g-tick-0" x1="12.00" y1="52" x2="12.00" y2="74" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</line>
+<line class="g-tick g-tick-1" x1="21.60" y1="52" x2="21.60" y2="60" stroke="rgba(13,27,62,0.32)" stroke-width="0.6">
+</line>
+<line class="g-tick g-tick-2" x1="31.20" y1="52" x2="31.20" y2="74" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</line>
+<line class="g-tick g-tick-3" x1="40.80" y1="52" x2="40.80" y2="60" stroke="rgba(13,27,62,0.32)" stroke-width="0.6">
+</line>
+<line class="g-tick g-tick-4" x1="50.40" y1="52" x2="50.40" y2="74" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</line>
+<line class="g-tick g-tick-5" x1="60.00" y1="52" x2="60.00" y2="60" stroke="rgba(13,27,62,0.32)" stroke-width="0.6">
+</line>
+<line class="g-tick g-tick-6" x1="69.60" y1="52" x2="69.60" y2="74" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</line>
+<line class="g-tick g-tick-7" x1="79.20" y1="52" x2="79.20" y2="60" stroke="rgba(13,27,62,0.32)" stroke-width="0.6">
+</line>
+<line class="g-tick g-tick-8" x1="88.80" y1="52" x2="88.80" y2="74" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</line>
+<line class="g-tick g-tick-9" x1="98.40" y1="52" x2="98.40" y2="60" stroke="rgba(13,27,62,0.32)" stroke-width="0.6">
+</line>
+<line class="g-tick g-tick-10" x1="108.00" y1="52" x2="108.00" y2="74" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</line>
+<text x="14" y="86" font-family="var(--font-mono)" font-size="8" fill="rgba(13,27,62,0.32)" letter-spacing="0.5">00</text>
+<text x="54" y="86" font-family="var(--font-mono)" font-size="8" fill="rgba(13,27,62,0.32)" letter-spacing="0.5">45</text>
+<text x="94" y="86" font-family="var(--font-mono)" font-size="8" fill="rgba(13,27,62,0.32)" letter-spacing="0.5">90</text>
+<text x="52" y="40" font-family="var(--font-mono)" font-size="8" font-weight="600" fill="#F07B2F" letter-spacing="1">DAYS</text>
+<g class="g-arrow-track">
+<path class="g-arrow" d="M 18 60 L 36 60 M 32 56 L 36 60 L 32 64" fill="none" stroke="#F07B2F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+<circle class="g-target" cx="102" cy="60" r="3.2" fill="none" stroke="#F07B2F" stroke-width="1.4">
+</circle>
+<circle class="g-target-dot" cx="102" cy="60" r="1.4" fill="#F07B2F">
+</circle>
+</svg>

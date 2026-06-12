@@ -1,94 +1,34 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { InlineSvg } from '@/components/inline-svg'
+import {
+  capabilityIcon01StrategyArchitecture,
+  capabilityIcon02AiFoundationalLayer,
+  capabilityIcon03IntelligenceLayer,
+  capabilityIcon04ConnectedSystems,
+  capabilityIcon05EngineeredWithAi,
+  capabilityIcon06HumanAgentExperience,
+  capabilityIcon07AiFirstOperations,
+} from '@/lib/svg-assets'
 import { capabilities } from './capabilities-data'
 
 const CYCLE_MS = 5000
 
-/* Geometric SVG icons — navy strokes + orange accents (v22 light-mode tokens) */
+/* Geometric SVG icons — file-based assets (public/assets/svg) injected
+   inline so the v22 tokens and draw-in animations in theme.css apply. */
+const capabilityIcons = [
+  capabilityIcon01StrategyArchitecture,
+  capabilityIcon02AiFoundationalLayer,
+  capabilityIcon03IntelligenceLayer,
+  capabilityIcon04ConnectedSystems,
+  capabilityIcon05EngineeredWithAi,
+  capabilityIcon06HumanAgentExperience,
+  capabilityIcon07AiFirstOperations,
+]
+
 function CapIcon({ index }: { index: number }) {
-  const icons = [
-    /* 0 Strategy — target */
-    <svg key={0} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='1' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
-      <circle cx='40' cy='40' r='24' stroke='var(--v22-ink-2)' strokeWidth='1.2' className='v22-icon-circle-draw v22-icon-delay-2' />
-      <circle cx='40' cy='40' r='14' stroke='var(--v22-accent)' strokeWidth='1.5' className='v22-icon-circle-draw v22-icon-delay-3' />
-      <circle cx='40' cy='40' r='4' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-4' />
-      <line x1='40' y1='3' x2='40' y2='15' stroke='var(--v22-ink-2)' strokeWidth='0.8' className='v22-icon-line-draw v22-icon-delay-3' />
-      <line x1='40' y1='65' x2='40' y2='77' stroke='var(--v22-ink-2)' strokeWidth='0.8' className='v22-icon-line-draw v22-icon-delay-3' />
-      <line x1='3' y1='40' x2='15' y2='40' stroke='var(--v22-ink-2)' strokeWidth='0.8' className='v22-icon-line-draw v22-icon-delay-3' />
-      <line x1='65' y1='40' x2='77' y2='40' stroke='var(--v22-ink-2)' strokeWidth='0.8' className='v22-icon-line-draw v22-icon-delay-3' />
-      <circle cx='40' cy='5' r='2' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-5' />
-    </svg>,
-    /* 1 Cloud — layered diamond */
-    <svg key={1} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
-      <path d='M 20 48 L 40 38 L 60 48 L 40 58 Z' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-polygon-draw v22-icon-delay-2' />
-      <path d='M 24 40 L 40 32 L 56 40 L 40 48 Z' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-polygon-draw v22-icon-delay-3' />
-      <path d='M 28 32 L 40 26 L 52 32 L 40 38 Z' stroke='var(--v22-accent)' strokeWidth='1.5' fill='none' className='v22-icon-polygon-draw v22-icon-delay-4' />
-      <line x1='40' y1='26' x2='40' y2='58' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='2 2' className='v22-icon-line-draw v22-icon-delay-5' />
-      <circle cx='40' cy='29' r='2.5' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-6' />
-      <circle cx='28' cy='32' r='1.5' fill='var(--v22-accent)' opacity='0.6' className='v22-icon-scale-in v22-icon-delay-6' />
-      <circle cx='52' cy='32' r='1.5' fill='var(--v22-accent)' opacity='0.6' className='v22-icon-scale-in v22-icon-delay-6' />
-    </svg>,
-    /* 2 Data — hexagon */
-    <svg key={2} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
-      <polygon points='40,8 68,23 68,57 40,72 12,57 12,23' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-polygon-draw v22-icon-delay-2' />
-      <polygon points='40,20 56,29 56,51 40,60 24,51 24,29' stroke='var(--v22-accent)' strokeWidth='1.5' fill='none' className='v22-icon-polygon-draw v22-icon-delay-3' />
-      <circle cx='40' cy='40' r='6' fill='var(--v22-accent)' opacity='0.15' stroke='var(--v22-accent)' strokeWidth='1.2' className='v22-icon-fade-in-el v22-icon-delay-4' />
-      <circle cx='40' cy='40' r='2.5' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-5' />
-      {[0, 60, 120, 180, 240, 300].map((a, i) => {
-        const r = (a - 90) * Math.PI / 180
-        return <circle key={i} cx={40 + Math.cos(r) * 14} cy={40 + Math.sin(r) * 14} r='2' fill='var(--v22-accent)' opacity='0.6' className='v22-icon-scale-in' style={{ animationDelay: `${0.6 + i * 0.08}s` }} />
-      })}
-    </svg>,
-    /* 3 Apps — connected nodes */
-    <svg key={3} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
-      <line x1='20' y1='27' x2='32' y2='40' stroke='var(--v22-ink-2)' strokeWidth='1' className='v22-icon-line-draw v22-icon-delay-3' />
-      <line x1='60' y1='27' x2='48' y2='40' stroke='var(--v22-ink-2)' strokeWidth='1' className='v22-icon-line-draw v22-icon-delay-3' />
-      <line x1='20' y1='53' x2='32' y2='40' stroke='var(--v22-ink-2)' strokeWidth='1' className='v22-icon-line-draw v22-icon-delay-4' />
-      <line x1='60' y1='53' x2='48' y2='40' stroke='var(--v22-ink-2)' strokeWidth='1' className='v22-icon-line-draw v22-icon-delay-4' />
-      <rect x='12' y='19' width='16' height='16' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-rect-draw v22-icon-delay-2' />
-      <rect x='52' y='19' width='16' height='16' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-rect-draw v22-icon-delay-2' />
-      <rect x='12' y='45' width='16' height='16' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-rect-draw v22-icon-delay-2' />
-      <rect x='52' y='45' width='16' height='16' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-rect-draw v22-icon-delay-2' />
-      <circle cx='40' cy='40' r='8' stroke='var(--v22-accent)' strokeWidth='1.5' fill='none' className='v22-icon-circle-draw v22-icon-delay-5' />
-      <circle cx='40' cy='40' r='3' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-6' />
-    </svg>,
-    /* 4 Engineering — orbital */
-    <svg key={4} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
-      <circle cx='40' cy='40' r='26' stroke='var(--v22-ink-2)' strokeWidth='1.2' className='v22-icon-circle-draw v22-icon-delay-2' />
-      <circle cx='40' cy='40' r='17' stroke='var(--v22-accent)' strokeWidth='1.5' className='v22-icon-circle-draw v22-icon-delay-3' />
-      <circle cx='40' cy='40' r='3' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-5' />
-      <ellipse cx='40' cy='40' rx='35' ry='14' stroke='var(--v22-ink-2)' strokeWidth='0.8' transform='rotate(30 40 40)' className='v22-icon-circle-draw v22-icon-delay-4' />
-      <circle cx='62.5' cy='20' r='2.5' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-6' />
-    </svg>,
-    /* 5 Human Experience — radar */
-    <svg key={5} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='1.2' className='v22-icon-circle-draw v22-icon-delay-1' />
-      <circle cx='40' cy='40' r='24' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-2' />
-      <circle cx='40' cy='40' r='13' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-3' />
-      <line x1='40' y1='5' x2='40' y2='75' stroke='var(--v22-ink-2)' strokeWidth='0.6' className='v22-icon-line-draw v22-icon-delay-4' />
-      <line x1='5' y1='40' x2='75' y2='40' stroke='var(--v22-ink-2)' strokeWidth='0.6' className='v22-icon-line-draw v22-icon-delay-4' />
-      <path d='M 40 40 L 40 5' stroke='var(--v22-accent)' strokeWidth='2' className='v22-icon-line-draw v22-icon-delay-5' />
-      <circle cx='40' cy='40' r='3' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-6' />
-      <circle cx='54' cy='22' r='2.5' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-7' />
-    </svg>,
-    /* 6 AI Operations — shield */
-    <svg key={6} viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
-      <circle cx='40' cy='40' r='35' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='4 3' className='v22-icon-circle-draw v22-icon-delay-1' />
-      <path d='M 40 6 L 70 21 L 70 51 L 40 74 L 10 51 L 10 21 Z' stroke='var(--v22-ink-2)' strokeWidth='1.2' fill='none' className='v22-icon-polygon-draw v22-icon-delay-2' />
-      <path d='M 40 16 L 60 27 L 60 49 L 40 62 L 20 49 L 20 27 Z' stroke='var(--v22-accent)' strokeWidth='1.5' fill='none' className='v22-icon-polygon-draw v22-icon-delay-3' />
-      <line x1='40' y1='16' x2='40' y2='62' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='2 2' className='v22-icon-line-draw v22-icon-delay-4' />
-      <line x1='20' y1='38' x2='60' y2='38' stroke='var(--v22-ink-2)' strokeWidth='0.8' strokeDasharray='2 2' className='v22-icon-line-draw v22-icon-delay-4' />
-      <circle cx='40' cy='38' r='6' fill='var(--v22-accent)' opacity='0.15' stroke='var(--v22-accent)' strokeWidth='1.2' className='v22-icon-fade-in-el v22-icon-delay-5' />
-      <circle cx='40' cy='38' r='2.5' fill='var(--v22-accent)' className='v22-icon-scale-in v22-icon-delay-6' />
-    </svg>,
-  ]
-  return icons[index] || icons[0]
+  return <InlineSvg markup={capabilityIcons[index] ?? capabilityIcons[0]} />
 }
 
 export default function CapabilitiesSection() {

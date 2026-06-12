@@ -5,6 +5,8 @@
 
 import type { ReactNode } from 'react'
 import Link from 'next/link'
+import { InlineSvg } from '@/components/inline-svg'
+import { connectedSystemsHeroDiagram } from '@/lib/svg-assets'
 import { capabilities } from '../../capabilities-data'
 import { Icon } from '@/components/icon'
 import ServicesSection from './services-section'
@@ -330,59 +332,10 @@ function AcceleratorStack() {
   )
 }
 
-/* ─── Hero connectivity diagram ─────────────────────────────────────────── */
+/* ─── Hero connectivity diagram — file-based asset (public/assets/svg)
+   injected inline so theme tokens resolve. ────────────────────────────── */
 function HeroDiagram() {
-  return (
-    <svg viewBox='0 0 460 380' aria-hidden='true' className='v22-cdp-hero-diagram'>
-      <defs>
-        <pattern id='cdp-dot' patternUnits='userSpaceOnUse' width='12' height='12'>
-          <circle cx='1' cy='1' r='0.7' fill='rgba(255,255,255,0.06)' />
-        </pattern>
-      </defs>
-      <rect x='8' y='8' width='444' height='364' fill='url(#cdp-dot)' />
-      <g stroke='rgba(255,255,255,0.18)' strokeWidth='0.8'>
-        <line x1='8' y1='8' x2='28' y2='8' /><line x1='8' y1='8' x2='8' y2='28' />
-        <line x1='452' y1='8' x2='432' y2='8' /><line x1='452' y1='8' x2='452' y2='28' />
-        <line x1='8' y1='372' x2='28' y2='372' /><line x1='8' y1='372' x2='8' y2='352' />
-        <line x1='452' y1='372' x2='432' y2='372' /><line x1='452' y1='372' x2='452' y2='352' />
-      </g>
-      <text x='20' y='28' fontFamily='var(--font-mono)' fontSize='8' letterSpacing='1.5' fill='rgba(255,255,255,0.55)'>DWG · ENT-APP-01</text>
-      <text x='440' y='28' fontFamily='var(--font-mono)' fontSize='8' letterSpacing='1.5' fill='var(--v22-accent)' textAnchor='end'>REV.01</text>
-      {[
-        { x: 30, label: 'DYNAMICS' }, { x: 130, label: 'SALESFORCE' },
-        { x: 230, label: 'ORACLE' }, { x: 330, label: 'SAAS' },
-      ].map((p) => (
-        <g key={p.label}>
-          <rect x={p.x} y='60' width='100' height='44' fill='none' stroke='rgba(255,255,255,0.32)' strokeWidth='1' />
-          <rect x={p.x + 4} y='64' width='92' height='36' fill='none' stroke='rgba(255,255,255,0.14)' strokeWidth='0.6' />
-          <text x={p.x + 50} y='86' fontFamily='var(--font-mono)' fontSize='9' fontWeight='600' letterSpacing='1.4' fill='rgba(255,255,255,0.85)' textAnchor='middle'>{p.label}</text>
-          <line x1={p.x + 50} y1='104' x2={p.x + 50} y2='160' stroke='rgba(240,123,47,0.5)' strokeWidth='1' strokeDasharray='2 3' />
-          <circle cx={p.x + 50} cy='104' r='2' fill='var(--v22-accent)' />
-        </g>
-      ))}
-      <rect x='30' y='160' width='400' height='52' fill='rgba(240,123,47,0.05)' stroke='var(--v22-accent)' strokeWidth='1.2' />
-      <text x='230' y='184' fontFamily='var(--font-sans)' fontSize='13' fontWeight='700' letterSpacing='0.5' fill='var(--v22-accent)' textAnchor='middle'>iCONNECTOR · INTEGRATION LAYER</text>
-      <text x='230' y='200' fontFamily='var(--font-mono)' fontSize='8' letterSpacing='1.4' fill='rgba(255,255,255,0.65)' textAnchor='middle'>MULESOFT · BOOMI · WORKATO · MCP</text>
-      {[140, 230, 320].map((cx, i) => (
-        <g key={i}>
-          <line x1={cx} y1='212' x2={cx} y2='268' stroke='rgba(240,123,47,0.5)' strokeWidth='1' strokeDasharray='2 3' />
-          <circle cx={cx} cy='212' r='2' fill='var(--v22-accent)' />
-        </g>
-      ))}
-      {[
-        { cx: 140, label: 'AGENT' }, { cx: 230, label: 'COPILOT' }, { cx: 320, label: 'AGENT' },
-      ].map((a) => (
-        <g key={a.label + a.cx}>
-          <circle cx={a.cx} cy='292' r='24' fill='rgba(255,255,255,0.04)' stroke='rgba(255,255,255,0.32)' strokeWidth='1' />
-          <circle cx={a.cx} cy='292' r='14' fill='none' stroke='var(--v22-accent)' strokeWidth='1.2' />
-          <circle cx={a.cx} cy='292' r='3' fill='var(--v22-accent)' />
-          <text x={a.cx} y='338' fontFamily='var(--font-mono)' fontSize='8' fontWeight='600' letterSpacing='1.4' fill='rgba(255,255,255,0.78)' textAnchor='middle'>{a.label}</text>
-        </g>
-      ))}
-      <text x='20' y='360' fontFamily='var(--font-mono)' fontSize='8' letterSpacing='1.5' fill='rgba(255,255,255,0.4)'>SCALE 1:1</text>
-      <text x='440' y='360' fontFamily='var(--font-mono)' fontSize='8' letterSpacing='1.5' fill='rgba(255,255,255,0.4)' textAnchor='end'>SHEET A4</text>
-    </svg>
-  )
+  return <InlineSvg markup={connectedSystemsHeroDiagram} />
 }
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */

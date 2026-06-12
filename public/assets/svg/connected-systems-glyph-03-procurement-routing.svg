@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" class="v22-cdp-pattern-glyph">
+<g>
+<rect x="13" y="13" width="22" height="22" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="0.9">
+</rect>
+<text x="24" y="26.5" text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" font-weight="600" fill="rgba(255,255,255,0.85)">ERP</text>
+</g>
+<g>
+<rect x="85" y="13" width="22" height="22" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="0.9">
+</rect>
+<text x="96" y="26.5" text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" font-weight="600" fill="rgba(255,255,255,0.85)">CRM</text>
+</g>
+<g>
+<rect x="13" y="85" width="22" height="22" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="0.9">
+</rect>
+<text x="24" y="98.5" text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" font-weight="600" fill="rgba(255,255,255,0.85)">PRL</text>
+</g>
+<g>
+<rect x="85" y="85" width="22" height="22" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="0.9">
+</rect>
+<text x="96" y="98.5" text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" font-weight="600" fill="rgba(255,255,255,0.85)">API</text>
+</g>
+<line x1="35" y1="35" x2="52" y2="52" stroke="rgba(255,255,255,0.28)" stroke-width="0.9" stroke-dasharray="2 2.5">
+</line>
+<line x1="85" y1="35" x2="68" y2="52" stroke="rgba(255,255,255,0.28)" stroke-width="0.9" stroke-dasharray="2 2.5">
+</line>
+<line x1="35" y1="85" x2="52" y2="68" stroke="rgba(255,255,255,0.28)" stroke-width="0.9" stroke-dasharray="2 2.5">
+</line>
+<line x1="85" y1="85" x2="68" y2="68" stroke="rgba(255,255,255,0.28)" stroke-width="0.9" stroke-dasharray="2 2.5">
+</line>
+<circle cx="60" cy="60" r="14" fill="none" stroke="var(--v22-accent)" stroke-width="1.4">
+</circle>
+<circle cx="60" cy="60" r="7" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="0.9">
+</circle>
+<circle cx="60" cy="60" r="2.5" fill="var(--v22-accent)">
+</circle>
+</svg>

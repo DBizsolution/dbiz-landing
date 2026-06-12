@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" class="v22-why-glyph-svg g0">
+<g class="g-compass-bezel">
+<circle cx="60" cy="60" r="52" fill="none" stroke="rgba(13,27,62,0.32)" stroke-width="0.7" stroke-dasharray="1.5 2.5">
+</circle>
+<line x1="108.00" y1="60.00" x2="116.00" y2="60.00" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="101.57" y1="84.00" x2="105.03" y2="86.00" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="84.00" y1="101.57" x2="86.00" y2="105.03" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="60.00" y1="108.00" x2="60.00" y2="116.00" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="36.00" y1="101.57" x2="34.00" y2="105.03" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="18.43" y1="84.00" x2="14.97" y2="86.00" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="12.00" y1="60.00" x2="4.00" y2="60.00" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="18.43" y1="36.00" x2="14.97" y2="34.00" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="36.00" y1="18.43" x2="34.00" y2="14.97" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="60.00" y1="12.00" x2="60.00" y2="4.00" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="84.00" y1="18.43" x2="86.00" y2="14.97" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+<line x1="101.57" y1="36.00" x2="105.03" y2="34.00" stroke="rgba(13,27,62,0.32)" stroke-width="0.8">
+</line>
+</g>
+<circle class="g-ring g-ring-mid" cx="60" cy="60" r="34" fill="none" stroke="rgba(13,27,62,0.55)" stroke-width="1">
+</circle>
+<circle class="g-ring g-ring-in" cx="60" cy="60" r="18" fill="none" stroke="#F07B2F" stroke-width="1.4">
+</circle>
+<line class="g-cross" x1="4" y1="60" x2="14" y2="60" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</line>
+<line class="g-cross" x1="106" y1="60" x2="116" y2="60" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</line>
+<line class="g-cross" x1="60" y1="4" x2="60" y2="14" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</line>
+<line class="g-cross" x1="60" y1="106" x2="60" y2="116" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</line>
+<circle class="g-dot" cx="60" cy="60" r="3.2" fill="#F07B2F">
+</circle>
+</svg>

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 5555",
     "build": "next build",
+    "svg:gen": "node scripts/generate-svg-modules.mjs",
     "start": "next start -p 5555",
     "lint": "eslint"
   },

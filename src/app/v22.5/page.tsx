@@ -4,6 +4,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { InlineSvg } from '@/components/inline-svg'
+import { heroStackDiagram } from '@/lib/svg-assets'
 import CapabilitiesSection from './capabilities-section'
 import FrameworkSection from './framework-section'
 import { NavScrollEffect } from './nav-scroll'
@@ -55,122 +57,7 @@ const trust = ['ACFS Logistics', 'Aldar', 'Carlisle Homes', 'Custom Fleet', 'Sou
 /* ─── SVG Diagrams (from V5) ─── */
 
 function HeroDiagram() {
-  const layers = [
-    { label: 'STRATEGY', code: 'S·01' },
-    { label: 'ARCHITECTURE', code: 'S·02' },
-    { label: 'CLOUD', code: 'S·03' },
-    { label: 'DATA', code: 'S·04' },
-    { label: 'APPS', code: 'S·05' },
-    { label: 'AGENTS', code: 'S·06' },
-    { label: 'OPS', code: 'S·07' },
-  ]
-
-  // 5 particles centered across the box front-face (box spans 140→360, center 250)
-  const particlePositions = [200, 230, 250, 270, 300]
-
-  return (
-    <svg viewBox='0 0 520 560' xmlns='http://www.w3.org/2000/svg' aria-hidden='true' className='v22-hero-svg'>
-      <defs>
-        <pattern id='v22-hatch' patternUnits='userSpaceOnUse' width='6' height='6' patternTransform='rotate(45)'>
-          <line x1='0' y1='0' x2='0' y2='6' stroke='var(--v22-ink-hatch)' strokeWidth='1' />
-        </pattern>
-        <pattern id='v22-dot' patternUnits='userSpaceOnUse' width='10' height='10'>
-          <circle cx='1' cy='1' r='0.8' fill='var(--v22-ink-dot)' />
-        </pattern>
-        <filter id='v22-glow'>
-          <feGaussianBlur stdDeviation='2' result='coloredBlur' />
-          <feMerge>
-            <feMergeNode in='coloredBlur' />
-            <feMergeNode in='SourceGraphic' />
-          </feMerge>
-        </filter>
-      </defs>
-      <g stroke='var(--v22-ink-frame)' strokeWidth='0.6'>
-        <line x1='20' y1='20' x2='40' y2='20' /><line x1='20' y1='20' x2='20' y2='40' />
-        <line x1='500' y1='20' x2='480' y2='20' /><line x1='500' y1='20' x2='500' y2='40' />
-        <line x1='20' y1='540' x2='40' y2='540' /><line x1='20' y1='540' x2='20' y2='520' />
-        <line x1='500' y1='540' x2='480' y2='540' /><line x1='500' y1='540' x2='500' y2='520' />
-      </g>
-      <g stroke='var(--v22-ink-frame)' strokeWidth='0.6'>
-        {Array.from({ length: 14 }).map((_, i) => (
-          <line key={i} x1='40' y1={60 + i * 32} x2={i % 2 === 0 ? 48 : 44} y2={60 + i * 32} />
-        ))}
-      </g>
-      <rect x='60' y='60' width='400' height='440' fill='url(#v22-dot)' />
-
-      {/* Particles flowing between layers */}
-      {layers.map((layer, i) => {
-        if (i === layers.length - 1) return null
-        const fromY = 90 + i * 56 + 32
-        const particleDelay = i * 1.5
-
-        return (
-          <g key={`particles-${i}`}>
-            {particlePositions.map((x, pIdx) => (
-              <circle
-                key={`${i}-${pIdx}`}
-                cx={x}
-                cy={fromY}
-                r='2.6'
-                fill='#F07B2F'
-                className='v22-particle'
-                style={{ '--particle-delay': `${particleDelay + pIdx * 0.2 + (pIdx % 2) * 0.1}s` } as React.CSSProperties}
-                filter='url(#v22-glow)'
-              />
-            ))}
-          </g>
-        )
-      })}
-
-      {layers.map((layer, i) => {
-        const y = 90 + i * 56
-        const skew = 26
-        return (
-          <g key={layer.code} className='v22-layer' style={{ '--layer-index': i, '--box-index': i } as React.CSSProperties}>
-            {/* Top face */}
-            <polygon points={`${140},${y} ${360},${y} ${360 + skew},${y - 14} ${140 + skew},${y - 14}`} fill='var(--v22-ink-layer-fill)' stroke='var(--v22-ink-corner)' strokeWidth='1' />
-            {/* Front face - solid opaque background first */}
-            <rect x='140' y={y} width='220' height='32' fill='var(--v22-ink-layer-fill)' />
-            {/* Front face - pattern or fill on top */}
-            <rect
-              x='140'
-              y={y}
-              width='220'
-              height='32'
-              fill={i === 3 ? 'url(#v22-hatch)' : 'none'}
-              stroke='var(--v22-ink-corner)'
-              strokeWidth='1'
-              className='v22-box-border v22-box-fill'
-            />
-            {/* Right side face */}
-            <polygon
-              points={`${360},${y} ${360 + skew},${y - 14} ${360 + skew},${y + 18} ${360},${y + 32}`}
-              fill='var(--v22-ink-layer-right)'
-              stroke='var(--v22-ink-corner)'
-              strokeWidth='1'
-              className='v22-box-border v22-box-side'
-            />
-            <text x='156' y={y + 20} fontFamily='var(--font-mono)' fontSize='10' letterSpacing='1.5' fill='var(--v22-ink-label-strong)'>{layer.label}</text>
-            <line x1={360 + skew} y1={y + 8} x2='450' y2={y + 8} stroke='var(--v22-ink-callout)' strokeWidth='0.8' strokeDasharray='2 2' className='v22-callout-line' />
-            <circle cx={360 + skew} cy={y + 8} r='1.6' fill='#F07B2F' className='v22-callout-dot' />
-            <text x='454' y={y + 11} fontFamily='var(--font-mono)' fontSize='8.5' letterSpacing='1' fill='#F07B2F'>{layer.code}</text>
-          </g>
-        )
-      })}
-      <g stroke='var(--v22-ink-hair)' strokeWidth='0.8'>
-        <line x1='96' y1='76' x2='96' y2='484' />
-        <line x1='92' y1='76' x2='100' y2='76' />
-        <line x1='92' y1='484' x2='100' y2='484' />
-      </g>
-      <text x='80' y='284' fontFamily='var(--font-mono)' fontSize='8.5' letterSpacing='1.5' fill='#F07B2F' transform='rotate(-90 80 284)'>FRONTIER ORG · STACK</text>
-      <g stroke='var(--v22-ink-dim)' strokeWidth='0.6'>
-        <line x1='140' y1='520' x2='360' y2='520' />
-        <line x1='140' y1='516' x2='140' y2='524' />
-        <line x1='360' y1='516' x2='360' y2='524' />
-      </g>
-      <text x='250' y='534' fontFamily='var(--font-mono)' fontSize='8' letterSpacing='1.5' fill='var(--v22-ink-label-strong)' textAnchor='middle'>DIM: 7 × LAYER</text>
-    </svg>
-  )
+  return <InlineSvg markup={heroStackDiagram} />
 }
 
 function DataFlowDiagram() {

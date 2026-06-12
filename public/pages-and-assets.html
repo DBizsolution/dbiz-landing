@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DBiz.ai — Pages &amp; Assets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0D1B3E;
+    --navy-deep: #070F22;
+    --orange: #E86A2A;
+    --bg: #FAFAFA;
+    --card: #FFFFFF;
+    --text: #111111;
+    --text-2: #555555;
+    --text-3: #999999;
+    --border: rgba(0, 0, 0, 0.08);
+    --r: 12px;
+    --sans: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0 24px 120px;
+    background: var(--bg);
+    color: var(--text);
+    font: 400 1rem/1.6 var(--sans);
+  }
+  main { max-width: 1180px; margin: 0 auto; }
+  header { padding: 64px 0 24px; border-bottom: 2px solid var(--navy); }
+  header h1 { margin: 0 0 8px; font: 800 2.4rem/1.1 var(--sans); letter-spacing: -0.03em; }
+  header p { margin: 0; color: var(--text-2); max-width: 70ch; }
+  .kicker { font: 500 0.74rem var(--mono); letter-spacing: 0.14em; color: var(--orange); text-transform: uppercase; }
+  h2 { margin: 72px 0 6px; font: 800 1.6rem/1.15 var(--sans); letter-spacing: -0.02em; }
+  .section-note { margin: 0 0 24px; color: var(--text-2); font-size: 0.92rem; max-width: 80ch; }
+  .section-note code { font: 0.85em var(--mono); background: rgba(13,27,62,0.06); padding: 1px 5px; border-radius: 4px; }
+
+  /* Pages table */
+  .pages { width: 100%; border-collapse: collapse; }
+  .pages td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .pages a { font-weight: 600; color: var(--navy); text-decoration: none; border-bottom: 1px solid rgba(13,27,62,0.25); }
+  .pages a:hover { color: var(--orange); border-color: var(--orange); }
+  .pages .path { font: 400 0.78rem var(--mono); color: var(--text-3); white-space: nowrap; }
+  .pages .tag { color: var(--text-2); font-size: 0.88rem; }
+
+  /* Asset grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .asset { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--card); display: flex; flex-direction: column; }
+  .asset .preview { display: flex; align-items: center; justify-content: center; padding: 22px; min-height: 190px; }
+  .asset .preview svg { width: 100%; height: auto; max-height: 220px; display: block; }
+  .asset.wide { grid-column: 1 / -1; }
+  .asset.wide .preview svg { max-height: 360px; }
+  .asset .meta { padding: 12px 14px 14px; border-top: 1px solid var(--border); }
+  .asset .name { font: 500 0.76rem var(--mono); word-break: break-all; }
+  .asset .name a { color: var(--navy); text-decoration: none; border-bottom: 1px solid rgba(13,27,62,0.2); }
+  .asset .name a:hover { color: var(--orange); border-color: var(--orange); }
+  .asset .usage { margin-top: 5px; font-size: 0.8rem; color: var(--text-2); line-height: 1.45; }
+  .asset .dims { margin-top: 5px; font: 400 0.68rem var(--mono); color: var(--text-3); letter-spacing: 0.06em; }
+
+  /* Surfaces — token values lifted from src/app/v22.5/theme.css so the SVGs
+     (which reference var(--v22-*)) render faithfully outside the app. */
+  .surface-dark {
+    background: var(--navy-deep) radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+    background-size: 24px 24px;
+    color: rgba(255, 255, 255, 0.85);
+    --font-mono: 'DM Mono', monospace;
+    --font-sans: 'DM Sans', sans-serif;
+    --brand-navy-deep: #070F22;
+    --v22-paper: #0D1B3E;
+    --v22-accent: #F18943;
+    --v22-ink-2: rgba(255, 255, 255, 0.75);
+    --v22-ink-grid: #1a2646;
+    --v22-ink-dot: #243056;
+    --v22-ink-frame: #5a6170;
+    --v22-ink-measure: #4d5463;
+    --v22-ink-dim: #8a8f9c;
+    --v22-ink-label: #9ca0a9;
+    --v22-ink-label-strong: #c0c4cc;
+    --v22-ink-layer-right: transparent;
+    --v22-ink-layer-fill: transparent;
+    --v22-ink-node-fill: #191623;
+    --v22-ink-hub: #221a23;
+    --v22-ink-orbit: #291d23;
+    --v22-ink-divider-soft: #4b2a24;
+    --v22-ink-hatch: #562f25;
+    --v22-ink-spoke: #613325;
+    --v22-ink-connector: #783d26;
+    --v22-ink-hair: #834126;
+    --v22-ink-corner: #8e4627;
+    --v22-ink-callout: #994a27;
+    --v22-ink-text-accent: #a54f28;
+    --v22-ink-blob: #bb5828;
+  }
+  .surface-light {
+    background: #FAFAFA radial-gradient(circle at 1px 1px, rgba(13,27,62,0.07) 1px, transparent 0);
+    background-size: 24px 24px;
+    color: #111111;
+    --font-mono: 'DM Mono', monospace;
+    --font-sans: 'DM Sans', sans-serif;
+    --brand-navy-deep: #070F22;
+    --v22-paper: #FAFAFA;
+    --v22-accent: #F07B2F;
+    --v22-ink-2: #555555;
+    --v22-ink-grid: rgba(13, 27, 62, 0.22);
+    --v22-ink-dot: rgba(13, 27, 62, 0.3);
+    --v22-ink-frame: #0D1B3E;
+    --v22-ink-measure: rgba(13, 27, 62, 0.55);
+    --v22-ink-dim: rgba(13, 27, 62, 0.55);
+    --v22-ink-label: #0D1B3E;
+    --v22-ink-label-strong: #0D1B3E;
+    --v22-ink-layer-right: transparent;
+    --v22-ink-layer-fill: transparent;
+    --v22-ink-node-fill: rgba(13, 27, 62, 0.06);
+    --v22-ink-hub: rgba(13, 27, 62, 0.14);
+    --v22-ink-orbit: rgba(13, 27, 62, 0.28);
+    --v22-ink-divider-soft: rgba(13, 27, 62, 0.28);
+    --v22-ink-hatch: rgba(240, 123, 47, 0.3);
+    --v22-ink-spoke: #1A2D5A;
+    --v22-ink-connector: #0D1B3E;
+    --v22-ink-hair: rgba(240, 123, 47, 0.4);
+    --v22-ink-corner: #0D1B3E;
+    --v22-ink-callout: #F07B2F;
+    --v22-ink-text-accent: #F07B2F;
+    --v22-ink-blob: #0D1B3E;
+  }
+
+  .logo-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .logo-row .asset { flex: 1 1 260px; max-width: 380px; }
+  .logo-row .preview img { max-width: 160px; height: auto; }
+
+  footer { margin-top: 96px; padding-top: 20px; border-top: 1px solid var(--border); font: 400 0.74rem var(--mono); color: var(--text-3); letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="kicker">DBiz.ai · Handoff Reference</div>
+    <h1>Pages &amp; Assets</h1>
+    <p>
+      Index of the site's pages and a live showcase of all SVG assets.
+      The SVG files live in <code style="font-family:var(--mono);font-size:0.85em">public/assets/svg/</code>
+      and are the source of truth — the site injects the same files inline at render time.
+    </p>
+  </header>
+
+  <h2>Pages</h2>
+  <p class="section-note">
+    The current design (internally <strong>V22.5</strong>) is what the root URL serves.
+  </p>
+  <table class="pages" id="pages"></table>
+
+  <h2>SVG assets</h2>
+  <p class="section-note">
+    Click a filename to open the raw file. Previews render on the surface the asset
+    is designed for. Several assets animate or recolor <em>in page context</em> via
+    CSS in <code>src/app/v22.5/theme.css</code> (draw-in strokes, particle flows,
+    active-card recolors) — the files themselves are static; the motion belongs to the
+    front-end layer, not the asset.
+  </p>
+  <div class="grid" id="assets"></div>
+
+  <h2>Logos &amp; brand</h2>
+  <p class="section-note">
+    Typography is Google Fonts: <strong>DM Sans</strong> (primary), <strong>DM Mono</strong> (labels/metadata),
+    <strong>Instrument Serif</strong> (italic accent words only). Full token reference: <code>BRAND.md</code>
+    and <code>src/app/globals.css</code> in the repo, or the live <a href="/styleguide">/styleguide</a>.
+  </p>
+  <div class="logo-row">
+    <div class="asset">
+      <div class="preview surface-light"><img src="/dbiz-logo.svg" alt="DBiz logo" /></div>
+      <div class="meta"><div class="name"><a href="/dbiz-logo.svg" download>dbiz-logo.svg</a></div>
+      <div class="usage">Primary logo — nav and footer.</div></div>
+    </div>
+    <div class="asset">
+      <div class="preview surface-dark"><img src="/dbiz-logo-dark.svg" alt="DBiz logo for dark surfaces" /></div>
+      <div class="meta"><div class="name"><a href="/dbiz-logo-dark.svg" download>dbiz-logo-dark.svg</a></div>
+      <div class="usage">Logo variant for dark surfaces.</div></div>
+    </div>
+  </div>
+
+  <h2>Not in this repo</h2>
+  <p class="section-note">
+    Two things on the live pages are <strong>placeholders with no files behind them</strong>:
+    the nine case-study photos are hotlinked from Pexels (URLs in
+    <code>src/app/v22.5/proven-section.tsx</code>) and the client logo wall is styled text,
+    not logo files. Both need final assets from the client before the CMS build.
+  </p>
+
+  <footer>GENERATED FROM public/assets/svg · REGENERATE CODE MODULE WITH `pnpm svg:gen`</footer>
+</main>
+
+<script>
+  const pages = [
+    { path: '/', name: 'Homepage', tag: 'Hero, capabilities, framework, testimonials, case studies, why, CTA.' },
+    { path: '/v22.5/capabilities/connected-systems', name: 'Capability detail — Connected Systems', tag: 'Linked from the homepage capabilities section. The template for the other six capability pages (not built yet).' },
+    { path: '/styleguide', name: 'Styleguide', tag: 'Live brand reference — colors, type, components.' },
+  ]
+
+  const assets = [
+    { file: 'hero-stack-diagram.svg', surface: 'dark', wide: true,
+      usage: 'Homepage hero — the 7-layer Frontier Organisation stack. Particle flow and layer reveals animate via theme.css.' },
+    { file: 'framework-stack-diagram.svg', surface: 'dark', wide: true,
+      usage: 'Homepage “How we do it” — static snapshot. In production this is an interactive React component (hover states, rotating geometry).' },
+    { file: 'capability-icon-01-strategy-architecture.svg', surface: 'light', usage: 'Capabilities tab 01 — Strategy & Architecture.' },
+    { file: 'capability-icon-02-ai-foundational-layer.svg', surface: 'light', usage: 'Capabilities tab 02 — The AI Foundational Layer.' },
+    { file: 'capability-icon-03-intelligence-layer.svg', surface: 'light', usage: 'Capabilities tab 03 — The Intelligence Layer.' },
+    { file: 'capability-icon-04-connected-systems.svg', surface: 'light', usage: 'Capabilities tab 04 — Connected Systems.' },
+    { file: 'capability-icon-05-engineered-with-ai.svg', surface: 'light', usage: 'Capabilities tab 05 — Engineered with AI.' },
+    { file: 'capability-icon-06-human-agent-experience.svg', surface: 'light', usage: 'Capabilities tab 06 — The Human-Agent Experience.' },
+    { file: 'capability-icon-07-ai-first-operations.svg', surface: 'light', usage: 'Capabilities tab 07 — AI-First Operations.' },
+    { file: 'framework-disc-01-strategy.svg', surface: 'dark', usage: 'Framework card disc — Strategy (narrow viewports).' },
+    { file: 'framework-disc-02-architecture.svg', surface: 'dark', usage: 'Framework card disc — Architecture.' },
+    { file: 'framework-disc-03-cloud.svg', surface: 'dark', usage: 'Framework card disc — Cloud.' },
+    { file: 'framework-disc-04-development.svg', surface: 'dark', usage: 'Framework card disc — Development.' },
+    { file: 'framework-disc-05-productivity.svg', surface: 'dark', usage: 'Framework card disc — Productivity.' },
+    { file: 'framework-disc-06-orchestration.svg', surface: 'dark', usage: 'Framework card disc — Orchestration.' },
+    { file: 'framework-disc-07-data-insights.svg', surface: 'dark', usage: 'Framework card disc — Data & Insights.' },
+    { file: 'why-glyph-01-expertise.svg', surface: 'light', usage: '“Why DBiz” card 01 — Expertise. Recolors when the card is active.' },
+    { file: 'why-glyph-02-scale.svg', surface: 'light', usage: '“Why DBiz” card 02 — Scale.' },
+    { file: 'why-glyph-03-delivery.svg', surface: 'light', usage: '“Why DBiz” card 03 — Delivery.' },
+    { file: 'why-glyph-04-platforms.svg', surface: 'light', usage: '“Why DBiz” card 04 — Platforms.' },
+    { file: 'why-glyph-05-partners.svg', surface: 'light', usage: '“Why DBiz” card 05 — Partners.' },
+    { file: 'why-glyph-06-domain.svg', surface: 'light', usage: '“Why DBiz” card 06 — Domain.' },
+    { file: 'connected-systems-hero-diagram.svg', surface: 'dark', wide: true,
+      usage: 'Connected Systems page hero — platforms → iConnector integration layer → agents.' },
+    { file: 'connected-systems-glyph-01-quality-registration.svg', surface: 'dark', usage: 'Connected Systems — AI pattern: quality registration.' },
+    { file: 'connected-systems-glyph-02-compliance.svg', surface: 'dark', usage: 'Connected Systems — AI pattern: compliance.' },
+    { file: 'connected-systems-glyph-03-procurement-routing.svg', surface: 'dark', usage: 'Connected Systems — AI pattern: procurement routing.' },
+    { file: 'platform-mark-microsoft.svg', surface: 'dark', usage: 'Connected Systems — Microsoft platform mark.' },
+    { file: 'platform-mark-salesforce.svg', surface: 'dark', usage: 'Connected Systems — Salesforce platform mark.' },
+    { file: 'platform-mark-oracle.svg', surface: 'dark', usage: 'Connected Systems — Oracle platform mark.' },
+    { file: 'platform-mark-integration.svg', surface: 'dark', usage: 'Connected Systems — Integration services mark.' },
+    { file: 'platform-mark-infrastructure.svg', surface: 'dark', usage: 'Connected Systems — Infrastructure services mark.' },
+  ]
+
+  document.getElementById('pages').innerHTML = pages.map(p => `
+    <tr>
+      <td><a href="${p.path}">${p.name}</a></td>
+      <td class="path">${p.path}</td>
+      <td class="tag">${p.tag}</td>
+    </tr>`).join('')
+
+  const grid = document.getElementById('assets')
+  for (const a of assets) {
+    const card = document.createElement('div')
+    card.className = 'asset' + (a.wide ? ' wide' : '')
+    card.innerHTML = `
+      <div class="preview surface-${a.surface}"></div>
+      <div class="meta">
+        <div class="name"><a href="assets/svg/${a.file}" download>${a.file}</a></div>
+        <div class="usage">${a.usage}</div>
+        <div class="dims"></div>
+      </div>`
+    grid.appendChild(card)
+    fetch('assets/svg/' + a.file)
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.text() })
+      .then(svg => {
+        card.querySelector('.preview').innerHTML = svg
+        const vb = svg.match(/viewBox="([^"]+)"/)
+        if (vb) {
+          const [, , w, h] = vb[1].split(/\s+/)
+          card.querySelector('.dims').textContent = `VIEWBOX ${w} × ${h} · SVG`
+        }
+      })
+      .catch(() => { card.querySelector('.preview').innerHTML = '<span style="font:0.75rem var(--mono)">failed to load</span>' })
+  }
+</script>
+</body>
+</html>

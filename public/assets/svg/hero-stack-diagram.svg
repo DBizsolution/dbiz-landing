@@ -1,0 +1,274 @@
+<svg viewBox="0 0 520 560" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="v22-hero-svg">
+<defs>
+<pattern id="v22-hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+<line x1="0" y1="0" x2="0" y2="6" stroke="var(--v22-ink-hatch)" stroke-width="1">
+</line>
+</pattern>
+<pattern id="v22-dot" patternUnits="userSpaceOnUse" width="10" height="10">
+<circle cx="1" cy="1" r="0.8" fill="var(--v22-ink-dot)">
+</circle>
+</pattern>
+<filter id="v22-glow">
+<feGaussianBlur stdDeviation="2" result="coloredBlur">
+</feGaussianBlur>
+<feMerge>
+<feMergeNode in="coloredBlur">
+</feMergeNode>
+<feMergeNode in="SourceGraphic">
+</feMergeNode>
+</feMerge>
+</filter>
+</defs>
+<g stroke="var(--v22-ink-frame)" stroke-width="0.6">
+<line x1="20" y1="20" x2="40" y2="20">
+</line>
+<line x1="20" y1="20" x2="20" y2="40">
+</line>
+<line x1="500" y1="20" x2="480" y2="20">
+</line>
+<line x1="500" y1="20" x2="500" y2="40">
+</line>
+<line x1="20" y1="540" x2="40" y2="540">
+</line>
+<line x1="20" y1="540" x2="20" y2="520">
+</line>
+<line x1="500" y1="540" x2="480" y2="540">
+</line>
+<line x1="500" y1="540" x2="500" y2="520">
+</line>
+</g>
+<g stroke="var(--v22-ink-frame)" stroke-width="0.6">
+<line x1="40" y1="60" x2="48" y2="60">
+</line>
+<line x1="40" y1="92" x2="44" y2="92">
+</line>
+<line x1="40" y1="124" x2="48" y2="124">
+</line>
+<line x1="40" y1="156" x2="44" y2="156">
+</line>
+<line x1="40" y1="188" x2="48" y2="188">
+</line>
+<line x1="40" y1="220" x2="44" y2="220">
+</line>
+<line x1="40" y1="252" x2="48" y2="252">
+</line>
+<line x1="40" y1="284" x2="44" y2="284">
+</line>
+<line x1="40" y1="316" x2="48" y2="316">
+</line>
+<line x1="40" y1="348" x2="44" y2="348">
+</line>
+<line x1="40" y1="380" x2="48" y2="380">
+</line>
+<line x1="40" y1="412" x2="44" y2="412">
+</line>
+<line x1="40" y1="444" x2="48" y2="444">
+</line>
+<line x1="40" y1="476" x2="44" y2="476">
+</line>
+</g>
+<rect x="60" y="60" width="400" height="440" fill="url(#v22-dot)">
+</rect>
+<g>
+<circle cx="200" cy="122" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:0s" filter="url(#v22-glow)">
+</circle>
+<circle cx="230" cy="122" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:0.30000000000000004s" filter="url(#v22-glow)">
+</circle>
+<circle cx="250" cy="122" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:0.4s" filter="url(#v22-glow)">
+</circle>
+<circle cx="270" cy="122" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:0.7000000000000001s" filter="url(#v22-glow)">
+</circle>
+<circle cx="300" cy="122" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:0.8s" filter="url(#v22-glow)">
+</circle>
+</g>
+<g>
+<circle cx="200" cy="178" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:1.5s" filter="url(#v22-glow)">
+</circle>
+<circle cx="230" cy="178" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:1.8s" filter="url(#v22-glow)">
+</circle>
+<circle cx="250" cy="178" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:1.9s" filter="url(#v22-glow)">
+</circle>
+<circle cx="270" cy="178" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:2.2s" filter="url(#v22-glow)">
+</circle>
+<circle cx="300" cy="178" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:2.3s" filter="url(#v22-glow)">
+</circle>
+</g>
+<g>
+<circle cx="200" cy="234" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:3s" filter="url(#v22-glow)">
+</circle>
+<circle cx="230" cy="234" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:3.3000000000000003s" filter="url(#v22-glow)">
+</circle>
+<circle cx="250" cy="234" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:3.4s" filter="url(#v22-glow)">
+</circle>
+<circle cx="270" cy="234" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:3.7s" filter="url(#v22-glow)">
+</circle>
+<circle cx="300" cy="234" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:3.8s" filter="url(#v22-glow)">
+</circle>
+</g>
+<g>
+<circle cx="200" cy="290" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:4.5s" filter="url(#v22-glow)">
+</circle>
+<circle cx="230" cy="290" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:4.8s" filter="url(#v22-glow)">
+</circle>
+<circle cx="250" cy="290" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:4.9s" filter="url(#v22-glow)">
+</circle>
+<circle cx="270" cy="290" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:5.199999999999999s" filter="url(#v22-glow)">
+</circle>
+<circle cx="300" cy="290" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:5.3s" filter="url(#v22-glow)">
+</circle>
+</g>
+<g>
+<circle cx="200" cy="346" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:6s" filter="url(#v22-glow)">
+</circle>
+<circle cx="230" cy="346" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:6.3s" filter="url(#v22-glow)">
+</circle>
+<circle cx="250" cy="346" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:6.4s" filter="url(#v22-glow)">
+</circle>
+<circle cx="270" cy="346" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:6.699999999999999s" filter="url(#v22-glow)">
+</circle>
+<circle cx="300" cy="346" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:6.8s" filter="url(#v22-glow)">
+</circle>
+</g>
+<g>
+<circle cx="200" cy="402" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:7.5s" filter="url(#v22-glow)">
+</circle>
+<circle cx="230" cy="402" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:7.8s" filter="url(#v22-glow)">
+</circle>
+<circle cx="250" cy="402" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:7.9s" filter="url(#v22-glow)">
+</circle>
+<circle cx="270" cy="402" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:8.2s" filter="url(#v22-glow)">
+</circle>
+<circle cx="300" cy="402" r="2.6" fill="#F07B2F" class="v22-particle" style="--particle-delay:8.3s" filter="url(#v22-glow)">
+</circle>
+</g>
+<g class="v22-layer" style="--layer-index:0;--box-index:0">
+<polygon points="140,90 360,90 386,76 166,76" fill="var(--v22-ink-layer-fill)" stroke="var(--v22-ink-corner)" stroke-width="1">
+</polygon>
+<rect x="140" y="90" width="220" height="32" fill="var(--v22-ink-layer-fill)">
+</rect>
+<rect x="140" y="90" width="220" height="32" fill="none" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-fill">
+</rect>
+<polygon points="360,90 386,76 386,108 360,122" fill="var(--v22-ink-layer-right)" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-side">
+</polygon>
+<text x="156" y="110" font-family="var(--font-mono)" font-size="10" letter-spacing="1.5" fill="var(--v22-ink-label-strong)">STRATEGY</text>
+<line x1="386" y1="98" x2="450" y2="98" stroke="var(--v22-ink-callout)" stroke-width="0.8" stroke-dasharray="2 2" class="v22-callout-line">
+</line>
+<circle cx="386" cy="98" r="1.6" fill="#F07B2F" class="v22-callout-dot">
+</circle>
+<text x="454" y="101" font-family="var(--font-mono)" font-size="8.5" letter-spacing="1" fill="#F07B2F">S·01</text>
+</g>
+<g class="v22-layer" style="--layer-index:1;--box-index:1">
+<polygon points="140,146 360,146 386,132 166,132" fill="var(--v22-ink-layer-fill)" stroke="var(--v22-ink-corner)" stroke-width="1">
+</polygon>
+<rect x="140" y="146" width="220" height="32" fill="var(--v22-ink-layer-fill)">
+</rect>
+<rect x="140" y="146" width="220" height="32" fill="none" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-fill">
+</rect>
+<polygon points="360,146 386,132 386,164 360,178" fill="var(--v22-ink-layer-right)" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-side">
+</polygon>
+<text x="156" y="166" font-family="var(--font-mono)" font-size="10" letter-spacing="1.5" fill="var(--v22-ink-label-strong)">ARCHITECTURE</text>
+<line x1="386" y1="154" x2="450" y2="154" stroke="var(--v22-ink-callout)" stroke-width="0.8" stroke-dasharray="2 2" class="v22-callout-line">
+</line>
+<circle cx="386" cy="154" r="1.6" fill="#F07B2F" class="v22-callout-dot">
+</circle>
+<text x="454" y="157" font-family="var(--font-mono)" font-size="8.5" letter-spacing="1" fill="#F07B2F">S·02</text>
+</g>
+<g class="v22-layer" style="--layer-index:2;--box-index:2">
+<polygon points="140,202 360,202 386,188 166,188" fill="var(--v22-ink-layer-fill)" stroke="var(--v22-ink-corner)" stroke-width="1">
+</polygon>
+<rect x="140" y="202" width="220" height="32" fill="var(--v22-ink-layer-fill)">
+</rect>
+<rect x="140" y="202" width="220" height="32" fill="none" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-fill">
+</rect>
+<polygon points="360,202 386,188 386,220 360,234" fill="var(--v22-ink-layer-right)" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-side">
+</polygon>
+<text x="156" y="222" font-family="var(--font-mono)" font-size="10" letter-spacing="1.5" fill="var(--v22-ink-label-strong)">CLOUD</text>
+<line x1="386" y1="210" x2="450" y2="210" stroke="var(--v22-ink-callout)" stroke-width="0.8" stroke-dasharray="2 2" class="v22-callout-line">
+</line>
+<circle cx="386" cy="210" r="1.6" fill="#F07B2F" class="v22-callout-dot">
+</circle>
+<text x="454" y="213" font-family="var(--font-mono)" font-size="8.5" letter-spacing="1" fill="#F07B2F">S·03</text>
+</g>
+<g class="v22-layer" style="--layer-index:3;--box-index:3">
+<polygon points="140,258 360,258 386,244 166,244" fill="var(--v22-ink-layer-fill)" stroke="var(--v22-ink-corner)" stroke-width="1">
+</polygon>
+<rect x="140" y="258" width="220" height="32" fill="var(--v22-ink-layer-fill)">
+</rect>
+<rect x="140" y="258" width="220" height="32" fill="url(#v22-hatch)" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-fill">
+</rect>
+<polygon points="360,258 386,244 386,276 360,290" fill="var(--v22-ink-layer-right)" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-side">
+</polygon>
+<text x="156" y="278" font-family="var(--font-mono)" font-size="10" letter-spacing="1.5" fill="var(--v22-ink-label-strong)">DATA</text>
+<line x1="386" y1="266" x2="450" y2="266" stroke="var(--v22-ink-callout)" stroke-width="0.8" stroke-dasharray="2 2" class="v22-callout-line">
+</line>
+<circle cx="386" cy="266" r="1.6" fill="#F07B2F" class="v22-callout-dot">
+</circle>
+<text x="454" y="269" font-family="var(--font-mono)" font-size="8.5" letter-spacing="1" fill="#F07B2F">S·04</text>
+</g>
+<g class="v22-layer" style="--layer-index:4;--box-index:4">
+<polygon points="140,314 360,314 386,300 166,300" fill="var(--v22-ink-layer-fill)" stroke="var(--v22-ink-corner)" stroke-width="1">
+</polygon>
+<rect x="140" y="314" width="220" height="32" fill="var(--v22-ink-layer-fill)">
+</rect>
+<rect x="140" y="314" width="220" height="32" fill="none" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-fill">
+</rect>
+<polygon points="360,314 386,300 386,332 360,346" fill="var(--v22-ink-layer-right)" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-side">
+</polygon>
+<text x="156" y="334" font-family="var(--font-mono)" font-size="10" letter-spacing="1.5" fill="var(--v22-ink-label-strong)">APPS</text>
+<line x1="386" y1="322" x2="450" y2="322" stroke="var(--v22-ink-callout)" stroke-width="0.8" stroke-dasharray="2 2" class="v22-callout-line">
+</line>
+<circle cx="386" cy="322" r="1.6" fill="#F07B2F" class="v22-callout-dot">
+</circle>
+<text x="454" y="325" font-family="var(--font-mono)" font-size="8.5" letter-spacing="1" fill="#F07B2F">S·05</text>
+</g>
+<g class="v22-layer" style="--layer-index:5;--box-index:5">
+<polygon points="140,370 360,370 386,356 166,356" fill="var(--v22-ink-layer-fill)" stroke="var(--v22-ink-corner)" stroke-width="1">
+</polygon>
+<rect x="140" y="370" width="220" height="32" fill="var(--v22-ink-layer-fill)">
+</rect>
+<rect x="140" y="370" width="220" height="32" fill="none" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-fill">
+</rect>
+<polygon points="360,370 386,356 386,388 360,402" fill="var(--v22-ink-layer-right)" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-side">
+</polygon>
+<text x="156" y="390" font-family="var(--font-mono)" font-size="10" letter-spacing="1.5" fill="var(--v22-ink-label-strong)">AGENTS</text>
+<line x1="386" y1="378" x2="450" y2="378" stroke="var(--v22-ink-callout)" stroke-width="0.8" stroke-dasharray="2 2" class="v22-callout-line">
+</line>
+<circle cx="386" cy="378" r="1.6" fill="#F07B2F" class="v22-callout-dot">
+</circle>
+<text x="454" y="381" font-family="var(--font-mono)" font-size="8.5" letter-spacing="1" fill="#F07B2F">S·06</text>
+</g>
+<g class="v22-layer" style="--layer-index:6;--box-index:6">
+<polygon points="140,426 360,426 386,412 166,412" fill="var(--v22-ink-layer-fill)" stroke="var(--v22-ink-corner)" stroke-width="1">
+</polygon>
+<rect x="140" y="426" width="220" height="32" fill="var(--v22-ink-layer-fill)">
+</rect>
+<rect x="140" y="426" width="220" height="32" fill="none" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-fill">
+</rect>
+<polygon points="360,426 386,412 386,444 360,458" fill="var(--v22-ink-layer-right)" stroke="var(--v22-ink-corner)" stroke-width="1" class="v22-box-border v22-box-side">
+</polygon>
+<text x="156" y="446" font-family="var(--font-mono)" font-size="10" letter-spacing="1.5" fill="var(--v22-ink-label-strong)">OPS</text>
+<line x1="386" y1="434" x2="450" y2="434" stroke="var(--v22-ink-callout)" stroke-width="0.8" stroke-dasharray="2 2" class="v22-callout-line">
+</line>
+<circle cx="386" cy="434" r="1.6" fill="#F07B2F" class="v22-callout-dot">
+</circle>
+<text x="454" y="437" font-family="var(--font-mono)" font-size="8.5" letter-spacing="1" fill="#F07B2F">S·07</text>
+</g>
+<g stroke="var(--v22-ink-hair)" stroke-width="0.8">
+<line x1="96" y1="76" x2="96" y2="484">
+</line>
+<line x1="92" y1="76" x2="100" y2="76">
+</line>
+<line x1="92" y1="484" x2="100" y2="484">
+</line>
+</g>
+<text x="80" y="284" font-family="var(--font-mono)" font-size="8.5" letter-spacing="1.5" fill="#F07B2F" transform="rotate(-90 80 284)">FRONTIER ORG · STACK</text>
+<g stroke="var(--v22-ink-dim)" stroke-width="0.6">
+<line x1="140" y1="520" x2="360" y2="520">
+</line>
+<line x1="140" y1="516" x2="140" y2="524">
+</line>
+<line x1="360" y1="516" x2="360" y2="524">
+</line>
+</g>
+<text x="250" y="534" font-family="var(--font-mono)" font-size="8" letter-spacing="1.5" fill="var(--v22-ink-label-strong)" text-anchor="middle">DIM: 7 × LAYER</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="40" cy="40" r="35" stroke="var(--v22-ink-2)" stroke-width="0.8" stroke-dasharray="4 3" class="v22-icon-circle-draw v22-icon-delay-1">
+</circle>
+<line x1="20" y1="27" x2="32" y2="40" stroke="var(--v22-ink-2)" stroke-width="1" class="v22-icon-line-draw v22-icon-delay-3">
+</line>
+<line x1="60" y1="27" x2="48" y2="40" stroke="var(--v22-ink-2)" stroke-width="1" class="v22-icon-line-draw v22-icon-delay-3">
+</line>
+<line x1="20" y1="53" x2="32" y2="40" stroke="var(--v22-ink-2)" stroke-width="1" class="v22-icon-line-draw v22-icon-delay-4">
+</line>
+<line x1="60" y1="53" x2="48" y2="40" stroke="var(--v22-ink-2)" stroke-width="1" class="v22-icon-line-draw v22-icon-delay-4">
+</line>
+<rect x="12" y="19" width="16" height="16" stroke="var(--v22-ink-2)" stroke-width="1.2" fill="none" class="v22-icon-rect-draw v22-icon-delay-2">
+</rect>
+<rect x="52" y="19" width="16" height="16" stroke="var(--v22-ink-2)" stroke-width="1.2" fill="none" class="v22-icon-rect-draw v22-icon-delay-2">
+</rect>
+<rect x="12" y="45" width="16" height="16" stroke="var(--v22-ink-2)" stroke-width="1.2" fill="none" class="v22-icon-rect-draw v22-icon-delay-2">
+</rect>
+<rect x="52" y="45" width="16" height="16" stroke="var(--v22-ink-2)" stroke-width="1.2" fill="none" class="v22-icon-rect-draw v22-icon-delay-2">
+</rect>
+<circle cx="40" cy="40" r="8" stroke="var(--v22-accent)" stroke-width="1.5" fill="none" class="v22-icon-circle-draw v22-icon-delay-5">
+</circle>
+<circle cx="40" cy="40" r="3" fill="var(--v22-accent)" class="v22-icon-scale-in v22-icon-delay-6">
+</circle>
+</svg>

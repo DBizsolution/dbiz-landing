@@ -6,6 +6,16 @@
    accelerators for each layer live in a card grid below the diagram. */
 
 import { useEffect, useRef, useState } from 'react'
+import { InlineSvg } from '@/components/inline-svg'
+import {
+  frameworkDisc01Strategy,
+  frameworkDisc02Architecture,
+  frameworkDisc03Cloud,
+  frameworkDisc04Development,
+  frameworkDisc05Productivity,
+  frameworkDisc06Orchestration,
+  frameworkDisc07DataInsights,
+} from '@/lib/svg-assets'
 
 type Side = { name: string; desc: string }
 type Layer = { n: string; label: string; top: Side; bottom: Side }
@@ -172,26 +182,20 @@ function renderShape(i: number, cx: number, cy: number) {
     }
 }
 
-/* Mini per-card disc (shown only on narrow viewports — keeps the icon at a
-   sensible "normal" size regardless of how wide the scroller stretches). */
+/* Mini per-card disc (shown only on narrow viewports) — file-based assets
+   (public/assets/svg) injected inline so theme.css animations apply. */
+const frameworkDiscs = [
+  frameworkDisc01Strategy,
+  frameworkDisc02Architecture,
+  frameworkDisc03Cloud,
+  frameworkDisc04Development,
+  frameworkDisc05Productivity,
+  frameworkDisc06Orchestration,
+  frameworkDisc07DataInsights,
+]
+
 export function MiniDisc({ i }: { i: number }) {
-  const cx = 80
-  const cy = 80
-  const r = 60
-  return (
-    <svg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg' className='v22-fw-mini-disc' aria-hidden='true'>
-      <defs>
-        <pattern id={`v22-mini-grid-${i}`} patternUnits='userSpaceOnUse' width='12' height='12'>
-          <path d='M 12 0 L 0 0 0 12' fill='none' stroke='rgba(255,255,255,0.14)' strokeWidth='0.6' />
-        </pattern>
-      </defs>
-      <rect x={cx - r} y={cy - r} width={r * 2} height={r * 2} stroke='rgba(255,255,255,0.22)' strokeWidth='0.8' strokeDasharray='4 3' fill='none' />
-      <rect x={cx - r + 6} y={cy - r + 6} width={(r - 6) * 2} height={(r - 6) * 2} stroke='rgba(255,255,255,0.16)' strokeWidth='0.6' fill='none' />
-      <rect x={cx - r + 13} y={cy - r + 13} width={(r - 13) * 2} height={(r - 13) * 2} stroke='rgba(255,255,255,0.12)' strokeWidth='0.4' strokeDasharray='1.5 2' fill='none' />
-      <rect x={cx - r + 14} y={cy - r + 14} width={(r - 14) * 2} height={(r - 14) * 2} fill={`url(#v22-mini-grid-${i})`} />
-      {renderShape(i, cx, cy)}
-    </svg>
-  )
+  return <InlineSvg markup={frameworkDiscs[i]} />
 }
 
 /* ─── Stack Diagram SVG — Deconstructed Assembly (machine reference) ─── */

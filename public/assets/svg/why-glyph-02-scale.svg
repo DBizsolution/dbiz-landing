@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" class="v22-why-glyph-svg g1">
+<circle class="g-sonar g-sonar-1" cx="60" cy="60" r="22" fill="none" stroke="#F07B2F" stroke-width="0.9" opacity="0">
+</circle>
+<circle class="g-sonar g-sonar-2" cx="60" cy="60" r="22" fill="none" stroke="#F07B2F" stroke-width="0.7" opacity="0">
+</circle>
+<polygon class="g-hex g-hex-0" points="101.57,36.00 101.57,84.00 60.00,108.00 18.43,84.00 18.43,36.00 60.00,12.00" fill="none" stroke="rgba(13,27,62,0.55)" stroke-width="1" stroke-dasharray="3 2.5">
+</polygon>
+<polygon class="g-hex g-hex-1" points="87.71,44.00 87.71,76.00 60.00,92.00 32.29,76.00 32.29,44.00 60.00,28.00" fill="none" stroke="rgba(13,27,62,0.55)" stroke-width="1">
+</polygon>
+<polygon class="g-hex g-hex-2" points="75.59,51.00 75.59,69.00 60.00,78.00 44.41,69.00 44.41,51.00 60.00,42.00" fill="none" stroke="#F07B2F" stroke-width="1.5">
+</polygon>
+<circle class="g-vtx g-vtx-0" cx="101.57" cy="36.00" r="1.6" fill="rgba(13,27,62,0.32)">
+</circle>
+<circle class="g-vtx g-vtx-1" cx="101.57" cy="84.00" r="1.6" fill="rgba(13,27,62,0.32)">
+</circle>
+<circle class="g-vtx g-vtx-2" cx="60.00" cy="108.00" r="1.6" fill="rgba(13,27,62,0.32)">
+</circle>
+<circle class="g-vtx g-vtx-3" cx="18.43" cy="84.00" r="1.6" fill="rgba(13,27,62,0.32)">
+</circle>
+<circle class="g-vtx g-vtx-4" cx="18.43" cy="36.00" r="1.6" fill="rgba(13,27,62,0.32)">
+</circle>
+<circle class="g-vtx g-vtx-5" cx="60.00" cy="12.00" r="1.6" fill="rgba(13,27,62,0.32)">
+</circle>
+<circle class="g-dot" cx="60" cy="60" r="3" fill="#F07B2F">
+</circle>
+</svg>

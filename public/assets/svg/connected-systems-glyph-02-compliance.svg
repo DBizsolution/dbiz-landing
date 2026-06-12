@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" class="v22-cdp-pattern-glyph">
+<path d="M 60 12 L 100 28 L 100 64 Q 100 92 60 108 Q 20 92 20 64 L 20 28 Z" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.1" stroke-linejoin="round">
+</path>
+<path d="M 60 22 L 92 35 L 92 64 Q 92 86 60 98 Q 28 86 28 64 L 28 35 Z" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="0.7" stroke-dasharray="2 2.5" stroke-linejoin="round">
+</path>
+<path d="M 40 60 L 54 74 L 82 44" stroke="var(--v22-accent)" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+</path>
+<text x="60" y="118" text-anchor="middle" font-family="var(--font-mono)" font-size="6.5" letter-spacing="1.2" fill="rgba(255,255,255,0.28)">VERIFIED</text>
+</svg>

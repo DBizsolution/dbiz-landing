@@ -1,0 +1,18 @@
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="40" cy="40" r="35" stroke="var(--v22-ink-2)" stroke-width="1.2" class="v22-icon-circle-draw v22-icon-delay-1">
+</circle>
+<circle cx="40" cy="40" r="24" stroke="var(--v22-ink-2)" stroke-width="0.8" stroke-dasharray="4 3" class="v22-icon-circle-draw v22-icon-delay-2">
+</circle>
+<circle cx="40" cy="40" r="13" stroke="var(--v22-ink-2)" stroke-width="0.8" stroke-dasharray="4 3" class="v22-icon-circle-draw v22-icon-delay-3">
+</circle>
+<line x1="40" y1="5" x2="40" y2="75" stroke="var(--v22-ink-2)" stroke-width="0.6" class="v22-icon-line-draw v22-icon-delay-4">
+</line>
+<line x1="5" y1="40" x2="75" y2="40" stroke="var(--v22-ink-2)" stroke-width="0.6" class="v22-icon-line-draw v22-icon-delay-4">
+</line>
+<path d="M 40 40 L 40 5" stroke="var(--v22-accent)" stroke-width="2" class="v22-icon-line-draw v22-icon-delay-5">
+</path>
+<circle cx="40" cy="40" r="3" fill="var(--v22-accent)" class="v22-icon-scale-in v22-icon-delay-6">
+</circle>
+<circle cx="54" cy="22" r="2.5" fill="var(--v22-accent)" class="v22-icon-scale-in v22-icon-delay-7">
+</circle>
+</svg>

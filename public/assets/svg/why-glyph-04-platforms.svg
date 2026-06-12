@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true" class="v22-why-glyph-svg g3">
+<line x1="20" y1="14" x2="20" y2="106" stroke="rgba(13,27,62,0.32)" stroke-width="0.5" stroke-dasharray="1 2">
+</line>
+<line x1="100" y1="14" x2="100" y2="106" stroke="rgba(13,27,62,0.32)" stroke-width="0.5" stroke-dasharray="1 2">
+</line>
+<rect class="g-layer g-layer-0" x="24" y="26" width="72" height="10" fill="none" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</rect>
+<rect class="g-layer g-layer-1" x="24" y="40" width="72" height="10" fill="none" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</rect>
+<rect class="g-layer g-layer-2" x="24" y="54" width="72" height="10" fill="none" stroke="#F07B2F" stroke-width="1.4">
+</rect>
+<rect class="g-layer g-layer-3" x="24" y="68" width="72" height="10" fill="none" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</rect>
+<rect class="g-layer g-layer-4" x="24" y="82" width="72" height="10" fill="none" stroke="rgba(13,27,62,0.55)" stroke-width="0.9">
+</rect>
+<circle class="g-port g-port-0" cx="102" cy="31" r="1.6" fill="rgba(13,27,62,0.32)">
+</circle>
+<circle class="g-port g-port-1" cx="102" cy="45" r="1.6" fill="rgba(13,27,62,0.32)">
+</circle>
+<circle class="g-port g-port-2" cx="102" cy="59" r="1.6" fill="#F07B2F">
+</circle>
+<circle class="g-port g-port-3" cx="102" cy="73" r="1.6" fill="rgba(13,27,62,0.32)">
+</circle>
+<circle class="g-port g-port-4" cx="102" cy="87" r="1.6" fill="rgba(13,27,62,0.32)">
+</circle>
+<text x="24" y="22" font-family="var(--font-mono)" font-size="6.5" fill="rgba(13,27,62,0.32)" letter-spacing="0.5">STACK A</text>
+<text x="80" y="22" font-family="var(--font-mono)" font-size="6.5" fill="rgba(13,27,62,0.32)" letter-spacing="0.5">v.07</text>
+</svg>

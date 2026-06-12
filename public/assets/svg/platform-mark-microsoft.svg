@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" aria-hidden="true" class="v22-cdp-platform-mark">
+<rect x="4" y="4" width="15" height="15" fill="var(--v22-accent)" opacity="0.95">
+</rect>
+<rect x="21" y="4" width="15" height="15" stroke="currentColor" stroke-width="1.2" fill="none">
+</rect>
+<rect x="4" y="21" width="15" height="15" stroke="currentColor" stroke-width="1.2" fill="none">
+</rect>
+<rect x="21" y="21" width="15" height="15" fill="currentColor" opacity="0.65">
+</rect>
+</svg>
