@@ -39,6 +39,17 @@
   .section-note { margin: 0 0 24px; color: var(--text-2); font-size: 0.92rem; max-width: 80ch; }
   .section-note code { font: 0.85em var(--mono); background: rgba(13,27,62,0.06); padding: 1px 5px; border-radius: 4px; }
 
+  /* How this works */
+  .howto { margin-top: 24px; display: grid; gap: 12px; }
+  .howto .step {
+    display: flex; gap: 16px; padding: 18px 20px;
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r);
+  }
+  .howto .num { font: 500 0.78rem/1.9 var(--mono); color: var(--orange); white-space: nowrap; }
+  .howto .step p { margin: 0; font-size: 0.92rem; color: var(--text-2); max-width: 90ch; }
+  .howto .step strong { color: var(--text); }
+  .howto .step code { font: 0.85em var(--mono); background: rgba(13,27,62,0.06); padding: 1px 5px; border-radius: 4px; }
+
   /* Pages table */
   .pages { width: 100%; border-collapse: collapse; }
   .pages td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
@@ -146,6 +157,49 @@
       and are the source of truth — the site injects the same files inline at render time.
     </p>
   </header>
+
+  <h2>How this works</h2>
+  <p class="section-note">
+    For the team rebuilding this site in the CMS — how this page, the live site, and the repo fit together.
+  </p>
+  <div class="howto">
+    <div class="step"><div class="num">01</div>
+      <p><strong>The live site is the spec.</strong> This repo is a working Next.js prototype, deployed at
+      <code>home.dbizapps.ai</code>. The root URL serves the current design. Layout, typography, spacing,
+      and motion should match what you see live.</p>
+    </div>
+    <div class="step"><div class="num">02</div>
+      <p><strong>The SVG files are the source of truth for all artwork.</strong> They live in
+      <code>public/assets/svg/</code> in the repo and are showcased below — click any filename to download
+      the exact file the live site renders.</p>
+    </div>
+    <div class="step"><div class="num">03</div>
+      <p><strong>Inline the SVGs — don't reference them with <code>&lt;img&gt;</code>.</strong> The artwork
+      uses CSS custom properties (<code>var(--v22-…)</code>, defined in <code>src/app/v22.5/theme.css</code>)
+      for every color. Those variables only resolve when the SVG markup sits in the page DOM — in Twig,
+      e.g. <code>{{ source('…/asset.svg') }}</code>. Loaded via <code>&lt;img src&gt;</code>, the variables
+      don't apply and the art renders without its colors. The previews on this page work the same way:
+      the variable values are copied into this file's stylesheet.</p>
+    </div>
+    <div class="step"><div class="num">04</div>
+      <p><strong>Motion lives in the CSS, not in the files.</strong> Draw-in strokes, particle flows, and
+      active-state recolors are selectors and keyframes in <code>theme.css</code> that target elements
+      inside the inlined SVGs. The .svg files are static. When porting an animated asset, port the
+      matching CSS with it.</p>
+    </div>
+    <div class="step"><div class="num">05</div>
+      <p><strong>The repo's build step is a Next.js convenience you can ignore.</strong>
+      <code>pnpm svg:gen</code> compiles the .svg files into a TypeScript module
+      (<code>src/lib/svg-assets.ts</code>) that React components inject inline. For the CMS build you
+      only need the .svg files plus an inlining mechanism.</p>
+    </div>
+    <div class="step"><div class="num">06</div>
+      <p><strong>Copy, tokens, and brand rules.</strong> All page copy is in the React components under
+      <code>src/app/v22.5/</code>. Brand color and type tokens are in <code>src/app/globals.css</code>;
+      the rules for using them are in <code>BRAND.md</code>. The live <a href="/styleguide">/styleguide</a>
+      shows the components rendered.</p>
+    </div>
+  </div>
 
   <h2>Pages</h2>
   <p class="section-note">
