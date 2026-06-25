@@ -239,6 +239,26 @@
 
   footer { margin-top: 96px; padding-top: 20px; border-top: 1px solid var(--border); font: 400 0.74rem var(--mono); color: var(--text-3); letter-spacing: 0.06em; }
 
+  /* ---- Brand rule banner ---- */
+  .rule-banner { margin: 26px 0 4px; border: 1px solid rgba(240,123,47,0.3); background: var(--orange-glow); border-radius: var(--r); padding: 22px 24px; }
+  .rule-banner .rb-t { font: 800 1.05rem var(--sans); letter-spacing: -0.01em; color: var(--text); }
+  .rule-banner .rb-b { margin: 8px 0 0; font: 400 0.95rem/1.6 var(--sans); color: var(--text-2); max-width: 88ch; }
+  .rule-banner .rb-b b { color: var(--orange); }
+
+  /* ---- Spec tables (decks) ---- */
+  .spec-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  .spec-table th, .spec-table td { padding: 9px 14px 9px 0; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; font: 400 0.9rem var(--sans); }
+  .spec-table th { font: 500 0.7rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+  .spec-table .mono { font: 400 0.82rem var(--mono); color: var(--text-2); white-space: nowrap; }
+
+  /* ---- Sample slide ---- */
+  .deck-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; margin-top: 16px; }
+  .slide { position: relative; width: 320px; aspect-ratio: 4 / 5; border-radius: var(--r); overflow: hidden; padding: 34px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; border: 1px solid var(--navy-light); background: #070F22 radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0); background-size: 22px 22px; }
+  .slide .s-foot { position: absolute; top: 26px; left: 34px; right: 34px; display: flex; justify-content: space-between; font: 500 0.6rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .slide .s-kick { font: 500 0.68rem var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); }
+  .slide .s-head { margin-top: 10px; font: 800 1.9rem/1.1 var(--sans); letter-spacing: -0.03em; }
+  .slide .s-sub { margin-top: 12px; font: 400 0.95rem/1.5 var(--sans); color: rgba(255,255,255,0.6); }
+
   @media (max-width: 560px) {
     .specimen { grid-template-columns: 1fr; }
     .specimen .role { border-right: none; border-bottom: 1px solid var(--border); }
@@ -248,26 +268,48 @@
 <body>
 <main>
   <header>
-    <div class="kicker">DBiz.ai · Handoff Reference</div>
-    <h1>Pages &amp; Assets</h1>
+    <div class="kicker">DBiz.ai · Design System &amp; Handoff</div>
+    <h1>Design System &amp; Assets</h1>
     <p>
-      Index of the site's pages, the full design-system reference (type, color, surfaces,
-      components — copy-ready), and a live showcase of every SVG asset. The SVG files live in
-      <code style="font-family:var(--mono);font-size:0.85em">public/assets/svg/</code> and are the
-      source of truth — the site injects the same files inline at render time.
+      The complete brand reference (color, typography, surfaces, components, and deck / slide specs), plus
+      the index of the site's pages and a live showcase of every SVG asset. Values mirror
+      <code style="font-family:var(--mono);font-size:0.85em">src/app/globals.css</code> and
+      <code style="font-family:var(--mono);font-size:0.85em">BRAND.md</code>, the live source of truth.
+      Every code block has a <strong>Copy</strong> button; every color chip copies on click.
     </p>
     <nav class="toc">
+      <a href="#color">Color</a>
       <a href="#howto">How this works</a>
       <a href="#typography">Typography</a>
-      <a href="#color">Color</a>
       <a href="#surfaces">Surfaces</a>
       <a href="#components">Components</a>
+      <a href="#decks">Decks &amp; slides</a>
       <a href="#tokens">All tokens</a>
       <a href="#pages">Pages</a>
       <a href="#assets">SVG assets</a>
       <a href="#logos">Logos</a>
     </nav>
   </header>
+
+  <!-- ============================= BRAND RULE ============================= -->
+  <div class="rule-banner">
+    <div class="rb-t">Two fonts. No serif. Ever.</div>
+    <p class="rb-b">
+      DM Sans for everything, DM Mono for technical accents. <b>Never add, load, or mix a serif</b>
+      (Instrument Serif is retired) and never introduce a third typeface. Emphasis comes from weight, size,
+      color, and case, not a different font.
+    </p>
+  </div>
+
+  <!-- ============================= COLOR ============================= -->
+  <h2 id="color">Color</h2>
+  <p class="section-note">
+    Navy and orange are brand-constant — never recolor them per theme. Click any chip to copy its hex /
+    value. Surfaces and text flip between light and dark modes; the accent does not.
+    <strong>Note:</strong> orange is <code>#F07B2F</code> (the live value in <code>globals.css</code>) —
+    older docs may show <code>#E86A2A</code>.
+  </p>
+  <div id="swatches"></div>
 
   <h2 id="howto">How this works</h2>
   <p class="section-note">
@@ -420,16 +462,6 @@ const dmMono = DM_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '
 <span class="c">/* Label      */</span>  font: 500 0.76rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase;
 <span class="c">/* Caption    */</span>  font: 400 0.68rem var(--font-mono); letter-spacing: 0.1em;</pre></div>
 
-  <!-- ============================= COLOR ============================= -->
-  <h2 id="color">Color</h2>
-  <p class="section-note">
-    Navy and orange are brand-constant — never recolor them per theme. Click any chip to copy its hex /
-    value. Surfaces and text flip between light and dark modes; the accent does not.
-    <strong>Note:</strong> orange is <code>#F07B2F</code> (the live value in <code>globals.css</code>) —
-    older docs may show <code>#E86A2A</code>.
-  </p>
-  <div id="swatches"></div>
-
   <!-- ============================= SURFACES ============================= -->
   <h2 id="surfaces">Surfaces &amp; backgrounds</h2>
   <p class="section-note">
@@ -551,6 +583,47 @@ const dmMono = DM_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '
   border-radius: var(--brand-r);
   color: #fff;
 }</pre></div>
+
+  <!-- ============================= DECKS & SLIDES ============================= -->
+  <h2 id="decks">Decks &amp; slides</h2>
+  <p class="section-note">
+    The same tokens drive presentation decks and social carousels. Only the canvas size and a larger,
+    legibility-first type scale change. The default slide surface is navy-deep with the blueprint dot grid
+    (see <a href="#surfaces">Surfaces</a>).
+  </p>
+  <table class="spec-table">
+    <thead><tr><th>Format</th><th>Pixels</th><th>Ratio</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td>Portrait carousel</td><td class="mono">1080 &times; 1350</td><td class="mono">4:5</td><td>LinkedIn / social carousels</td></tr>
+      <tr><td>Square</td><td class="mono">1080 &times; 1080</td><td class="mono">1:1</td><td>Single social posts</td></tr>
+      <tr><td>Landscape deck</td><td class="mono">1920 &times; 1080</td><td class="mono">16:9</td><td>Presentation / pitch decks</td></tr>
+    </tbody>
+  </table>
+  <div class="deck-row">
+    <div class="slide">
+      <div class="s-foot"><span>DBiz.ai</span><span>03 / 13</span></div>
+      <div class="s-kick">Human-Led &middot; Agent-Operated</div>
+      <div class="s-head">Brief to shipped in 3 weeks.</div>
+      <div class="s-sub">One idea per slide. Type sized up for the feed. Orange used once.</div>
+    </div>
+    <table class="spec-table" style="flex:1;min-width:280px">
+      <thead><tr><th>Role</th><th>Family</th><th>Size (&approx;1080w)</th></tr></thead>
+      <tbody>
+        <tr><td>Slide H1</td><td class="mono">DM Sans 800</td><td class="mono">80&ndash;90px</td></tr>
+        <tr><td>Slide H2</td><td class="mono">DM Sans 800</td><td class="mono">60&ndash;68px</td></tr>
+        <tr><td>Lede / intro</td><td class="mono">DM Sans 400&ndash;500</td><td class="mono">38&ndash;42px / 1.5</td></tr>
+        <tr><td>Body</td><td class="mono">DM Sans 400</td><td class="mono">24&ndash;28px / 1.5</td></tr>
+        <tr><td>Stat value</td><td class="mono">DM Sans 800</td><td class="mono">56&ndash;72px</td></tr>
+        <tr><td>Stat label</td><td class="mono">DM Sans 400</td><td class="mono">22&ndash;28px</td></tr>
+        <tr><td>Kicker / footer</td><td class="mono">DM Mono 500</td><td class="mono">12&ndash;14px &middot; uppercase</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="section-note" style="margin-top:18px">
+    <strong>Rules:</strong> one idea per slide; never below ~22px for slide body; orange is one or two hits
+    per slide, never a wash; body on dark uses <code>rgba(255,255,255,.6)</code>, headlines full white; no
+    serif, no italic-accent word, no third font. Icons from Phosphor (<code>ph:*</code>), one weight per deck.
+  </p>
 
   <!-- ============================= ALL TOKENS ============================= -->
   <h2 id="tokens">All design tokens</h2>

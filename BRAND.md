@@ -4,7 +4,7 @@ Source of truth for every homepage variant in this repo. Colors and typography a
 
 Live tokens: `src/app/globals.css`
 Live styleguide: `/styleguide`
-Live design system: `/design-system` · sendable: `DESIGN-SYSTEM.md`
+Full design system: `public/pages-and-assets.html` (web) · `DESIGN-SYSTEM.md` (sendable)
 
 ---
 

@@ -3,9 +3,8 @@
 The shared, sendable reference for everything visual at DBiz.ai — web pages, capability pages, **and decks**. It is derived from the live tokens in `src/app/globals.css`, so the values here are the real ones, not aspirational.
 
 - **Live tokens:** `src/app/globals.css`
-- **Live, in-browser version:** `/design-system`
+- **Live, in-browser version (full + asset showcase):** `public/pages-and-assets.html`
 - **Engineering brand rules:** `BRAND.md`
-- **CMS / handoff version:** `public/pages-and-assets.html`
 
 > One brand, two surfaces (light and dark), one typeface family. Everything below flows from that.
 
