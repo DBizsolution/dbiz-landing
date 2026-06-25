@@ -54,7 +54,7 @@ export const caseStudies: CaseStudy[] = [
     heroAccent: 'for infrastructure.',
     subtitle: 'Amazon Bedrock · Neo4j · AWS',
     lead: 'Large infrastructure projects bury critical answers across schedules, risk registers, and contracts. We unified them into one queryable knowledge graph — answers in seconds, with citations.',
-    heroImage: IMG(209251),
+    heroImage: IMG(2058131),
     industryTags: ['Construction', 'Infrastructure', 'Knowledge Graph'],
     overview: [
       { label: 'Industry', value: 'Construction' },
@@ -112,7 +112,7 @@ export const caseStudies: CaseStudy[] = [
     heroAccent: 'agent-ready.',
     subtitle: 'Futures analysis · Strategic roadmapping',
     lead: 'A foresight-led AI strategy that aligned 15+ leaders around a shared vision — 38 use cases, organised into seven capability clusters and a phased path from quick wins to autonomous systems.',
-    heroImage: IMG(325229),
+    heroImage: IMG(1148820),
     industryTags: ['Telecommunications', 'AI Strategy', 'Advisory'],
     overview: [
       { label: 'Industry', value: 'Telecommunications · Critical Infrastructure' },
@@ -163,7 +163,7 @@ export const caseStudies: CaseStudy[] = [
     heroAccent: 'automated.',
     subtitle: 'Salesforce · AI case intelligence',
     lead: 'Escalated compliance cases once meant hours of manual review. We built AI validation inside Salesforce that recommends dispositions, updates records, and triggers workflows — consistent and governed.',
-    heroImage: IMG(4348404),
+    heroImage: IMG(2881229),
     industryTags: ['Telecommunications', 'Compliance', 'Salesforce'],
     overview: [
       { label: 'Industry', value: 'Telecommunications' },
@@ -265,7 +265,7 @@ export const caseStudies: CaseStudy[] = [
     heroAccent: 'self-served.',
     subtitle: 'Azure AI Foundry · Agent Framework',
     lead: 'A high-volume contact centre fielded the same questions on repeat. We built a governed conversational assistant that answers — source-grounded, cited, and safe — 24/7.',
-    heroImage: IMG(170811),
+    heroImage: IMG(248747),
     industryTags: ['Auctions', 'Conversational AI', 'Azure'],
     overview: [
       { label: 'Industry', value: 'Auctions & Valuation Services' },
@@ -317,7 +317,7 @@ export const caseStudies: CaseStudy[] = [
     heroAccent: 'drafted by AI.',
     subtitle: 'Copilot Studio · Power Platform',
     lead: 'Proposal teams leaned on experts to draft every RFI. We automated requirement extraction and drafting on Copilot Studio — consistent submissions from a governed knowledge base.',
-    heroImage: IMG(3786091),
+    heroImage: IMG(210607),
     industryTags: ['Financial Services', 'Proposal Automation', 'Copilot Studio'],
     overview: [
       { label: 'Industry', value: 'Financial Services' },
@@ -368,7 +368,7 @@ export const caseStudies: CaseStudy[] = [
     heroAccent: 'on demand.',
     subtitle: 'Large Language Models · Python',
     lead: 'Support teams fielded ~6,000 policy enquiries a month, many from staff without system access. We built a policy-grounded AI assistant that answers reliably — with citations.',
-    heroImage: IMG(3184292),
+    heroImage: IMG(145939),
     industryTags: ['Entertainment & Tourism', 'Conversational AI', 'Workforce'],
     overview: [
       { label: 'Industry', value: 'Entertainment & Tourism' },
@@ -419,7 +419,7 @@ export const caseStudies: CaseStudy[] = [
     heroAccent: 'simulated.',
     subtitle: 'AWS · React · Canvas LMS',
     lead: 'Manufacturing leaders rarely get to practice high-stakes decisions. We built a simulation-led learning platform where they scale a plant from 500 to 2,000 units a day — and earn accreditation.',
-    heroImage: IMG(1108101),
+    heroImage: IMG(1145434),
     industryTags: ['Education', 'Advanced Manufacturing', 'Simulation'],
     overview: [
       { label: 'Industry', value: 'Education · Advanced Manufacturing' },
