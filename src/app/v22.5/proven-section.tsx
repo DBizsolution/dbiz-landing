@@ -10,89 +10,99 @@ type CaseStudy = {
   image: string
   tag: 'industry' | 'solution' | 'technology'
   techs?: string[]
+  href?: string
 }
 
 const cases: CaseStudy[] = [
   {
-    metric: '38% faster',
-    title: 'Credit decisioning in hours, not weeks',
-    kicker: 'Financial Services',
-    body: 'Agent-driven risk models cut the underwriting cycle time for a tier-1 lender across retail, SME, and corporate books.',
-    image: 'https://images.pexels.com/photos/730547/pexels-photo-730547.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
+    metric: 'Agentic pay',
+    title: 'Agentic AI-powered payment experience',
+    kicker: 'Real Estate',
+    body: 'Authorised AI agents initiate, authenticate, and complete payments end-to-end — secured by Visa Payment Passkey and orchestrated through Visa Intelligent Commerce.',
+    image: 'https://images.pexels.com/photos/1546168/pexels-photo-1546168.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
     tag: 'industry',
-    techs: ['Agent Studio', 'AWS', 'Snowflake'],
+    techs: ['Agentic AI', 'Visa VIC', 'Visa Passkey'],
+    href: '/v22.5/work/agentic-payments',
   },
   {
-    metric: '$14M saved',
-    title: 'Dispatch, rewritten nightly',
-    kicker: 'Logistics & Fleet',
-    body: 'A national fleet operator replaced static route planning with agentic scheduling across 12,000 vehicles.',
-    image: 'https://images.pexels.com/photos/1427107/pexels-photo-1427107.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
+    metric: '24× faster',
+    title: 'Knowledge graph intelligence for infrastructure',
+    kicker: 'Construction',
+    body: 'Schedules, risks, and contracts unified into one queryable knowledge graph — answers in seconds, with citations, delivered in 8 weeks.',
+    image: 'https://images.pexels.com/photos/209251/pexels-photo-209251.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
     tag: 'industry',
-    techs: ['Azure', 'Boomi', 'Agent Studio'],
+    techs: ['AWS', 'Amazon Bedrock', 'Neo4j'],
+    href: '/v22.5/work/knowledge-graph-intelligence',
   },
   {
-    metric: '6× throughput',
-    title: 'Clinical documentation, automated',
-    kicker: 'Aged Care',
-    body: 'Care teams reclaimed hours per shift with voice-to-record agents compliant with regional reporting standards.',
-    image: 'https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
-    tag: 'industry',
-    techs: ['Claude', 'AWS', 'FactWeavers'],
-  },
-  {
-    metric: '11 domains',
-    title: 'Industry-ready data cloud',
-    kicker: 'FactWeavers™',
-    body: 'Pre-modelled data products shipped without a six-month clean-up phase.',
-    image: 'https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
-    tag: 'solution',
-    techs: ['Snowflake', 'Databricks', 'AWS'],
-  },
-  {
-    metric: '40+ agents',
-    title: 'Multi-agent orchestration at scale',
-    kicker: 'Agent Studio',
-    body: 'Cross-system agents running order-to-cash for a Fortune 500 manufacturer.',
+    metric: '38 use cases',
+    title: 'AI strategy & agentic transformation roadmap',
+    kicker: 'Telecommunications',
+    body: 'A foresight-led strategy aligning 15+ leaders — 38 use cases in seven capability clusters and a phased path to autonomous systems.',
     image: 'https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
     tag: 'solution',
-    techs: ['Claude', 'GPT', 'MuleSoft'],
+    techs: ['Futures Studio', 'Agentic AI'],
+    href: '/v22.5/work/ai-strategy-roadmap',
   },
   {
-    metric: '5 days',
-    title: 'Concept to working build',
-    kicker: 'DBiz Canvas',
-    body: 'Product teams move from brief to production code inside a single sprint.',
-    image: 'https://images.pexels.com/photos/273238/pexels-photo-273238.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
+    metric: 'Automated',
+    title: 'AI-powered compliance validation',
+    kicker: 'Telecommunications',
+    body: 'AI validation inside Salesforce recommends dispositions, updates records, and triggers workflows — consistent and governed at scale.',
+    image: 'https://images.pexels.com/photos/4348404/pexels-photo-4348404.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
+    tag: 'technology',
+    techs: ['Salesforce', 'AI'],
+    href: '/v22.5/work/compliance-validation',
+  },
+  {
+    metric: '−70% time',
+    title: 'AI-powered inspection report automation',
+    kicker: 'Construction',
+    body: 'Generative AI extracts defects, maps responses, and drafts customer-ready reports — 100+ a week, with a human check.',
+    image: 'https://images.pexels.com/photos/280229/pexels-photo-280229.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
+    tag: 'industry',
+    techs: ['Azure OpenAI', 'Cognitive Search'],
+    href: '/v22.5/work/inspection-report-automation',
+  },
+  {
+    metric: '24/7',
+    title: 'AI-powered customer self-service assistant',
+    kicker: 'Auctions',
+    body: 'A governed conversational assistant answers high-frequency enquiries — source-grounded, cited, and safe — around the clock.',
+    image: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
     tag: 'solution',
-    techs: ['Nexus', 'AWS', 'React'],
+    techs: ['Azure AI Foundry', 'Agent Framework'],
+    href: '/v22.5/work/customer-self-service-assistant',
   },
   {
-    metric: '40+',
-    title: 'AWS certified experts across the practice',
-    kicker: 'Cloud & AI',
-    body: 'AWS Advanced, Azure Solutions, GCP — multi-cloud foundations built for AI workloads.',
-    image: 'https://images.pexels.com/photos/844297/pexels-photo-844297.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
+    metric: 'AI drafts',
+    title: 'AI-powered RFI response automation',
+    kicker: 'Financial Services',
+    body: 'Requirement extraction and drafting on Copilot Studio — consistent proposal submissions from a governed knowledge base.',
+    image: 'https://images.pexels.com/photos/3786091/pexels-photo-3786091.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
     tag: 'technology',
-    techs: ['AWS', 'Azure', 'GCP'],
+    techs: ['Copilot Studio', 'Power Platform'],
+    href: '/v22.5/work/rfi-response-automation',
   },
   {
-    metric: '200+',
-    title: 'Microsoft certifications across the team',
-    kicker: 'Business Apps',
-    body: 'Salesforce, Dynamics 365, Power Platform — connected systems, not silos.',
-    image: 'https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
-    tag: 'technology',
-    techs: ['Salesforce', 'Dynamics 365', 'Power Platform'],
+    metric: '6,000/mo',
+    title: 'AI assistant for workforce policy support',
+    kicker: 'Tourism',
+    body: 'A policy-grounded assistant answers ~6,000 monthly enquiries reliably — with citations — for staff without system access.',
+    image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
+    tag: 'industry',
+    techs: ['LLMs', 'Python'],
+    href: '/v22.5/work/workforce-policy-assistant',
   },
   {
-    metric: '4 platforms',
-    title: 'Data platforms unified under one roof',
-    kicker: 'Data Platforms',
-    body: 'Snowflake, Databricks, Fabric, BigQuery — with FactWeavers™ built on top.',
-    image: 'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
-    tag: 'technology',
-    techs: ['Snowflake', 'Databricks', 'BigQuery'],
+    metric: '500 → 2,000',
+    title: 'Simulation-led manufacturing leadership platform',
+    kicker: 'Education',
+    body: 'A simulation platform where manufacturing leaders scale a plant from 500 to 2,000 units a day — and earn accreditation.',
+    image: 'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
+    tag: 'solution',
+    techs: ['AWS', 'React', 'Canvas LMS'],
+    href: '/v22.5/work/manufacturing-simulation-platform',
   },
 ]
 
@@ -299,6 +309,15 @@ export default function ProvenSection() {
                       <div className='v22-proven-techs'>
                         {c.techs.map((t) => <span key={t} className='v22-proven-tech-pill'>{t}</span>)}
                       </div>
+                    )}
+                    {c.href && (
+                      <a
+                        href={c.href}
+                        className='v22-proven-card-link'
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Read case study <span aria-hidden='true'>→</span>
+                      </a>
                     )}
                   </div>
                 </article>

@@ -2383,6 +2383,23 @@
   border: 1px solid var(--v22-hair-strong);
   color: var(--v22-ink-3);
 }
+/* "Read case study" link — only on cards that route to a detail page */
+.v22-proven-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--v22-accent);
+  text-decoration: none;
+  transition: gap 180ms ease;
+}
+.v22-proven-card-link:hover {
+  gap: 11px;
+}
 
 /* Card entrance animation */
 .v22-proven-card {
@@ -5711,6 +5728,377 @@
   font-weight: 500;
 }
 
+/* ─── CASE STUDY (v22-csd-*) — case-study-specific pieces layered on top of
+   the shared v22-cdp-* capability-detail system. ──────────────────────── */
+
+/* Hero tag chips */
+.v22-csd-hero-tags {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.v22-csd-hero-tags li {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  padding: 6px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+/* Capability-tower "delivered across" strip — sits near the page bottom,
+   above the CTA. Quiet navy band so it reads as a credit line, not a headline. */
+.v22-csd-towers-strip {
+  background: var(--brand-navy-deep);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 26px 0;
+}
+.v22-csd-towers-strip .v22-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+}
+.v22-csd-towers-label {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+.v22-csd-towers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.v22-csd-towers li {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  background: rgba(240, 123, 47, 0.08);
+  border: 1px solid rgba(240, 123, 47, 0.4);
+  transition: background 180ms ease, border-color 180ms ease;
+}
+.v22-csd-towers li:hover { background: rgba(240, 123, 47, 0.16); border-color: var(--v22-accent); }
+/* The chip is the link target, so it gets the padding */
+.v22-csd-towers li > * { display: block; padding: 7px 15px; }
+.v22-csd-towers li,
+.v22-csd-towers li a { color: var(--v22-accent); text-decoration: none; }
+
+/* Solution "key capabilities" bullets */
+.v22-csd-caps {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 64ch;
+}
+.v22-csd-caps li {
+  position: relative;
+  padding: 13px 0 13px 26px;
+  border-top: 1px dashed rgba(13, 27, 62, 0.14);
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: rgba(13, 27, 62, 0.78);
+}
+.v22-csd-caps li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  color: var(--v22-accent);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* Overview spec — definition rows with dashed dividers */
+.v22-csd-spec {
+  margin: 0;
+  border-top: 1px solid rgba(13, 27, 62, 0.12);
+}
+.v22-csd-spec-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 220px) 1fr;
+  gap: 28px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(13, 27, 62, 0.1);
+  align-items: baseline;
+}
+.v22-csd-spec-row dt {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+}
+.v22-csd-spec-row dd {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(13, 27, 62, 0.82);
+}
+
+/* Key outcomes — numbered list, two columns */
+.v22-csd-outcomes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(13, 27, 62, 0.12);
+  border: 1px solid rgba(13, 27, 62, 0.12);
+}
+.v22-csd-outcomes li {
+  background: #ffffff;
+  padding: 22px 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.v22-csd-outcome-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--v22-accent);
+  padding-top: 2px;
+  flex: 0 0 auto;
+}
+.v22-csd-outcome-text {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(13, 27, 62, 0.82);
+}
+
+/* Solution steps — numbered process */
+.v22-csd-steps {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 0;
+  counter-reset: csd;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.v22-csd-steps li {
+  counter-increment: csd;
+  position: relative;
+  padding: 22px 0 22px 56px;
+  border-top: 1px dashed rgba(13, 27, 62, 0.16);
+}
+.v22-csd-steps li::before {
+  content: counter(csd, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 22px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--v22-accent);
+}
+.v22-csd-step-k {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--v22-ink);
+  margin-bottom: 6px;
+}
+.v22-csd-steps li p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: rgba(13, 27, 62, 0.72);
+  max-width: 62ch;
+}
+
+/* Technology stack table — works on the dark proof surface */
+.v22-csd-stack {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+}
+.v22-csd-stack th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  padding: 0 0 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+.v22-csd-stack td {
+  padding: 16px 24px 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  vertical-align: top;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+}
+.v22-csd-stack td:first-child {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+  width: 34%;
+}
+/* Full-bleed hero photo — fills the hero top-to-bottom on the right and
+   melts into the navy on the left, so the image reads as part of the scene
+   rather than a boxed thumbnail. */
+/* Height is driven by the content (+ the meta's own padding) so the hero
+   never balloons into an empty band. */
+.v22-csd-hero { padding: 0; }
+.v22-csd-hero .v22-cdp-hero-grid { grid-template-columns: 1fr; }
+.v22-csd-hero .v22-cdp-hero-meta {
+  max-width: 58%;
+  position: relative;
+  z-index: 2;
+  padding: clamp(34px, 4.5vw, 60px) 0;
+  /* Safety net so copy holds up even over the brightest part of any photo */
+  text-shadow: 0 1px 14px rgba(7, 15, 34, 0.55);
+}
+.v22-csd-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+.v22-csd-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.82) contrast(1.03);
+}
+/* Left + bottom navy washes blend the photo into the hero; orange glow keys
+   it to the brand accent. */
+.v22-csd-hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Full-bleed image with a darker-blue overlay. The text zone (left ~55%)
+     stays on near-solid navy so copy is legible no matter how bright/busy the
+     photo is; it only clears toward the right where there's no text. */
+  background:
+    linear-gradient(90deg,
+      rgba(7, 15, 34, 0.97) 0%,
+      rgba(7, 15, 34, 0.95) 38%,
+      rgba(7, 15, 34, 0.86) 54%,
+      rgba(13, 27, 62, 0.5) 72%,
+      rgba(13, 27, 62, 0.26) 100%),
+    linear-gradient(180deg, rgba(7, 15, 34, 0.25) 0%, transparent 44%, rgba(7, 15, 34, 0.45) 100%),
+    radial-gradient(60% 55% at 96% 8%, rgba(240, 123, 47, 0.1), transparent 50%);
+}
+.v22-csd-photo-cap {
+  position: absolute;
+  right: 18px; bottom: 14px;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Solution visual — recoloured flow diagram, constrained + spaced */
+.v22-csd-solution-visual {
+  margin: 26px 0 30px;
+  max-width: 460px;
+}
+.v22-csd-solution-visual .v22-cdp-hero-diagram {
+  width: 100%;
+  height: auto;
+}
+
+/* Full-bleed feature image band */
+.v22-csd-feature {
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 38vw, 460px);
+  overflow: hidden;
+  background: var(--brand-navy-deep);
+}
+.v22-csd-feature img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.8);
+}
+.v22-csd-feature-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: clamp(28px, 5vw, 56px);
+  background:
+    linear-gradient(180deg, rgba(7, 15, 34, 0.35) 0%, rgba(7, 15, 34, 0.2) 40%, rgba(7, 15, 34, 0.82) 100%),
+    linear-gradient(90deg, rgba(7, 15, 34, 0.5), transparent 60%);
+}
+.v22-csd-feature-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  margin-bottom: 12px;
+  padding-left: 16px;
+  border-left: 2px solid var(--v22-accent);
+}
+.v22-csd-feature-cap {
+  margin: 0;
+  max-width: 24ch;
+  font-family: var(--font-sans);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+@media (max-width: 880px) {
+  /* Full-bleed photo becomes a full-width backdrop; meta goes full width with
+     a stronger navy wash so the text stays readable over the image. */
+  .v22-csd-hero { min-height: 0; }
+  .v22-csd-hero .v22-cdp-hero-meta { max-width: 100%; }
+  .v22-csd-hero-bg { width: 100%; }
+  .v22-csd-hero-bg::after {
+    background:
+      linear-gradient(180deg, rgba(7, 15, 34, 0.55) 0%, rgba(7, 15, 34, 0.82) 100%),
+      radial-gradient(90% 60% at 80% 10%, rgba(240, 123, 47, 0.16), transparent 55%);
+  }
+}
+@media (max-width: 600px) {
+  .v22-csd-outcomes { grid-template-columns: 1fr; }
+  .v22-csd-spec-row { grid-template-columns: 1fr; gap: 4px; }
+}
+
 @media (max-width: 880px) {
   .v22-cdp-hero-grid { grid-template-columns: 1fr; }
   /* Drop the schematic diagram on small screens to preserve vertical space */
@@ -7465,6 +7853,10 @@
 .v22-cdp-proof .v22-cdp-block-title { color: var(--v22-ink); }
 .v22-cdp-proof .v22-cdp-block-num { color: var(--v22-accent); }
 .v22-cdp-proof .v22-cdp-block-kicker { color: rgba(255, 255, 255, 0.6); }
+/* Prose body text on the dark proof surface — otherwise it inherits the
+   light-surface navy ink and disappears against the navy background. */
+.v22-cdp-proof .v22-cdp-block-body { color: rgba(255, 255, 255, 0.78); }
+.v22-cdp-proof .v22-cdp-block-body strong { color: #ffffff; }
 .v22-cdp-proof-grid {
   display: flex;
   flex-direction: column;
