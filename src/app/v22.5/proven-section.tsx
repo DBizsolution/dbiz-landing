@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
 
 type CaseStudy = {
   metric: string
@@ -39,7 +40,7 @@ const cases: CaseStudy[] = [
     title: 'AI strategy & agentic transformation roadmap',
     kicker: 'Telecommunications',
     body: 'A foresight-led strategy aligning 15+ leaders — 38 use cases in seven capability clusters and a phased path to autonomous systems.',
-    image: 'https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
+    image: 'https://images.pexels.com/photos/1216544/pexels-photo-1216544.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
     tag: 'solution',
     techs: ['Futures Studio', 'Agentic AI'],
     href: '/v22.5/work/ai-strategy-roadmap',
@@ -79,7 +80,7 @@ const cases: CaseStudy[] = [
     title: 'AI-powered RFI response automation',
     kicker: 'Financial Services',
     body: 'Requirement extraction and drafting on Copilot Studio — consistent proposal submissions from a governed knowledge base.',
-    image: 'https://images.pexels.com/photos/210607/pexels-photo-210607.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
+    image: 'https://images.pexels.com/photos/3786091/pexels-photo-3786091.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop',
     tag: 'technology',
     techs: ['Copilot Studio', 'Power Platform'],
     href: '/v22.5/work/rfi-response-automation',
@@ -132,6 +133,7 @@ function matchesSub(c: CaseStudy, filter: Filter, sub: string | null) {
 }
 
 export default function ProvenSection() {
+  const router = useRouter()
   const [filter, setFilter] = useState<Filter>('all')
   const [sub, setSub] = useState<string | null>(null)
   const [search, setSearch] = useState('')
@@ -294,8 +296,11 @@ export default function ProvenSection() {
               {filtered.map((c, i) => (
                 <article
                   key={c.title}
-                  className={`v22-proven-card ${i === activeIdx ? 'active' : ''}`}
-                  onClick={() => setActiveIdx(i)}
+                  className={`v22-proven-card ${i === activeIdx ? 'active' : ''}${c.href ? ' is-link' : ''}`}
+                  onClick={() => (c.href ? router.push(c.href) : setActiveIdx(i))}
+                  role={c.href ? 'link' : undefined}
+                  tabIndex={c.href ? 0 : undefined}
+                  onKeyDown={(e) => { if (c.href && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); router.push(c.href) } }}
                 >
                   <div className='v22-proven-img'>
                     <img src={c.image} alt={c.kicker} loading='lazy' />

@@ -232,6 +232,14 @@ function StackDiagram({ hovered, onHover }: { hovered: number; onHover: (i: numb
           <stop offset='70%' stopColor='var(--v22-accent)' stopOpacity='0.15' />
           <stop offset='100%' stopColor='var(--v22-accent)' stopOpacity='0' />
         </radialGradient>
+        {/* Knock the shaft line out where it passes through each icon, so the
+            connector reads as running *behind* the discs, not through them. */}
+        <mask id='v22-fw-shaft-mask' maskUnits='userSpaceOnUse'>
+          <rect x='0' y='0' width={svgW} height={svgH} fill='white' />
+          {layers.map((layer, i) => (
+            <circle key={layer.n} cx={discCenters[i]} cy={shaftY} r='52' fill='black' />
+          ))}
+        </mask>
       </defs>
 
       {/* Orange dot background */}
@@ -239,8 +247,9 @@ function StackDiagram({ hovered, onHover }: { hovered: number; onHover: (i: numb
 
       {/* Top-strip text moved to HTML so it can wrap responsively on mobile. */}
 
-      {/* Central shaft — the spine connecting all components */}
-      <line x1='80' y1={shaftY} x2={svgW - 80} y2={shaftY} stroke={inkCorner} strokeWidth='1' />
+      {/* Central shaft — the spine connecting all components (masked so it
+          disappears behind each icon disc) */}
+      <line x1='80' y1={shaftY} x2={svgW - 80} y2={shaftY} stroke={inkCorner} strokeWidth='1' mask='url(#v22-fw-shaft-mask)' />
       <line x1='80' y1={shaftY} x2='80' y2={shaftY - 8} stroke={inkCorner} strokeWidth='1' />
       <line x1='80' y1={shaftY} x2='80' y2={shaftY + 8} stroke={inkCorner} strokeWidth='1' />
       <line x1={svgW - 80} y1={shaftY} x2={svgW - 80} y2={shaftY - 8} stroke={inkCorner} strokeWidth='1' />

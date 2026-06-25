@@ -112,7 +112,7 @@ export const caseStudies: CaseStudy[] = [
     heroAccent: 'agent-ready.',
     subtitle: 'Futures analysis · Strategic roadmapping',
     lead: 'A foresight-led AI strategy that aligned 15+ leaders around a shared vision — 38 use cases, organised into seven capability clusters and a phased path from quick wins to autonomous systems.',
-    heroImage: IMG(1148820),
+    heroImage: IMG(1216544),
     industryTags: ['Telecommunications', 'AI Strategy', 'Advisory'],
     overview: [
       { label: 'Industry', value: 'Telecommunications · Critical Infrastructure' },
@@ -317,7 +317,7 @@ export const caseStudies: CaseStudy[] = [
     heroAccent: 'drafted by AI.',
     subtitle: 'Copilot Studio · Power Platform',
     lead: 'Proposal teams leaned on experts to draft every RFI. We automated requirement extraction and drafting on Copilot Studio — consistent submissions from a governed knowledge base.',
-    heroImage: IMG(210607),
+    heroImage: IMG(3786091),
     industryTags: ['Financial Services', 'Proposal Automation', 'Copilot Studio'],
     overview: [
       { label: 'Industry', value: 'Financial Services' },
