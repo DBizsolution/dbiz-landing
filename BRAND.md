@@ -4,6 +4,7 @@ Source of truth for every homepage variant in this repo. Colors and typography a
 
 Live tokens: `src/app/globals.css`
 Live styleguide: `/styleguide`
+Live design system: `/design-system` · sendable: `DESIGN-SYSTEM.md`
 
 ---
 
@@ -17,9 +18,12 @@ background: var(--brand-orange);
 font-family: var(--font-sans);
 
 /* ❌ */
-background: #E86A2A;
+background: #F07B2F;
 font-family: 'DM Sans', sans-serif;
 ```
+
+> **No serif fonts.** The brand uses exactly two families — DM Sans and DM Mono. Never add, load, or
+> mix a serif (Instrument Serif is retired) or any third typeface. See [Typography](#typography).
 
 ---
 
@@ -37,9 +41,9 @@ font-family: 'DM Sans', sans-serif;
 
 | Token                 | Value                       | Usage                           |
 |-----------------------|-----------------------------|---------------------------------|
-| `--brand-orange`      | `#E86A2A`                   | All CTAs, highlights, accents   |
-| `--brand-orange-hover`| `#D45A1A`                   | Button hover                    |
-| `--brand-orange-glow` | `rgba(232,106,42,0.1)`      | Soft fills, badge backgrounds   |
+| `--brand-orange`      | `#F07B2F`                   | All CTAs, highlights, accents   |
+| `--brand-orange-hover`| `#E06B1F`                   | Button hover                    |
+| `--brand-orange-glow` | `rgba(240,123,47,0.1)`      | Soft fills, badge backgrounds   |
 
 ### Surfaces
 
@@ -78,13 +82,15 @@ font-family: 'DM Sans', sans-serif;
 
 **DM Sans is the primary typeface. Every variant. No exceptions.**
 
-Loaded globally in `src/app/layout.tsx` via `next/font/google`. Three families exposed as CSS vars:
+Loaded globally in `src/app/layout.tsx` via `next/font/google`. Two families exposed as CSS vars:
 
 | Token            | Family            | Role                                          |
 |------------------|-------------------|-----------------------------------------------|
 | `--font-sans`    | DM Sans           | **Everything by default** — UI, headings, body |
 | `--font-mono`    | DM Mono           | Labels, metadata, kickers, code, stats        |
-| `--font-serif`   | Instrument Serif  | One accent only — italic, for emotional words |
+
+> A `--font-serif` token still exists in `globals.css` for backward-compatibility with older
+> experimental variants. **It is deprecated — never reference it in new work.**
 
 ### Scale (reference — adapt per variant)
 
@@ -96,19 +102,23 @@ Loaded globally in `src/app/layout.tsx` via `next/font/google`. Three families e
 | Body           | DM Sans  | 400    | `1.05rem`                       | normal     | 1.65    |
 | Label / kicker | DM Mono  | 500    | `0.76rem`                       | `0.14em`   | —       |
 | Caption        | DM Mono  | 400    | `0.68rem`                       | `0.1em`    | —       |
-| Editorial accent | Instrument Serif italic | 400 | match heading | inherit | inherit |
 
-### The Instrument Serif rule
+### The no-serif rule
 
-Reserved for **one phrase per section**, used italic, colored `--brand-orange`. Never for body, never for UI. It's the emotional punch, not the voice.
+The brand uses **exactly two families — DM Sans and DM Mono**. Never add, load, or mix a serif (Instrument
+Serif is retired) or any third typeface. Emphasis comes from **weight, size, color, and case**, never from a
+different font. If a layout feels like it needs a serif accent, reach for DM Sans 800, `--brand-orange`, or
+DM Mono uppercase instead.
 
 ```tsx
+{/* ✅ emphasis without a second family */}
 <h1>
   Your enterprise.{' '}
-  <em className='font-serif italic text-[var(--brand-orange)] font-normal'>
-    Agent-operated.
-  </em>
+  <span className='font-extrabold text-[var(--brand-orange)]'>Agent-operated.</span>
 </h1>
+
+{/* ❌ never — no serif, no italic-accent word, no third font */}
+<em className='font-serif italic'>Agent-operated.</em>
 ```
 
 ---
@@ -134,6 +144,7 @@ Allowed to introduce:
 **Not allowed** to introduce:
 - New brand colors (navy or orange variants outside the tokens above)
 - A primary typeface other than DM Sans
+- **Any serif font, or a third typeface of any kind** (no Instrument Serif, no Georgia, no "just one accent" serif)
 - Hard-coded brand hexes
 
 If a variant needs a new accent, it must derive from orange or navy (tints, alphas, gradients) and live as a local var that references a brand token.
@@ -171,7 +182,7 @@ font: 500 0.88rem var(--font-sans);
 ### Badge (brand)
 ```tsx
 background: var(--brand-orange-glow);
-border: 1px solid rgba(232,106,42,0.2);
+border: 1px solid rgba(240,123,47,0.2);
 color: var(--brand-orange);
 border-radius: 100px;
 padding: 8px 18px;
@@ -229,7 +240,7 @@ Browse sets at [icon-sets.iconify.design](https://icon-sets.iconify.design). Ico
 ```
 src/app/
 ├── globals.css          ← brand tokens (single source of truth)
-├── layout.tsx           ← global font loading (DM Sans, DM Mono, Instrument Serif)
+├── layout.tsx           ← global font loading (DM Sans, DM Mono)
 ├── page.tsx             ← index of variants
 ├── styleguide/page.tsx  ← live brand reference
 ├── v1/                  ← variant 1 (editorial)

@@ -6,7 +6,7 @@
 <title>DBiz.ai — Pages &amp; Assets</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root {
     /* Brand tokens — mirror of src/app/globals.css (the live source of truth). */
@@ -29,7 +29,6 @@
     --r-lg: 24px;
     --sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
     --mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    --serif: 'Instrument Serif', Georgia, serif;
   }
   * { box-sizing: border-box; }
   body {
@@ -111,7 +110,6 @@
   .t-body { font: 400 1.05rem/1.65 var(--sans); color: var(--text-2); }
   .t-label { font: 500 0.76rem var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); }
   .t-caption { font: 400 0.68rem var(--mono); letter-spacing: 0.1em; color: var(--text-3); }
-  .t-serif { font: 400 clamp(1.7rem, 3vw, 2.5rem) var(--serif); font-style: italic; color: var(--orange); }
 
   /* ---- Color swatches ---- */
   .swatch-group { margin-top: 10px; }
@@ -316,31 +314,31 @@
   <!-- ============================= TYPOGRAPHY ============================= -->
   <h2 id="typography">Typography</h2>
   <p class="section-note">
-    Three families, loaded once and referenced through CSS variables — never hard-code a font family.
+    Two families, loaded once and referenced through CSS variables — never hard-code a font family.
     <strong>DM Sans</strong> is everything by default (UI, headings, body). <strong>DM Mono</strong> is
-    labels, kickers, metadata and stats. <strong>Instrument Serif</strong> is an italic accent only —
-    one phrase per section, colored orange. Never use the serif for body or UI.
+    labels, kickers, metadata and stats. <strong>No serif, ever</strong> — never add, load, or mix a
+    serif (Instrument Serif is retired) or any third typeface. Emphasis comes from weight, size, color,
+    and case, not a different font.
   </p>
 
   <div class="code-label">1 · Load the fonts — Google Fonts (recommended for the CMS)</div>
   <div class="code"><button class="copy">Copy</button><pre>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
 &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
 &lt;link
-  href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700;800&amp;family=Instrument+Serif:ital@0;1&amp;display=swap"
+  href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700;800&amp;display=swap"
   rel="stylesheet"&gt;</pre></div>
 
   <div class="code-label">2 · Expose them as CSS variables (drop into your global stylesheet)</div>
   <div class="code"><button class="copy">Copy</button><pre>:root {
   --font-sans:  'DM Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono:  'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-serif: 'Instrument Serif', Georgia, serif;
 }
 
 html, body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }</pre></div>
 
   <div class="code-label">Self-hosting instead? — @font-face (DM Sans is bundled in <code style="text-transform:none">public/fonts/</code>)</div>
-  <div class="code"><button class="copy">Copy</button><pre><span class="c">/* Only DM Sans Regular + Bold ship in public/fonts/. For DM Mono and
-   Instrument Serif, add the woff2 files or keep the Google Fonts link above. */</span>
+  <div class="code"><button class="copy">Copy</button><pre><span class="c">/* Only DM Sans Regular + Bold ship in public/fonts/. For DM Mono,
+   add the woff2 files or keep the Google Fonts link above. */</span>
 @font-face {
   font-family: 'DM Sans';
   font-weight: 400;
@@ -357,14 +355,10 @@ html, body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased;
 }</pre></div>
 
   <div class="code-label">For reference — how the repo loads them (Next.js, <code style="text-transform:none">src/app/layout.tsx</code>)</div>
-  <div class="code"><button class="copy">Copy</button><pre>import { DM_Sans, DM_Mono, Instrument_Serif } from 'next/font/google'
+  <div class="code"><button class="copy">Copy</button><pre>import { DM_Sans, DM_Mono } from 'next/font/google'
 
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans', display: 'swap' })
-const dmMono = DM_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-dm-mono', display: 'swap' })
-const instrumentSerif = Instrument_Serif({
-  subsets: ['latin'], weight: '400', style: ['normal', 'italic'],
-  variable: '--font-instrument-serif', display: 'swap',
-})</pre></div>
+const dmMono = DM_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-dm-mono', display: 'swap' })</pre></div>
 
   <h3 style="margin:36px 0 10px;font:700 1.05rem var(--sans)">Type scale</h3>
   <p class="section-note">
@@ -374,7 +368,7 @@ const instrumentSerif = Instrument_Serif({
   <div class="specimens" id="specimens"></div>
 
   <div class="code-label">Copy all type styles — ready-to-use CSS classes</div>
-  <div class="code"><button class="copy">Copy</button><pre><span class="c">/* Every role above as a reusable class. Assumes --font-sans/mono/serif
+  <div class="code"><button class="copy">Copy</button><pre><span class="c">/* Every role above as a reusable class. Assumes --font-sans/mono
    are defined (see the variables block above). */</span>
 .type-display {
   font-family: var(--font-sans);
@@ -416,12 +410,6 @@ const instrumentSerif = Instrument_Serif({
   font-weight: 400;
   font-size: 0.68rem;
   letter-spacing: 0.1em;
-}
-.type-accent {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-style: italic;
-  color: var(--brand-orange);
 }</pre></div>
 
   <div class="code-label">Or as raw <code style="text-transform:none">font</code> shorthands — for one-off styling</div>
@@ -430,8 +418,7 @@ const instrumentSerif = Instrument_Serif({
 <span class="c">/* H3         */</span>  font: 700 1.35rem/1.2 var(--font-sans); letter-spacing: -0.02em;
 <span class="c">/* Body       */</span>  font: 400 1.05rem/1.65 var(--font-sans);
 <span class="c">/* Label      */</span>  font: 500 0.76rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase;
-<span class="c">/* Caption    */</span>  font: 400 0.68rem var(--font-mono); letter-spacing: 0.1em;
-<span class="c">/* Accent     */</span>  font: italic 400 1em var(--font-serif); color: var(--brand-orange);</pre></div>
+<span class="c">/* Caption    */</span>  font: 400 0.68rem var(--font-mono); letter-spacing: 0.1em;</pre></div>
 
   <!-- ============================= COLOR ============================= -->
   <h2 id="color">Color</h2>
@@ -681,7 +668,6 @@ const instrumentSerif = Instrument_Serif({
     { role: 'Body', spec: 'DM Sans 400 · 1.05rem · 1.65', cls: 't-body', sample: 'We build Frontier Organisations — enterprises that scale with AI agents, not just AI tools.' },
     { role: 'Label / kicker', spec: 'DM Mono 500 · 0.76rem · 0.14em · uppercase · orange', cls: 't-label', sample: 'Human-Led · Agent-Operated' },
     { role: 'Caption', spec: 'DM Mono 400 · 0.68rem · 0.1em', cls: 't-caption', sample: 'FIG. 01 — FRONTIER ORGANISATION STACK' },
-    { role: 'Editorial accent', spec: 'Instrument Serif 400 italic · orange · one phrase per section', cls: 't-serif', sample: 'Starting now.' },
   ]
 
   const swatchGroups = [
