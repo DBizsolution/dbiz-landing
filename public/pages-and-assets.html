@@ -9,18 +9,26 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root {
+    /* Brand tokens — mirror of src/app/globals.css (the live source of truth). */
     --navy: #0D1B3E;
     --navy-deep: #070F22;
-    --orange: #E86A2A;
+    --navy-light: #1A2D5A;
+    --orange: #F07B2F;
+    --orange-hover: #E06B1F;
+    --orange-glow: rgba(240, 123, 47, 0.1);
     --bg: #FAFAFA;
     --card: #FFFFFF;
+    --warm: #F3F0EC;
     --text: #111111;
     --text-2: #555555;
     --text-3: #999999;
     --border: rgba(0, 0, 0, 0.08);
-    --r: 12px;
-    --sans: 'DM Sans', sans-serif;
-    --mono: 'DM Mono', monospace;
+    --border-hover: rgba(0, 0, 0, 0.12);
+    --r-sm: 10px;
+    --r: 16px;
+    --r-lg: 24px;
+    --sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    --mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
   * { box-sizing: border-box; }
   body {
@@ -29,15 +37,43 @@
     background: var(--bg);
     color: var(--text);
     font: 400 1rem/1.6 var(--sans);
+    -webkit-font-smoothing: antialiased;
   }
   main { max-width: 1180px; margin: 0 auto; }
-  header { padding: 64px 0 24px; border-bottom: 2px solid var(--navy); }
+  header { padding: 64px 0 28px; border-bottom: 2px solid var(--navy); }
   header h1 { margin: 0 0 8px; font: 800 2.4rem/1.1 var(--sans); letter-spacing: -0.03em; }
   header p { margin: 0; color: var(--text-2); max-width: 70ch; }
   .kicker { font: 500 0.74rem var(--mono); letter-spacing: 0.14em; color: var(--orange); text-transform: uppercase; }
-  h2 { margin: 72px 0 6px; font: 800 1.6rem/1.15 var(--sans); letter-spacing: -0.02em; }
+  h2 { margin: 80px 0 6px; font: 800 1.6rem/1.15 var(--sans); letter-spacing: -0.02em; scroll-margin-top: 24px; }
   .section-note { margin: 0 0 24px; color: var(--text-2); font-size: 0.92rem; max-width: 80ch; }
-  .section-note code { font: 0.85em var(--mono); background: rgba(13,27,62,0.06); padding: 1px 5px; border-radius: 4px; }
+  .section-note code, p code, li code { font: 0.85em var(--mono); background: rgba(13,27,62,0.06); padding: 1px 5px; border-radius: 4px; }
+
+  /* Table of contents */
+  .toc { margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .toc a {
+    font: 500 0.74rem var(--mono); letter-spacing: 0.06em; text-decoration: none;
+    color: var(--text-2); background: var(--card); border: 1px solid var(--border);
+    padding: 6px 12px; border-radius: 100px;
+  }
+  .toc a:hover { color: var(--orange); border-color: var(--orange); }
+
+  /* Copyable code block */
+  .code { position: relative; margin: 14px 0 0; }
+  .code pre {
+    margin: 0; overflow-x: auto; background: var(--navy-deep); color: #E8ECF5;
+    border-radius: var(--r-sm); padding: 16px 18px;
+    font: 400 0.8rem/1.6 var(--mono); tab-size: 2;
+  }
+  .code pre .c { color: #7C89A8; }   /* comment / muted */
+  .code .copy {
+    position: absolute; top: 10px; right: 10px;
+    font: 600 0.68rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+    color: #fff; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 7px; padding: 5px 10px; cursor: pointer; transition: background 0.15s;
+  }
+  .code .copy:hover { background: var(--orange); border-color: var(--orange); }
+  .code .copy.done { background: #2E9E5B; border-color: #2E9E5B; }
+  .code-label { font: 500 0.7rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin: 18px 0 2px; }
 
   /* How this works */
   .howto { margin-top: 24px; display: grid; gap: 12px; }
@@ -57,6 +93,64 @@
   .pages a:hover { color: var(--orange); border-color: var(--orange); }
   .pages .path { font: 400 0.78rem var(--mono); color: var(--text-3); white-space: nowrap; }
   .pages .tag { color: var(--text-2); font-size: 0.88rem; }
+
+  /* ---- Typography specimens ---- */
+  .specimens { display: grid; gap: 14px; margin-top: 8px; }
+  .specimen {
+    display: grid; grid-template-columns: 168px 1fr; gap: 0;
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+  }
+  .specimen .role { padding: 18px 20px; border-right: 1px solid var(--border); background: var(--warm); }
+  .specimen .role .rname { font: 700 0.9rem var(--sans); }
+  .specimen .role .rspec { margin-top: 6px; font: 400 0.68rem/1.5 var(--mono); color: var(--text-2); letter-spacing: 0.02em; }
+  .specimen .sample { padding: 22px 24px; display: flex; align-items: center; min-width: 0; overflow-x: auto; }
+  .t-display { font: 800 clamp(2.6rem, 5vw, 4.5rem)/1.06 var(--sans); letter-spacing: -0.035em; }
+  .t-h2 { font: 800 clamp(1.7rem, 3vw, 2.5rem)/1.1 var(--sans); letter-spacing: -0.03em; }
+  .t-h3 { font: 700 1.35rem/1.2 var(--sans); letter-spacing: -0.02em; }
+  .t-body { font: 400 1.05rem/1.65 var(--sans); color: var(--text-2); }
+  .t-label { font: 500 0.76rem var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); }
+  .t-caption { font: 400 0.68rem var(--mono); letter-spacing: 0.1em; color: var(--text-3); }
+
+  /* ---- Color swatches ---- */
+  .swatch-group { margin-top: 10px; }
+  .swatch-group h3 { margin: 22px 0 12px; font: 700 1rem var(--sans); }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
+  .swatch { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--card); }
+  .swatch .chip { height: 96px; display: flex; align-items: flex-end; padding: 12px; cursor: pointer; position: relative; }
+  .swatch .chip .copyhint { font: 600 0.62rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0; transition: opacity 0.15s; }
+  .swatch .chip:hover .copyhint { opacity: 0.85; }
+  .swatch .chip.done .copyhint { opacity: 1; }
+  .swatch .body { padding: 12px 14px 14px; }
+  .swatch .sname { font: 600 0.9rem var(--sans); }
+  .swatch .svar { margin-top: 4px; font: 400 0.68rem var(--mono); color: var(--text-3); word-break: break-all; }
+  .swatch .sval { margin-top: 2px; font: 400 0.68rem var(--mono); color: var(--text-2); }
+  .swatch .snote { margin-top: 8px; font-size: 0.76rem; color: var(--text-2); }
+
+  /* ---- Surfaces / backgrounds ---- */
+  .surfaces { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 8px; }
+  .surface-demo { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+  .surface-demo .pane { height: 150px; display: flex; align-items: center; justify-content: center; font: 500 0.74rem var(--mono); letter-spacing: 0.12em; text-transform: uppercase; }
+  .surface-demo .pane.dark { color: rgba(255,255,255,0.55); }
+  .surface-demo .pane.light { color: rgba(13,27,62,0.45); }
+  .surface-demo .cap { padding: 12px 14px; border-top: 1px solid var(--border); font: 600 0.82rem var(--sans); }
+
+  /* ---- Component patterns ---- */
+  .components { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 8px; }
+  .comp { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--card); display: flex; flex-direction: column; }
+  .comp .render { padding: 30px 24px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; min-height: 110px; }
+  .comp .render.on-dark { background: var(--navy-deep); }
+  .comp .label { padding: 11px 14px; border-top: 1px solid var(--border); font: 600 0.82rem var(--sans); }
+  .comp .label span { font: 400 0.72rem var(--mono); color: var(--text-3); }
+
+  .btn-primary { background: var(--orange); color: #fff; border: none; border-radius: 100px; padding: 13px 28px; font: 600 0.9rem var(--sans); cursor: pointer; }
+  .btn-primary:hover { background: var(--orange-hover); transform: translateY(-2px); }
+  .btn-secondary { background: var(--navy); color: #fff; border: none; border-radius: 100px; padding: 9px 22px; font: 600 0.84rem var(--sans); cursor: pointer; }
+  .demo-link { color: var(--text-2); border-bottom: 1px solid var(--border-hover); font: 500 0.88rem var(--sans); text-decoration: none; }
+  .badge { background: var(--orange-glow); border: 1px solid rgba(240,123,47,0.2); color: var(--orange); border-radius: 100px; padding: 8px 18px; font: 700 0.8rem var(--sans); }
+  .card-light { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 22px 20px; max-width: 220px; font-size: 0.86rem; color: var(--text-2); }
+  .card-light strong { display: block; color: var(--text); font: 700 0.95rem var(--sans); margin-bottom: 6px; }
+  .card-dark { background: var(--navy); border: 1px solid var(--navy-light); border-radius: var(--r); padding: 22px 20px; max-width: 220px; color: rgba(255,255,255,0.7); font-size: 0.86rem; }
+  .card-dark strong { display: block; color: #fff; font: 700 0.95rem var(--sans); margin-bottom: 6px; }
 
   /* Asset grid */
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
@@ -144,21 +238,80 @@
   .logo-row .preview img { max-width: 160px; height: auto; }
 
   footer { margin-top: 96px; padding-top: 20px; border-top: 1px solid var(--border); font: 400 0.74rem var(--mono); color: var(--text-3); letter-spacing: 0.06em; }
+
+  /* ---- Brand rule banner ---- */
+  .rule-banner { margin: 26px 0 4px; border: 1px solid rgba(240,123,47,0.3); background: var(--orange-glow); border-radius: var(--r); padding: 22px 24px; }
+  .rule-banner .rb-t { font: 800 1.05rem var(--sans); letter-spacing: -0.01em; color: var(--text); }
+  .rule-banner .rb-b { margin: 8px 0 0; font: 400 0.95rem/1.6 var(--sans); color: var(--text-2); max-width: 88ch; }
+  .rule-banner .rb-b b { color: var(--orange); }
+
+  /* ---- Spec tables (decks) ---- */
+  .spec-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  .spec-table th, .spec-table td { padding: 9px 14px 9px 0; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; font: 400 0.9rem var(--sans); }
+  .spec-table th { font: 500 0.7rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+  .spec-table .mono { font: 400 0.82rem var(--mono); color: var(--text-2); white-space: nowrap; }
+
+  /* ---- Sample slide ---- */
+  .deck-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; margin-top: 16px; }
+  .slide { position: relative; width: 320px; aspect-ratio: 4 / 5; border-radius: var(--r); overflow: hidden; padding: 34px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; border: 1px solid var(--navy-light); background: #070F22 radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0); background-size: 22px 22px; }
+  .slide .s-foot { position: absolute; top: 26px; left: 34px; right: 34px; display: flex; justify-content: space-between; font: 500 0.6rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .slide .s-kick { font: 500 0.68rem var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); }
+  .slide .s-head { margin-top: 10px; font: 800 1.9rem/1.1 var(--sans); letter-spacing: -0.03em; }
+  .slide .s-sub { margin-top: 12px; font: 400 0.95rem/1.5 var(--sans); color: rgba(255,255,255,0.6); }
+
+  @media (max-width: 560px) {
+    .specimen { grid-template-columns: 1fr; }
+    .specimen .role { border-right: none; border-bottom: 1px solid var(--border); }
+  }
 </style>
 </head>
 <body>
 <main>
   <header>
-    <div class="kicker">DBiz.ai · Handoff Reference</div>
-    <h1>Pages &amp; Assets</h1>
+    <div class="kicker">DBiz.ai · Design System &amp; Handoff</div>
+    <h1>Design System &amp; Assets</h1>
     <p>
-      Index of the site's pages and a live showcase of all SVG assets.
-      The SVG files live in <code style="font-family:var(--mono);font-size:0.85em">public/assets/svg/</code>
-      and are the source of truth — the site injects the same files inline at render time.
+      The complete brand reference (color, typography, surfaces, components, and deck / slide specs), plus
+      the index of the site's pages and a live showcase of every SVG asset. Values mirror
+      <code style="font-family:var(--mono);font-size:0.85em">src/app/globals.css</code> and
+      <code style="font-family:var(--mono);font-size:0.85em">BRAND.md</code>, the live source of truth.
+      Every code block has a <strong>Copy</strong> button; every color chip copies on click.
     </p>
+    <nav class="toc">
+      <a href="#color">Color</a>
+      <a href="#howto">How this works</a>
+      <a href="#typography">Typography</a>
+      <a href="#surfaces">Surfaces</a>
+      <a href="#components">Components</a>
+      <a href="#decks">Decks &amp; slides</a>
+      <a href="#tokens">All tokens</a>
+      <a href="#pages">Pages</a>
+      <a href="#assets">SVG assets</a>
+      <a href="#logos">Logos</a>
+    </nav>
   </header>
 
-  <h2>How this works</h2>
+  <!-- ============================= BRAND RULE ============================= -->
+  <div class="rule-banner">
+    <div class="rb-t">Two fonts. No serif. Ever.</div>
+    <p class="rb-b">
+      DM Sans for everything, DM Mono for technical accents. <b>Never add, load, or mix a serif</b>
+      (Instrument Serif is retired) and never introduce a third typeface. Emphasis comes from weight, size,
+      color, and case, not a different font.
+    </p>
+  </div>
+
+  <!-- ============================= COLOR ============================= -->
+  <h2 id="color">Color</h2>
+  <p class="section-note">
+    Navy and orange are brand-constant — never recolor them per theme. Click any chip to copy its hex /
+    value. Surfaces and text flip between light and dark modes; the accent does not.
+    <strong>Note:</strong> orange is <code>#F07B2F</code> (the live value in <code>globals.css</code>) —
+    older docs may show <code>#E86A2A</code>.
+  </p>
+  <div id="swatches"></div>
+
+  <h2 id="howto">How this works</h2>
   <p class="section-note">
     For the team rebuilding this site in the CMS — how this page, the live site, and the repo fit together.
   </p>
@@ -169,11 +322,16 @@
       and motion should match what you see live.</p>
     </div>
     <div class="step"><div class="num">02</div>
+      <p><strong>This page is copy-ready.</strong> Every code block below has a <strong>Copy</strong> button,
+      and every color chip copies its value on click. The values mirror <code>src/app/globals.css</code> and
+      <code>BRAND.md</code> in the repo — the live source of truth.</p>
+    </div>
+    <div class="step"><div class="num">03</div>
       <p><strong>The SVG files are the source of truth for all artwork.</strong> They live in
       <code>public/assets/svg/</code> in the repo and are showcased below — click any filename to download
       the exact file the live site renders.</p>
     </div>
-    <div class="step"><div class="num">03</div>
+    <div class="step"><div class="num">04</div>
       <p><strong>Inline the SVGs — don't reference them with <code>&lt;img&gt;</code>.</strong> The artwork
       uses CSS custom properties (<code>var(--v22-…)</code>, defined in <code>src/app/v22.5/theme.css</code>)
       for every color. Those variables only resolve when the SVG markup sits in the page DOM — in Twig,
@@ -181,17 +339,11 @@
       don't apply and the art renders without its colors. The previews on this page work the same way:
       the variable values are copied into this file's stylesheet.</p>
     </div>
-    <div class="step"><div class="num">04</div>
+    <div class="step"><div class="num">05</div>
       <p><strong>Motion lives in the CSS, not in the files.</strong> Draw-in strokes, particle flows, and
       active-state recolors are selectors and keyframes in <code>theme.css</code> that target elements
       inside the inlined SVGs. The .svg files are static. When porting an animated asset, port the
       matching CSS with it.</p>
-    </div>
-    <div class="step"><div class="num">05</div>
-      <p><strong>The repo's build step is a Next.js convenience you can ignore.</strong>
-      <code>pnpm svg:gen</code> compiles the .svg files into a TypeScript module
-      (<code>src/lib/svg-assets.ts</code>) that React components inject inline. For the CMS build you
-      only need the .svg files plus an inlining mechanism.</p>
     </div>
     <div class="step"><div class="num">06</div>
       <p><strong>Copy, tokens, and brand rules.</strong> All page copy is in the React components under
@@ -201,13 +353,339 @@
     </div>
   </div>
 
-  <h2>Pages</h2>
+  <!-- ============================= TYPOGRAPHY ============================= -->
+  <h2 id="typography">Typography</h2>
+  <p class="section-note">
+    Two families, loaded once and referenced through CSS variables — never hard-code a font family.
+    <strong>DM Sans</strong> is everything by default (UI, headings, body). <strong>DM Mono</strong> is
+    labels, kickers, metadata and stats. <strong>No serif, ever</strong> — never add, load, or mix a
+    serif (Instrument Serif is retired) or any third typeface. Emphasis comes from weight, size, color,
+    and case, not a different font.
+  </p>
+
+  <div class="code-label">1 · Load the fonts — Google Fonts (recommended for the CMS)</div>
+  <div class="code"><button class="copy">Copy</button><pre>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link
+  href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700;800&amp;display=swap"
+  rel="stylesheet"&gt;</pre></div>
+
+  <div class="code-label">2 · Expose them as CSS variables (drop into your global stylesheet)</div>
+  <div class="code"><button class="copy">Copy</button><pre>:root {
+  --font-sans:  'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:  'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html, body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }</pre></div>
+
+  <div class="code-label">Self-hosting instead? — @font-face (DM Sans is bundled in <code style="text-transform:none">public/fonts/</code>)</div>
+  <div class="code"><button class="copy">Copy</button><pre><span class="c">/* Only DM Sans Regular + Bold ship in public/fonts/. For DM Mono,
+   add the woff2 files or keep the Google Fonts link above. */</span>
+@font-face {
+  font-family: 'DM Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/DMSans-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/DMSans-Bold.ttf') format('truetype');
+}</pre></div>
+
+  <div class="code-label">For reference — how the repo loads them (Next.js, <code style="text-transform:none">src/app/layout.tsx</code>)</div>
+  <div class="code"><button class="copy">Copy</button><pre>import { DM_Sans, DM_Mono } from 'next/font/google'
+
+const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-dm-sans', display: 'swap' })
+const dmMono = DM_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-dm-mono', display: 'swap' })</pre></div>
+
+  <h3 style="margin:36px 0 10px;font:700 1.05rem var(--sans)">Type scale</h3>
+  <p class="section-note">
+    Live specimens with the exact CSS. Headings use fluid <code>clamp()</code> sizing — they scale with the
+    viewport. Variants may adapt these, but this is the reference rhythm.
+  </p>
+  <div class="specimens" id="specimens"></div>
+
+  <div class="code-label">Copy all type styles — ready-to-use CSS classes</div>
+  <div class="code"><button class="copy">Copy</button><pre><span class="c">/* Every role above as a reusable class. Assumes --font-sans/mono
+   are defined (see the variables block above). */</span>
+.type-display {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+.type-h2 {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.type-h3 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.type-body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+.type-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-orange);
+}
+.type-caption {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}</pre></div>
+
+  <div class="code-label">Or as raw <code style="text-transform:none">font</code> shorthands — for one-off styling</div>
+  <div class="code"><button class="copy">Copy</button><pre><span class="c">/* Display / H1 */</span>  font: 800 clamp(2.6rem, 5vw, 4.5rem)/1.06 var(--font-sans); letter-spacing: -0.035em;
+<span class="c">/* H2         */</span>  font: 800 clamp(1.7rem, 3vw, 2.5rem)/1.1 var(--font-sans); letter-spacing: -0.03em;
+<span class="c">/* H3         */</span>  font: 700 1.35rem/1.2 var(--font-sans); letter-spacing: -0.02em;
+<span class="c">/* Body       */</span>  font: 400 1.05rem/1.65 var(--font-sans);
+<span class="c">/* Label      */</span>  font: 500 0.76rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase;
+<span class="c">/* Caption    */</span>  font: 400 0.68rem var(--font-mono); letter-spacing: 0.1em;</pre></div>
+
+  <!-- ============================= SURFACES ============================= -->
+  <h2 id="surfaces">Surfaces &amp; backgrounds</h2>
+  <p class="section-note">
+    The signature background is a <strong>blueprint dot grid</strong> — a 24&nbsp;px radial-gradient dot
+    pattern over navy (dark) or off-white (light). It sits behind most sections. Copy the exact CSS below.
+  </p>
+  <div class="surfaces">
+    <div class="surface-demo">
+      <div class="pane dark" style="background:#070F22 radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0);background-size:24px 24px">DARK · NAVY DEEP</div>
+      <div class="cap">Dark surface — primary canvas</div>
+    </div>
+    <div class="surface-demo">
+      <div class="pane light" style="background:#FAFAFA radial-gradient(circle at 1px 1px, rgba(13,27,62,0.07) 1px, transparent 0);background-size:24px 24px">LIGHT · OFF-WHITE</div>
+      <div class="cap">Light surface — alternating sections</div>
+    </div>
+  </div>
+
+  <div class="code-label">Dark dot-grid surface</div>
+  <div class="code"><button class="copy">Copy</button><pre>.surface-dark {
+  background-color: #070F22; <span class="c">/* var(--brand-navy-deep) */</span>
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0);
+  background-size: 24px 24px;
+  color: #fff;
+}</pre></div>
+
+  <div class="code-label">Light dot-grid surface</div>
+  <div class="code"><button class="copy">Copy</button><pre>.surface-light {
+  background-color: #FAFAFA; <span class="c">/* var(--brand-bg) */</span>
+  background-image: radial-gradient(circle at 1px 1px, rgba(13,27,62,0.07) 1px, transparent 0);
+  background-size: 24px 24px;
+  color: #111111;
+}</pre></div>
+
+  <!-- ============================= COMPONENTS ============================= -->
+  <h2 id="components">Components</h2>
+  <p class="section-note">
+    The core interactive patterns. Each is rendered live with the exact CSS — buttons are pill-shaped
+    (100&nbsp;px radius), cards use <code>var(--brand-r)</code> (16&nbsp;px). Full patterns in <code>BRAND.md</code>.
+  </p>
+  <div class="components">
+    <div class="comp">
+      <div class="render"><button class="btn-primary">Get started</button></div>
+      <div class="label">Primary button <span>— all CTAs</span></div>
+    </div>
+    <div class="comp">
+      <div class="render"><button class="btn-secondary">Learn more</button></div>
+      <div class="label">Secondary button <span>— navy</span></div>
+    </div>
+    <div class="comp">
+      <div class="render"><span class="badge">Human-Led · Agent-Operated</span></div>
+      <div class="label">Badge <span>— kickers, pills</span></div>
+    </div>
+    <div class="comp">
+      <div class="render"><a href="#components" class="demo-link">Read the framework</a></div>
+      <div class="label">Text link</div>
+    </div>
+    <div class="comp">
+      <div class="render"><div class="card-light"><strong>Strategy &amp; Architecture</strong>Design the operating model before the build.</div></div>
+      <div class="label">Card <span>— light surface</span></div>
+    </div>
+    <div class="comp">
+      <div class="render on-dark"><div class="card-dark"><strong>Connected Systems</strong>Platforms, integration layer, and agents as one fabric.</div></div>
+      <div class="label">Card <span>— dark surface</span></div>
+    </div>
+  </div>
+
+  <div class="code-label">Primary button</div>
+  <div class="code"><button class="copy">Copy</button><pre>.btn-primary {
+  background: var(--brand-orange);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 13px 28px;
+  font: 600 0.9rem var(--font-sans);
+}
+.btn-primary:hover { background: var(--brand-orange-hover); transform: translateY(-2px); }</pre></div>
+
+  <div class="code-label">Secondary button</div>
+  <div class="code"><button class="copy">Copy</button><pre>.btn-secondary {
+  background: var(--brand-navy);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 9px 22px;
+  font: 600 0.84rem var(--font-sans);
+}</pre></div>
+
+  <div class="code-label">Badge</div>
+  <div class="code"><button class="copy">Copy</button><pre>.badge {
+  background: var(--brand-orange-glow);
+  border: 1px solid rgba(240,123,47,0.2);
+  color: var(--brand-orange);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font: 700 0.8rem var(--font-sans);
+}</pre></div>
+
+  <div class="code-label">Text link</div>
+  <div class="code"><button class="copy">Copy</button><pre>.text-link {
+  color: var(--brand-text-2);
+  border-bottom: 1px solid var(--brand-border-hover);
+  font: 500 0.88rem var(--font-sans);
+  text-decoration: none;
+}</pre></div>
+
+  <div class="code-label">Card — light surface</div>
+  <div class="code"><button class="copy">Copy</button><pre>.card {
+  background: var(--brand-bg-card);
+  border: 1px solid var(--brand-border);
+  border-radius: var(--brand-r);
+  padding: 26px 22px;
+}
+.card:hover { border-color: var(--brand-border-hover); transform: translateY(-2px); }</pre></div>
+
+  <div class="code-label">Card — dark surface</div>
+  <div class="code"><button class="copy">Copy</button><pre>.card-dark {
+  background: var(--brand-navy);
+  border: 1px solid var(--brand-navy-light);
+  border-radius: var(--brand-r);
+  color: #fff;
+}</pre></div>
+
+  <!-- ============================= DECKS & SLIDES ============================= -->
+  <h2 id="decks">Decks &amp; slides</h2>
+  <p class="section-note">
+    The same tokens drive presentation decks and social carousels. Only the canvas size and a larger,
+    legibility-first type scale change. The default slide surface is navy-deep with the blueprint dot grid
+    (see <a href="#surfaces">Surfaces</a>).
+  </p>
+  <table class="spec-table">
+    <thead><tr><th>Format</th><th>Pixels</th><th>Ratio</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td>Portrait carousel</td><td class="mono">1080 &times; 1350</td><td class="mono">4:5</td><td>LinkedIn / social carousels</td></tr>
+      <tr><td>Square</td><td class="mono">1080 &times; 1080</td><td class="mono">1:1</td><td>Single social posts</td></tr>
+      <tr><td>Landscape deck</td><td class="mono">1920 &times; 1080</td><td class="mono">16:9</td><td>Presentation / pitch decks</td></tr>
+    </tbody>
+  </table>
+  <div class="deck-row">
+    <div class="slide">
+      <div class="s-foot"><span>DBiz.ai</span><span>03 / 13</span></div>
+      <div class="s-kick">Human-Led &middot; Agent-Operated</div>
+      <div class="s-head">Brief to shipped in 3 weeks.</div>
+      <div class="s-sub">One idea per slide. Type sized up for the feed. Orange used once.</div>
+    </div>
+    <table class="spec-table" style="flex:1;min-width:280px">
+      <thead><tr><th>Role</th><th>Family</th><th>Size (&approx;1080w)</th></tr></thead>
+      <tbody>
+        <tr><td>Slide H1</td><td class="mono">DM Sans 800</td><td class="mono">80&ndash;90px</td></tr>
+        <tr><td>Slide H2</td><td class="mono">DM Sans 800</td><td class="mono">60&ndash;68px</td></tr>
+        <tr><td>Lede / intro</td><td class="mono">DM Sans 400&ndash;500</td><td class="mono">38&ndash;42px / 1.5</td></tr>
+        <tr><td>Body</td><td class="mono">DM Sans 400</td><td class="mono">24&ndash;28px / 1.5</td></tr>
+        <tr><td>Stat value</td><td class="mono">DM Sans 800</td><td class="mono">56&ndash;72px</td></tr>
+        <tr><td>Stat label</td><td class="mono">DM Sans 400</td><td class="mono">22&ndash;28px</td></tr>
+        <tr><td>Kicker / footer</td><td class="mono">DM Mono 500</td><td class="mono">12&ndash;14px &middot; uppercase</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="section-note" style="margin-top:18px">
+    <strong>Rules:</strong> one idea per slide; never below ~22px for slide body; orange is one or two hits
+    per slide, never a wash; body on dark uses <code>rgba(255,255,255,.6)</code>, headlines full white; no
+    serif, no italic-accent word, no third font. Icons from Phosphor (<code>ph:*</code>), one weight per deck.
+  </p>
+
+  <!-- ============================= ALL TOKENS ============================= -->
+  <h2 id="tokens">All design tokens</h2>
+  <p class="section-note">
+    The complete token block — paste into your global stylesheet as the single source of truth.
+    Mirrors <code>src/app/globals.css</code>.
+  </p>
+  <div class="code-label">:root — light (default)</div>
+  <div class="code"><button class="copy">Copy</button><pre>:root {
+  <span class="c">/* Navy — primary anchor */</span>
+  --brand-navy: #0D1B3E;
+  --brand-navy-deep: #070F22;
+  --brand-navy-light: #1A2D5A;
+
+  <span class="c">/* Orange — accent (all CTAs) */</span>
+  --brand-orange: #F07B2F;
+  --brand-orange-hover: #E06B1F;
+  --brand-orange-glow: rgba(240,123,47,0.1);
+
+  <span class="c">/* Surfaces */</span>
+  --brand-bg: #FAFAFA;
+  --brand-bg-card: #FFFFFF;
+  --brand-bg-warm: #F3F0EC;
+
+  <span class="c">/* Text */</span>
+  --brand-text: #111111;
+  --brand-text-2: #555555;
+  --brand-text-3: #999999;
+
+  <span class="c">/* Borders */</span>
+  --brand-border: rgba(0,0,0,0.06);
+  --brand-border-hover: rgba(0,0,0,0.12);
+
+  <span class="c">/* Radii */</span>
+  --brand-r-sm: 10px;
+  --brand-r: 16px;
+  --brand-r-lg: 24px;
+}</pre></div>
+
+  <div class="code-label">Dark mode — same brand, inverted surface</div>
+  <div class="code"><button class="copy">Copy</button><pre>[data-theme='dark'] {
+  --brand-bg: #070F22;
+  --brand-bg-card: #0D1B3E;
+  --brand-bg-warm: #1A2D5A;
+
+  --brand-border: rgba(255,255,255,0.08);
+  --brand-border-hover: rgba(255,255,255,0.16);
+
+  --brand-text: #FFFFFF;
+  --brand-text-2: rgba(255,255,255,0.6);
+  --brand-text-3: rgba(255,255,255,0.35);
+}</pre></div>
+
+  <!-- ============================= PAGES ============================= -->
+  <h2 id="pages">Pages</h2>
   <p class="section-note">
     The current design (internally <strong>V22.5</strong>) is what the root URL serves.
   </p>
-  <table class="pages" id="pages"></table>
+  <table class="pages" id="pages-table"></table>
 
-  <h2>SVG assets</h2>
+  <!-- ============================= SVG ASSETS ============================= -->
+  <h2 id="assets">SVG assets</h2>
   <p class="section-note">
     Click a filename to open the raw file. Previews render on the surface the asset
     is designed for. Several assets animate or recolor <em>in page context</em> via
@@ -217,11 +695,12 @@
   </p>
   <div class="grid" id="assets"></div>
 
-  <h2>Logos &amp; brand</h2>
+  <!-- ============================= LOGOS ============================= -->
+  <h2 id="logos">Logos &amp; brand</h2>
   <p class="section-note">
-    Typography is Google Fonts: <strong>DM Sans</strong> (primary), <strong>DM Mono</strong> (labels/metadata),
-    <strong>Instrument Serif</strong> (italic accent words only). Full token reference: <code>BRAND.md</code>
-    and <code>src/app/globals.css</code> in the repo, or the live <a href="/styleguide">/styleguide</a>.
+    Logo files for light and dark surfaces. For type and color, see the
+    <a href="#typography">Typography</a> and <a href="#color">Color</a> sections above, or the live
+    <a href="/styleguide">/styleguide</a>.
   </p>
   <div class="logo-row">
     <div class="asset">
@@ -248,10 +727,53 @@
 </main>
 
 <script>
+  /* ---------- Data ---------- */
   const pages = [
     { path: '/', name: 'Homepage', tag: 'Hero, capabilities, framework, testimonials, case studies, why, CTA.' },
     { path: '/v22.5/capabilities/connected-systems', name: 'Capability detail — Connected Systems', tag: 'Linked from the homepage capabilities section. The template for the other six capability pages (not built yet).' },
     { path: '/styleguide', name: 'Styleguide', tag: 'Live brand reference — colors, type, components.' },
+  ]
+
+  const specimens = [
+    { role: 'Display / H1', spec: 'DM Sans 800 · clamp(2.6rem, 5vw, 4.5rem) · -0.035em · 1.06', cls: 't-display', sample: 'Agent-operated.' },
+    { role: 'H2', spec: 'DM Sans 800 · clamp(1.7rem, 3vw, 2.5rem) · -0.03em · 1.1', cls: 't-h2', sample: 'How we do it' },
+    { role: 'H3', spec: 'DM Sans 700 · 1.35rem · -0.02em · 1.2', cls: 't-h3', sample: 'Connected Systems' },
+    { role: 'Body', spec: 'DM Sans 400 · 1.05rem · 1.65', cls: 't-body', sample: 'We build Frontier Organisations — enterprises that scale with AI agents, not just AI tools.' },
+    { role: 'Label / kicker', spec: 'DM Mono 500 · 0.76rem · 0.14em · uppercase · orange', cls: 't-label', sample: 'Human-Led · Agent-Operated' },
+    { role: 'Caption', spec: 'DM Mono 400 · 0.68rem · 0.1em', cls: 't-caption', sample: 'FIG. 01 — FRONTIER ORGANISATION STACK' },
+  ]
+
+  const swatchGroups = [
+    { title: 'Navy — primary anchor', items: [
+      { name: 'Navy', varName: '--brand-navy', value: '#0D1B3E', onDark: true, note: 'Primary brand color, nav CTAs' },
+      { name: 'Navy Deep', varName: '--brand-navy-deep', value: '#070F22', onDark: true, note: 'Dark sections, CTA backgrounds' },
+      { name: 'Navy Light', varName: '--brand-navy-light', value: '#1A2D5A', onDark: true, note: 'Hover states, secondary surfaces' },
+    ]},
+    { title: 'Orange — accent', items: [
+      { name: 'Orange', varName: '--brand-orange', value: '#F07B2F', onDark: true, note: 'All CTAs, highlights, accents' },
+      { name: 'Orange Hover', varName: '--brand-orange-hover', value: '#E06B1F', onDark: true, note: 'Button hover' },
+      { name: 'Orange Glow', varName: '--brand-orange-glow', value: 'rgba(240,123,47,0.1)', note: 'Soft fills, badge backgrounds' },
+    ]},
+    { title: 'Surfaces — light mode', items: [
+      { name: 'BG', varName: '--brand-bg', value: '#FAFAFA', note: 'Page background' },
+      { name: 'BG Card', varName: '--brand-bg-card', value: '#FFFFFF', note: 'Cards, elevated surfaces' },
+      { name: 'BG Warm', varName: '--brand-bg-warm', value: '#F3F0EC', note: 'Warm section background' },
+    ]},
+    { title: 'Surfaces — dark mode', items: [
+      { name: 'BG', varName: '--brand-bg', value: '#070F22', onDark: true, note: 'Dark page background' },
+      { name: 'BG Card', varName: '--brand-bg-card', value: '#0D1B3E', onDark: true, note: 'Dark cards' },
+      { name: 'BG Warm', varName: '--brand-bg-warm', value: '#1A2D5A', onDark: true, note: 'Dark warm surface' },
+    ]},
+    { title: 'Text', items: [
+      { name: 'Text', varName: '--brand-text', value: '#111111', onDark: true, note: 'Primary text (light mode)' },
+      { name: 'Text 2', varName: '--brand-text-2', value: '#555555', onDark: true, note: 'Body, secondary' },
+      { name: 'Text 3', varName: '--brand-text-3', value: '#999999', note: 'Muted, captions' },
+    ]},
+    { title: 'Borders & radii', items: [
+      { name: 'Border', varName: '--brand-border', value: 'rgba(0,0,0,0.06)', note: 'Default border (light mode)' },
+      { name: 'Border Hover', varName: '--brand-border-hover', value: 'rgba(0,0,0,0.12)', note: 'Hover border' },
+      { name: 'Radius', varName: '--brand-r', value: '16px', note: 'Cards · sm 10px · lg 24px' },
+    ]},
   ]
 
   const assets = [
@@ -291,13 +813,45 @@
     { file: 'platform-mark-infrastructure.svg', surface: 'dark', usage: 'Connected Systems — Infrastructure services mark.' },
   ]
 
-  document.getElementById('pages').innerHTML = pages.map(p => `
+  /* ---------- Render: pages ---------- */
+  document.getElementById('pages-table').innerHTML = pages.map(p => `
     <tr>
       <td><a href="${p.path}">${p.name}</a></td>
       <td class="path">${p.path}</td>
       <td class="tag">${p.tag}</td>
     </tr>`).join('')
 
+  /* ---------- Render: type specimens ---------- */
+  document.getElementById('specimens').innerHTML = specimens.map(s => `
+    <div class="specimen">
+      <div class="role">
+        <div class="rname">${s.role}</div>
+        <div class="rspec">${s.spec}</div>
+      </div>
+      <div class="sample"><span class="${s.cls}">${s.sample}</span></div>
+    </div>`).join('')
+
+  /* ---------- Render: color swatches ---------- */
+  document.getElementById('swatches').innerHTML = swatchGroups.map(g => `
+    <div class="swatch-group">
+      <h3>${g.title}</h3>
+      <div class="swatches">
+        ${g.items.map(s => `
+          <div class="swatch">
+            <div class="chip" data-copy="${s.value}" style="background:${s.value};color:${s.onDark ? '#fff' : 'var(--text)'}">
+              <span class="copyhint">${s.value} · click to copy</span>
+            </div>
+            <div class="body">
+              <div class="sname">${s.name}</div>
+              <div class="svar">var(${s.varName})</div>
+              <div class="sval">${s.value}</div>
+              ${s.note ? `<div class="snote">${s.note}</div>` : ''}
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('')
+
+  /* ---------- Render: SVG asset grid ---------- */
   const grid = document.getElementById('assets')
   for (const a of assets) {
     const card = document.createElement('div')
@@ -322,6 +876,47 @@
       })
       .catch(() => { card.querySelector('.preview').innerHTML = '<span style="font:0.75rem var(--mono)">failed to load</span>' })
   }
+
+  /* ---------- Copy-to-clipboard ---------- */
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text)
+    }
+    return new Promise((resolve, reject) => {
+      const ta = document.createElement('textarea')
+      ta.value = text
+      ta.style.position = 'fixed'
+      ta.style.opacity = '0'
+      document.body.appendChild(ta)
+      ta.select()
+      try { document.execCommand('copy'); resolve() } catch (e) { reject(e) }
+      document.body.removeChild(ta)
+    })
+  }
+
+  document.querySelectorAll('.code').forEach(block => {
+    const btn = block.querySelector('.copy')
+    const code = block.querySelector('pre')
+    btn.addEventListener('click', () => {
+      copyText(code.textContent).then(() => {
+        btn.textContent = 'Copied'
+        btn.classList.add('done')
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done') }, 1400)
+      })
+    })
+  })
+
+  document.querySelectorAll('.chip[data-copy]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      copyText(chip.dataset.copy).then(() => {
+        const hint = chip.querySelector('.copyhint')
+        const original = hint.textContent
+        hint.textContent = 'Copied ✓'
+        chip.classList.add('done')
+        setTimeout(() => { hint.textContent = original; chip.classList.remove('done') }, 1400)
+      })
+    })
+  })
 </script>
 </body>
 </html>

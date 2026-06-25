@@ -42,7 +42,7 @@ export function OptionB() {
         <div className='v22-section-head'>
           <div className='num'>Option B / Scroll cascade</div>
           <h2>Watch the stack<br /><span style={{ color: 'var(--v22-accent)' }}>assemble.</span></h2>
-          <p className='lead'>Each layer lands as you scroll. Sticky copy on the left updates per layer. Clear "every layer covered" payoff.</p>
+          <p className='lead'>Each layer lands as you scroll. Sticky copy on the left updates per layer. Clear &ldquo;every layer covered&rdquo; payoff.</p>
         </div>
 
         <div className='capB-grid'>

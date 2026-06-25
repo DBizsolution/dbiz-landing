@@ -41,11 +41,11 @@ function CountUp({ target, visible, durationMs = 900 }: { target: number; visibl
   const [value, setValue] = useState(0)
   useEffect(() => {
     if (!visible) return
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setValue(target)
-      return
-    }
     let raf = 0
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      raf = requestAnimationFrame(() => setValue(target))
+      return () => cancelAnimationFrame(raf)
+    }
     const start = performance.now()
     const tick = (t: number) => {
       const p = Math.min(1, (t - start) / durationMs)

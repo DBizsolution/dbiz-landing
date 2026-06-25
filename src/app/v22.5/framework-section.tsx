@@ -328,8 +328,8 @@ export default function FrameworkSection() {
     const r = el.getBoundingClientRect()
     const inViewport = r.top < window.innerHeight && r.bottom > 0
     if (inViewport) {
-      setVisible(true)
-      return
+      const immediate = requestAnimationFrame(() => setVisible(true))
+      return () => cancelAnimationFrame(immediate)
     }
 
     const io = new IntersectionObserver(([entry]) => {
@@ -357,7 +357,7 @@ export default function FrameworkSection() {
     const scroller = scrollerRef.current
     if (!scroller) return
     let raf = 0
-    let hintTimer = 0
+    const hintTimer = 0
 
     const update = () => {
       const scrollL = scroller.scrollLeft
