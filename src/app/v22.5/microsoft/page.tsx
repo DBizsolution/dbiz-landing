@@ -5,6 +5,7 @@
 
 import Link from 'next/link'
 import MsAppsCarousel from './apps-carousel'
+import CapabilitiesTabs from './capabilities-tabs'
 
 /* ─── Microsoft 4-square logo ─────────────────────────────────────────── */
 function MsLogo({ size = 26 }: { size?: number }) {
@@ -55,39 +56,6 @@ const designations = [
 const specialisations = [
   { base: 'Digital & App Innovation', sub: 'Azure', name: 'Agentic DevOps with Microsoft Azure and GitHub' },
   { base: 'Digital & App Innovation', sub: 'Azure', name: 'Kubernetes on Microsoft Azure' },
-]
-
-const capabilityAreas = [
-  {
-    name: 'Business Applications',
-    desc: 'Modernise business processes and improve operational visibility with Microsoft business applications.',
-    capabilities: ['Dynamics 365 Sales', 'Dynamics 365 Customer Service', 'Dynamics 365 Finance', 'Dynamics 365 Supply Chain Management', 'Dynamics 365 Field Service', 'Dynamics 365 Business Central', 'Customer Insights'],
-    outcomes: ['Connected business operations', 'Improved customer engagement', 'Increased operational efficiency', 'Greater organisational visibility'],
-  },
-  {
-    name: 'Power Platform',
-    desc: 'Accelerate innovation through low-code development, workflow automation, analytics, and AI-powered business applications.',
-    capabilities: ['Power Apps', 'Power Automate', 'Power BI', 'Copilot Studio', 'Power Pages'],
-    outcomes: ['Faster application delivery', 'Automated workflows', 'Improved business intelligence', 'Greater operational productivity'],
-  },
-  {
-    name: 'Data & AI',
-    desc: 'Create the data foundations required for intelligent operations and enterprise-scale AI adoption.',
-    capabilities: ['Microsoft Fabric', 'Azure OpenAI Service', 'Azure AI Services', 'Azure Machine Learning', 'Enterprise Analytics', 'AI Agents & Intelligent Automation'],
-    outcomes: ['Unified data environments', 'AI-ready enterprise foundations', 'Faster access to insights', 'Intelligent decision support'],
-  },
-  {
-    name: 'Cloud & Infrastructure',
-    desc: 'Build secure, scalable, and resilient cloud environments that support continuous business growth.',
-    capabilities: ['Microsoft Azure', 'Cloud Migration & Modernisation', 'Hybrid Cloud Architecture', 'DevSecOps', 'Infrastructure Automation', 'Observability & Monitoring'],
-    outcomes: ['Improved scalability', 'Enhanced security', 'Greater resilience', 'Optimised cloud investments'],
-  },
-  {
-    name: 'Modern Work',
-    desc: 'Enable secure collaboration, knowledge sharing, and productivity across distributed teams.',
-    capabilities: ['Microsoft 365', 'Microsoft Teams', 'SharePoint', 'OneDrive', 'Security & Compliance', 'Identity & Access Management'],
-    outcomes: ['Improved workforce productivity', 'Secure collaboration', 'Stronger governance', 'Connected employee experiences'],
-  },
 ]
 
 const aiFoundations = [
@@ -160,16 +128,21 @@ export default function MicrosoftPage() {
         <div className='v22-container'>
           <div className='v22-cdp-hero-grid'>
             <div className='v22-cdp-hero-meta'>
-              <span className='v22-cdp-eyebrow'>Microsoft Solutions Partner</span>
+              <div className='v22-ms-cobrand'>
+                <img src='/dbiz-logo.svg' alt='DBiz.ai' className='v22-ms-cobrand-dbiz' width='72' height='40' />
+                <span className='v22-ms-cobrand-x' aria-hidden='true'>×</span>
+                <MsLogo size={26} />
+                <span className='v22-ms-cobrand-label'>Microsoft Solutions Partner</span>
+              </div>
               <h1 className='v22-cdp-title'>
-                Microsoft solutions for the<br />
-                <em>AI-powered enterprise.</em>
+                Get more from your<br />
+                <em>Microsoft investment.</em>
               </h1>
               <p className='v22-cdp-lead'>
-                Microsoft technologies power today&rsquo;s intelligent enterprises — connecting business applications, cloud infrastructure, data platforms, AI, security, and modern workplace experiences into a unified ecosystem.
+                DBiz combines proven Microsoft expertise with AI-led engineering to modernise operations, cut complexity, and turn Dynamics 365, Azure, Fabric, Copilot and Azure OpenAI into measurable business outcomes.
               </p>
               <p className='v22-cdp-lead'>
-                As a Microsoft Solutions Partner, DBiz combines proven Microsoft expertise with AI-led engineering to modernise operations, simplify complexity, and help organisations realise greater value from their Microsoft investments — from Dynamics 365 and Azure to Microsoft Fabric, Copilot, and Azure OpenAI.
+                One validated partner across cloud, data, AI, business applications and the modern workplace — from strategy through to managed services.
               </p>
               <div className='v22-cdp-hero-actions'>
                 <Link href='#capabilities' className='v22-cta-primary'>
@@ -271,36 +244,15 @@ export default function MicrosoftPage() {
         </div>
       </section>
 
-      {/* CAPABILITY AREAS — cream */}
+      {/* CAPABILITY AREAS — tabbed, cream */}
       <section id='capabilities' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
         <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>Capability areas</span>
-              <h2 className='v22-cdp-block-title'>Across the Microsoft stack</h2>
-              <p className='v22-cdp-block-kicker'>Five areas, end to end — from business apps to the modern workplace.</p>
-            </div>
-            <div className='v22-cdp-block-body'>
-              <div className='v22-ms-areas'>
-                {capabilityAreas.map((a) => (
-                  <article key={a.name} className='v22-ms-area'>
-                    <h3 className='v22-ms-area-name'>{a.name}</h3>
-                    <p className='v22-ms-area-desc'>{a.desc}</p>
-                    <div className='v22-ms-area-cols'>
-                      <div>
-                        <span className='v22-ms-area-k'>Capabilities</span>
-                        <ul className='v22-ms-area-caps'>{a.capabilities.map((c) => <li key={c}>{c}</li>)}</ul>
-                      </div>
-                      <div>
-                        <span className='v22-ms-area-k'>Outcomes</span>
-                        <ul className='v22-ms-area-out'>{a.outcomes.map((o) => <li key={o}>{o}</li>)}</ul>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
+          <div className='v22-ms-appcar-head'>
+            <span className='v22-cdp-block-num'>Capability areas</span>
+            <h2 className='v22-cdp-block-title'>One partner across the <em>Microsoft stack.</em></h2>
+            <p className='v22-cdp-block-kicker'>Pick an area to see what we deliver, the outcomes it drives, and the Microsoft technologies behind it.</p>
           </div>
+          <CapabilitiesTabs />
         </div>
       </section>
 
