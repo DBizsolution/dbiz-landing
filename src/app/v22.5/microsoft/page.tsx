@@ -6,6 +6,7 @@
 import Link from 'next/link'
 import MsAppsCarousel from './apps-carousel'
 import CapabilitiesTabs from './capabilities-tabs'
+import HeroStats from './hero-stats'
 
 /* ─── Microsoft 4-square logo ─────────────────────────────────────────── */
 function MsLogo({ size = 26 }: { size?: number }) {
@@ -139,10 +140,7 @@ export default function MicrosoftPage() {
                 <em>Microsoft investment.</em>
               </h1>
               <p className='v22-cdp-lead'>
-                DBiz combines proven Microsoft expertise with AI-led engineering to modernise operations, cut complexity, and turn Dynamics 365, Azure, Fabric, Copilot and Azure OpenAI into measurable business outcomes.
-              </p>
-              <p className='v22-cdp-lead'>
-                One validated partner across cloud, data, AI, business applications and the modern workplace — from strategy through to managed services.
+                A Microsoft Solutions Partner that turns Azure, Dynamics 365, Fabric and Copilot into measurable business outcomes — across cloud, data, AI, apps and the modern workplace.
               </p>
               <div className='v22-cdp-hero-actions'>
                 <Link href='#capabilities' className='v22-cta-primary'>
@@ -150,20 +148,17 @@ export default function MicrosoftPage() {
                 </Link>
                 <Link href='/v22.5#cta' className='v22-cta-text'>Talk to our team</Link>
               </div>
-              <ul className='v22-ms-hero-stats' aria-label='At a glance'>
-                <li><span className='v'>5</span><span className='l'>Solutions Partner designations</span></li>
-                <li><span className='v'>150+</span><span className='l'>Microsoft Certified Engineers</span></li>
-                <li><span className='v'>2</span><span className='l'>Advanced Specialisations</span></li>
-                <li><span className='v'>CSP</span><span className='l'>Cloud Solution Provider</span></li>
-              </ul>
+              <HeroStats />
             </div>
             <aside className='v22-cdp-hero-aside'>
-              <div className='v22-ms-hero-badges' aria-hidden='true'>
-                <MsBadge designation='Data & AI' sub='Azure' />
-                <MsBadge designation='Digital & App Innovation' sub='Azure' />
-                <MsBadge designation='Business Applications' />
-                <MsBadge designation='Infrastructure' sub='Azure' />
-              </div>
+              <figure className='v22-csd-hero-photo'>
+                <img
+                  src='https://images.pexels.com/photos/2881229/pexels-photo-2881229.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1200&fit=crop'
+                  alt='Microsoft Azure cloud infrastructure'
+                  loading='eager'
+                />
+                <span className='v22-csd-photo-cap'>FIG · CLOUD · DATA · AI</span>
+              </figure>
             </aside>
           </div>
         </div>
@@ -181,24 +176,7 @@ export default function MicrosoftPage() {
         </div>
       </section>
 
-      {/* WHY DBIZ */}
-      <section id='why' className='v22-cdp-block' data-surface='light'>
-        <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>Why DBiz</span>
-              <h2 className='v22-cdp-block-title'>Validated, <em>not just experienced.</em></h2>
-            </div>
-            <div className='v22-cdp-block-body'>
-              <p>Choosing a Microsoft partner is about more than technology expertise. It&rsquo;s about working with a team independently validated for its technical capability, delivery experience, and customer success.</p>
-              <p>As a Microsoft Solutions Partner, our capabilities are assessed through Microsoft&rsquo;s rigorous performance, skills, and customer-success requirements — giving organisations confidence they&rsquo;re partnering with a team capable of delivering complex Microsoft solutions, from strategy and implementation through to optimisation and managed services.</p>
-              <p>Our teams combine deep Microsoft expertise with capabilities across cloud, data, AI, enterprise platforms, product engineering, and managed services to help organisations modernise operations, accelerate innovation, and maximise the value of their Microsoft investments.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CREDENTIALS — dark, badges pop on navy */}
+      {/* CREDENTIALS — moved up as early proof (dark, badges pop on navy) */}
       <section id='credentials' className='v22-cdp-block v22-cdp-proof' data-surface='dark'>
         <div className='v22-container'>
           <div className='v22-cdp-block-grid'>
@@ -228,8 +206,24 @@ export default function MicrosoftPage() {
         </div>
       </section>
 
-      {/* CSP */}
-      <section id='csp' className='v22-cdp-block' data-surface='light'>
+      {/* WHY DBIZ — tight, marketing-forward (light) */}
+      <section id='why' className='v22-cdp-block' data-surface='light'>
+        <div className='v22-container'>
+          <div className='v22-cdp-block-grid'>
+            <div className='v22-cdp-block-head'>
+              <span className='v22-cdp-block-num'>Why DBiz</span>
+              <h2 className='v22-cdp-block-title'>Validated, <em>not just experienced.</em></h2>
+            </div>
+            <div className='v22-cdp-block-body'>
+              <p>Those designations aren&rsquo;t bought — they&rsquo;re earned, awarded only after Microsoft validates our certified people, enterprise delivery, and customer success.</p>
+              <p>So the capability is independently proven before we start — deep Microsoft expertise spanning cloud, data, AI, business apps, product engineering, and managed services, all under one partner.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CSP — cream */}
+      <section id='csp' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
         <div className='v22-container'>
           <div className='v22-cdp-block-grid'>
             <div className='v22-cdp-block-head'>
@@ -244,8 +238,8 @@ export default function MicrosoftPage() {
         </div>
       </section>
 
-      {/* CAPABILITY AREAS — tabbed, cream */}
-      <section id='capabilities' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
+      {/* CAPABILITY AREAS — tabbed */}
+      <section id='capabilities' className='v22-cdp-block' data-surface='light'>
         <div className='v22-container'>
           <div className='v22-ms-appcar-head'>
             <span className='v22-cdp-block-num'>Capability areas</span>
