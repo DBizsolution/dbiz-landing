@@ -8430,3 +8430,129 @@
   .v22-ms-enterprise { grid-template-columns: 1fr; }
   .v22-ms-ai-list, .v22-ms-outcomes { grid-template-columns: 1fr; }
 }
+
+/* ─── MS hero stats strip ───────────────────────────────────────────────── */
+.v22-ms-hero-stats {
+  list-style: none;
+  margin: 34px 0 0;
+  padding: 26px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px 44px;
+}
+.v22-ms-hero-stats li { display: flex; flex-direction: column; gap: 5px; }
+.v22-ms-hero-stats .v {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+  color: var(--v22-accent);
+  line-height: 1;
+}
+.v22-ms-hero-stats .l {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 18ch;
+}
+
+/* ─── MS applications carousel ──────────────────────────────────────────── */
+.v22-ms-appcar-head { margin-bottom: 30px; max-width: 72ch; }
+.v22-ms-appcar-head .v22-cdp-block-num { display: block; margin-bottom: 10px; }
+.v22-ms-appcar { position: relative; }
+.v22-ms-appcar-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 4px 2px 6px;
+  margin: -4px -2px -6px;
+}
+.v22-ms-appcar-track::-webkit-scrollbar { display: none; }
+.v22-ms-appcard {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.1);
+  padding: 24px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+.v22-ms-appcard:hover {
+  border-color: rgba(240, 123, 47, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -20px rgba(13, 27, 62, 0.28);
+}
+.v22-ms-appcard::after {
+  content: '';
+  position: absolute;
+  top: -1px; right: -1px;
+  width: 10px; height: 10px;
+  border: 1px solid var(--v22-accent);
+  border-left: none; border-bottom: none;
+}
+.v22-ms-appcard-logo { height: 36px; display: flex; align-items: center; margin-bottom: 16px; }
+.v22-ms-appcard-logo svg { display: block; }
+.v22-ms-appcard-name {
+  font-family: var(--font-sans);
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--brand-navy);
+  margin: 0 0 8px;
+}
+.v22-ms-appcard-desc {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(13, 27, 62, 0.7);
+  margin: 0 0 16px;
+  flex: 1;
+}
+.v22-ms-appcard-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.v22-ms-appcard-tags li {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.6);
+  padding: 4px 9px;
+  background: rgba(13, 27, 62, 0.04);
+  border: 1px solid rgba(13, 27, 62, 0.1);
+}
+.v22-ms-appcar-controls { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 26px; }
+.v22-ms-appcar-arrow {
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.18);
+  color: var(--v22-ink);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+.v22-ms-appcar-arrow:hover:not(:disabled) { border-color: var(--v22-accent); color: var(--v22-accent); transform: translateY(-2px); }
+.v22-ms-appcar-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+.v22-ms-appcar-dots { display: flex; gap: 8px; }
+.v22-ms-appcar-dot {
+  width: 8px; height: 8px;
+  padding: 0;
+  border: 1px solid rgba(13, 27, 62, 0.3);
+  background: transparent;
+  cursor: pointer;
+  transition: width 220ms ease, background 220ms ease, border-color 220ms ease;
+}
+.v22-ms-appcar-dot.is-active { width: 26px; background: var(--v22-accent); border-color: var(--v22-accent); }
+@media (max-width: 600px) {
+  .v22-ms-appcard { flex-basis: 78vw; }
+}

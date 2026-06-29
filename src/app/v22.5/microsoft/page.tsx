@@ -4,6 +4,7 @@
    badges, capability-area cards, enterprise grid. */
 
 import Link from 'next/link'
+import MsAppsCarousel from './apps-carousel'
 
 /* ─── Microsoft 4-square logo ─────────────────────────────────────────── */
 function MsLogo({ size = 26 }: { size?: number }) {
@@ -176,6 +177,12 @@ export default function MicrosoftPage() {
                 </Link>
                 <Link href='/v22.5#cta' className='v22-cta-text'>Talk to our team</Link>
               </div>
+              <ul className='v22-ms-hero-stats' aria-label='At a glance'>
+                <li><span className='v'>5</span><span className='l'>Solutions Partner designations</span></li>
+                <li><span className='v'>150+</span><span className='l'>Microsoft Certified Engineers</span></li>
+                <li><span className='v'>2</span><span className='l'>Advanced Specialisations</span></li>
+                <li><span className='v'>CSP</span><span className='l'>Cloud Solution Provider</span></li>
+              </ul>
             </div>
             <aside className='v22-cdp-hero-aside'>
               <div className='v22-ms-hero-badges' aria-hidden='true'>
@@ -186,6 +193,18 @@ export default function MicrosoftPage() {
               </div>
             </aside>
           </div>
+        </div>
+      </section>
+
+      {/* APPLICATIONS CAROUSEL — the Microsoft platforms we deliver */}
+      <section id='applications' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
+        <div className='v22-container'>
+          <div className='v22-ms-appcar-head'>
+            <span className='v22-cdp-block-num'>The Microsoft toolkit</span>
+            <h2 className='v22-cdp-block-title'>Platforms we deliver, end to end</h2>
+            <p className='v22-cdp-block-kicker'>From cloud and data to business apps, AI, and the modern workplace — implemented, integrated, and optimised.</p>
+          </div>
+          <MsAppsCarousel />
         </div>
       </section>
 
