@@ -8117,3 +8117,316 @@
   }
   .v22-cdp-proof-metric { grid-row: auto; }
 }
+
+/* ─── MICROSOFT PARTNER PAGE (v22-ms-*) ─────────────────────────────────── */
+
+/* Solutions Partner badge — recreated official-style card */
+.v22-ms-badge {
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.v22-ms-badge-body { padding: 18px 18px 16px; }
+.v22-ms-badge-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.v22-ms-logo { display: block; flex: 0 0 auto; }
+.v22-ms-badge-partner {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #5e5e5e;
+}
+.v22-ms-badge-desig {
+  margin-top: 14px;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #6a6a6a;
+}
+.v22-ms-badge-sub {
+  display: block;
+  font-size: 0.92rem;
+  color: #8a8a8a;
+}
+.v22-ms-badge-spec {
+  margin-top: auto;
+  background: #5a5a5a;
+  padding: 13px 18px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.v22-ms-badge-spec-k {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+.v22-ms-badge-spec-v {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Hero aside — small badge stack */
+.v22-ms-hero-badges {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+.v22-ms-hero-badges .v22-ms-badge-body { padding: 13px 14px 12px; }
+.v22-ms-hero-badges .v22-ms-badge-partner { font-size: 0.7rem; }
+.v22-ms-hero-badges .v22-ms-badge-desig { font-size: 0.86rem; margin-top: 9px; }
+.v22-ms-hero-badges .v22-ms-badge-sub { font-size: 0.78rem; }
+
+/* Credentials — badge grids + group labels */
+.v22-ms-group-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  margin: 4px 0 16px;
+}
+.v22-ms-badge-grid + .v22-ms-group-label { margin-top: 36px; }
+.v22-ms-badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(186px, 1fr));
+  gap: 14px;
+}
+
+/* Capability highlights row */
+.v22-ms-highlights {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 24px 0 0;
+  border-top: 1px dashed rgba(255, 255, 255, 0.16);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+.v22-ms-highlights li { display: flex; flex-direction: column; gap: 4px; }
+.v22-ms-highlight-val {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 1.7rem;
+  letter-spacing: -0.03em;
+  color: var(--v22-accent);
+  line-height: 1;
+}
+.v22-ms-highlight-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Capability areas — cards */
+.v22-ms-areas { display: flex; flex-direction: column; gap: 14px; }
+.v22-ms-area {
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.1);
+  padding: 24px 26px;
+  position: relative;
+}
+.v22-ms-area::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 10px; height: 10px;
+  border: 1px solid var(--v22-accent);
+  border-right: none; border-bottom: none;
+}
+.v22-ms-area-name {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  color: var(--brand-navy);
+  margin: 0 0 6px;
+}
+.v22-ms-area-desc {
+  font-family: var(--font-sans);
+  font-size: 0.96rem;
+  line-height: 1.5;
+  color: rgba(13, 27, 62, 0.7);
+  margin: 0 0 18px;
+  max-width: 64ch;
+}
+.v22-ms-area-cols {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(13, 27, 62, 0.12);
+}
+.v22-ms-area-k {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  margin-bottom: 10px;
+}
+.v22-ms-area-caps, .v22-ms-area-out { list-style: none; margin: 0; padding: 0; }
+.v22-ms-area-caps li, .v22-ms-area-out li {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: rgba(13, 27, 62, 0.78);
+  padding: 4px 0 4px 16px;
+  position: relative;
+}
+.v22-ms-area-caps li::before {
+  content: '·';
+  position: absolute; left: 4px;
+  color: var(--v22-accent);
+  font-weight: 700;
+}
+.v22-ms-area-out li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: var(--v22-accent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  top: 0.4em;
+}
+
+/* Microsoft + AI list (dark surface) */
+.v22-ms-ai-list {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.v22-ms-ai-list li {
+  background: var(--brand-navy);
+  padding: 15px 18px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.v22-ms-ai-list li::before {
+  content: '';
+  width: 5px; height: 5px;
+  background: var(--v22-accent);
+  flex: 0 0 auto;
+}
+
+/* Across the enterprise — 6 cells */
+.v22-ms-enterprise {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(13, 27, 62, 0.1);
+  border: 1px solid rgba(13, 27, 62, 0.1);
+}
+.v22-ms-ent { background: #ffffff; padding: 22px 22px 26px; }
+.v22-ms-ent-num {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--v22-accent);
+}
+.v22-ms-ent-name {
+  font-family: var(--font-sans);
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: -0.014em;
+  color: var(--brand-navy);
+  margin: 8px 0 6px;
+}
+.v22-ms-ent-desc {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(13, 27, 62, 0.7);
+  margin: 0;
+}
+
+/* Outcomes — numbered grid */
+.v22-ms-outcomes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px 28px;
+}
+.v22-ms-outcomes li {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  padding: 13px 0;
+  border-bottom: 1px dashed rgba(13, 27, 62, 0.12);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: rgba(13, 27, 62, 0.82);
+}
+.v22-ms-outcome-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--v22-accent);
+  flex: 0 0 auto;
+}
+
+/* Industries — chips */
+.v22-ms-industries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.v22-ms-industries li {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.72);
+  padding: 10px 18px;
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.1);
+}
+
+.v22-cdp-cta-lead {
+  font-family: var(--font-sans);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 56ch;
+  margin: 18px 0 0;
+}
+
+@media (max-width: 880px) {
+  .v22-ms-area-cols { grid-template-columns: 1fr; gap: 18px; }
+  .v22-ms-enterprise { grid-template-columns: 1fr; }
+  .v22-ms-ai-list, .v22-ms-outcomes { grid-template-columns: 1fr; }
+}

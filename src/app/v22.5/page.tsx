@@ -400,7 +400,7 @@ export default function V22Page() {
             </div>
             <div className='v22-foot-col'>
               <div className='v22-mono'>Partners</div>
-              <ul><li><a href='#'>AWS</a></li><li><a href='#'>Microsoft Azure</a></li><li><a href='#'>Salesforce</a></li><li><a href='#'>Snowflake</a></li><li><a href='#'>Databricks</a></li><li><a href='#'>Boomi</a></li><li><a href='#'>Anthropic</a></li></ul>
+              <ul><li><a href='#'>AWS</a></li><li><a href='/v22.5/microsoft'>Microsoft Azure</a></li><li><a href='#'>Salesforce</a></li><li><a href='#'>Snowflake</a></li><li><a href='#'>Databricks</a></li><li><a href='#'>Boomi</a></li><li><a href='#'>Anthropic</a></li></ul>
             </div>
           </div>
           <div className='v22-foot-legal'>
