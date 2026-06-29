@@ -131,30 +131,34 @@ export default function MicrosoftPage() {
         </div>
       </div>
 
-      {/* HERO — single column, no image */}
+      {/* HERO — two column, animated stats panel on the right */}
       <section className='v22-cdp-hero'>
         <div className='v22-container'>
           <div className='v22-ms-hero'>
-            <div className='v22-ms-cobrand'>
-              <img src='/dbiz-logo.svg' alt='DBiz.ai' className='v22-ms-cobrand-dbiz' width='72' height='40' />
-              <span className='v22-ms-cobrand-x' aria-hidden='true'>×</span>
-              <MsLogo size={26} />
-              <span className='v22-ms-cobrand-label'>Microsoft Solutions Partner</span>
+            <div className='v22-ms-hero-meta'>
+              <div className='v22-ms-cobrand'>
+                <img src='/dbiz-logo.svg' alt='DBiz.ai' className='v22-ms-cobrand-dbiz' width='72' height='40' />
+                <span className='v22-ms-cobrand-x' aria-hidden='true'>×</span>
+                <MsLogo size={26} />
+                <span className='v22-ms-cobrand-label'>Microsoft Solutions Partner</span>
+              </div>
+              <h1 className='v22-cdp-title'>
+                Get more from your<br />
+                <em>Microsoft investment.</em>
+              </h1>
+              <p className='v22-cdp-lead'>
+                A Microsoft Solutions Partner that turns Azure, Dynamics 365, Fabric and Copilot into measurable business outcomes across cloud, data, AI, apps and the modern workplace.
+              </p>
+              <div className='v22-cdp-hero-actions'>
+                <Link href='#capabilities' className='v22-cta-primary'>
+                  Explore capabilities <span className='arrow'>↓</span>
+                </Link>
+                <Link href='/v22.5#cta' className='v22-cta-text'>Talk to our team</Link>
+              </div>
             </div>
-            <h1 className='v22-cdp-title'>
-              Get more from your<br />
-              <em>Microsoft investment.</em>
-            </h1>
-            <p className='v22-cdp-lead'>
-              A Microsoft Solutions Partner that turns Azure, Dynamics 365, Fabric and Copilot into measurable business outcomes across cloud, data, AI, apps and the modern workplace.
-            </p>
-            <div className='v22-cdp-hero-actions'>
-              <Link href='#capabilities' className='v22-cta-primary'>
-                Explore capabilities <span className='arrow'>↓</span>
-              </Link>
-              <Link href='/v22.5#cta' className='v22-cta-text'>Talk to our team</Link>
+            <div className='v22-ms-hero-viz' aria-hidden='false'>
+              <HeroStats />
             </div>
-            <HeroStats />
           </div>
         </div>
       </section>
@@ -162,29 +166,21 @@ export default function MicrosoftPage() {
       {/* CREDENTIALS — early proof (cream) */}
       <section id='credentials' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
         <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
+          <div className='v22-ms-appcar-head v22-ms-appcar-head--split'>
+            <div className='v22-ms-appcar-head-main'>
               <span className='v22-cdp-block-num'>Credentials</span>
-              <h2 className='v22-cdp-block-title'>Microsoft partner credentials</h2>
-              <p className='v22-cdp-block-kicker'>Awarded only after Microsoft validates technical capability, certified professionals, enterprise implementations, customer references, and delivery performance.</p>
+              <h2 className='v22-cdp-block-title'>Certified Microsoft Partner</h2>
             </div>
-            <div className='v22-cdp-block-body'>
-              <span className='v22-ms-group-label'>Solutions Partner designations</span>
-              <div className='v22-ms-badge-grid'>
-                {designations.map((d) => <MsBadge key={d.name} designation={d.name} sub={d.sub} />)}
-              </div>
+            <p className='v22-cdp-block-kicker'>Microsoft-validated certifications, reflecting audited technical depth, certified specialists, and proven enterprise delivery across Australia and ASEAN.</p>
+          </div>
+          <span className='v22-ms-group-label'>Solutions Partner designations</span>
+          <div className='v22-ms-badge-grid'>
+            {designations.map((d) => <MsBadge key={d.name} designation={d.name} sub={d.sub} />)}
+          </div>
 
-              <span className='v22-ms-group-label'>Advanced specialisations</span>
-              <div className='v22-ms-badge-grid'>
-                {specialisations.map((s) => <MsBadge key={s.name} designation={s.base} sub={s.sub} specialist={s.name} />)}
-              </div>
-
-              <ul className='v22-ms-highlights'>
-                <li><span className='v22-ms-highlight-val'>150+</span><span className='v22-ms-highlight-lbl'>Microsoft Certified Engineers</span></li>
-                <li><span className='v22-ms-highlight-val'>AU · ASEAN</span><span className='v22-ms-highlight-lbl'>Delivery across markets</span></li>
-                <li><span className='v22-ms-highlight-val'>CSP</span><span className='v22-ms-highlight-lbl'>Cloud Solution Provider</span></li>
-              </ul>
-            </div>
+          <span className='v22-ms-group-label'>Advanced specialisations</span>
+          <div className='v22-ms-badge-grid'>
+            {specialisations.map((s) => <MsBadge key={s.name} designation={s.base} sub={s.sub} specialist={s.name} />)}
           </div>
         </div>
       </section>
@@ -195,7 +191,6 @@ export default function MicrosoftPage() {
           <div className='v22-ms-appcar-head'>
             <span className='v22-cdp-block-num'>Capability areas</span>
             <h2 className='v22-cdp-block-title'>One partner across the <em>Microsoft stack.</em></h2>
-            <p className='v22-cdp-block-kicker'>Pick an area to see what we deliver, the outcomes it drives, and the Microsoft technologies behind it.</p>
           </div>
           <CapabilitiesTabs />
         </div>
@@ -204,74 +199,15 @@ export default function MicrosoftPage() {
       {/* MICROSOFT TOOLKIT — running marquee (cream) */}
       <section id='applications' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
         <div className='v22-container'>
-          <div className='v22-ms-appcar-head'>
-            <span className='v22-cdp-block-num'>The Microsoft toolkit</span>
-            <h2 className='v22-cdp-block-title'>Platforms we deliver, end to end</h2>
+          <div className='v22-ms-appcar-head v22-ms-appcar-head--split'>
+            <div className='v22-ms-appcar-head-main'>
+              <span className='v22-cdp-block-num'>The Microsoft toolkit</span>
+              <h2 className='v22-cdp-block-title'>Platforms we deliver, end to end</h2>
+            </div>
             <p className='v22-cdp-block-kicker'>From cloud and data to business apps, AI, and the modern workplace. Implemented, integrated, and optimised.</p>
           </div>
         </div>
         <MsAppsCarousel />
-      </section>
-
-      {/* CASE STUDIES — placeholder (light) */}
-      <section id='ms-work' className='v22-cdp-block' data-surface='light'>
-        <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>Microsoft in action</span>
-              <h2 className='v22-cdp-block-title'>Case studies</h2>
-              <p className='v22-cdp-block-kicker'>Microsoft-powered work, shipped in production. Detailed stories landing soon.</p>
-            </div>
-            <div className='v22-cdp-block-body'>
-              <div className='v22-ms-cases'>
-                {msCases.map((c) => (
-                  <article key={c.kicker} className='v22-ms-case'>
-                    <div className='v22-ms-case-media' aria-hidden='true'>
-                      <span className='v22-ms-case-soon'>Coming soon</span>
-                    </div>
-                    <span className='v22-ms-case-kicker'>{c.kicker}</span>
-                    <h3 className='v22-ms-case-title'>{c.title}</h3>
-                    <ul className='v22-ms-case-tech'>
-                      {c.tech.map((t) => <li key={t}>{t}</li>)}
-                    </ul>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* WHY DBIZ — tight, marketing-forward (cream) */}
-      <section id='why' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
-        <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>Why DBiz</span>
-              <h2 className='v22-cdp-block-title'>Validated, <em>not just experienced.</em></h2>
-            </div>
-            <div className='v22-cdp-block-body'>
-              <p>Those designations aren&rsquo;t bought. They&rsquo;re earned, awarded only after Microsoft validates our certified people, enterprise delivery, and customer success.</p>
-              <p>So the capability is independently proven before we start: deep Microsoft expertise spanning cloud, data, AI, business apps, product engineering, and managed services, all under one partner.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CSP — light */}
-      <section id='csp' className='v22-cdp-block' data-surface='light'>
-        <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>One partner</span>
-              <h2 className='v22-cdp-block-title'>Microsoft Cloud Solution Provider</h2>
-            </div>
-            <div className='v22-cdp-block-body'>
-              <p>As a Microsoft Cloud Solution Provider (CSP), DBiz supports organisations beyond implementation, helping manage Microsoft licensing, subscriptions, cloud services, and ongoing optimisation.</p>
-              <p>This means customers work with a single partner across planning, deployment, and long-term platform management, simplifying engagement while ensuring continuity across the Microsoft technology lifecycle.</p>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* MICROSOFT + AI — dark */}
@@ -336,8 +272,24 @@ export default function MicrosoftPage() {
         </div>
       </section>
 
-      {/* INDUSTRIES */}
-      <section id='industries' className='v22-cdp-block' data-surface='light'>
+      {/* WHY DBIZ — validation + single-partner CSP, merged (light) */}
+      <section id='why' className='v22-cdp-block' data-surface='light'>
+        <div className='v22-container'>
+          <div className='v22-cdp-block-grid'>
+            <div className='v22-cdp-block-head'>
+              <span className='v22-cdp-block-num'>Why DBiz</span>
+              <h2 className='v22-cdp-block-title'>Validated, <em>not just experienced.</em></h2>
+            </div>
+            <div className='v22-cdp-block-body'>
+              <p>Plenty of partners claim Microsoft expertise. Ours is independently verified, every designation earned only after Microsoft audits our certified people, enterprise delivery, and customer success.</p>
+              <p>And as a Microsoft Cloud Solution Provider, we stay with you past go-live: one partner managing licensing, cloud services, and optimisation across the entire Microsoft lifecycle.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* INDUSTRIES — cream */}
+      <section id='industries' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
         <div className='v22-container'>
           <div className='v22-cdp-block-grid'>
             <div className='v22-cdp-block-head'>
@@ -348,6 +300,35 @@ export default function MicrosoftPage() {
               <ul className='v22-ms-industries'>
                 {industries.map((ind) => <li key={ind}>{ind}</li>)}
               </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CASE STUDIES — placeholder (light) */}
+      <section id='ms-work' className='v22-cdp-block' data-surface='light'>
+        <div className='v22-container'>
+          <div className='v22-cdp-block-grid'>
+            <div className='v22-cdp-block-head'>
+              <span className='v22-cdp-block-num'>Microsoft in action</span>
+              <h2 className='v22-cdp-block-title'>Case studies</h2>
+              <p className='v22-cdp-block-kicker'>Microsoft-powered work, shipped in production. Detailed stories landing soon.</p>
+            </div>
+            <div className='v22-cdp-block-body'>
+              <div className='v22-ms-cases'>
+                {msCases.map((c) => (
+                  <article key={c.kicker} className='v22-ms-case'>
+                    <div className='v22-ms-case-media' aria-hidden='true'>
+                      <span className='v22-ms-case-soon'>Coming soon</span>
+                    </div>
+                    <span className='v22-ms-case-kicker'>{c.kicker}</span>
+                    <h3 className='v22-ms-case-title'>{c.title}</h3>
+                    <ul className='v22-ms-case-tech'>
+                      {c.tech.map((t) => <li key={t}>{t}</li>)}
+                    </ul>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -374,18 +355,6 @@ export default function MicrosoftPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* BIG HOME CTA — take me to the DBiz.ai home */}
-      <section className='v22-ms-homecta'>
-        <div className='v22-container'>
-          <span className='v22-ms-homecta-k'>DBiz.ai</span>
-          <h2 className='v22-ms-homecta-title'>Microsoft is one piece.<br /><em>See the whole picture.</em></h2>
-          <p className='v22-ms-homecta-lead'>Agentic AI, data platforms, product engineering and more, across every part of your enterprise.</p>
-          <Link href='/v22.5' className='v22-ms-homecta-btn'>
-            Explore everything DBiz does <span aria-hidden='true'>→</span>
-          </Link>
         </div>
       </section>
 
