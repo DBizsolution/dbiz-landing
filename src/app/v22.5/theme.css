@@ -8121,98 +8121,22 @@
 /* ─── MICROSOFT PARTNER PAGE (v22-ms-*) ─────────────────────────────────── */
 
 /* Solutions Partner badge — recreated official-style card */
+/* Official Microsoft badge — rendered as the original image, unedited.
+   The PNG already carries its own white card, border and rounded corners,
+   so the wrapper only sizes it and adds a subtle hover lift. */
 .v22-ms-badge {
-  position: relative;
-  background: #ffffff;
-  border: 1px solid rgba(13, 27, 62, 0.1);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  display: block;
   min-width: 0;
-  transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+  transition: transform 220ms ease, filter 220ms ease;
 }
-/* Orange corner bracket — reveals on hover */
-.v22-ms-badge::after {
-  content: '';
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 11px;
-  height: 11px;
-  border: 1px solid var(--v22-accent);
-  border-left: none;
-  border-bottom: none;
-  opacity: 0;
-  transition: opacity 220ms ease;
+.v22-ms-badge-img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 .v22-ms-badge:hover {
-  border-color: rgba(240, 123, 47, 0.5);
   transform: translateY(-3px);
-  box-shadow: 0 18px 34px -22px rgba(13, 27, 62, 0.32);
-}
-.v22-ms-badge:hover::after { opacity: 1; }
-.v22-ms-badge-body { padding: 20px 20px 18px; }
-.v22-ms-badge-head {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(13, 27, 62, 0.08);
-}
-.v22-ms-logo { display: block; flex: 0 0 auto; }
-.v22-ms-badge-partner {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  line-height: 1.45;
-  text-transform: uppercase;
-  color: rgba(13, 27, 62, 0.5);
-}
-.v22-ms-badge-desig {
-  margin-top: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 11px;
-  font-family: var(--font-sans);
-  font-size: 1.12rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: var(--brand-navy);
-}
-.v22-ms-badge-sub {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--v22-accent);
-  padding: 4px 9px;
-  background: rgba(240, 123, 47, 0.08);
-  border: 1px solid rgba(240, 123, 47, 0.25);
-}
-.v22-ms-badge-spec {
-  margin-top: auto;
-  background: var(--brand-navy);
-  padding: 14px 18px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.v22-ms-badge-spec-k {
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #ffffff;
-}
-.v22-ms-badge-spec-v {
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
-  line-height: 1.35;
-  color: rgba(255, 255, 255, 0.7);
+  filter: drop-shadow(0 16px 26px rgba(13, 27, 62, 0.16));
 }
 
 /* Hero aside — small badge stack */

@@ -21,25 +21,10 @@ function MsLogo({ size = 26 }: { size?: number }) {
 }
 
 /* Recreated Microsoft Solutions Partner badge */
-function MsBadge({ designation, sub, specialist }: { designation: string; sub?: string; specialist?: string }) {
+function MsBadge({ img, alt }: { img: string; alt: string }) {
   return (
-    <div className={`v22-ms-badge${specialist ? ' v22-ms-badge--spec' : ''}`}>
-      <div className='v22-ms-badge-body'>
-        <div className='v22-ms-badge-head'>
-          <MsLogo size={28} />
-          <span className='v22-ms-badge-partner'>Microsoft<br />Solutions Partner</span>
-        </div>
-        <div className='v22-ms-badge-desig'>
-          {designation}
-          {sub && <span className='v22-ms-badge-sub'>{sub}</span>}
-        </div>
-      </div>
-      {specialist && (
-        <div className='v22-ms-badge-spec'>
-          <span className='v22-ms-badge-spec-k'>Specialist</span>
-          <span className='v22-ms-badge-spec-v'>{specialist}</span>
-        </div>
-      )}
+    <div className='v22-ms-badge'>
+      <img className='v22-ms-badge-img' src={img} alt={alt} loading='lazy' />
     </div>
   )
 }
@@ -47,16 +32,16 @@ function MsBadge({ designation, sub, specialist }: { designation: string; sub?: 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
 const designations = [
-  { name: 'Data & AI', sub: 'Azure' },
-  { name: 'Business Applications' },
-  { name: 'Digital & App Innovation', sub: 'Azure' },
-  { name: 'Infrastructure', sub: 'Azure' },
-  { name: 'Security' },
+  { name: 'Data & AI', img: '/badges/data-ai.png' },
+  { name: 'Business Applications', img: '/badges/business-applications.png' },
+  { name: 'Digital & App Innovation', img: '/badges/digital-app-innovation.png' },
+  { name: 'Infrastructure', img: '/badges/infrastructure.png' },
+  { name: 'Security', img: '/badges/security.png' },
 ]
 
 const specialisations = [
-  { base: 'Digital & App Innovation', sub: 'Azure', name: 'Agentic DevOps with Microsoft Azure and GitHub' },
-  { base: 'Digital & App Innovation', sub: 'Azure', name: 'Kubernetes on Microsoft Azure' },
+  { name: 'Agentic DevOps with Microsoft Azure and GitHub', img: '/badges/spec-agentic-devops.png' },
+  { name: 'Kubernetes on Microsoft Azure', img: '/badges/spec-kubernetes.png' },
 ]
 
 const aiFoundations = [
@@ -175,12 +160,12 @@ export default function MicrosoftPage() {
           </div>
           <span className='v22-ms-group-label'>Solutions Partner designations</span>
           <div className='v22-ms-badge-grid'>
-            {designations.map((d) => <MsBadge key={d.name} designation={d.name} sub={d.sub} />)}
+            {designations.map((d) => <MsBadge key={d.name} img={d.img} alt={`Microsoft Solutions Partner — ${d.name}`} />)}
           </div>
 
           <span className='v22-ms-group-label'>Advanced specialisations</span>
           <div className='v22-ms-badge-grid'>
-            {specialisations.map((s) => <MsBadge key={s.name} designation={s.base} sub={s.sub} specialist={s.name} />)}
+            {specialisations.map((s) => <MsBadge key={s.name} img={s.img} alt={`Microsoft Solutions Partner Specialist — ${s.name}`} />)}
           </div>
         </div>
       </section>
