@@ -8770,3 +8770,326 @@
   background: rgba(13, 27, 62, 0.04);
   border: 1px solid rgba(13, 27, 62, 0.1);
 }
+
+/* ═══ AI Foundational Layer (Cloud) detail page ═════════════════════════ */
+
+/* Hero diagram */
+.v22-cloud-hero-svg { display: block; width: 100%; height: auto; }
+
+/* Capability-area point list (§01 panel) + accelerator columns */
+.v22-cloud-points { list-style: none; margin: 16px 0 0; padding: 0; }
+.v22-cloud-points li {
+  position: relative;
+  padding: 11px 0 11px 22px;
+  border-bottom: 1px dashed rgba(13, 27, 62, 0.12);
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  line-height: 1.45;
+  color: rgba(13, 27, 62, 0.82);
+}
+.v22-cloud-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 6px;
+  height: 6px;
+  background: var(--v22-accent);
+}
+
+/* §02 Accelerators — DBiz Weaver + Scoop */
+.v22-cloud-accels { display: grid; gap: 20px; }
+.v22-cloud-accel {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.1);
+  padding: 30px 32px 30px;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+.v22-cloud-accel::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--v22-accent);
+  border-left: none;
+  border-bottom: none;
+}
+.v22-cloud-accel:hover { border-color: rgba(240, 123, 47, 0.45); box-shadow: 0 20px 40px -28px rgba(13, 27, 62, 0.3); }
+.v22-cloud-accel-kind {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+}
+.v22-cloud-accel-name {
+  font-family: var(--font-sans);
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--brand-navy);
+  margin: 8px 0 0;
+}
+.v22-cloud-accel-tagline {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: rgba(13, 27, 62, 0.7);
+  margin: 10px 0 0;
+  max-width: 68ch;
+}
+.v22-cloud-accel-cols {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 20px 44px;
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px dashed rgba(13, 27, 62, 0.14);
+}
+.v22-cloud-col-k {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.5);
+}
+.v22-cloud-accel-cols .v22-cloud-points { margin-top: 4px; }
+@media (max-width: 720px) {
+  .v22-cloud-accel-cols { grid-template-columns: 1fr; gap: 4px 0; }
+}
+
+/* §03 Proof — dark surface cards */
+.v22-cloud-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 820px) { .v22-cloud-proof { grid-template-columns: 1fr; } }
+.v22-cloud-proof-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 26px 24px 24px;
+}
+.v22-cloud-proof-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, var(--v22-accent), rgba(240, 123, 47, 0));
+}
+.v22-cloud-proof-tag {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.v22-cloud-proof-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 14px 0 12px;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 2.4rem;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--v22-accent);
+}
+.v22-cloud-proof-metric span {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 12ch;
+}
+.v22-cloud-proof-body {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+}
+
+/* Cloud hero — certified-partners logo carousel */
+.v22-cloud-hero-certs {
+  margin-top: 44px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.v22-cloud-hero-certs-k {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 16px;
+}
+.v22-cloud-logobar {
+  display: flex;
+  align-items: center;
+  gap: clamp(40px, 6vw, 72px);
+  flex-wrap: wrap;
+}
+.v22-cloud-logobar-item {
+  flex: 0 0 auto;
+  display: flex;
+  opacity: 0.78;
+  transition: opacity 200ms ease;
+}
+.v22-cloud-logobar-item:hover { opacity: 1; }
+
+/* Cloud accelerator card — glyph header */
+.v22-cloud-accel-head { display: flex; align-items: center; gap: 18px; }
+.v22-cloud-accel-glyph {
+  flex: 0 0 auto;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(13, 27, 62, 0.12);
+  background: #ffffff;
+}
+.v22-cloud-accel-svg { width: 42px; height: 42px; display: block; }
+.v22-cloud-accel-headmeta { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.v22-cloud-accel-head .v22-cloud-accel-name { margin: 0; }
+
+/* Cloud lifecycle infographic (§02) — where Weaver & Scoop plug in */
+.v22-cloud-lc { margin: 4px 0 30px; }
+.v22-cloud-lc-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.5);
+  margin-bottom: 16px;
+}
+.v22-cloud-lc-rail {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.v22-cloud-lc-stage {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.1);
+  border-top: 2px solid rgba(13, 27, 62, 0.18);
+  padding: 16px 16px 18px;
+  display: flex;
+  flex-direction: column;
+}
+.v22-cloud-lc-stage.is-powered { border-top-color: var(--v22-accent); }
+/* flow arrow in the gap between stages */
+.v22-cloud-lc-stage:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -11px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: rgba(13, 27, 62, 0.35);
+  z-index: 1;
+}
+.v22-cloud-lc-num {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--v22-accent);
+}
+.v22-cloud-lc-name {
+  font-family: var(--font-sans);
+  font-size: 1.06rem;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  color: var(--brand-navy);
+  margin: 6px 0 6px;
+}
+.v22-cloud-lc-desc {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: rgba(13, 27, 62, 0.65);
+  margin: 0;
+  flex: 1;
+}
+.v22-cloud-lc-accel {
+  align-self: flex-start;
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  padding: 5px 10px;
+  background: rgba(240, 123, 47, 0.08);
+  border: 1px solid rgba(240, 123, 47, 0.3);
+}
+@media (max-width: 760px) {
+  .v22-cloud-lc-rail { grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+  .v22-cloud-lc-stage:not(:last-child)::after { display: none; }
+}
+@media (max-width: 440px) {
+  .v22-cloud-lc-rail { grid-template-columns: 1fr; }
+}
+
+/* Cloud accelerator — business-value outcome panel (highlighted vs capabilities) */
+.v22-cloud-accel-value {
+  align-self: start;
+  background: rgba(240, 123, 47, 0.05);
+  border: 1px solid rgba(240, 123, 47, 0.2);
+  padding: 18px 20px 20px;
+}
+.v22-cloud-values {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.v22-cloud-values li { position: relative; padding-left: 20px; }
+.v22-cloud-values li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 7px;
+  height: 7px;
+  background: var(--v22-accent);
+  transform: rotate(45deg);
+}
+.v22-cloud-value-head {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 1.02rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--brand-navy);
+}
+.v22-cloud-value-sub {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: rgba(13, 27, 62, 0.62);
+  margin-top: 3px;
+}
