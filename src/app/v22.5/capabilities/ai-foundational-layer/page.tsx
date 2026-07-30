@@ -96,13 +96,16 @@ const MARQUEE_LOGOS: Record<string, ReactNode> = {
   'Anthropic Claude': <Icon icon='logos:anthropic' height={14} aria-hidden='true' />,
 }
 
-/* Hero logo row — the big cloud & AI platforms (mono white on navy) */
+/* Hero logo carousel — the big cloud & AI platforms (mono white on navy) */
 const heroLogos: { name: string; icon: string; h?: number }[] = [
-  { name: 'AWS', icon: 'simple-icons:amazonwebservices', h: 34 },
-  { name: 'Microsoft Azure', icon: 'simple-icons:microsoftazure', h: 40 },
-  { name: 'Google Cloud', icon: 'simple-icons:googlecloud', h: 40 },
-  { name: 'NVIDIA', icon: 'simple-icons:nvidia', h: 32 },
-  { name: 'Anthropic', icon: 'simple-icons:anthropic', h: 30 },
+  { name: 'AWS', icon: 'simple-icons:amazonwebservices', h: 30 },
+  { name: 'Microsoft Azure', icon: 'simple-icons:microsoftazure', h: 34 },
+  { name: 'Google Cloud', icon: 'simple-icons:googlecloud', h: 34 },
+  { name: 'NVIDIA', icon: 'simple-icons:nvidia', h: 28 },
+  { name: 'Anthropic', icon: 'simple-icons:anthropic', h: 26 },
+  { name: 'Kubernetes', icon: 'simple-icons:kubernetes', h: 32 },
+  { name: 'Databricks', icon: 'simple-icons:databricks', h: 28 },
+  { name: 'Snowflake', icon: 'simple-icons:snowflake', h: 30 },
 ]
 
 const marqueeItems = [
@@ -161,55 +164,64 @@ function AccelGlyph({ kind }: { kind: string }) {
 }
 
 /* ─── Hero diagram — AI workloads sit on the DBiz Cloud platform, which runs
-   on the hyperscalers. Clean layered schematic; white ink on the dark hero
-   with orange accents in the house style. */
+   on the hyperscalers. Animated in the landing-hero language: staggered layer
+   entrance, a pulsing cloud, and data particles flowing down to the base. */
 function CloudHeroDiagram() {
   const ink = 'rgba(255, 255, 255, 0.9)'
   const dim = 'rgba(255, 255, 255, 0.5)'
   const acc = 'var(--v22-accent)'
+  const beams = [100, 230, 360]
   return (
     <svg viewBox='0 0 460 400' aria-hidden='true' className='v22-cloud-hero-svg'>
       <text x='16' y='22' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.6' fill={dim}>FIG · AI EXECUTION FOUNDATION</text>
 
-      {/* Top — AI workloads */}
-      <text x='230' y='52' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='8.5' letterSpacing='1.6' fill={dim}>YOUR AI WORKLOADS</text>
-      {['NEXUS', 'FactWeavers™', 'Agent Studio'].map((t, k) => {
-        const x = 40 + k * 130
-        return (
-          <g key={t}>
-            <rect x={x} y='64' width='120' height='40' fill='rgba(240,123,47,0.1)' stroke={acc} strokeWidth='1.2' />
-            <text x={x + 60} y='89' textAnchor='middle' fontFamily='var(--font-sans)' fontSize='12.5' fontWeight='700' fill={ink}>{t}</text>
-            <line x1={x + 60} y1='104' x2='230' y2='140' stroke={acc} strokeWidth='0.9' strokeDasharray='3 3' />
-          </g>
-        )
-      })}
-      <circle cx='230' cy='140' r='2.6' fill={acc} />
+      {/* Layer A — AI workloads */}
+      <g className='v22-chs-layer' style={{ animationDelay: '0.15s' }}>
+        <text x='230' y='52' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='8.5' letterSpacing='1.6' fill={dim}>YOUR AI WORKLOADS</text>
+        {['NEXUS', 'FactWeavers™', 'Agent Studio'].map((t, k) => {
+          const x = 40 + k * 130
+          return (
+            <g key={t}>
+              <rect className='v22-chs-chip' style={{ animationDelay: `${k * 0.5}s` }} x={x} y='64' width='120' height='40' fill='rgba(240,123,47,0.1)' stroke={acc} strokeWidth='1.2' />
+              <text x={x + 60} y='89' textAnchor='middle' fontFamily='var(--font-sans)' fontSize='12.5' fontWeight='700' fill={ink}>{t}</text>
+              <line x1={x + 60} y1='104' x2='230' y2='126' stroke={acc} strokeWidth='0.9' strokeDasharray='3 3' />
+            </g>
+          )
+        })}
+        <circle cx='230' cy='128' r='2.6' fill={acc} />
+      </g>
 
-      {/* Middle — DBiz Cloud, drawn as a cloud */}
-      <path
-        d='M 120 268 C 80 268 60 230 90 210 C 68 172 114 144 150 164 C 162 126 222 122 244 156 C 262 124 326 128 340 166 C 384 152 430 190 404 228 C 428 254 408 268 368 268 Z'
-        fill='rgba(240,123,47,0.08)'
-        stroke={acc}
-        strokeWidth='1.8'
-      />
-      <text x='244' y='198' textAnchor='middle' fontFamily='var(--font-sans)' fontSize='24' fontWeight='800' letterSpacing='-0.02em' fill={ink}>DBiz Cloud</text>
-      <text x='244' y='220' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.4' fill={dim}>SECURE · OBSERVABLE · SCALABLE</text>
-      <text x='244' y='238' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.4' fill={dim}>WEAVER · SCOOP · DEVSECOPS · FINOPS</text>
-      {[150, 244, 338].map((x) => (
-        <line key={x} x1={x} y1='270' x2={x} y2='306' stroke={dim} strokeWidth='0.9' strokeDasharray='3 3' />
-      ))}
+      {/* Layer B — DBiz Cloud platform panel */}
+      <g className='v22-chs-layer' style={{ animationDelay: '0.33s' }}>
+        <rect x='30' y='152' width='400' height='94' fill='rgba(255,255,255,0.05)' stroke={ink} strokeWidth='1.4' />
+        <rect x='30' y='152' width='400' height='3' fill={acc} />
+        <text x='230' y='190' textAnchor='middle' fontFamily='var(--font-sans)' fontSize='23' fontWeight='800' letterSpacing='-0.02em' fill={ink}>DBiz Cloud</text>
+        <text x='230' y='212' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.4' fill={dim}>SECURE · OBSERVABLE · SCALABLE</text>
+        <text x='230' y='230' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='9' letterSpacing='1.4' fill={dim}>WEAVER · SCOOP · DEVSECOPS · FINOPS</text>
+      </g>
 
-      {/* Bottom — hyperscalers */}
-      <text x='230' y='326' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='8.5' letterSpacing='1.6' fill={dim}>RUNS ON ANY HYPERSCALER</text>
-      {['AWS', 'AZURE', 'GCP'].map((t, k) => {
-        const x = 40 + k * 130
-        return (
-          <g key={t}>
-            <rect x={x} y='338' width='120' height='44' fill='none' stroke={ink} strokeWidth='1' />
-            <text x={x + 60} y='365' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='12' fontWeight='600' letterSpacing='1.6' fill={ink}>{t}</text>
-          </g>
-        )
-      })}
+      {/* Beams + flowing data particles from the platform down to the hyperscalers */}
+      <g>
+        {beams.map((x) => (
+          <line key={x} x1={x} y1='248' x2={x} y2='300' stroke={dim} strokeWidth='0.9' strokeDasharray='3 3' />
+        ))}
+        {beams.flatMap((x, bi) => [0, 1.2].map((d, pi) => (
+          <circle key={`${x}-${pi}`} className='v22-chs-particle' cx={x} cy='248' r='2.4' fill={acc} style={{ animationDelay: `${bi * 0.35 + d}s` }} />
+        )))}
+      </g>
+
+      {/* Layer C — hyperscalers */}
+      <g className='v22-chs-layer' style={{ animationDelay: '0.51s' }}>
+        {['AWS', 'AZURE', 'GCP'].map((t, k) => {
+          const x = 40 + k * 130
+          return (
+            <g key={t}>
+              <rect className='v22-chs-box' style={{ animationDelay: `${k * 0.5 + 2}s` }} x={x} y='312' width='120' height='46' fill='none' stroke={ink} strokeWidth='1' />
+              <text x={x + 60} y='340' textAnchor='middle' fontFamily='var(--font-mono)' fontSize='12' fontWeight='600' letterSpacing='1.6' fill={ink}>{t}</text>
+            </g>
+          )
+        })}
+      </g>
     </svg>
   )
 }
@@ -274,11 +286,13 @@ export default function AiFoundationalLayerPage() {
           <div className='v22-cloud-hero-certs'>
             <span className='v22-cloud-hero-certs-k'>Certified &amp; partnered across</span>
             <div className='v22-cloud-logobar' aria-label='Cloud and AI platforms'>
-              {heroLogos.map((l) => (
-                <span key={l.name} className='v22-cloud-logobar-item'>
-                  <Icon icon={l.icon} height={l.h ?? 34} color='#ffffff' aria-label={l.name} />
-                </span>
-              ))}
+              <div className='v22-cloud-logobar-track'>
+                {[...heroLogos, ...heroLogos].map((l, i) => (
+                  <span key={`${l.name}-${i}`} className='v22-cloud-logobar-item' aria-hidden={i >= heroLogos.length}>
+                    <Icon icon={l.icon} height={l.h ?? 30} color='#ffffff' aria-label={l.name} />
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
