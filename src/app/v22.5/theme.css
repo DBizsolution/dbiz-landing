@@ -9151,3 +9151,226 @@
   .v22-cloud-hero-svg .v22-chs-box { animation: none; }
   .v22-cloud-hero-svg .v22-chs-particle { animation: none; opacity: 0; }
 }
+
+/* ═══ Digital Product Engineering page ══════════════════════════════════ */
+
+/* Partner product chips (ecosystem cards) */
+.v22-pe-partner-tags {
+  list-style: none;
+  margin: 14px 0 14px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.v22-pe-partner-tags li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.72);
+  padding: 5px 10px;
+  background: rgba(13, 27, 62, 0.04);
+  border: 1px solid rgba(13, 27, 62, 0.12);
+}
+
+/* AI Ecosystem — wider, more prominent card with model logos */
+.v22-cdp-partners-card--wide { grid-column: 1 / -1; padding: 26px 26px 24px; }
+.v22-cdp-partners-card--wide .v22-cdp-partners-spec { max-width: 60ch; }
+.v22-pe-partner-tags--logos { gap: 10px; margin: 4px 0 16px; }
+.v22-pe-partner-tags--logos li {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--brand-navy);
+  padding: 9px 15px;
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.14);
+}
+.v22-pe-partner-tags--logos li svg { display: block; flex: 0 0 auto; }
+
+/* Delivery-model contrast (§02 intro): traditional cycle vs perpetual loop */
+.v22-pe-models {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 26px 0 8px;
+}
+.v22-pe-model {
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.1);
+  padding: 20px 22px 18px;
+}
+.v22-pe-model--live {
+  border-color: rgba(240, 123, 47, 0.35);
+  background: rgba(240, 123, 47, 0.04);
+}
+.v22-pe-model-k {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(13, 27, 62, 0.5);
+  margin-bottom: 16px;
+}
+.v22-pe-model--live .v22-pe-model-k { color: var(--v22-accent); }
+.v22-pe-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+.v22-pe-step {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  min-width: 72px;
+}
+.v22-pe-ico {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(13, 27, 62, 0.05);
+  border: 1px solid rgba(13, 27, 62, 0.14);
+  color: rgba(13, 27, 62, 0.5);
+}
+.v22-pe-step.is-live .v22-pe-ico {
+  background: rgba(240, 123, 47, 0.1);
+  border-color: rgba(240, 123, 47, 0.4);
+  color: var(--v22-accent);
+}
+.v22-pe-lbl {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: -0.01em;
+  color: rgba(13, 27, 62, 0.55);
+}
+.v22-pe-step.is-live .v22-pe-lbl { color: var(--brand-navy); }
+.v22-pe-arrow {
+  align-self: flex-start;
+  margin-top: 13px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: rgba(13, 27, 62, 0.3);
+}
+.v22-pe-arrow.is-accent { color: var(--v22-accent); }
+
+/* Agent Studio orchestration visual (embedded in the perpetual lifecycle) */
+.v22-pe-engine {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(240, 123, 47, 0.3);
+}
+.v22-pe-engine-k {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v22-accent);
+  margin-bottom: 12px;
+}
+.v22-pe-engine-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.v22-pe-engine-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  background: #ffffff;
+  border: 1px solid rgba(240, 123, 47, 0.28);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: -0.01em;
+  color: var(--brand-navy);
+}
+.v22-pe-engine-role svg { color: var(--v22-accent); flex: 0 0 auto; }
+.v22-pe-agent {
+  margin-top: 14px;
+  background: rgba(240, 123, 47, 0.04);
+  border: 1px solid rgba(240, 123, 47, 0.3);
+  padding: 20px 22px 18px;
+}
+.v22-pe-agent .v22-pe-model-k { color: var(--v22-accent); }
+.v22-pe-agent-grid {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+}
+@media (max-width: 720px) { .v22-pe-agent-grid { flex-direction: column; } }
+.v22-pe-agent-core {
+  flex: 0 0 auto;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--brand-navy);
+  color: #ffffff;
+  padding: 18px 16px;
+}
+@media (max-width: 720px) { .v22-pe-agent-core { width: 100%; } }
+.v22-pe-agent-core-ico { color: var(--v22-accent); display: flex; }
+.v22-pe-agent-core-name {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+.v22-pe-agent-core-tag {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.v22-pe-agent-roles {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+@media (min-width: 900px) { .v22-pe-agent-roles { grid-template-columns: repeat(4, 1fr); } }
+.v22-pe-agent-role {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid rgba(13, 27, 62, 0.1);
+  padding: 12px 14px;
+}
+.v22-pe-agent-ico { color: var(--v22-accent); flex: 0 0 auto; display: flex; }
+.v22-pe-agent-lbl {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--brand-navy);
+}
+.v22-pe-note {
+  display: block;
+  margin-top: 16px;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: rgba(13, 27, 62, 0.62);
+}
