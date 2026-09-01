@@ -130,13 +130,13 @@ export function ResearchAreas() {
                   <div style={{ minWidth: 0, flex: '1 1 300px' }}>
                     <h3 className='v22-cdp-services-panel-name'>{area.title}</h3>
                     <p className='v22-cdp-services-panel-lede'>{area.body}</p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 18 }}>
+                      {area.tags.map((t) => <span key={t} className='v22-cap-pill'>{t}</span>)}
+                    </div>
                   </div>
-                  <div style={{ flex: 'none', width: 'clamp(120px, 16vw, 168px)', aspectRatio: '1', border: '1px solid rgba(13,27,62,0.14)', padding: 10 }} aria-hidden='true'>
+                  <div style={{ flex: 'none', width: 'clamp(120px, 16vw, 168px)', aspectRatio: '1' }} aria-hidden='true'>
                     <AreaGlyph i={active} />
                   </div>
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, margin: '18px 0 0' }}>
-                  {area.tags.map((t) => <span key={t} className='v22-cap-pill'>{t}</span>)}
                 </div>
                 <div style={{ borderTop: '1px solid rgba(0,0,0,0.06)', marginTop: 22, paddingTop: 16, fontFamily: MONO, fontSize: 11, letterSpacing: '0.13em', color: 'rgba(13,27,62,0.55)' }}>
                   {area.horizon}

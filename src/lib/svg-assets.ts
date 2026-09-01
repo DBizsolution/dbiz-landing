@@ -352,12 +352,6 @@ export const connectedSystemsHeroDiagram = `<svg xmlns="http://www.w3.org/2000/s
 
 export const drstiArea01AgenticArchitectures = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-<g stroke="var(--v22-ink-4)" stroke-width="1">
-<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
-<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
-<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
-<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
-</g>
 <circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
 <circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
 <circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
@@ -383,12 +377,6 @@ export const drstiArea01AgenticArchitectures = `<svg viewBox="0 0 100 100" fill=
 
 export const drstiArea02DataReadiness = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-<g stroke="var(--v22-ink-4)" stroke-width="1">
-<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
-<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
-<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
-<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
-</g>
 <circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
 <circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
 <circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
@@ -413,12 +401,6 @@ export const drstiArea02DataReadiness = `<svg viewBox="0 0 100 100" fill="none" 
 
 export const drstiArea03SecurityPrivacy = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-<g stroke="var(--v22-ink-4)" stroke-width="1">
-<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
-<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
-<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
-<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
-</g>
 <circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
 <circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
 <circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
@@ -440,12 +422,6 @@ export const drstiArea03SecurityPrivacy = `<svg viewBox="0 0 100 100" fill="none
 
 export const drstiArea04GovernanceAssurance = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-<g stroke="var(--v22-ink-4)" stroke-width="1">
-<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
-<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
-<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
-<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
-</g>
 <circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
 <circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
 <circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
@@ -476,12 +452,6 @@ export const drstiArea04GovernanceAssurance = `<svg viewBox="0 0 100 100" fill="
 
 export const drstiArea05BusinessTransformation = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-<g stroke="var(--v22-ink-4)" stroke-width="1">
-<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
-<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
-<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
-<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
-</g>
 <circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
 <circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
 <circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
