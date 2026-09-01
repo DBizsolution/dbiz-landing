@@ -75,10 +75,10 @@ const AREA_PLATES = [
 ]
 
 /* Horizon → plain time-to-value, colored with the portfolio bar's orange fade */
-const HORIZONS: Record<string, { label: string; color: string }> = {
-  'HORIZON 1 · CORE': { label: 'H1 · PAYS OFF IN 0–12 MONTHS', color: 'var(--v22-accent)' },
-  'HORIZON 2 · EMERGING': { label: 'H2 · PAYS OFF IN 1–3 YEARS', color: 'rgba(240,123,47,0.72)' },
-  'HORIZON 3 · DISRUPTIVE': { label: 'H3 · PAYS OFF IN 3+ YEARS', color: 'rgba(240,123,47,0.45)' },
+const HORIZONS: Record<string, { name: string; span: string; color: string }> = {
+  'HORIZON 1 · CORE': { name: 'HORIZON 1', span: '0–12 MONTHS', color: 'var(--v22-accent)' },
+  'HORIZON 2 · EMERGING': { name: 'HORIZON 2', span: '1–3 YEARS', color: 'rgba(240,123,47,0.72)' },
+  'HORIZON 3 · DISRUPTIVE': { name: 'HORIZON 3', span: '3+ YEARS', color: 'rgba(240,123,47,0.45)' },
 }
 
 function StageGlyph({ i }: { i: number }) {
@@ -266,7 +266,7 @@ export default function ResearchInnovationPage() {
            nothing behind a click. */}
       <section id='areas' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
         <div className='v22-container'>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', marginBottom: 18 }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', marginBottom: 18 }}>
             <div>
               <span className='v22-cdp-block-num'>Research areas</span>
               <h2 className='v22-cdp-block-title' style={{ marginBottom: 0 }}>Five reasons AI stalls.<br /><em>Five research programmes.</em></h2>
@@ -277,15 +277,18 @@ export default function ResearchInnovationPage() {
             Each area below is a reason enterprise AI fails to reach production, and a funded programme working on it. The horizon says when it pays off: the same 70/20/10 balance the portfolio runs on.
           </p>
           <div style={{ borderTop: '1px solid rgba(13,27,62,0.16)' }}>
-            {AREAS.map((a, i) => {
+            {[...AREAS].sort((x, y) => x.horizon.localeCompare(y.horizon)).map((a, i) => {
               const hz = HORIZONS[a.horizon]
               return (
                 <article key={a.num} className='v22-ri-register-row'>
                   <div className='v22-ri-register-meta'>
-                    <span style={{ fontFamily: MONO, fontSize: 13, letterSpacing: '0.14em', color: ACCENT_DEEP }}>{a.num}</span>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: MONO, fontSize: 10, letterSpacing: '0.1em', color: 'rgba(13,27,62,0.6)', whiteSpace: 'nowrap' }}>
-                      <span aria-hidden='true' style={{ width: 8, height: 8, borderRadius: '50%', background: hz.color, flex: 'none' }} />
-                      {hz.label}
+                    <span style={{ fontFamily: MONO, fontSize: 13, letterSpacing: '0.14em', color: ACCENT_DEEP }}>{String(i + 1).padStart(2, '0')}</span>
+                    <span style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: MONO, fontSize: 10, fontWeight: 500, letterSpacing: '0.12em', color: 'rgba(13,27,62,0.75)', whiteSpace: 'nowrap' }}>
+                        <span aria-hidden='true' style={{ width: 8, height: 8, borderRadius: '50%', background: hz.color, flex: 'none' }} />
+                        {hz.name}
+                      </span>
+                      <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: '0.1em', color: 'rgba(13,27,62,0.45)', paddingLeft: 15, whiteSpace: 'nowrap' }}>{hz.span}</span>
                     </span>
                   </div>
                   <div style={{ minWidth: 0 }}>
@@ -297,7 +300,7 @@ export default function ResearchInnovationPage() {
                     </div>
                   </div>
                   <div className='v22-ri-register-art' aria-hidden='true'>
-                    <InlineSvg markup={AREA_PLATES[i]} />
+                    <InlineSvg markup={AREA_PLATES[Number(a.num) - 1]} />
                   </div>
                 </article>
               )
@@ -549,9 +552,22 @@ export default function ResearchInnovationPage() {
                 Start with a question,<br />
                 <em>not a proposal.</em>
               </h2>
-              <p style={{ margin: '0 0 28px', fontSize: 16, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)', maxWidth: '54ch' }}>
-                Tell us what you have tried and where it stopped. If it is a question worth answering, we will tell you how we would test it. Enterprises bring a problem the roadmap keeps deferring; researchers propose a joint study, placement, or student project; dbiz teams put a name forward for the next tour of duty.
+              <p style={{ margin: '0 0 36px', fontSize: 16, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)', maxWidth: '54ch' }}>
+                Tell us what you have tried and where it stopped. If it is a question worth answering, we will tell you how we would test it.
               </p>
+              {/* Three audience paths — distinct columns instead of a run-on sentence */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 'clamp(20px,3vw,36px)', margin: '0 0 40px', textAlign: 'left' }}>
+                {[
+                  { t: 'Enterprises', b: 'Bring a problem your roadmap keeps deferring.' },
+                  { t: 'Researchers', b: 'Propose a joint study, placement, or student project.' },
+                  { t: 'dbiz teams', b: 'Put your name forward for the next tour of duty.' },
+                ].map((c) => (
+                  <div key={c.t} style={{ borderLeft: '2px solid var(--v22-accent)', paddingLeft: 18 }}>
+                    <h3 style={{ margin: '0 0 8px', fontSize: 17, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
+                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)' }}>{c.b}</p>
+                  </div>
+                ))}
+              </div>
               <div className='v22-cdp-cta-actions'>
                 <Link href='/v22.5#cta' className='v22-cta-primary'>
                   Contact dRSTi <span className='arrow'>→</span>

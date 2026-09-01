@@ -9457,3 +9457,11 @@
     gap: 14px;
   }
 }
+@media (max-width: 860px) {
+  /* Compact pills in register rows so they sit side by side, not stacked */
+  .v22-ri-register-row .v22-cap-pill {
+    padding: 5px 10px;
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
+  }
+}
