@@ -114,7 +114,6 @@ export function ResearchAreas() {
                 >
                   <span style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', opacity: 0.55, minWidth: 22 }}>{AREAS[i].num}</span>
                   {label}
-                  <span style={{ marginLeft: 'auto', width: 7, height: 7, borderRadius: '50%', flex: 'none', background: i === active ? 'var(--v22-accent)' : 'transparent', transition: 'background .2s ease' }} />
                 </button>
               ))}
             </div>
