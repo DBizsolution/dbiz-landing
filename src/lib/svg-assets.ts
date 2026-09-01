@@ -526,6 +526,53 @@ export const drstiEngage04Academic = `<svg viewBox="0 0 48 48" fill="none" xmlns
 <circle cx="24" cy="8" r="2.4" fill="var(--v22-accent)"/>
 </svg>`
 
+export const drstiEyeMark = `<svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M247.3 124.8C245.5 121.1 202.5 34.6 128 34.6S10.5 121.1 8.7 124.8a8 8 0 0 0 0 6.4C10.5 134.9 53.5 221.4 128 221.4s117.5-86.5 119.3-90.2a8 8 0 0 0 0-6.4ZM128 197.4c-54.5 0-90.4-59.6-99.5-70 9.1-10.4 45-70 99.5-70s90.4 59.6 99.5 70c-9.1 10.4-45 70-99.5 70Zm0-118a48 48 0 1 0 48 48 48 48 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32 32 32 0 0 1-32 32Z" fill="currentColor"/>
+</svg>`
+
+export const drstiHeroLifecycle = `<svg viewBox="0 0 440 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g stroke="rgba(255,255,255,0.16)" fill="none">
+<rect x="46" y="34" width="330" height="72"/>
+<rect x="46" y="126" width="330" height="72"/>
+<rect x="46" y="218" width="330" height="72"/>
+<rect x="46" y="310" width="330" height="72"/>
+</g>
+<g fill="var(--v22-accent)">
+<rect x="46" y="34" width="3" height="72"/>
+<rect x="46" y="126" width="3" height="72"/>
+<rect x="46" y="218" width="3" height="72"/>
+<rect x="46" y="310" width="3" height="72"/>
+</g>
+<g font-family="var(--font-mono)" font-size="11" letter-spacing="1.6" fill="var(--v22-accent)">
+<text x="72" y="60">01</text><text x="72" y="152">02</text><text x="72" y="244">03</text><text x="72" y="336">04</text>
+</g>
+<g font-family="var(--font-sans)" font-size="19" font-weight="700" letter-spacing="-0.3" fill="#FFFFFF">
+<text x="104" y="62">Explore</text><text x="104" y="154">Validate</text><text x="104" y="246">Transfer</text><text x="104" y="338">Cultivate</text>
+</g>
+<g font-family="var(--font-sans)" font-size="13" fill="rgba(255,255,255,0.5)">
+<text x="104" y="86">Frame the real question</text><text x="104" y="178">Prove it or kill it</text><text x="104" y="270">Into your production stack</text><text x="104" y="362">Skills, methods, partnerships</text>
+</g>
+<g stroke="rgba(255,255,255,0.18)" stroke-dasharray="3 4">
+<line x1="211" y1="106" x2="211" y2="126"/>
+<line x1="211" y1="198" x2="211" y2="218"/>
+<line x1="211" y1="290" x2="211" y2="310"/>
+</g>
+<path d="M376 346 H414 V70 H382" fill="none" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<path d="M389 64 L379 70 L389 76" fill="none" stroke="var(--v22-accent)" stroke-width="1.4"/>
+</svg>`
+
+export const drstiIconBookOpen = `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 256 256"><path fill="currentColor" d="M232 48h-72a40 40 0 0 0-32 16a40 40 0 0 0-32-16H24a8 8 0 0 0-8 8v144a8 8 0 0 0 8 8h72a24 24 0 0 1 24 24a8 8 0 0 0 16 0a24 24 0 0 1 24-24h72a8 8 0 0 0 8-8V56a8 8 0 0 0-8-8M96 192H32V64h64a24 24 0 0 1 24 24v112a39.8 39.8 0 0 0-24-8m128 0h-64a39.8 39.8 0 0 0-24 8V88a24 24 0 0 1 24-24h64Z"/></svg>`
+
+export const drstiIconClock = `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 256 256"><path fill="currentColor" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88m64-88a8 8 0 0 1-8 8h-56a8 8 0 0 1-8-8V72a8 8 0 0 1 16 0v48h48a8 8 0 0 1 8 8"/></svg>`
+
+export const drstiIconCrosshairSimple = `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 256 256"><path fill="currentColor" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m8 191.63V184a8 8 0 0 0-16 0v31.63A88.13 88.13 0 0 1 40.37 136H72a8 8 0 0 0 0-16H40.37A88.13 88.13 0 0 1 120 40.37V72a8 8 0 0 0 16 0V40.37A88.13 88.13 0 0 1 215.63 120H184a8 8 0 0 0 0 16h31.63A88.13 88.13 0 0 1 136 215.63"/></svg>`
+
+export const drstiIconPackage = `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 256 256"><path fill="currentColor" d="m223.68 66.15l-88-48.15a15.88 15.88 0 0 0-15.36 0l-88 48.17a16 16 0 0 0-8.32 14v95.64a16 16 0 0 0 8.32 14l88 48.17a15.88 15.88 0 0 0 15.36 0l88-48.17a16 16 0 0 0 8.32-14V80.18a16 16 0 0 0-8.32-14.03M128 32l80.34 44l-29.77 16.3l-80.35-44Zm0 88L47.66 76l33.9-18.56l80.34 44ZM40 90l80 43.78v85.79l-80-43.75Zm176 85.78l-80 43.79v-85.75l32-17.51V152a8 8 0 0 0 16 0v-44.45L216 90v85.77Z"/></svg>`
+
+export const drstiIconProhibit = `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 256 256"><path fill="currentColor" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m88 104a87.56 87.56 0 0 1-20.41 56.28L71.72 60.4A88 88 0 0 1 216 128m-176 0a87.56 87.56 0 0 1 20.41-56.28L184.28 195.6A88 88 0 0 1 40 128"/></svg>`
+
+export const drstiIconScales = `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 256 256"><path fill="currentColor" d="m239.43 133l-32-80a8 8 0 0 0-9.16-4.84L136 62V40a8 8 0 0 0-16 0v25.58L54.26 80.19A8 8 0 0 0 48.57 85v.06l-32 79.94a7.9 7.9 0 0 0-.57 3c0 23.31 24.54 32 40 32s40-8.69 40-32a7.9 7.9 0 0 0-.57-3L66.92 93.77L120 82v126h-16a8 8 0 0 0 0 16h48a8 8 0 0 0 0-16h-16V78.42l51-11.32l-26.43 65.9a7.9 7.9 0 0 0-.57 3c0 23.31 24.54 32 40 32s40-8.69 40-32a7.9 7.9 0 0 0-.57-3M56 184c-7.53 0-22.76-3.61-23.93-14.64L56 109.54l23.93 59.82C78.76 180.39 63.53 184 56 184m144-32c-7.53 0-22.76-3.61-23.93-14.64L200 77.54l23.93 59.82C222.76 148.39 207.53 152 200 152"/></svg>`
+
 export const drstiStage01Explore = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
 
 <circle cx="24" cy="24" r="19" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="1.5 2.5"/>

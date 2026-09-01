@@ -10,7 +10,6 @@
 import type { Metadata } from 'next'
 import type { ReactNode, CSSProperties } from 'react'
 import Link from 'next/link'
-import { Icon } from '@/components/icon'
 import { ProcessPipeline, PortfolioBar, CareersTour } from './interactive'
 import { AREAS } from './areas-data'
 import { InlineSvg } from '@/components/inline-svg'
@@ -20,6 +19,9 @@ import {
   drstiTransfer01Readiness, drstiTransfer02Home, drstiTransfer03Handover, drstiTransfer04Track,
   drstiArea01AgenticArchitectures, drstiArea02DataReadiness, drstiArea03SecurityPrivacy,
   drstiArea04GovernanceAssurance, drstiArea05BusinessTransformation,
+  drstiHeroLifecycle, drstiEyeMark,
+  drstiIconCrosshairSimple, drstiIconScales, drstiIconClock,
+  drstiIconPackage, drstiIconBookOpen, drstiIconProhibit,
 } from '@/lib/svg-assets'
 
 export const metadata: Metadata = {
@@ -73,6 +75,10 @@ const AREA_PLATES = [
   drstiArea04GovernanceAssurance,
   drstiArea05BusinessTransformation,
 ]
+
+/* Curated register order: Data Readiness → Agentic Architectures →
+   Security & Privacy → Governance → Business Transformation. */
+const REGISTER_ORDER = ['02', '01', '03', '04', '05']
 
 /* Horizon → plain time-to-value, colored with the portfolio bar's orange fade */
 const HORIZONS: Record<string, { name: string; span: string; color: string }> = {
@@ -136,9 +142,7 @@ export default function ResearchInnovationPage() {
               <h1 className='v22-cdp-title'>
                 <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: '0.16em' }}>
                   dRSTi
-                  <svg viewBox='0 0 256 256' aria-hidden='true' style={{ width: '0.58em', height: '0.58em', alignSelf: 'center', display: 'inline-block' }}>
-                    <path d='M247.3 124.8C245.5 121.1 202.5 34.6 128 34.6S10.5 121.1 8.7 124.8a8 8 0 0 0 0 6.4C10.5 134.9 53.5 221.4 128 221.4s117.5-86.5 119.3-90.2a8 8 0 0 0 0-6.4ZM128 197.4c-54.5 0-90.4-59.6-99.5-70 9.1-10.4 45-70 99.5-70s90.4 59.6 99.5 70c-9.1 10.4-45 70-99.5 70Zm0-118a48 48 0 1 0 48 48 48 48 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32 32 32 0 0 1-32 32Z' fill='var(--v22-accent)' />
-                  </svg>
+                  <span aria-hidden='true' style={{ width: '0.58em', height: '0.58em', alignSelf: 'center', color: 'var(--v22-accent)', display: 'inline-flex' }}><InlineSvg markup={drstiEyeMark} /></span>
                 </span>
                 <br />
                 We research what<br />
@@ -158,36 +162,7 @@ export default function ResearchInnovationPage() {
             <aside className='v22-cdp-hero-aside' aria-hidden='true'>
               <SheetFrame>
                 <div style={{ padding: 24 }}>
-                  <svg viewBox='0 0 440 420' style={{ width: '100%', maxWidth: 440, margin: '0 auto', display: 'block' }}>
-                    <g stroke='rgba(255,255,255,0.16)' fill='none'>
-                      <rect x='46' y='34' width='330' height='72' />
-                      <rect x='46' y='126' width='330' height='72' />
-                      <rect x='46' y='218' width='330' height='72' />
-                      <rect x='46' y='310' width='330' height='72' />
-                    </g>
-                    <g fill={ACCENT}>
-                      <rect x='46' y='34' width='3' height='72' />
-                      <rect x='46' y='126' width='3' height='72' />
-                      <rect x='46' y='218' width='3' height='72' />
-                      <rect x='46' y='310' width='3' height='72' />
-                    </g>
-                    <g fontFamily={MONO} fontSize='11' letterSpacing='1.6' fill={ACCENT}>
-                      <text x='72' y='60'>01</text><text x='72' y='152'>02</text><text x='72' y='244'>03</text><text x='72' y='336'>04</text>
-                    </g>
-                    <g fontFamily='var(--font-sans)' fontSize='19' fontWeight='700' letterSpacing='-0.3' fill='#fff'>
-                      <text x='104' y='62'>Explore</text><text x='104' y='154'>Validate</text><text x='104' y='246'>Transfer</text><text x='104' y='338'>Cultivate</text>
-                    </g>
-                    <g fontFamily='var(--font-sans)' fontSize='13' fill='rgba(255,255,255,0.5)'>
-                      <text x='104' y='86'>Frame the real question</text><text x='104' y='178'>Prove it or kill it</text><text x='104' y='270'>Into your production stack</text><text x='104' y='362'>Skills, methods, partnerships</text>
-                    </g>
-                    <g stroke='rgba(255,255,255,0.18)' strokeDasharray='3 4'>
-                      <line x1='211' y1='106' x2='211' y2='126' />
-                      <line x1='211' y1='198' x2='211' y2='218' />
-                      <line x1='211' y1='290' x2='211' y2='310' />
-                    </g>
-                    <path d='M376 346 H414 V70 H382' fill='none' stroke={ACCENT} strokeWidth='1.4' />
-                    <path d='M389 64 L379 70 L389 76' fill='none' stroke={ACCENT} strokeWidth='1.4' />
-                  </svg>
+                  <span style={{ width: '100%', maxWidth: 440, margin: '0 auto', display: 'block' }}><InlineSvg markup={drstiHeroLifecycle} /></span>
                 </div>
               </SheetFrame>
             </aside>
@@ -277,7 +252,7 @@ export default function ResearchInnovationPage() {
             Each area below is a reason enterprise AI fails to reach production, and a funded programme working on it. The horizon says when it pays off: the same 70/20/10 balance the portfolio runs on.
           </p>
           <div style={{ borderTop: '1px solid rgba(13,27,62,0.16)' }}>
-            {[...AREAS].sort((x, y) => x.horizon.localeCompare(y.horizon)).map((a, i) => {
+            {REGISTER_ORDER.map(n => AREAS.find(a => a.num === n)!).map((a, i) => {
               const hz = HORIZONS[a.horizon]
               return (
                 <article key={a.num} className='v22-ri-register-row'>
@@ -397,15 +372,15 @@ export default function ResearchInnovationPage() {
             <div className='v22-cdp-block-body'>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 'clamp(20px,3vw,40px)' }}>
                 {[
-                  { k: 'CLOSE TO THE WORK', icon: 'ph:crosshair-simple', b: 'Protected funding and time, but never an ivory tower: every question comes from a real delivery or client problem.' },
-                  { k: 'EVIDENCE OVER OPINION', icon: 'ph:scales', b: 'Work advances on validated learning against criteria set in advance, not on seniority or hype.' },
-                  { k: 'OUR OWN CLOCK', icon: 'ph:clock', b: 'Long-horizon questions are judged on the learning and the options they create, not this quarter’s revenue.' },
-                  { k: 'DESIGNED FOR HANDOFF', icon: 'ph:package', b: 'Where a result will land is agreed before the work starts. Nothing is researched with nowhere to go.' },
-                  { k: 'PUBLISHED AND SHARED', icon: 'ph:book-open', b: 'Methods, benchmarks, and negative results are written down and shared with partners and clients, not buried.' },
-                  { k: 'WE KILL THINGS', icon: 'ph:prohibit', b: 'A clear stop is a good outcome. It frees capital and tells you something true about the technology.' },
+                  { k: 'CLOSE TO THE WORK', icon: drstiIconCrosshairSimple, b: 'Protected funding and time, but never an ivory tower: every question comes from a real delivery or client problem.' },
+                  { k: 'EVIDENCE OVER OPINION', icon: drstiIconScales, b: 'Work advances on validated learning against criteria set in advance, not on seniority or hype.' },
+                  { k: 'OUR OWN CLOCK', icon: drstiIconClock, b: 'Long-horizon questions are judged on the learning and the options they create, not this quarter’s revenue.' },
+                  { k: 'DESIGNED FOR HANDOFF', icon: drstiIconPackage, b: 'Where a result will land is agreed before the work starts. Nothing is researched with nowhere to go.' },
+                  { k: 'PUBLISHED AND SHARED', icon: drstiIconBookOpen, b: 'Methods, benchmarks, and negative results are written down and shared with partners and clients, not buried.' },
+                  { k: 'WE KILL THINGS', icon: drstiIconProhibit, b: 'A clear stop is a good outcome. It frees capital and tells you something true about the technology.' },
                 ].map((c) => (
                   <div key={c.k} style={{ borderLeft: '2px solid rgba(240,123,47,0.4)', paddingLeft: 20 }}>
-                    <Icon icon={c.icon} width={26} color='var(--v22-accent)' aria-hidden='true' style={{ marginBottom: 12, display: 'block' }} />
+                    <span aria-hidden='true' style={{ display: 'block', width: 26, height: 26, color: 'var(--v22-accent)', marginBottom: 12 }}><InlineSvg markup={c.icon} /></span>
                     <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT, marginBottom: 12 }}>{c.k}</div>
                     <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
                   </div>
@@ -547,32 +522,36 @@ export default function ResearchInnovationPage() {
         <div className='v22-container'>
           <div className='v22-cdp-cta-inner v22-cdp-cta-inner--solo'>
             <div className='v22-cdp-cta-end'>
-              <span className='v22-cdp-cta-num'>[Z·dRSTi] NEXT STEP</span>
-              <h2 className='v22-cdp-cta-title'>
-                Start with a question,<br />
-                <em>not a proposal.</em>
-              </h2>
-              <p style={{ margin: '0 0 36px', fontSize: 16, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)', maxWidth: '54ch' }}>
-                Tell us what you have tried and where it stopped. If it is a question worth answering, we will tell you how we would test it.
-              </p>
-              {/* Three audience paths — distinct columns instead of a run-on sentence */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 'clamp(20px,3vw,36px)', margin: '0 0 40px', textAlign: 'left' }}>
-                {[
-                  { t: 'Enterprises', b: 'Bring a problem your roadmap keeps deferring.' },
-                  { t: 'Researchers', b: 'Propose a joint study, placement, or student project.' },
-                  { t: 'dbiz teams', b: 'Put your name forward for the next tour of duty.' },
-                ].map((c) => (
-                  <div key={c.t} style={{ borderLeft: '2px solid var(--v22-accent)', paddingLeft: 18 }}>
-                    <h3 style={{ margin: '0 0 8px', fontSize: 17, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
-                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)' }}>{c.b}</p>
+              {/* Two-column close: pitch + actions left, audience paths right */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: 'clamp(32px,5vw,72px)', alignItems: 'center', textAlign: 'left' }}>
+                <div>
+                  <span className='v22-cdp-cta-num'>[Z·dRSTi] NEXT STEP</span>
+                  <h2 className='v22-cdp-cta-title'>
+                    Start with a question,<br />
+                    <em>not a proposal.</em>
+                  </h2>
+                  <p style={{ margin: '0 0 36px', fontSize: 16, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)', maxWidth: '54ch' }}>
+                    Tell us what you have tried and where it stopped. If it is a question worth answering, we will tell you how we would test it.
+                  </p>
+                  <div className='v22-cdp-cta-actions'>
+                    <Link href='/v22.5#cta' className='v22-cta-primary'>
+                      Contact dRSTi <span className='arrow'>→</span>
+                    </Link>
+                    <Link href='/v22.5#cta' className='v22-cta-text'>Subscribe to research updates</Link>
                   </div>
-                ))}
-              </div>
-              <div className='v22-cdp-cta-actions'>
-                <Link href='/v22.5#cta' className='v22-cta-primary'>
-                  Contact dRSTi <span className='arrow'>→</span>
-                </Link>
-                <Link href='/v22.5#cta' className='v22-cta-text'>Subscribe to research updates</Link>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(22px,3vw,32px)' }}>
+                  {[
+                    { t: 'Enterprises', b: 'Bring a problem your roadmap keeps deferring.' },
+                    { t: 'Researchers', b: 'Propose a joint study, placement, or student project.' },
+                    { t: 'dbiz teams', b: 'Put your name forward for the next tour of duty.' },
+                  ].map((c) => (
+                    <div key={c.t} style={{ borderLeft: '2px solid var(--v22-accent)', paddingLeft: 18 }}>
+                      <h3 style={{ margin: '0 0 8px', fontSize: 17, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
+                      <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)' }}>{c.b}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
