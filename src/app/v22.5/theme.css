@@ -9391,3 +9391,45 @@
 @media (max-width: 820px) {
   .v22-ri-areas-grid { grid-template-columns: 1fr; }
 }
+
+/* ── dRSTi why-it-matters stats — 3-up on wide, third spans when wrapped ── */
+.v22-ri-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 2vw, 20px);
+}
+@media (max-width: 1180px) {
+  .v22-ri-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .v22-ri-stats-grid > :last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .v22-ri-stats-grid { grid-template-columns: 1fr; }
+  .v22-ri-stats-grid > :last-child { grid-column: auto; }
+}
+
+/* ── dRSTi research-areas responsive details ──────────────────────────────── */
+.v22-ri-head-note {
+  margin: 0;
+  text-align: right;
+  max-width: 360px;
+}
+.v22-ri-panel-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+}
+.v22-ri-panel-text { min-width: 0; flex: 1; }
+.v22-ri-panel-art {
+  flex: none;
+  width: clamp(120px, 16vw, 168px);
+  aspect-ratio: 1;
+}
+@media (max-width: 820px) {
+  .v22-ri-head-note { text-align: left; max-width: none; }
+  .v22-ri-panel-top { flex-direction: column; }
+  .v22-ri-panel-art { width: 150px; align-self: center; }
+}
+@media (max-width: 640px) {
+  .v22-ri-row-horizon { display: none; }
+}

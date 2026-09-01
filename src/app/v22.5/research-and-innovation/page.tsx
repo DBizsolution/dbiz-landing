@@ -193,10 +193,11 @@ export default function ResearchInnovationPage() {
                 <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT_DEEP, marginBottom: 10 }}>HOW WE ARE DIFFERENT</div>
                 <p style={{ margin: 0, fontSize: 16, lineHeight: 1.65, color: INK, maxWidth: '56ch' }}>The unit runs on its own clock and its own funding, so long-horizon questions get answered properly. Everything it produces is built to be handed to a delivery team, or to you.</p>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 'clamp(14px,2vw,20px)' }}>
+              <div className='v22-ri-stats-grid'>
                 {[
                   { stat: '~2x', label: 'FASTER GROWTH', body: 'for organisations that invest consistently in research and innovation versus those that don’t' },
                   { stat: '70%+', label: 'OF LABS UNDERDELIVER', body: 'corporate innovation labs fail to produce real business impact, usually because nothing transfers' },
+                  { stat: '70/20/10', label: 'PORTFOLIO BALANCE', body: 'core, emerging, and long-term bets funded together so today’s delivery and tomorrow’s options both advance' },
                 ].map((s) => (
                   <div key={s.label} style={{ background: '#fff', border: '1px solid rgba(13,27,62,0.12)', padding: '26px 28px' }}>
                     <div style={{ fontSize: 'clamp(30px,3vw,40px)', fontWeight: 800, letterSpacing: '-0.04em', color: ACCENT, lineHeight: 1 }}>{s.stat}</div>
@@ -204,14 +205,6 @@ export default function ResearchInnovationPage() {
                     <p style={{ margin: 0, fontSize: 14, lineHeight: 1.55, color: INK2 }}>{s.body}</p>
                   </div>
                 ))}
-                {/* Full-width third card balances the 2-up row above */}
-                <div style={{ gridColumn: '1 / -1', background: '#fff', border: '1px solid rgba(13,27,62,0.12)', padding: '26px 28px', display: 'flex', alignItems: 'center', gap: 'clamp(20px,3vw,36px)', flexWrap: 'wrap' }}>
-                  <div style={{ flex: 'none' }}>
-                    <div style={{ fontSize: 'clamp(30px,3vw,40px)', fontWeight: 800, letterSpacing: '-0.04em', color: ACCENT, lineHeight: 1 }}>70/20/10</div>
-                    <div style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.55)', marginTop: 10 }}>PORTFOLIO BALANCE</div>
-                  </div>
-                  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.55, color: INK2, flex: '1 1 240px' }}>core, emerging, and long-term bets funded together so today’s delivery and tomorrow’s options both advance</p>
-                </div>
               </div>
             </div>
           </div>
