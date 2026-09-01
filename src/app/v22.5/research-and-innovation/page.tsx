@@ -487,6 +487,43 @@ export default function ResearchInnovationPage() {
         </div>
       </section>
 
+      {/* CLOSING CTA — same element as the capability pages */}
+      <section className='v22-cdp-cta' id='contact'>
+        <div className='v22-container'>
+          {/* cta-inner is the design system's own 2-col grid (1.4fr / 1fr):
+              pitch + actions fill the left cell, audience paths the right. */}
+          <div className='v22-cdp-cta-inner'>
+            <div className='v22-cdp-cta-end'>
+              <span className='v22-cdp-cta-num'>[Z·dRSTi] NEXT STEP</span>
+              <h2 className='v22-cdp-cta-title'>
+                Start with a question,<br />
+                <em>not a proposal.</em>
+              </h2>
+              <p style={{ margin: '0 0 36px', fontSize: 16, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)', maxWidth: '54ch' }}>
+                Tell us what you have tried and where it stopped. If it is a question worth answering, we will tell you how we would test it.
+              </p>
+              <div className='v22-cdp-cta-actions'>
+                <Link href='/v22.5#cta' className='v22-cta-primary'>
+                  Contact dRSTi <span className='arrow'>→</span>
+                </Link>
+                <Link href='/v22.5#cta' className='v22-cta-text'>Subscribe to research updates</Link>
+              </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 'clamp(22px,3vw,32px)' }}>
+              {[
+                { t: 'Enterprises', b: 'Bring a problem your roadmap keeps deferring.' },
+                { t: 'Researchers', b: 'Propose a joint study, placement, or student project.' },
+                { t: 'dbiz teams', b: 'Put your name forward for the next tour of duty.' },
+              ].map((c) => (
+                <div key={c.t} style={{ borderLeft: '2px solid var(--v22-accent)', paddingLeft: 18 }}>
+                  <h3 style={{ margin: '0 0 8px', fontSize: 17, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
+                  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)' }}>{c.b}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
       {/* §10 JOIN dRSTi — dark block */}
       <section id='careers' className='v22-cdp-block v22-cdp-proof' data-surface='dark'>
         <div className='v22-container'>
@@ -517,46 +554,6 @@ export default function ResearchInnovationPage() {
         </div>
       </section>
 
-      {/* CLOSING CTA — same element as the capability pages */}
-      <section className='v22-cdp-cta' id='contact'>
-        <div className='v22-container'>
-          <div className='v22-cdp-cta-inner v22-cdp-cta-inner--solo'>
-            <div className='v22-cdp-cta-end'>
-              {/* Two-column close: pitch + actions left, audience paths right */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(320px,1fr))', gap: 'clamp(32px,5vw,72px)', alignItems: 'center', textAlign: 'left' }}>
-                <div>
-                  <span className='v22-cdp-cta-num'>[Z·dRSTi] NEXT STEP</span>
-                  <h2 className='v22-cdp-cta-title'>
-                    Start with a question,<br />
-                    <em>not a proposal.</em>
-                  </h2>
-                  <p style={{ margin: '0 0 36px', fontSize: 16, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)', maxWidth: '54ch' }}>
-                    Tell us what you have tried and where it stopped. If it is a question worth answering, we will tell you how we would test it.
-                  </p>
-                  <div className='v22-cdp-cta-actions'>
-                    <Link href='/v22.5#cta' className='v22-cta-primary'>
-                      Contact dRSTi <span className='arrow'>→</span>
-                    </Link>
-                    <Link href='/v22.5#cta' className='v22-cta-text'>Subscribe to research updates</Link>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(22px,3vw,32px)' }}>
-                  {[
-                    { t: 'Enterprises', b: 'Bring a problem your roadmap keeps deferring.' },
-                    { t: 'Researchers', b: 'Propose a joint study, placement, or student project.' },
-                    { t: 'dbiz teams', b: 'Put your name forward for the next tour of duty.' },
-                  ].map((c) => (
-                    <div key={c.t} style={{ borderLeft: '2px solid var(--v22-accent)', paddingLeft: 18 }}>
-                      <h3 style={{ margin: '0 0 8px', fontSize: 17, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
-                      <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)' }}>{c.b}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   )
 }

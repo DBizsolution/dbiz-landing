@@ -532,16 +532,16 @@ export const drstiEyeMark = `<svg viewBox="0 0 256 256" fill="none" xmlns="http:
 
 export const drstiHeroLifecycle = `<svg viewBox="0 0 440 420" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g stroke="rgba(255,255,255,0.16)" fill="none">
-<rect x="46" y="34" width="330" height="72"/>
-<rect x="46" y="126" width="330" height="72"/>
-<rect x="46" y="218" width="330" height="72"/>
-<rect x="46" y="310" width="330" height="72"/>
+<rect x="46" y="34" width="330" height="72" rx="10"/>
+<rect x="46" y="126" width="330" height="72" rx="10"/>
+<rect x="46" y="218" width="330" height="72" rx="10"/>
+<rect x="46" y="310" width="330" height="72" rx="10"/>
 </g>
 <g fill="var(--v22-accent)">
-<rect x="46" y="34" width="3" height="72"/>
-<rect x="46" y="126" width="3" height="72"/>
-<rect x="46" y="218" width="3" height="72"/>
-<rect x="46" y="310" width="3" height="72"/>
+<rect x="46" y="34" width="3" height="72" rx="1.5"/>
+<rect x="46" y="126" width="3" height="72" rx="1.5"/>
+<rect x="46" y="218" width="3" height="72" rx="1.5"/>
+<rect x="46" y="310" width="3" height="72" rx="1.5"/>
 </g>
 <g font-family="var(--font-mono)" font-size="11" letter-spacing="1.6" fill="var(--v22-accent)">
 <text x="72" y="60">01</text><text x="72" y="152">02</text><text x="72" y="244">03</text><text x="72" y="336">04</text>
