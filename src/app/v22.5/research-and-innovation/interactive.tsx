@@ -86,8 +86,8 @@ export function ResearchAreas() {
           </div>
           <p className='v22-cdp-block-kicker' style={{ margin: 0, textAlign: 'right', maxWidth: 360 }}>Five research categories. Including the parts that are not the model.</p>
         </div>
-        {/* Tabs left · panel right, top-aligned */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 'clamp(28px,4vw,56px)', alignItems: 'start' }}>
+        {/* Tabs left (narrow rail) · panel right, top-aligned */}
+        <div className='v22-ri-areas-grid'>
           <div>
             <div role='tablist' aria-label='Research categories' aria-orientation='vertical'
               style={{ display: 'flex', flexDirection: 'column', borderTop: '1px solid rgba(13,27,62,0.12)' }}>
