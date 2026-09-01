@@ -1,0 +1,38 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g stroke="var(--v22-ink-4)" stroke-width="1">
+<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
+<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
+<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
+<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
+</g>
+<circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+
+<rect x="16" y="16" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="44" y="12" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="72" y="16" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="12" y="44" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="76" y="44" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="16" y="72" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="44" y="76" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="72" y="72" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="50" y1="50" x2="50" y2="18" stroke="var(--v22-accent)" stroke-width="1" stroke-dasharray="2.5 3" opacity="0.7"/>
+<line x1="50" y1="50" x2="18" y2="50" stroke="var(--v22-accent)" stroke-width="1" stroke-dasharray="2.5 3" opacity="0.7"/>
+<line x1="50" y1="50" x2="82" y2="50" stroke="var(--v22-accent)" stroke-width="1" stroke-dasharray="2.5 3" opacity="0.7"/>
+<line x1="50" y1="50" x2="50" y2="82" stroke="var(--v22-accent)" stroke-width="1" stroke-dasharray="2.5 3" opacity="0.7"/>
+<line x1="50" y1="50" x2="22" y2="22" stroke="var(--v22-ink-4)" stroke-width="0.8" stroke-dasharray="1.5 3" opacity="0.6"/>
+<line x1="50" y1="50" x2="78" y2="22" stroke="var(--v22-ink-4)" stroke-width="0.8" stroke-dasharray="1.5 3" opacity="0.6"/>
+<line x1="50" y1="50" x2="22" y2="78" stroke="var(--v22-ink-4)" stroke-width="0.8" stroke-dasharray="1.5 3" opacity="0.6"/>
+<line x1="50" y1="50" x2="78" y2="78" stroke="var(--v22-ink-4)" stroke-width="0.8" stroke-dasharray="1.5 3" opacity="0.6"/>
+<circle cx="50" cy="50" r="12" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.5"/>
+<circle cx="50" cy="50" r="4" fill="var(--v22-accent)"/>
+<text x="50" y="94" text-anchor="middle" font-family="var(--font-mono)" font-size="6" letter-spacing="1.4" fill="var(--v22-ink-4)">OPERATING MODEL</text>
+</svg>

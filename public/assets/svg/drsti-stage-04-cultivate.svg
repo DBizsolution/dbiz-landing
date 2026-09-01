@@ -1,0 +1,11 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<line x1="24" y1="42" x2="24" y2="22" stroke="var(--v22-ink-2)" stroke-width="1.2"/>
+<path d="M24 30 C24 22 14 23 11 15" fill="none" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<path d="M24 25 C24 18 33 19 37 12" fill="none" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<circle cx="11" cy="13" r="2.6" fill="var(--v22-accent)"/>
+<circle cx="37" cy="10" r="2.6" fill="var(--v22-accent)"/>
+<circle cx="24" cy="20" r="2.2" fill="none" stroke="var(--v22-accent)" stroke-width="1.3"/>
+<path d="M14 42 a10 4 0 0 0 20 0" fill="none" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="10" y1="42" x2="38" y2="42" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="1.5 2.5"/>
+</svg>

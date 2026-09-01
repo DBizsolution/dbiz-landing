@@ -1,0 +1,30 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g stroke="var(--v22-ink-4)" stroke-width="1">
+<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
+<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
+<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
+<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
+</g>
+<circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+
+<circle cx="50" cy="22" r="10" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="50" cy="22" r="3.5" fill="var(--v22-accent)"/>
+<line x1="50" y1="32" x2="24" y2="58" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2.5 3"/>
+<line x1="50" y1="32" x2="50" y2="58" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2.5 3"/>
+<line x1="50" y1="32" x2="76" y2="58" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2.5 3"/>
+<circle cx="24" cy="64" r="7" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.2"/><circle cx="24" cy="64" r="2.2" fill="var(--v22-ink-2)"/>
+<circle cx="50" cy="64" r="7" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.2"/><circle cx="50" cy="64" r="2.2" fill="var(--v22-ink-2)"/>
+<circle cx="76" cy="64" r="7" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.2"/><circle cx="76" cy="64" r="2.2" fill="var(--v22-ink-2)"/>
+<path d="M50 42 L55 47 L50 52 L45 47 Z" fill="var(--v22-paper)" stroke="var(--v22-accent)" stroke-width="1.2"/>
+<line x1="22" y1="80" x2="78" y2="80" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="2 3"/>
+<text x="50" y="94" text-anchor="middle" font-family="var(--font-mono)" font-size="6" letter-spacing="1.4" fill="var(--v22-ink-4)">ORCHESTRATION</text>
+</svg>

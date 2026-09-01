@@ -12,6 +12,13 @@ import type { ReactNode, CSSProperties } from 'react'
 import Link from 'next/link'
 import { Icon } from '@/components/icon'
 import { ResearchAreas, ProcessPipeline, PortfolioBar, CareersTour } from './interactive'
+import { AREAS } from './areas-data'
+import { InlineSvg } from '@/components/inline-svg'
+import {
+  drstiStage01Explore, drstiStage02Validate, drstiStage03Transfer, drstiStage04Cultivate,
+  drstiEngage01Framing, drstiEngage02Sprint, drstiEngage03Cofunded, drstiEngage04Academic,
+  drstiTransfer01Readiness, drstiTransfer02Home, drstiTransfer03Handover, drstiTransfer04Track,
+} from '@/lib/svg-assets'
 
 export const metadata: Metadata = {
   title: 'RESEARCH & INNOVATION',
@@ -49,133 +56,25 @@ function SheetFrame({ foot, children }: { foot?: string; children: ReactNode }) 
   )
 }
 
-/* ─── Schematic glyphs — blueprint illustrations for the card grids ───────── */
+/* ─── Schematic glyphs — design-system SVG assets (public/assets/svg),
+   injected inline so v22 surface tokens resolve per section. ─────────────── */
 
-type GlyphTone = 'dark' | 'light'
-function glyphInks(tone: GlyphTone) {
-  return tone === 'dark'
-    ? { ink: 'rgba(255,255,255,0.75)', dim: 'rgba(255,255,255,0.28)', acc: ACCENT }
-    : { ink: 'rgba(13,27,62,0.8)', dim: 'rgba(13,27,62,0.28)', acc: ACCENT }
+const glyphBox: CSSProperties = { width: 52, height: 52, display: 'block' }
+
+const STAGE_GLYPHS = [drstiStage01Explore, drstiStage02Validate, drstiStage03Transfer, drstiStage04Cultivate]
+const ENGAGE_GLYPHS = [drstiEngage01Framing, drstiEngage02Sprint, drstiEngage03Cofunded, drstiEngage04Academic]
+const TRANSFER_GLYPHS = [drstiTransfer01Readiness, drstiTransfer02Home, drstiTransfer03Handover, drstiTransfer04Track]
+
+function StageGlyph({ i }: { i: number }) {
+  return <span style={glyphBox} aria-hidden='true'><InlineSvg markup={STAGE_GLYPHS[i] ?? STAGE_GLYPHS[0]} /></span>
 }
-const glyphBox: CSSProperties = { width: 44, height: 44, display: 'block' }
-
-/* What-we-do glyphs: Explore / Validate / Transfer / Cultivate */
-function StageGlyph({ i, tone = 'dark' }: { i: number; tone?: GlyphTone }) {
-  const { ink, dim, acc } = glyphInks(tone)
-  if (i === 0) return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <circle cx='22' cy='22' r='17' fill='none' stroke={dim} strokeWidth='0.9' strokeDasharray='1.5 2.5' />
-      <circle cx='22' cy='22' r='10' fill='none' stroke={ink} strokeWidth='1' />
-      <line x1='22' y1='22' x2='34' y2='10' stroke={acc} strokeWidth='1.3' />
-      <circle cx='34' cy='10' r='2.2' fill={acc} />
-      <circle cx='22' cy='22' r='1.8' fill={ink} />
-    </svg>
-  )
-  if (i === 1) return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <rect x='7' y='7' width='30' height='30' fill='none' stroke={ink} strokeWidth='1' />
-      <line x1='7' y1='14' x2='37' y2='14' stroke={dim} strokeWidth='0.9' />
-      <path d='M15 26 l5 5 l10 -11' fill='none' stroke={acc} strokeWidth='1.6' strokeLinecap='round' strokeLinejoin='round' />
-    </svg>
-  )
-  if (i === 2) return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <line x1='22' y1='6' x2='22' y2='38' stroke={dim} strokeWidth='0.9' strokeDasharray='2 3' />
-      <rect x='5' y='16' width='12' height='12' fill='none' stroke={ink} strokeWidth='1' />
-      <rect x='27' y='16' width='12' height='12' fill='none' stroke={acc} strokeWidth='1.3' />
-      <line x1='17' y1='22' x2='26' y2='22' stroke={acc} strokeWidth='1.3' />
-      <path d='M23.5 19 L27 22 L23.5 25' fill='none' stroke={acc} strokeWidth='1.3' />
-    </svg>
-  )
-  return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <line x1='22' y1='38' x2='22' y2='20' stroke={ink} strokeWidth='1.1' />
-      <path d='M22 26 C22 20 14 20 12 14' fill='none' stroke={ink} strokeWidth='1' />
-      <path d='M22 22 C22 16 30 17 33 11' fill='none' stroke={ink} strokeWidth='1' />
-      <circle cx='12' cy='12' r='2.4' fill={acc} />
-      <circle cx='33' cy='9' r='2.4' fill={acc} />
-      <circle cx='22' cy='18' r='2' fill='none' stroke={acc} strokeWidth='1.2' />
-      <line x1='14' y1='38' x2='30' y2='38' stroke={dim} strokeWidth='0.9' strokeDasharray='1.5 2.5' />
-    </svg>
-  )
-}
-
-/* Ways-to-engage glyphs (dark band) */
 function EngageGlyph({ i }: { i: number }) {
-  const { ink, dim, acc } = glyphInks('dark')
-  if (i === 0) return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <rect x='7' y='9' width='30' height='22' fill='none' stroke={ink} strokeWidth='1' />
-      <path d='M18 17 c0 -3 8 -3 8 0 c0 2.5 -4 2 -4 5' fill='none' stroke={acc} strokeWidth='1.5' strokeLinecap='round' />
-      <circle cx='22' cy='26' r='1.3' fill={acc} />
-      <line x1='14' y1='36' x2='30' y2='36' stroke={dim} strokeWidth='0.9' />
-    </svg>
-  )
-  if (i === 1) return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <path d='M32 14 A12 12 0 1 0 34 22' fill='none' stroke={ink} strokeWidth='1.1' />
-      <path d='M32 8 L32.5 15 L26 14' fill='none' stroke={acc} strokeWidth='1.3' />
-      <circle cx='22' cy='22' r='2.2' fill={acc} />
-    </svg>
-  )
-  if (i === 2) return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <circle cx='12' cy='14' r='6' fill='none' stroke={ink} strokeWidth='1' />
-      <circle cx='32' cy='14' r='6' fill='none' stroke={ink} strokeWidth='1' />
-      <line x1='14' y1='19' x2='20' y2='28' stroke={dim} strokeWidth='0.9' strokeDasharray='2 2.5' />
-      <line x1='30' y1='19' x2='24' y2='28' stroke={dim} strokeWidth='0.9' strokeDasharray='2 2.5' />
-      <rect x='16' y='28' width='12' height='9' fill='none' stroke={acc} strokeWidth='1.3' />
-      <circle cx='22' cy='32.5' r='1.6' fill={acc} />
-    </svg>
-  )
-  return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <path d='M8 12 C13 9 19 9 22 12 V33 C19 30 13 30 8 33 Z' fill='none' stroke={ink} strokeWidth='1' />
-      <path d='M36 12 C31 9 25 9 22 12 V33 C25 30 31 30 36 33 Z' fill='none' stroke={ink} strokeWidth='1' />
-      <circle cx='22' cy='7' r='2.2' fill={acc} />
-    </svg>
-  )
+  return <span style={glyphBox} aria-hidden='true'><InlineSvg markup={ENGAGE_GLYPHS[i] ?? ENGAGE_GLYPHS[0]} /></span>
+}
+function TransferGlyph({ i }: { i: number }) {
+  return <span style={glyphBox} aria-hidden='true'><InlineSvg markup={TRANSFER_GLYPHS[i] ?? TRANSFER_GLYPHS[0]} /></span>
 }
 
-/* Transfer-step glyphs (light band) */
-function TransferGlyph({ i }: { i: number }) {
-  const { ink, dim, acc } = glyphInks('light')
-  if (i === 0) return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <path d='M9 30 A15 15 0 0 1 35 30' fill='none' stroke={ink} strokeWidth='1.1' />
-      <line x1='22' y1='30' x2='30' y2='19' stroke={acc} strokeWidth='1.5' />
-      <circle cx='22' cy='30' r='2' fill={acc} />
-      <line x1='12' y1='36' x2='32' y2='36' stroke={dim} strokeWidth='0.9' strokeDasharray='1.5 2.5' />
-    </svg>
-  )
-  if (i === 1) return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <rect x='8' y='24' width='10' height='10' fill='none' stroke={dim} strokeWidth='0.9' />
-      <rect x='26' y='24' width='10' height='10' fill='none' stroke={acc} strokeWidth='1.3' />
-      <path d='M31 8 C27 8 25 11 25 14 C25 18 31 22 31 22 C31 22 37 18 37 14 C37 11 35 8 31 8 Z' fill='none' stroke={acc} strokeWidth='1.2' />
-      <circle cx='31' cy='14' r='1.8' fill={acc} />
-      <line x1='8' y1='38' x2='36' y2='38' stroke={dim} strokeWidth='0.9' strokeDasharray='1.5 2.5' />
-    </svg>
-  )
-  if (i === 2) return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <rect x='6' y='14' width='14' height='14' fill='none' stroke={ink} strokeWidth='1' />
-      <line x1='9' y1='19' x2='17' y2='19' stroke={dim} strokeWidth='0.9' />
-      <line x1='9' y1='23' x2='15' y2='23' stroke={dim} strokeWidth='0.9' />
-      <line x1='22' y1='21' x2='32' y2='21' stroke={acc} strokeWidth='1.3' />
-      <path d='M29 17.5 L33 21 L29 24.5' fill='none' stroke={acc} strokeWidth='1.3' />
-      <circle cx='37' cy='21' r='3' fill='none' stroke={acc} strokeWidth='1.3' />
-    </svg>
-  )
-  return (
-    <svg viewBox='0 0 44 44' style={glyphBox} aria-hidden='true'>
-      <line x1='8' y1='36' x2='38' y2='36' stroke={ink} strokeWidth='1' />
-      <line x1='8' y1='36' x2='8' y2='8' stroke={ink} strokeWidth='1' />
-      <path d='M11 30 L19 24 L26 27 L36 13' fill='none' stroke={acc} strokeWidth='1.5' />
-      <circle cx='36' cy='13' r='2' fill={acc} />
-    </svg>
-  )
-}
 
 /* ─── Page ────────────────────────────────────────────────────────────────── */
 
@@ -298,7 +197,6 @@ export default function ResearchInnovationPage() {
                 {[
                   { stat: '~2x', label: 'FASTER GROWTH', body: 'for organisations that invest consistently in research and innovation versus those that don’t' },
                   { stat: '70%+', label: 'OF LABS UNDERDELIVER', body: 'corporate innovation labs fail to produce real business impact, usually because nothing transfers' },
-                  { stat: '70/20/10', label: 'PORTFOLIO BALANCE', body: 'core, emerging, and long-term bets funded together so today’s delivery and tomorrow’s options both advance' },
                 ].map((s) => (
                   <div key={s.label} style={{ background: '#fff', border: '1px solid rgba(13,27,62,0.12)', padding: '26px 28px' }}>
                     <div style={{ fontSize: 'clamp(30px,3vw,40px)', fontWeight: 800, letterSpacing: '-0.04em', color: ACCENT, lineHeight: 1 }}>{s.stat}</div>
@@ -306,6 +204,14 @@ export default function ResearchInnovationPage() {
                     <p style={{ margin: 0, fontSize: 14, lineHeight: 1.55, color: INK2 }}>{s.body}</p>
                   </div>
                 ))}
+                {/* Full-width third card balances the 2-up row above */}
+                <div style={{ gridColumn: '1 / -1', background: '#fff', border: '1px solid rgba(13,27,62,0.12)', padding: '26px 28px', display: 'flex', alignItems: 'center', gap: 'clamp(20px,3vw,36px)', flexWrap: 'wrap' }}>
+                  <div style={{ flex: 'none' }}>
+                    <div style={{ fontSize: 'clamp(30px,3vw,40px)', fontWeight: 800, letterSpacing: '-0.04em', color: ACCENT, lineHeight: 1 }}>70/20/10</div>
+                    <div style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.55)', marginTop: 10 }}>PORTFOLIO BALANCE</div>
+                  </div>
+                  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.55, color: INK2, flex: '1 1 240px' }}>core, emerging, and long-term bets funded together so today’s delivery and tomorrow’s options both advance</p>
+                </div>
               </div>
             </div>
           </div>
@@ -332,7 +238,7 @@ export default function ResearchInnovationPage() {
                   <div key={c.n} style={{ background: NAVY, border: '1px solid rgba(255,255,255,0.1)', padding: '30px 26px 34px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
                       <span style={{ fontFamily: MONO, fontSize: 11, color: ACCENT, letterSpacing: '0.14em' }}>{c.n}</span>
-                      <StageGlyph i={i} tone='dark' />
+                      <StageGlyph i={i} />
                     </div>
                     <h3 style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
                     <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
@@ -346,6 +252,32 @@ export default function ResearchInnovationPage() {
 
       {/* §03 RESEARCH AREAS — interactive, cream block */}
       <ResearchAreas />
+
+      {/* INDEX — all research areas at a glance, as its own band */}
+      <section id='index' className='v22-cdp-block' data-surface='light'>
+        <div className='v22-container'>
+          <div className='v22-cdp-block-grid'>
+            <div className='v22-cdp-block-head'>
+              <span className='v22-cdp-block-num'>Index</span>
+              <h2 className='v22-cdp-block-title'>All areas, <em>at a glance.</em></h2>
+            </div>
+            <div className='v22-cdp-block-body'>
+              <div style={{ borderTop: '1px solid rgba(13,27,62,0.14)' }}>
+                {AREAS.map((a) => (
+                  <div key={a.num} style={{ display: 'grid', gridTemplateColumns: 'minmax(0,0.8fr) minmax(0,1.4fr) auto', gap: 'clamp(14px,2.5vw,36px)', alignItems: 'start', padding: '22px 2px', borderBottom: '1px solid rgba(13,27,62,0.14)' }}>
+                    <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                      <span style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', color: ACCENT_DEEP, paddingTop: 4 }}>{a.num}</span>
+                      <h3 style={{ margin: 0, fontSize: 17, fontWeight: 700, letterSpacing: '-0.015em', lineHeight: 1.25, color: INK }}>{a.title}</h3>
+                    </div>
+                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: INK2 }}>{a.body}</p>
+                    <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: '0.12em', color: 'rgba(13,27,62,0.5)', whiteSpace: 'nowrap', paddingTop: 4 }}>{a.horizon}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* §04 OUR PROCESS — dark block */}
       <section id='process' className='v22-cdp-block v22-cdp-proof' data-surface='dark'>

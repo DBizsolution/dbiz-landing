@@ -350,6 +350,307 @@ export const connectedSystemsHeroDiagram = `<svg xmlns="http://www.w3.org/2000/s
 <text x="440" y="360" font-family="var(--font-mono)" font-size="8" letter-spacing="1.5" fill="rgba(255,255,255,0.4)" text-anchor="end">SHEET A4</text>
 </svg>`
 
+export const drstiArea01AgenticArchitectures = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g stroke="var(--v22-ink-4)" stroke-width="1">
+<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
+<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
+<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
+<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
+</g>
+<circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+
+<circle cx="50" cy="22" r="10" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="50" cy="22" r="3.5" fill="var(--v22-accent)"/>
+<line x1="50" y1="32" x2="24" y2="58" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2.5 3"/>
+<line x1="50" y1="32" x2="50" y2="58" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2.5 3"/>
+<line x1="50" y1="32" x2="76" y2="58" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2.5 3"/>
+<circle cx="24" cy="64" r="7" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.2"/><circle cx="24" cy="64" r="2.2" fill="var(--v22-ink-2)"/>
+<circle cx="50" cy="64" r="7" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.2"/><circle cx="50" cy="64" r="2.2" fill="var(--v22-ink-2)"/>
+<circle cx="76" cy="64" r="7" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.2"/><circle cx="76" cy="64" r="2.2" fill="var(--v22-ink-2)"/>
+<path d="M50 42 L55 47 L50 52 L45 47 Z" fill="var(--v22-paper)" stroke="var(--v22-accent)" stroke-width="1.2"/>
+<line x1="22" y1="80" x2="78" y2="80" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="2 3"/>
+<text x="50" y="94" text-anchor="middle" font-family="var(--font-mono)" font-size="6" letter-spacing="1.4" fill="var(--v22-ink-4)">ORCHESTRATION</text>
+</svg>`
+
+export const drstiArea02DataReadiness = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g stroke="var(--v22-ink-4)" stroke-width="1">
+<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
+<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
+<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
+<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
+</g>
+<circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+
+<ellipse cx="38" cy="26" rx="20" ry="8" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.2"/>
+<path d="M18 26 v28 a20 8 0 0 0 40 0 V26" fill="none" stroke="var(--v22-ink-2)" stroke-width="1.2"/>
+<path d="M18 38 a20 8 0 0 0 40 0" fill="none" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<path d="M18 48 a20 8 0 0 0 40 0" fill="none" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<ellipse cx="38" cy="26" rx="11" ry="4" fill="none" stroke="var(--v22-accent)" stroke-width="1" stroke-dasharray="2 2.5"/>
+<path d="M60 50 C70 54 72 60 76 66" fill="none" stroke="var(--v22-accent)" stroke-width="1.3" stroke-dasharray="3 3"/>
+<path d="M72 62 L77 67 L70 69" fill="none" stroke="var(--v22-accent)" stroke-width="1.2"/>
+<circle cx="79" cy="72" r="8" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="79" cy="72" r="2.6" fill="var(--v22-accent)"/>
+<text x="50" y="94" text-anchor="middle" font-family="var(--font-mono)" font-size="6" letter-spacing="1.4" fill="var(--v22-ink-4)">AGENT-READY DATA</text>
+</svg>`
+
+export const drstiArea03SecurityPrivacy = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g stroke="var(--v22-ink-4)" stroke-width="1">
+<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
+<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
+<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
+<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
+</g>
+<circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+
+<path d="M50 12 L80 24 V48 C80 65 68 78 50 84 C32 78 20 65 20 48 V24 Z" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.3"/>
+<path d="M50 22 L71 31 V48 C71 60 63 69 50 74 C37 69 29 60 29 48 V31 Z" fill="none" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2.5 3"/>
+<circle cx="50" cy="45" r="6.5" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="50" cy="45" r="2.2" fill="var(--v22-accent)"/>
+<line x1="50" y1="51" x2="50" y2="62" stroke="var(--v22-accent)" stroke-width="1.6"/>
+<line x1="50" y1="58" x2="55" y2="58" stroke="var(--v22-accent)" stroke-width="1.6"/>
+<text x="50" y="94" text-anchor="middle" font-family="var(--font-mono)" font-size="6" letter-spacing="1.4" fill="var(--v22-ink-4)">TRUST BOUNDARY</text>
+</svg>`
+
+export const drstiArea04GovernanceAssurance = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g stroke="var(--v22-ink-4)" stroke-width="1">
+<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
+<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
+<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
+<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
+</g>
+<circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+
+<path d="M20 62 A30 30 0 0 1 80 62" fill="none" stroke="var(--v22-ink-2)" stroke-width="1.3"/>
+<path d="M20 62 A30 30 0 0 1 38 34" fill="none" stroke="var(--v22-accent)" stroke-width="2.4"/>
+<line x1="25.6" y1="53.1" x2="21.8" y2="51.7" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="30.1" y1="45.3" x2="27.0" y2="42.7" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="37.0" y1="39.5" x2="35.0" y2="36.0" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="45.5" y1="36.4" x2="44.8" y2="32.5" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="54.5" y1="36.4" x2="55.2" y2="32.5" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="63.0" y1="39.5" x2="65.0" y2="36.0" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="69.9" y1="45.3" x2="73.0" y2="42.7" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="74.4" y1="53.1" x2="78.2" y2="51.7" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="50" y1="62" x2="65" y2="42" stroke="var(--v22-accent)" stroke-width="1.8"/>
+<circle cx="50" cy="62" r="3.5" fill="var(--v22-paper)" stroke="var(--v22-accent)" stroke-width="1.6"/>
+<line x1="28" y1="74" x2="72" y2="74" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="28" y1="80" x2="60" y2="80" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<circle cx="75" cy="80" r="1.8" fill="var(--v22-accent)"/>
+<text x="50" y="94" text-anchor="middle" font-family="var(--font-mono)" font-size="6" letter-spacing="1.4" fill="var(--v22-ink-4)">CERTIFY · AUDIT</text>
+</svg>`
+
+export const drstiArea05BusinessTransformation = `<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g stroke="var(--v22-ink-4)" stroke-width="1">
+<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
+<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
+<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
+<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
+</g>
+<circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+
+<rect x="16" y="16" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="44" y="12" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="72" y="16" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="12" y="44" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="76" y="44" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="16" y="72" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="44" y="76" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="72" y="72" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="50" y1="50" x2="50" y2="18" stroke="var(--v22-accent)" stroke-width="1" stroke-dasharray="2.5 3" opacity="0.7"/>
+<line x1="50" y1="50" x2="18" y2="50" stroke="var(--v22-accent)" stroke-width="1" stroke-dasharray="2.5 3" opacity="0.7"/>
+<line x1="50" y1="50" x2="82" y2="50" stroke="var(--v22-accent)" stroke-width="1" stroke-dasharray="2.5 3" opacity="0.7"/>
+<line x1="50" y1="50" x2="50" y2="82" stroke="var(--v22-accent)" stroke-width="1" stroke-dasharray="2.5 3" opacity="0.7"/>
+<line x1="50" y1="50" x2="22" y2="22" stroke="var(--v22-ink-4)" stroke-width="0.8" stroke-dasharray="1.5 3" opacity="0.6"/>
+<line x1="50" y1="50" x2="78" y2="22" stroke="var(--v22-ink-4)" stroke-width="0.8" stroke-dasharray="1.5 3" opacity="0.6"/>
+<line x1="50" y1="50" x2="22" y2="78" stroke="var(--v22-ink-4)" stroke-width="0.8" stroke-dasharray="1.5 3" opacity="0.6"/>
+<line x1="50" y1="50" x2="78" y2="78" stroke="var(--v22-ink-4)" stroke-width="0.8" stroke-dasharray="1.5 3" opacity="0.6"/>
+<circle cx="50" cy="50" r="12" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.5"/>
+<circle cx="50" cy="50" r="4" fill="var(--v22-accent)"/>
+<text x="50" y="94" text-anchor="middle" font-family="var(--font-mono)" font-size="6" letter-spacing="1.4" fill="var(--v22-ink-4)">OPERATING MODEL</text>
+</svg>`
+
+export const drstiEngage01Framing = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<rect x="6" y="8" width="36" height="26" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<rect x="6" y="8" width="36" height="6" fill="var(--v22-ink-4)" opacity="0.35"/>
+<path d="M19 21 c0 -3.5 10 -3.5 10 0 c0 3 -5 2.5 -5 6" fill="none" stroke="var(--v22-accent)" stroke-width="1.6" stroke-linecap="round"/>
+<circle cx="24" cy="30" r="1.5" fill="var(--v22-accent)"/>
+<line x1="14" y1="40" x2="34" y2="40" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<circle cx="10" cy="40" r="1.4" fill="var(--v22-accent)"/>
+</svg>`
+
+export const drstiEngage02Sprint = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<path d="M36 13 A14 14 0 1 0 38 24" fill="none" stroke="var(--v22-ink-2)" stroke-width="1.2"/>
+<path d="M36 6 L36.5 14 L29 13" fill="none" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="24" cy="24" r="6" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.3"/>
+<circle cx="24" cy="24" r="2.2" fill="var(--v22-accent)"/>
+<line x1="24" y1="38" x2="24" y2="43" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="16" y1="43" x2="32" y2="43" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="1.5 2.5"/>
+</svg>`
+
+export const drstiEngage03Cofunded = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<circle cx="13" cy="14" r="7" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<circle cx="13" cy="14" r="2" fill="var(--v22-ink-2)"/>
+<circle cx="35" cy="14" r="7" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<circle cx="35" cy="14" r="2" fill="var(--v22-ink-2)"/>
+<line x1="15" y1="20" x2="21" y2="30" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2 2.5"/>
+<line x1="33" y1="20" x2="27" y2="30" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2 2.5"/>
+<rect x="16" y="30" width="16" height="11" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="24" cy="35.5" r="1.8" fill="var(--v22-accent)"/>
+</svg>`
+
+export const drstiEngage04Academic = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<path d="M8 13 C14 10 20 10 24 13 V37 C20 34 14 34 8 37 Z" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<path d="M40 13 C34 10 28 10 24 13 V37 C28 34 34 34 40 37 Z" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<line x1="12" y1="18" x2="20" y2="16.5" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<line x1="12" y1="23" x2="20" y2="21.5" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<line x1="28" y1="16.5" x2="36" y2="18" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<line x1="28" y1="21.5" x2="36" y2="23" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<circle cx="24" cy="8" r="2.4" fill="var(--v22-accent)"/>
+</svg>`
+
+export const drstiStage01Explore = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<circle cx="24" cy="24" r="19" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="1.5 2.5"/>
+<circle cx="24" cy="24" r="12" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<path d="M24 24 L37 11 A19 19 0 0 1 41 20 Z" fill="rgba(240, 123, 47, 0.12)"/>
+<line x1="24" y1="24" x2="37" y2="11" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="37" cy="11" r="2.4" fill="var(--v22-accent)"/>
+<circle cx="30" cy="30" r="1.6" fill="var(--v22-accent)" opacity="0.7"/>
+<circle cx="24" cy="24" r="1.8" fill="var(--v22-ink-2)"/>
+<line x1="24" y1="3" x2="24" y2="7" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="24" y1="41" x2="24" y2="45" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="3" y1="24" x2="7" y2="24" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="41" y1="24" x2="45" y2="24" stroke="var(--v22-ink-4)" stroke-width="1"/>
+</svg>`
+
+export const drstiStage02Validate = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<rect x="7" y="7" width="34" height="34" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<rect x="7" y="7" width="34" height="8" fill="var(--v22-ink-4)" opacity="0.35"/>
+<circle cx="11.5" cy="11" r="1.1" fill="var(--v22-accent)"/>
+<line x1="12" y1="22" x2="22" y2="22" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="12" y1="28" x2="20" y2="28" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="12" y1="34" x2="21" y2="34" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<path d="M25 28 l5 5 l10 -12" fill="none" stroke="var(--v22-accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`
+
+export const drstiStage03Transfer = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<line x1="24" y1="6" x2="24" y2="42" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="2 3"/>
+<rect x="5" y="17" width="14" height="14" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<line x1="8" y1="22" x2="16" y2="22" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<line x1="8" y1="26" x2="14" y2="26" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<rect x="29" y="17" width="14" height="14" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.3"/>
+<circle cx="36" cy="24" r="2" fill="var(--v22-accent)"/>
+<line x1="19" y1="24" x2="28" y2="24" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<path d="M25.5 20.5 L29 24 L25.5 27.5" fill="none" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<path d="M21.5 37 L25 40.5 L21.5 44" fill="none" stroke="var(--v22-ink-4)" stroke-width="1"/>
+</svg>`
+
+export const drstiStage04Cultivate = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<line x1="24" y1="42" x2="24" y2="22" stroke="var(--v22-ink-2)" stroke-width="1.2"/>
+<path d="M24 30 C24 22 14 23 11 15" fill="none" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<path d="M24 25 C24 18 33 19 37 12" fill="none" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<circle cx="11" cy="13" r="2.6" fill="var(--v22-accent)"/>
+<circle cx="37" cy="10" r="2.6" fill="var(--v22-accent)"/>
+<circle cx="24" cy="20" r="2.2" fill="none" stroke="var(--v22-accent)" stroke-width="1.3"/>
+<path d="M14 42 a10 4 0 0 0 20 0" fill="none" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<line x1="10" y1="42" x2="38" y2="42" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="1.5 2.5"/>
+</svg>`
+
+export const drstiTransfer01Readiness = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<path d="M8 32 A16 16 0 0 1 40 32" fill="none" stroke="var(--v22-ink-2)" stroke-width="1.2"/>
+<path d="M8 32 A16 16 0 0 1 17 18" fill="none" stroke="var(--v22-accent)" stroke-width="2.2"/>
+<line x1="24" y1="32" x2="33" y2="20" stroke="var(--v22-accent)" stroke-width="1.6"/>
+<circle cx="24" cy="32" r="2.6" fill="var(--v22-paper)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<line x1="12" y1="40" x2="36" y2="40" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="1.5 2.5"/>
+</svg>`
+
+export const drstiTransfer02Home = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<rect x="7" y="26" width="12" height="12" fill="var(--v22-paper)" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<rect x="29" y="26" width="12" height="12" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<path d="M29 26 L35 20 L41 26" fill="none" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="35" cy="32" r="1.8" fill="var(--v22-accent)"/>
+<path d="M35 8 C31 8 29 11 29 14 C29 18 35 22 35 22 C35 22 41 18 41 14 C41 11 39 8 35 8 Z" fill="none" stroke="var(--v22-accent)" stroke-width="1.2"/>
+<line x1="7" y1="42" x2="41" y2="42" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="1.5 2.5"/>
+</svg>`
+
+export const drstiTransfer03Handover = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<rect x="5" y="14" width="16" height="16" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<line x1="8" y1="19" x2="18" y2="19" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<line x1="8" y1="23" x2="15" y2="23" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<line x1="8" y1="27" x2="17" y2="27" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<line x1="23" y1="22" x2="34" y2="22" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<path d="M31 18.5 L34.5 22 L31 25.5" fill="none" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="40" cy="22" r="4.5" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="40" cy="22" r="1.6" fill="var(--v22-accent)"/>
+<line x1="5" y1="38" x2="43" y2="38" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="1.5 2.5"/>
+</svg>`
+
+export const drstiTransfer04Track = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<line x1="8" y1="40" x2="42" y2="40" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<line x1="8" y1="40" x2="8" y2="8" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<line x1="8" y1="30" x2="42" y2="30" stroke="var(--v22-ink-4)" stroke-width="0.8" stroke-dasharray="2 3"/>
+<line x1="8" y1="20" x2="42" y2="20" stroke="var(--v22-ink-4)" stroke-width="0.8" stroke-dasharray="2 3"/>
+<path d="M11 34 L19 27 L27 30 L39 13" fill="none" stroke="var(--v22-accent)" stroke-width="1.7"/>
+<circle cx="39" cy="13" r="2.2" fill="var(--v22-accent)"/>
+<circle cx="19" cy="27" r="1.5" fill="var(--v22-accent)" opacity="0.6"/>
+<circle cx="27" cy="30" r="1.5" fill="var(--v22-accent)" opacity="0.6"/>
+</svg>`
+
 export const frameworkDisc01Strategy = `<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" class="v22-fw-mini-disc" aria-hidden="true">
 <defs>
 <pattern id="v22-mini-grid-0" patternUnits="userSpaceOnUse" width="12" height="12">

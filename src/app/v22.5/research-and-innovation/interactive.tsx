@@ -11,6 +11,15 @@
 
 import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
+import { InlineSvg } from '@/components/inline-svg'
+import { AREAS } from './areas-data'
+import {
+  drstiArea01AgenticArchitectures,
+  drstiArea02DataReadiness,
+  drstiArea03SecurityPrivacy,
+  drstiArea04GovernanceAssurance,
+  drstiArea05BusinessTransformation,
+} from '@/lib/svg-assets'
 
 const ACCENT = 'var(--v22-accent)'
 const ACCENT_DEEP = 'var(--brand-orange-hover)'
@@ -19,42 +28,6 @@ const MONO = 'var(--font-mono)'
 
 /* ─── Data ────────────────────────────────────────────────────────────────── */
 
-type Area = {
-  num: string
-  kicker: string
-  title: string
-  horizon: string
-  body: string
-  tags: string[]
-}
-
-const AREAS: Area[] = [
-  {
-    num: '01', kicker: 'AGENTIC ARCHITECTURES', title: 'Multi-agent systems for enterprise work', horizon: 'HORIZON 2 · EMERGING',
-    body: 'How agents should be decomposed, orchestrated, and supervised when the work spans several enterprise systems and the cost of a wrong action is real.',
-    tags: ['Orchestration patterns', 'Tool use', 'Long-running tasks', 'Human-in-the-loop'],
-  },
-  {
-    num: '02', kicker: 'DATA READINESS', title: 'Data foundations agents can act on', horizon: 'HORIZON 1 · CORE',
-    body: 'Most agent programmes stall on the data, not the model. We research the modelling, lineage, and retrieval patterns that make enterprise data usable by autonomous systems.',
-    tags: ['Domain modelling', 'Retrieval', 'Lineage', 'Freshness'],
-  },
-  {
-    num: '03', kicker: 'SECURITY & PRIVACY', title: 'Trust boundaries for autonomous systems', horizon: 'HORIZON 1 · CORE',
-    body: 'Identity, permissioning, and data residency when the actor is an agent. Prompt-injection and exfiltration surfaces, tested against real enterprise topologies.',
-    tags: ['Agent identity', 'Least privilege', 'Injection defence', 'Residency'],
-  },
-  {
-    num: '04', kicker: 'GOVERNANCE & ASSURANCE', title: 'Evaluation, auditability, and control', horizon: 'HORIZON 2 · EMERGING',
-    body: 'What it takes to certify an agent for production and keep it certified: evaluation harnesses, drift detection, audit trails, and the regulatory reporting that follows.',
-    tags: ['Evals', 'Drift', 'Audit trail', 'Regulatory reporting'],
-  },
-  {
-    num: '05', kicker: 'BUSINESS TRANSFORMATION', title: 'Agent-led operating models', horizon: 'HORIZON 3 · DISRUPTIVE',
-    body: 'How work, roles, and accountability change once agents run parts of the process, and which reliability and cost thresholds have to be met before they can.',
-    tags: ['Process redesign', 'Accountability', 'Unit economics', 'Change'],
-  },
-]
 
 const STAGES = [
   { name: 'Discover', note: 'Scan & frame' },
@@ -65,73 +38,20 @@ const STAGES = [
   { name: 'Transfer', note: 'Hand off or scale' },
 ]
 
-/* ─── Area glyphs — blueprint schematics, one per research area ───────────── */
+/* ─── Area plates — design-system SVG assets (public/assets/svg) ──────────── */
+
+const AREA_PLATES = [
+  drstiArea01AgenticArchitectures,
+  drstiArea02DataReadiness,
+  drstiArea03SecurityPrivacy,
+  drstiArea04GovernanceAssurance,
+  drstiArea05BusinessTransformation,
+]
 
 function AreaGlyph({ i }: { i: number }) {
-  const ink = 'rgba(13, 27, 62, 0.8)'
-  const dim = 'rgba(13, 27, 62, 0.28)'
-  const acc = ACCENT
-  const common = { width: '100%', height: '100%' } as CSSProperties
-
-  if (i === 0) return ( /* Multi-agent orchestration — supervisor + worker mesh */
-    <svg viewBox='0 0 80 80' style={common} aria-hidden='true'>
-      <circle cx='40' cy='16' r='8' fill='none' stroke={acc} strokeWidth='1.4' />
-      <circle cx='40' cy='16' r='3' fill={acc} />
-      {[18, 40, 62].map((cx, k) => (
-        <g key={k}>
-          <line x1='40' y1='24' x2={cx} y2='52' stroke={dim} strokeWidth='0.9' strokeDasharray='2 2.5' />
-          <circle cx={cx} cy='58' r='6' fill='none' stroke={ink} strokeWidth='1.1' />
-          <circle cx={cx} cy='58' r='1.8' fill={ink} />
-        </g>
-      ))}
-      <line x1='18' y1='72' x2='62' y2='72' stroke={dim} strokeWidth='0.8' strokeDasharray='1.5 2.5' />
-    </svg>
-  )
-  if (i === 1) return ( /* Data readiness — layered store feeding a node */
-    <svg viewBox='0 0 80 80' style={common} aria-hidden='true'>
-      <ellipse cx='32' cy='24' rx='18' ry='7' fill='none' stroke={ink} strokeWidth='1.1' />
-      <path d='M14 24 v20 a18 7 0 0 0 36 0 V24' fill='none' stroke={ink} strokeWidth='1.1' />
-      <path d='M14 34 a18 7 0 0 0 36 0' fill='none' stroke={dim} strokeWidth='0.9' />
-      <line x1='50' y1='40' x2='64' y2='52' stroke={acc} strokeWidth='1.3' strokeDasharray='3 3' />
-      <circle cx='66' cy='56' r='7' fill='none' stroke={acc} strokeWidth='1.4' />
-      <circle cx='66' cy='56' r='2.4' fill={acc} />
-    </svg>
-  )
-  if (i === 2) return ( /* Security — shield with agent dot inside boundary */
-    <svg viewBox='0 0 80 80' style={common} aria-hidden='true'>
-      <path d='M40 12 L64 22 V42 C64 56 54 66 40 70 C26 66 16 56 16 42 V22 Z' fill='none' stroke={ink} strokeWidth='1.2' />
-      <path d='M40 22 L56 29 V42 C56 51 49 58 40 61 C31 58 24 51 24 42 V29 Z' fill='none' stroke={dim} strokeWidth='0.9' strokeDasharray='2 2.5' />
-      <circle cx='40' cy='42' r='4' fill={acc} />
-      <line x1='40' y1='46' x2='40' y2='54' stroke={acc} strokeWidth='1.2' />
-    </svg>
-  )
-  if (i === 3) return ( /* Governance — gauge + audit ticks */
-    <svg viewBox='0 0 80 80' style={common} aria-hidden='true'>
-      <path d='M16 56 A28 28 0 0 1 64 56' fill='none' stroke={ink} strokeWidth='1.2' />
-      {[210, 240, 270, 300, 330].map((a, k) => {
-        const rad = (a * Math.PI) / 180
-        return <line key={k} x1={40 + Math.cos(rad) * 24} y1={56 + Math.sin(rad) * 24} x2={40 + Math.cos(rad) * 28} y2={56 + Math.sin(rad) * 28} stroke={dim} strokeWidth='1' />
-      })}
-      <line x1='40' y1='56' x2='54' y2='38' stroke={acc} strokeWidth='1.6' />
-      <circle cx='40' cy='56' r='3' fill={acc} />
-      <line x1='20' y1='68' x2='60' y2='68' stroke={dim} strokeWidth='0.8' strokeDasharray='1.5 2.5' />
-    </svg>
-  )
-  return ( /* Operating models — org grid re-forming around agent node */
-    <svg viewBox='0 0 80 80' style={common} aria-hidden='true'>
-      {[[16, 16], [40, 16], [64, 16], [16, 40], [64, 40], [16, 64], [40, 64], [64, 64]].map(([x, y], k) => (
-        <rect key={k} x={x - 5} y={y - 5} width='10' height='10' fill='none' stroke={dim} strokeWidth='0.9' />
-      ))}
-      <circle cx='40' cy='40' r='9' fill='none' stroke={acc} strokeWidth='1.4' />
-      <circle cx='40' cy='40' r='3' fill={acc} />
-      {[[40, 16], [16, 40], [64, 40], [40, 64]].map(([x, y], k) => (
-        <line key={k} x1='40' y1='40' x2={x} y2={y} stroke={acc} strokeWidth='0.8' strokeDasharray='2 2.5' opacity='0.6' />
-      ))}
-    </svg>
-  )
+  return <InlineSvg markup={AREA_PLATES[i] ?? AREA_PLATES[0]} />
 }
 
-/* ─── Research areas — auto-cycling, A·SEQUENCE / B·INDEX layouts ──────────── */
 
 /* Human-readable category labels for the tabs (from each area's kicker) */
 const AREA_TABS = [
@@ -158,45 +78,61 @@ export function ResearchAreas() {
   return (
     <section id='areas' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
       <div className='v22-container'>
-        <div className='v22-cdp-block-grid'>
-          <div className='v22-cdp-block-head'>
+        {/* Head row — title left, subtitle top-right (matches section-note style) */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', marginBottom: 'clamp(28px,4vw,44px)' }}>
+          <div>
             <span className='v22-cdp-block-num'>Research areas</span>
-            <h2 className='v22-cdp-block-title'>Agentic AI, <em>taken seriously.</em></h2>
-            <p className='v22-cdp-block-kicker'>Five research categories. Including the parts that are not the model.</p>
+            <h2 className='v22-cdp-block-title' style={{ marginBottom: 0 }}>Agentic AI, <em>taken seriously.</em></h2>
           </div>
-          <div className='v22-cdp-block-body'>
-            {/* Same tab element as the What-we-do sections on the other pages */}
-            <div className='v22-cdp-services-tabs'>
-              <div className='v22-cdp-services-tablist' role='tablist' aria-label='Research categories'>
-                {AREA_TABS.map((label, i) => (
-                  <button
-                    key={label}
-                    type='button'
-                    role='tab'
-                    id={`ri-tab-${i}`}
-                    aria-selected={i === active}
-                    aria-controls={`ri-panel-${i}`}
-                    tabIndex={i === active ? 0 : -1}
-                    className={`v22-cdp-services-tab${i === active ? ' is-active' : ''}`}
-                    onClick={() => select(i)}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-
+          <p className='v22-cdp-block-kicker' style={{ margin: 0, textAlign: 'right', maxWidth: 360 }}>Five research categories. Including the parts that are not the model.</p>
+        </div>
+        {/* Tabs left · panel right, top-aligned */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 'clamp(28px,4vw,56px)', alignItems: 'start' }}>
+          <div>
+            <div role='tablist' aria-label='Research categories' aria-orientation='vertical'
+              style={{ display: 'flex', flexDirection: 'column', borderTop: '1px solid rgba(13,27,62,0.12)' }}>
+              {AREA_TABS.map((label, i) => (
+                <button
+                  key={label}
+                  type='button'
+                  role='tab'
+                  id={`ri-tab-${i}`}
+                  aria-selected={i === active}
+                  aria-controls={`ri-panel-${i}`}
+                  tabIndex={i === active ? 0 : -1}
+                  onClick={() => select(i)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 14, width: '100%', padding: '14px 2px',
+                    cursor: 'pointer', background: 'transparent', border: 'none',
+                    borderBottom: '1px solid rgba(13,27,62,0.12)',
+                    borderLeft: i === active ? '2px solid var(--v22-accent)' : '2px solid transparent',
+                    paddingLeft: 14, font: 'inherit', textAlign: 'left',
+                    color: i === active ? 'var(--v22-ink)' : 'rgba(13,27,62,0.55)',
+                    fontWeight: i === active ? 700 : 500, fontSize: 15, letterSpacing: '-0.01em',
+                    transition: 'color .2s ease, border-color .2s ease',
+                  }}
+                >
+                  <span style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', opacity: 0.55, minWidth: 22 }}>{AREAS[i].num}</span>
+                  {label}
+                  <span style={{ marginLeft: 'auto', width: 7, height: 7, borderRadius: '50%', flex: 'none', background: i === active ? 'var(--v22-accent)' : 'transparent', transition: 'background .2s ease' }} />
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div className='v22-cdp-services-tabs' style={{ marginTop: 0 }}>
               <div
                 role='tabpanel'
                 id={`ri-panel-${active}`}
                 aria-labelledby={`ri-tab-${active}`}
                 className='v22-cdp-services-panel'
               >
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 24 }}>
-                  <div style={{ minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 28, flexWrap: 'wrap' }}>
+                  <div style={{ minWidth: 0, flex: '1 1 300px' }}>
                     <h3 className='v22-cdp-services-panel-name'>{area.title}</h3>
                     <p className='v22-cdp-services-panel-lede'>{area.body}</p>
                   </div>
-                  <div style={{ flex: 'none', width: 92, height: 92, border: '1px solid rgba(13,27,62,0.14)', padding: 12 }} aria-hidden='true'>
+                  <div style={{ flex: 'none', width: 'clamp(120px, 16vw, 168px)', aspectRatio: '1', border: '1px solid rgba(13,27,62,0.14)', padding: 10 }} aria-hidden='true'>
                     <AreaGlyph i={active} />
                   </div>
                 </div>

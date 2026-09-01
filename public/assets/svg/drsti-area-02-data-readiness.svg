@@ -1,0 +1,29 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g stroke="var(--v22-ink-4)" stroke-width="1">
+<line x1="4" y1="4" x2="14" y2="4"/><line x1="4" y1="4" x2="4" y2="14"/>
+<line x1="96" y1="4" x2="86" y2="4"/><line x1="96" y1="4" x2="96" y2="14"/>
+<line x1="4" y1="96" x2="14" y2="96"/><line x1="4" y1="96" x2="4" y2="86"/>
+<line x1="96" y1="96" x2="86" y2="96"/><line x1="96" y1="96" x2="96" y2="86"/>
+</g>
+<circle cx="25" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="25" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="50" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="25" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="50" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+<circle cx="75" cy="75" r="0.8" fill="var(--v22-ink-4)" opacity="0.5"/>
+
+<ellipse cx="38" cy="26" rx="20" ry="8" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.2"/>
+<path d="M18 26 v28 a20 8 0 0 0 40 0 V26" fill="none" stroke="var(--v22-ink-2)" stroke-width="1.2"/>
+<path d="M18 38 a20 8 0 0 0 40 0" fill="none" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<path d="M18 48 a20 8 0 0 0 40 0" fill="none" stroke="var(--v22-ink-4)" stroke-width="1"/>
+<ellipse cx="38" cy="26" rx="11" ry="4" fill="none" stroke="var(--v22-accent)" stroke-width="1" stroke-dasharray="2 2.5"/>
+<path d="M60 50 C70 54 72 60 76 66" fill="none" stroke="var(--v22-accent)" stroke-width="1.3" stroke-dasharray="3 3"/>
+<path d="M72 62 L77 67 L70 69" fill="none" stroke="var(--v22-accent)" stroke-width="1.2"/>
+<circle cx="79" cy="72" r="8" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="79" cy="72" r="2.6" fill="var(--v22-accent)"/>
+<text x="50" y="94" text-anchor="middle" font-family="var(--font-mono)" font-size="6" letter-spacing="1.4" fill="var(--v22-ink-4)">AGENT-READY DATA</text>
+</svg>

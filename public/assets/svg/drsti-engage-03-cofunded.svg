@@ -1,0 +1,11 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<circle cx="13" cy="14" r="7" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<circle cx="13" cy="14" r="2" fill="var(--v22-ink-2)"/>
+<circle cx="35" cy="14" r="7" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<circle cx="35" cy="14" r="2" fill="var(--v22-ink-2)"/>
+<line x1="15" y1="20" x2="21" y2="30" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2 2.5"/>
+<line x1="33" y1="20" x2="27" y2="30" stroke="var(--v22-ink-4)" stroke-width="1" stroke-dasharray="2 2.5"/>
+<rect x="16" y="30" width="16" height="11" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="24" cy="35.5" r="1.8" fill="var(--v22-accent)"/>
+</svg>

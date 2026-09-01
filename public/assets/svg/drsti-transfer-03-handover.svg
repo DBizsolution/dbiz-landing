@@ -1,0 +1,12 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<rect x="5" y="14" width="16" height="16" fill="var(--v22-paper)" stroke="var(--v22-ink-2)" stroke-width="1.1"/>
+<line x1="8" y1="19" x2="18" y2="19" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<line x1="8" y1="23" x2="15" y2="23" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<line x1="8" y1="27" x2="17" y2="27" stroke="var(--v22-ink-4)" stroke-width="0.9"/>
+<line x1="23" y1="22" x2="34" y2="22" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<path d="M31 18.5 L34.5 22 L31 25.5" fill="none" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="40" cy="22" r="4.5" fill="rgba(240, 123, 47, 0.12)" stroke="var(--v22-accent)" stroke-width="1.4"/>
+<circle cx="40" cy="22" r="1.6" fill="var(--v22-accent)"/>
+<line x1="5" y1="38" x2="43" y2="38" stroke="var(--v22-ink-4)" stroke-width="0.9" stroke-dasharray="1.5 2.5"/>
+</svg>
