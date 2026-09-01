@@ -53,7 +53,7 @@ function SheetFrame({ foot, children }: { foot?: string; children: ReactNode }) 
       {foot && (
         <div style={{
           borderTop: '1px solid rgba(255,255,255,0.08)', padding: '14px clamp(16px,3vw,40px)', textAlign: 'center',
-          fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.4)',
+          fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.4)',
         }}>{foot}</div>
       )}
     </div>
@@ -159,7 +159,7 @@ export default function ResearchInnovationPage() {
                 <a href='#partners' className='v22-cta-text'>Research with us</a>
               </div>
             </div>
-            <aside className='v22-cdp-hero-aside' aria-hidden='true'>
+            <aside className='v22-cdp-hero-aside v22-ri-hero-aside' aria-hidden='true'>
               <SheetFrame>
                 <div style={{ padding: 24 }}>
                   <span style={{ width: '100%', maxWidth: 440, margin: '0 auto', display: 'block' }}><InlineSvg markup={drstiHeroLifecycle} /></span>
@@ -181,7 +181,7 @@ export default function ResearchInnovationPage() {
             <div className='v22-cdp-block-body'>
               <p style={{ margin: '0 0 24px', fontSize: 17, lineHeight: 1.65, color: INK2, maxWidth: '60ch' }}>The demo is rarely the problem. Data that isn&rsquo;t ready, permissions that don&rsquo;t hold, evaluation nobody trusts. That is where enterprise AI stalls. dRSTi exists to solve those problems ahead of the delivery work, so our clients are not the ones discovering them in production.</p>
               <div style={{ borderLeft: `2px solid ${ACCENT}`, paddingLeft: 20, marginBottom: 40 }}>
-                <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT_DEEP, marginBottom: 10 }}>HOW WE ARE DIFFERENT</div>
+                <div style={{ fontFamily: MONO, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: ACCENT_DEEP, marginBottom: 10 }}>HOW WE ARE DIFFERENT</div>
                 <p style={{ margin: 0, fontSize: 16, lineHeight: 1.65, color: INK, maxWidth: '56ch' }}>The unit runs on its own clock and its own funding, so long-horizon questions get answered properly. Everything it produces is built to be handed to a delivery team, or to you.</p>
               </div>
               <div className='v22-ri-stats-grid'>
@@ -192,8 +192,8 @@ export default function ResearchInnovationPage() {
                 ].map((s) => (
                   <div key={s.label} style={{ background: '#fff', border: '1px solid rgba(13,27,62,0.12)', padding: '26px 28px' }}>
                     <div style={{ fontSize: 'clamp(30px,3vw,40px)', fontWeight: 800, letterSpacing: '-0.04em', color: ACCENT, lineHeight: 1 }}>{s.stat}</div>
-                    <div style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.55)', margin: '10px 0 8px' }}>{s.label}</div>
-                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.55, color: INK2 }}>{s.body}</p>
+                    <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.55)', margin: '10px 0 8px' }}>{s.label}</div>
+                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: INK2 }}>{s.body}</p>
                   </div>
                 ))}
               </div>
@@ -225,7 +225,7 @@ export default function ResearchInnovationPage() {
                       <StageGlyph i={i} />
                     </div>
                     <h3 style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
-                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
+                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
                   </div>
                 ))}
               </div>
@@ -257,17 +257,17 @@ export default function ResearchInnovationPage() {
               return (
                 <article key={a.num} className='v22-ri-register-row'>
                   <div className='v22-ri-register-meta'>
-                    <span style={{ fontFamily: MONO, fontSize: 13, letterSpacing: '0.14em', color: ACCENT_DEEP }}>{String(i + 1).padStart(2, '0')}</span>
+                    <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT_DEEP }}>{String(i + 1).padStart(2, '0')}</span>
                     <span style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: MONO, fontSize: 10, fontWeight: 500, letterSpacing: '0.12em', color: 'rgba(13,27,62,0.75)', whiteSpace: 'nowrap' }}>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.75)', whiteSpace: 'nowrap' }}>
                         <span aria-hidden='true' style={{ width: 8, height: 8, borderRadius: '50%', background: hz.color, flex: 'none' }} />
                         {hz.name}
                       </span>
-                      <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: '0.1em', color: 'rgba(13,27,62,0.45)', paddingLeft: 15, whiteSpace: 'nowrap' }}>{hz.span}</span>
+                      <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.45)', paddingLeft: 15, whiteSpace: 'nowrap' }}>{hz.span}</span>
                     </span>
                   </div>
                   <div style={{ minWidth: 0 }}>
-                    <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT_DEEP, marginBottom: 10 }}>{a.kicker}</div>
+                    <div style={{ fontFamily: MONO, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: ACCENT_DEEP, marginBottom: 10 }}>{a.kicker}</div>
                     <h3 style={{ margin: '0 0 10px', fontSize: 'clamp(18px,2vw,22px)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: INK }}>{a.title}</h3>
                     <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: INK2, maxWidth: '62ch' }}>{a.body}</p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
@@ -347,15 +347,15 @@ export default function ResearchInnovationPage() {
                     </span>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap' }}>
                       <span style={{ fontSize: 'clamp(34px,3.4vw,46px)', fontWeight: 800, letterSpacing: '-0.04em', color: h.color, lineHeight: 1 }}>{h.pct}<span style={{ fontSize: '0.45em', verticalAlign: 'super' }}>%</span></span>
-                      <span style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.5)' }}>{h.hz}</span>
-                      <span style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.13em', color: ACCENT_DEEP }}>{h.span}</span>
+                      <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.5)' }}>{h.hz}</span>
+                      <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT_DEEP }}>{h.span}</span>
                     </div>
                     <h3 style={{ margin: '12px 0 6px', fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', color: INK }}>{h.t}</h3>
-                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: INK2, maxWidth: '58ch' }}>{h.b}</p>
+                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: INK2, maxWidth: '58ch' }}>{h.b}</p>
                   </div>
                 ))}
               </div>
-              <p style={{ margin: '36px 0 0', fontSize: 14, lineHeight: 1.6, color: 'rgba(13,27,62,0.55)', maxWidth: '70ch' }}>Illustrative allocation of effort and capital: the mix is rebalanced as work matures and graduates between horizons.</p>
+              <p style={{ margin: '36px 0 0', fontSize: 15, lineHeight: 1.65, color: 'rgba(13,27,62,0.55)', maxWidth: '70ch' }}>Illustrative allocation of effort and capital: the mix is rebalanced as work matures and graduates between horizons.</p>
             </div>
           </div>
         </div>
@@ -381,8 +381,8 @@ export default function ResearchInnovationPage() {
                 ].map((c) => (
                   <div key={c.k} style={{ borderLeft: '2px solid rgba(240,123,47,0.4)', paddingLeft: 20 }}>
                     <span aria-hidden='true' style={{ display: 'block', width: 26, height: 26, color: 'var(--v22-accent)', marginBottom: 12 }}><InlineSvg markup={c.icon} /></span>
-                    <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT, marginBottom: 12 }}>{c.k}</div>
-                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
+                    <div style={{ fontFamily: MONO, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: ACCENT, marginBottom: 12 }}>{c.k}</div>
+                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
                   </div>
                 ))}
               </div>
@@ -410,11 +410,11 @@ export default function ResearchInnovationPage() {
                 ].map((c, i) => (
                   <div key={c.s} style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.06)', padding: '26px 24px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                      <span style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', color: ACCENT_DEEP }}>{c.s}</span>
+                      <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT_DEEP }}>{c.s}</span>
                       <TransferGlyph i={i} />
                     </div>
                     <h3 style={{ margin: '0 0 10px', fontSize: 18, fontWeight: 700, letterSpacing: '-0.02em', color: INK }}>{c.t}</h3>
-                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: INK2 }}>{c.b}</p>
+                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: INK2 }}>{c.b}</p>
                   </div>
                 ))}
               </div>
@@ -441,12 +441,12 @@ export default function ResearchInnovationPage() {
                 ].map((c, i) => (
                   <div key={c.n} style={{ background: NAVY, border: '1px solid rgba(255,255,255,0.1)', padding: '28px 26px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                      <span style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', color: ACCENT }}>{c.n}</span>
+                      <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT }}>{c.n}</span>
                       <EngageGlyph i={i} />
                     </div>
                     <h3 style={{ margin: '0 0 10px', fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
-                    <p style={{ margin: '0 0 14px', fontSize: 15, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
-                    <div style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.13em', color: 'rgba(255,255,255,0.4)' }}>{c.span}</div>
+                    <p style={{ margin: '0 0 14px', fontSize: 15, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
+                    <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.4)' }}>{c.span}</div>
                   </div>
                 ))}
               </div>
@@ -472,7 +472,7 @@ export default function ResearchInnovationPage() {
                   { k: 'TECHNOLOGY PARTNERS', t: 'Test it where it has to survive', b: 'Hyperscalers, model providers, and platform vendors use the unit to put early capability in front of enterprise conditions: governance, cost, and integration. Findings come back to you.', tags: ['Early access', 'Co-engineering'] },
                 ].map((c) => (
                   <div key={c.k} style={{ flex: '0 0 min(440px, 86%)', scrollSnapAlign: 'start', background: '#fff', border: '1px solid rgba(0,0,0,0.06)', padding: '30px 28px', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT_DEEP, marginBottom: 18 }}>{c.k}</div>
+                    <div style={{ fontFamily: MONO, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: ACCENT_DEEP, marginBottom: 18 }}>{c.k}</div>
                     <h3 style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', color: INK }}>{c.t}</h3>
                     <p style={{ margin: '0 0 20px', fontSize: 15, lineHeight: 1.65, color: INK2 }}>{c.b}</p>
                     <div style={{ marginTop: 'auto', display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -481,7 +481,37 @@ export default function ResearchInnovationPage() {
                   </div>
                 ))}
               </div>
-              <div style={{ marginTop: 6, fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.45)' }}>SCROLL →</div>
+              <div style={{ marginTop: 6, fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.45)' }}>SCROLL →</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* §10 JOIN dRSTi — dark block */}
+      <section id='careers' className='v22-cdp-block v22-cdp-proof' data-surface='dark'>
+        <div className='v22-container'>
+          <div className='v22-cdp-block-grid'>
+            <div className='v22-cdp-block-head'>
+              <span className='v22-cdp-block-num'>Join dRSTi</span>
+              <h2 className='v22-cdp-block-title'>For people who would rather <em>find out than assume</em></h2>
+              <p className='v22-cdp-block-kicker'>Open to dbiz teams and external researchers.</p>
+            </div>
+            <div className='v22-cdp-block-body'>
+              <p style={{ margin: '0 0 36px', fontSize: 17, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)', maxWidth: '64ch' }}>The unit runs as a small core with fixed-term tours of duty. Engineers, designers, and data scientists inside dbiz can join a bet, do the work, and take the capability back to their team.</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 'clamp(14px,2vw,20px)' }}>
+                {[
+                  { t: 'Research & tech leads', b: 'Deep expertise in a target domain; drive discovery and technical feasibility.' },
+                  { t: 'Venture & product leads', b: 'Own a bet end to end: the problem, the case, and the path to transfer.' },
+                  { t: 'Engineers & prototypers', b: 'Build fast, disposable prototypes that test the riskiest assumption first.' },
+                  { t: 'Designers & data scientists', b: 'Shape how people work with agents; mine signals and validate what the data supports.' },
+                ].map((c) => (
+                  <div key={c.t} style={{ background: NAVY, border: '1px solid rgba(255,255,255,0.1)', padding: '26px 24px' }}>
+                    <h3 style={{ margin: '0 0 10px', fontSize: 18, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
+                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
+                  </div>
+                ))}
+              </div>
+              <CareersTour />
             </div>
           </div>
         </div>
@@ -517,43 +547,13 @@ export default function ResearchInnovationPage() {
               ].map((c) => (
                 <div key={c.t} style={{ borderLeft: '2px solid var(--v22-accent)', paddingLeft: 18 }}>
                   <h3 style={{ margin: '0 0 8px', fontSize: 17, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
-                  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'rgba(255,255,255,0.6)' }}>{c.b}</p>
+                  <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: 'rgba(255,255,255,0.6)' }}>{c.b}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
       </section>
-      {/* §10 JOIN dRSTi — dark block */}
-      <section id='careers' className='v22-cdp-block v22-cdp-proof' data-surface='dark'>
-        <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>Join dRSTi</span>
-              <h2 className='v22-cdp-block-title'>For people who would rather <em>find out than assume</em></h2>
-              <p className='v22-cdp-block-kicker'>Open to dbiz teams and external researchers.</p>
-            </div>
-            <div className='v22-cdp-block-body'>
-              <p style={{ margin: '0 0 36px', fontSize: 17, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)', maxWidth: '64ch' }}>The unit runs as a small core with fixed-term tours of duty. Engineers, designers, and data scientists inside dbiz can join a bet, do the work, and take the capability back to their team.</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 'clamp(14px,2vw,20px)' }}>
-                {[
-                  { t: 'Research & tech leads', b: 'Deep expertise in a target domain; drive discovery and technical feasibility.' },
-                  { t: 'Venture & product leads', b: 'Own a bet end to end: the problem, the case, and the path to transfer.' },
-                  { t: 'Engineers & prototypers', b: 'Build fast, disposable prototypes that test the riskiest assumption first.' },
-                  { t: 'Designers & data scientists', b: 'Shape how people work with agents; mine signals and validate what the data supports.' },
-                ].map((c) => (
-                  <div key={c.t} style={{ background: NAVY, border: '1px solid rgba(255,255,255,0.1)', padding: '26px 24px' }}>
-                    <h3 style={{ margin: '0 0 10px', fontSize: 18, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>{c.t}</h3>
-                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
-                  </div>
-                ))}
-              </div>
-              <CareersTour />
-            </div>
-          </div>
-        </div>
-      </section>
-
     </main>
   )
 }

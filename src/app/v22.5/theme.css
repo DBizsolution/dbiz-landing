@@ -9465,3 +9465,17 @@
     letter-spacing: 0.08em;
   }
 }
+
+/* ── dRSTi hero — keep the lifecycle illustration visible at all widths
+   (the capability template hides .v22-cdp-hero-aside under 880px) ───────── */
+.v22-ri-hero-aside.v22-cdp-hero-aside > div { width: 100%; }
+.v22-ri-hero-aside svg { width: 100%; height: auto; display: block; }
+@media (max-width: 880px) {
+  .v22-ri-hero-aside.v22-cdp-hero-aside {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+    width: 100%;
+    max-width: 440px;
+  }
+}
