@@ -11,15 +11,6 @@
 
 import { useEffect, useState } from 'react'
 import type { CSSProperties } from 'react'
-import { InlineSvg } from '@/components/inline-svg'
-import { AREAS } from './areas-data'
-import {
-  drstiArea01AgenticArchitectures,
-  drstiArea02DataReadiness,
-  drstiArea03SecurityPrivacy,
-  drstiArea04GovernanceAssurance,
-  drstiArea05BusinessTransformation,
-} from '@/lib/svg-assets'
 
 const ACCENT = 'var(--v22-accent)'
 const ACCENT_DEEP = 'var(--brand-orange-hover)'
@@ -37,110 +28,6 @@ const STAGES = [
   { name: 'Validate', note: 'Test with users' },
   { name: 'Transfer', note: 'Hand off or scale' },
 ]
-
-/* ─── Area plates — design-system SVG assets (public/assets/svg) ──────────── */
-
-const AREA_PLATES = [
-  drstiArea01AgenticArchitectures,
-  drstiArea02DataReadiness,
-  drstiArea03SecurityPrivacy,
-  drstiArea04GovernanceAssurance,
-  drstiArea05BusinessTransformation,
-]
-
-function AreaGlyph({ i }: { i: number }) {
-  return <InlineSvg markup={AREA_PLATES[i] ?? AREA_PLATES[0]} />
-}
-
-
-/* Human-readable category labels for the tabs (from each area's kicker) */
-const AREA_TABS = [
-  'Agentic Architectures',
-  'Data Readiness',
-  'Security & Privacy',
-  'Governance & Assurance',
-  'Business Transformation',
-]
-
-export function ResearchAreas() {
-  const [active, setActive] = useState(0)
-  const [locked, setLocked] = useState(false)
-
-  useEffect(() => {
-    if (locked) return
-    const t = setTimeout(() => setActive((a) => (a + 1) % AREAS.length), 5200)
-    return () => clearTimeout(t)
-  }, [active, locked])
-
-  const select = (i: number) => { setActive(i === active && locked ? -1 : i); setLocked(true) }
-
-  return (
-    <section id='areas' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
-      <div className='v22-container'>
-        {/* Head row — title left, subtitle top-right (left-aligned when stacked) */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', marginBottom: 'clamp(24px,3.5vw,40px)' }}>
-          <div>
-            <span className='v22-cdp-block-num'>Research areas</span>
-            <h2 className='v22-cdp-block-title' style={{ marginBottom: 0 }}>Agentic AI, <em>taken seriously.</em></h2>
-          </div>
-          <p className='v22-cdp-block-kicker v22-ri-head-note'>Five research categories. Including the parts that are not the model.</p>
-        </div>
-
-        {/* Accordion — one full-width expanding row per research category */}
-        <div style={{ borderTop: '1px solid rgba(13,27,62,0.16)' }}>
-          {AREAS.map((a, i) => {
-            const open = i === active
-            return (
-              <div key={a.num} style={{ borderBottom: '1px solid rgba(13,27,62,0.16)' }}>
-                <button
-                  type='button'
-                  aria-expanded={open}
-                  aria-controls={`ri-panel-${i}`}
-                  id={`ri-tab-${i}`}
-                  onClick={() => select(i)}
-                  style={{
-                    display: 'flex', alignItems: 'baseline', gap: 'clamp(14px,2vw,22px)', width: '100%',
-                    padding: 'clamp(18px,2.5vw,24px) 2px', cursor: 'pointer', background: 'transparent',
-                    border: 'none', font: 'inherit', textAlign: 'left',
-                    color: open ? 'var(--v22-ink)' : 'rgba(13,27,62,0.6)', transition: 'color .2s ease',
-                  }}
-                >
-                  <span style={{ fontFamily: MONO, fontSize: 12, letterSpacing: '0.14em', color: open ? 'var(--brand-orange-hover)' : 'rgba(13,27,62,0.45)', transition: 'color .2s ease' }}>{a.num}</span>
-                  <span style={{ fontSize: 'clamp(17px,2vw,21px)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.25 }}>{AREA_TABS[i]}</span>
-                  <span className='v22-ri-row-horizon' style={{ marginLeft: 'auto', fontFamily: MONO, fontSize: 10, letterSpacing: '0.12em', color: 'rgba(13,27,62,0.45)', whiteSpace: 'nowrap' }}>{a.horizon}</span>
-                  <span aria-hidden='true' style={{ fontSize: 18, fontWeight: 400, color: open ? 'var(--v22-accent)' : 'rgba(13,27,62,0.4)', transform: open ? 'rotate(45deg)' : 'none', transition: 'transform .25s ease, color .2s ease', lineHeight: 1 }}>+</span>
-                </button>
-                <div
-                  role='region'
-                  id={`ri-panel-${i}`}
-                  aria-labelledby={`ri-tab-${i}`}
-                  style={{
-                    display: 'grid', gridTemplateRows: open ? '1fr' : '0fr',
-                    transition: 'grid-template-rows .35s var(--ease-out, ease)',
-                  }}
-                >
-                  <div style={{ overflow: 'hidden' }}>
-                    <div className='v22-ri-panel-top' style={{ padding: '2px 2px clamp(22px,3vw,30px) clamp(26px,3.2vw,42px)' }}>
-                      <div className='v22-ri-panel-text'>
-                        <p className='v22-cdp-services-panel-lede' style={{ marginTop: 0 }}>{a.body}</p>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 16 }}>
-                          {a.tags.map((t) => <span key={t} className='v22-cap-pill'>{t}</span>)}
-                        </div>
-                      </div>
-                      <div className='v22-ri-panel-art' aria-hidden='true'>
-                        <AreaGlyph i={i} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 /* ─── Process pipeline — draws itself in on mount ─────────────────────────── */
 

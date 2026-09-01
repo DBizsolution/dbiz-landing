@@ -9433,3 +9433,27 @@
 @media (max-width: 640px) {
   .v22-ri-row-horizon { display: none; }
 }
+
+/* ── dRSTi research register — one row per area: meta | detail | plate ────── */
+.v22-ri-register-row {
+  display: grid;
+  grid-template-columns: clamp(92px, 10vw, 130px) minmax(0, 1fr) clamp(110px, 12vw, 150px);
+  gap: clamp(18px, 3vw, 44px);
+  padding: clamp(24px, 3.5vw, 36px) 2px;
+  border-bottom: 1px solid rgba(13, 27, 62, 0.16);
+  align-items: start;
+}
+.v22-ri-register-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@media (max-width: 860px) {
+  .v22-ri-register-row { grid-template-columns: minmax(0, 1fr) 104px; }
+  .v22-ri-register-meta {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 14px;
+  }
+}

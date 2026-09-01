@@ -11,13 +11,15 @@ import type { Metadata } from 'next'
 import type { ReactNode, CSSProperties } from 'react'
 import Link from 'next/link'
 import { Icon } from '@/components/icon'
-import { ResearchAreas, ProcessPipeline, PortfolioBar, CareersTour } from './interactive'
+import { ProcessPipeline, PortfolioBar, CareersTour } from './interactive'
 import { AREAS } from './areas-data'
 import { InlineSvg } from '@/components/inline-svg'
 import {
   drstiStage01Explore, drstiStage02Validate, drstiStage03Transfer, drstiStage04Cultivate,
   drstiEngage01Framing, drstiEngage02Sprint, drstiEngage03Cofunded, drstiEngage04Academic,
   drstiTransfer01Readiness, drstiTransfer02Home, drstiTransfer03Handover, drstiTransfer04Track,
+  drstiArea01AgenticArchitectures, drstiArea02DataReadiness, drstiArea03SecurityPrivacy,
+  drstiArea04GovernanceAssurance, drstiArea05BusinessTransformation,
 } from '@/lib/svg-assets'
 
 export const metadata: Metadata = {
@@ -64,6 +66,20 @@ const glyphBox: CSSProperties = { width: 52, height: 52, display: 'block' }
 const STAGE_GLYPHS = [drstiStage01Explore, drstiStage02Validate, drstiStage03Transfer, drstiStage04Cultivate]
 const ENGAGE_GLYPHS = [drstiEngage01Framing, drstiEngage02Sprint, drstiEngage03Cofunded, drstiEngage04Academic]
 const TRANSFER_GLYPHS = [drstiTransfer01Readiness, drstiTransfer02Home, drstiTransfer03Handover, drstiTransfer04Track]
+const AREA_PLATES = [
+  drstiArea01AgenticArchitectures,
+  drstiArea02DataReadiness,
+  drstiArea03SecurityPrivacy,
+  drstiArea04GovernanceAssurance,
+  drstiArea05BusinessTransformation,
+]
+
+/* Horizon → plain time-to-value, colored with the portfolio bar's orange fade */
+const HORIZONS: Record<string, { label: string; color: string }> = {
+  'HORIZON 1 · CORE': { label: 'H1 · PAYS OFF IN 0–12 MONTHS', color: 'var(--v22-accent)' },
+  'HORIZON 2 · EMERGING': { label: 'H2 · PAYS OFF IN 1–3 YEARS', color: 'rgba(240,123,47,0.72)' },
+  'HORIZON 3 · DISRUPTIVE': { label: 'H3 · PAYS OFF IN 3+ YEARS', color: 'rgba(240,123,47,0.45)' },
+}
 
 function StageGlyph({ i }: { i: number }) {
   return <span style={glyphBox} aria-hidden='true'><InlineSvg markup={STAGE_GLYPHS[i] ?? STAGE_GLYPHS[0]} /></span>
@@ -243,31 +259,49 @@ export default function ResearchInnovationPage() {
         </div>
       </section>
 
-      {/* §03 RESEARCH AREAS — interactive, cream block */}
-      <ResearchAreas />
-
-      {/* INDEX — all research areas at a glance, as its own band */}
-      <section id='index' className='v22-cdp-block' data-surface='light'>
+      {/* §03 RESEARCH REGISTER — the five reasons enterprise AI stalls,
+           each a named research programme with a horizon (time-to-value
+           encoded in the same orange fade as the portfolio bar). One section
+           replaces the old sequence + index duplication: everything visible,
+           nothing behind a click. */}
+      <section id='areas' className='v22-cdp-block v22-cdp-block--alt' data-surface='light'>
         <div className='v22-container'>
-          <div className='v22-cdp-block-grid'>
-            <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>Index</span>
-              <h2 className='v22-cdp-block-title'>All areas, <em>at a glance.</em></h2>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', marginBottom: 18 }}>
+            <div>
+              <span className='v22-cdp-block-num'>Research areas</span>
+              <h2 className='v22-cdp-block-title' style={{ marginBottom: 0 }}>Five reasons AI stalls.<br /><em>Five research programmes.</em></h2>
             </div>
-            <div className='v22-cdp-block-body'>
-              <div style={{ borderTop: '1px solid rgba(13,27,62,0.14)' }}>
-                {AREAS.map((a) => (
-                  <div key={a.num} style={{ display: 'grid', gridTemplateColumns: 'minmax(0,0.8fr) minmax(0,1.4fr) auto', gap: 'clamp(14px,2.5vw,36px)', alignItems: 'start', padding: '22px 2px', borderBottom: '1px solid rgba(13,27,62,0.14)' }}>
-                    <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-                      <span style={{ fontFamily: MONO, fontSize: 11, letterSpacing: '0.14em', color: ACCENT_DEEP, paddingTop: 4 }}>{a.num}</span>
-                      <h3 style={{ margin: 0, fontSize: 17, fontWeight: 700, letterSpacing: '-0.015em', lineHeight: 1.25, color: INK }}>{a.title}</h3>
-                    </div>
-                    <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: INK2 }}>{a.body}</p>
-                    <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: '0.12em', color: 'rgba(13,27,62,0.5)', whiteSpace: 'nowrap', paddingTop: 4 }}>{a.horizon}</span>
+            <p className='v22-cdp-block-kicker v22-ri-head-note'>Agentic AI, taken seriously. Including the parts that are not the model.</p>
+          </div>
+          <p style={{ margin: '0 0 clamp(28px,4vw,40px)', fontSize: 16, lineHeight: 1.65, color: INK2, maxWidth: '68ch' }}>
+            Each area below is a reason enterprise AI fails to reach production, and a funded programme working on it. The horizon says when it pays off: the same 70/20/10 balance the portfolio runs on.
+          </p>
+          <div style={{ borderTop: '1px solid rgba(13,27,62,0.16)' }}>
+            {AREAS.map((a, i) => {
+              const hz = HORIZONS[a.horizon]
+              return (
+                <article key={a.num} className='v22-ri-register-row'>
+                  <div className='v22-ri-register-meta'>
+                    <span style={{ fontFamily: MONO, fontSize: 13, letterSpacing: '0.14em', color: ACCENT_DEEP }}>{a.num}</span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontFamily: MONO, fontSize: 10, letterSpacing: '0.1em', color: 'rgba(13,27,62,0.6)', whiteSpace: 'nowrap' }}>
+                      <span aria-hidden='true' style={{ width: 8, height: 8, borderRadius: '50%', background: hz.color, flex: 'none' }} />
+                      {hz.label}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </div>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: ACCENT_DEEP, marginBottom: 10 }}>{a.kicker}</div>
+                    <h3 style={{ margin: '0 0 10px', fontSize: 'clamp(18px,2vw,22px)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: INK }}>{a.title}</h3>
+                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: INK2, maxWidth: '62ch' }}>{a.body}</p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
+                      {a.tags.map((t) => <span key={t} className='v22-cap-pill'>{t}</span>)}
+                    </div>
+                  </div>
+                  <div className='v22-ri-register-art' aria-hidden='true'>
+                    <InlineSvg markup={AREA_PLATES[i]} />
+                  </div>
+                </article>
+              )
+            })}
           </div>
         </div>
       </section>
