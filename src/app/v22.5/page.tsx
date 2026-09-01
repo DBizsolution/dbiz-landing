@@ -246,6 +246,7 @@ export default function V22Page() {
           <ul className='v22-nav-links'>
             <li><a href='#solutions'>Our Solutions</a></li>
             <li><a href='#work'>Our Work</a></li>
+            <li><a href='/v22.5/research-and-innovation'>Research &amp; Innovation</a></li>
             <li><a href='#about'>About Us</a></li>
             <li><a href='#careers'>Careers</a></li>
           </ul>
@@ -259,6 +260,7 @@ export default function V22Page() {
             <ul className='v22-nav-mobile-panel'>
               <li><a href='#solutions'>Our Solutions</a></li>
               <li><a href='#work'>Our Work</a></li>
+              <li><a href='/v22.5/research-and-innovation'>Research &amp; Innovation</a></li>
               <li><a href='#about'>About Us</a></li>
               <li><a href='#careers'>Careers</a></li>
               <li><a href='/contact'>Talk to our team</a></li>
