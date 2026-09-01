@@ -191,7 +191,7 @@ export default function ResearchInnovationPage() {
           <ul className='v22-nav-links'>
             <li><Link href='/v22.5#solutions'>Our Solutions</Link></li>
             <li><Link href='/v22.5#work'>Our Work</Link></li>
-            <li><Link href='/v22.5/research-and-innovation' aria-current='page' style={{ color: '#fff', fontWeight: 600 }}>Research &amp; Innovation</Link></li>
+            <li><Link href='/v22.5/research-and-innovation' aria-current='page' className='is-current'>Research &amp; Innovation</Link></li>
             <li><Link href='/v22.5#about'>About Us</Link></li>
             <li><a href='#careers'>Careers</a></li>
           </ul>

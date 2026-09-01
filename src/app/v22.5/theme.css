@@ -289,6 +289,12 @@
   position: relative;
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
+/* Active page link — white + semibold at rest; the :hover rule below still
+   wins on hover (equal specificity, declared later), so it turns accent. */
+.v22-nav-links a.is-current {
+  color: #ffffff;
+  font-weight: 600;
+}
 .v22-nav-links a::before,
 .v22-nav-links a::after {
   content: '';
