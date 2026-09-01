@@ -22,7 +22,7 @@ export const capabilities: Capability[] = [
     title: 'Strategy & Architecture',
     subtitle: 'Futures Studio · TechOffice Foundry',
     tags: ['AI Vision & Roadmap', 'Architecture-as-a-Service', 'AI Readiness', 'DBiz Canvas'],
-    body: 'Your business priorities become an AI and technology roadmap. Use case prioritisation, readiness assessment, architecture blueprint, data governance and security posture, before a single line of code gets written.',
+    body: 'We turn business priorities into a costed AI roadmap and target architecture: use-case prioritisation, readiness and risk assessment, data governance, and security posture, so investment lands where it returns, before a line of code is written.',
     cta: 'Get an AI readiness assessment',
   },
   {
@@ -33,7 +33,7 @@ export const capabilities: Capability[] = [
     title: 'The AI Foundational Layer',
     subtitle: 'Multi-hyperscaler · Sovereign · Governed',
     tags: ['DBiz Scoop', 'Multi-Hyperscaler', 'Sovereign Cloud', 'GPU Orchestration', 'FinOps'],
-    body: 'Cloud built for AI workloads, not retrofitted for them. Environments purpose-built for agents, data pipelines, and AI models, with governance, cost controls, and observability enterprise IT requires.',
+    body: 'The cloud most enterprises run was built to host apps, not run AI. We build AI-ready foundations across AWS, Azure, and Google Cloud: purpose-built for agents, inference, and data pipelines, with the governance, FinOps, and observability enterprise IT demands.',
     cta: 'Talk to a cloud architect',
   },
   {
@@ -44,7 +44,7 @@ export const capabilities: Capability[] = [
     title: 'The Intelligence Layer',
     subtitle: 'FactWeavers™ · Domain Data Cloud',
     tags: ['FactWeavers™', 'Domain Data Cloud', 'Data Mesh'],
-    body: "Every AI initiative stalls on the same thing: the data isn’t ready. FactWeavers™ cleans, unifies, and activates enterprise data, pre-modelled for your industry, ready for agents from day one.",
+    body: "Most AI stalls on one thing: the data isn’t ready. FactWeavers™ cleans, unifies, and governs enterprise data, pre-modelled for your industry and ready for agents from day one.",
     cta: 'See FactWeavers™ in action',
   },
   {
@@ -55,7 +55,7 @@ export const capabilities: Capability[] = [
     title: 'Connected Systems, Not Silos',
     subtitle: 'No rip and replace',
     tags: ['Salesforce', 'Dynamics 365', 'Boomi', 'MuleSoft'],
-    body: "CRM, ERP, and platform investments don’t need replacing, they need unlocking — for agents. We connect existing systems so agents can read, write, and act across your entire application landscape.",
+    body: "Your CRM, ERP, and platform investments don’t need replacing, they need unlocking for AI. We connect existing systems across Salesforce, Dynamics, MuleSoft, and Boomi, so agents can read, write, and act across the whole landscape, with no rip-and-replace.",
     cta: 'Explore integration options',
   },
   {
@@ -66,7 +66,7 @@ export const capabilities: Capability[] = [
     title: 'Engineered with AI, Shipped Continuously',
     subtitle: 'Agent Studio · Nexus · Perpetual Engineering',
     tags: ['AI-Native Apps', 'Agent Studio', 'Nexus Platform', 'Perpetual Engineering'],
-    body: 'AI-native applications built by AI-first teams. Agent Studio for multi-agent orchestration, Nexus as the dev platform, Perpetual Engineering across the SDLC.',
+    body: 'Products engineered as living systems, not static releases. Perpetual Engineering regenerates software continuously with AI, and Agent Studio puts multi-agent intelligence inside the product, so it keeps evolving instead of ageing.',
     cta: 'See what we’ve built',
   },
   {
@@ -77,7 +77,7 @@ export const capabilities: Capability[] = [
     title: 'The Human-Agent Experience',
     subtitle: 'Research-led · Experience engineering',
     tags: ['Agentic UX', 'Design Systems', 'DBiz Canvas', 'AI in Design Workflows'],
-    body: 'Designing for humans in an increasingly agentic world is our core. We map human needs into design, iterate with AI-driven workflows, and turn requirements into shipped screens in days — structured enough to scale, human enough to trust.',
+    body: 'As products fill with agents, experience is what earns adoption and trust. Research-led design for human-agent collaboration, turned into production-ready systems in days: structured enough to scale, human enough to trust.',
     cta: 'Explore our design practice',
   },
   {
@@ -88,7 +88,7 @@ export const capabilities: Capability[] = [
     title: 'AI-First Operations',
     subtitle: 'The team that built it runs it',
     tags: ['Monitoring', 'Governance', 'Continuous Improvement'],
-    body: "AI-first monitoring, governance, and continuous improvement across your entire stack. Not a support contract from a team that’s never seen the architecture.",
+    body: "The team that built it runs it. AI-first monitoring, governance, and continuous optimisation across the whole stack, turning go-live into compounding improvement, not a hands-off support contract.",
     cta: 'Learn about managed services',
   },
 ]

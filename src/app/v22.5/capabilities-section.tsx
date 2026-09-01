@@ -53,9 +53,9 @@ export default function CapabilitiesSection() {
       <div className='v22-container'>
         <div className='v22-cap-head'>
           <div className='v22-cap-head-left'>
-            <div className='num'>N°03 / What we do</div>
-            <h2>Seven layers. <span style={{ color: 'var(--v22-accent)' }}>One Frontier.</span>{' '}<span style={{ whiteSpace: 'nowrap' }}>No handoff.</span></h2>
-            <p className='lead'>We re&#8209;architect every layer for the AI&#8209;native enterprise. No retrofits, no silos.</p>
+            <div className='num'>N°03 · The AI-Ready Enterprise</div>
+            <h2>AI pilots don&rsquo;t scale.{' '}<span style={{ color: 'var(--v22-accent)' }}>Re&#8209;architected enterprises do.</span></h2>
+            <p className='lead'>Pilots stall because the enterprise underneath them was never built for AI. We re&#8209;architect all seven layers, from cloud and data to applications and operations, into one AI&#8209;ready stack, so intelligence compounds across the business instead of stalling in a proof of concept.</p>
           </div>
         </div>
 
