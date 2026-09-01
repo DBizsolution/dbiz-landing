@@ -138,7 +138,7 @@ export default function ResearchInnovationPage() {
         <div className='v22-container'>
           <div className='v22-cdp-hero-grid'>
             <div className='v22-cdp-hero-meta'>
-              <span className='v22-cdp-eyebrow'>dbiz Research Strategy and Technology Innovation</span>
+              <span className='v22-cdp-eyebrow'>dRSTi · Research &amp; Innovation</span>
               <h1 className='v22-cdp-title'>
                 <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: '0.16em' }}>
                   dRSTi
