@@ -526,9 +526,9 @@ export default function ResearchInnovationPage() {
                 Tell us what you have tried and where it stopped. If it is a question worth answering, we will tell you how we would test it.
               </p>
               <div className='v22-cdp-cta-actions'>
-                <Link href='/v22.5#cta' className='v22-cta-primary'>
-                  Contact dRSTi <span className='arrow'>→</span>
-                </Link>
+                <a href='mailto:Innovationhub@dbizsolution.com' className='v22-cta-primary'>
+                  Contact <span style={{ textTransform: 'none' }}>dRSTi</span> <span className='arrow'>→</span>
+                </a>
                 <Link href='/v22.5#cta' className='v22-cta-text'>Subscribe to research updates</Link>
               </div>
             </div>
