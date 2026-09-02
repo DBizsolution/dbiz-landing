@@ -517,7 +517,7 @@ export default function ResearchInnovationPage() {
               pitch + actions fill the left cell, audience paths the right. */}
           <div className='v22-cdp-cta-inner'>
             <div className='v22-cdp-cta-end'>
-              <span className='v22-cdp-cta-num'>[Z·<span style={{ textTransform: 'none' }}>dRSTi</span>] NEXT STEP</span>
+              <span className='v22-cdp-cta-num'>NEXT STEP</span>
               <h2 className='v22-cdp-cta-title'>
                 Start with a question,<br />
                 <em>not a proposal.</em>
