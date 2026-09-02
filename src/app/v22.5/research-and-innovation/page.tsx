@@ -302,16 +302,26 @@ export default function ResearchInnovationPage() {
                   <h3 style={{ margin: '0 0 12px', fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>Every gate is a decision, taken in the open</h3>
                   <p style={{ margin: 0, fontSize: 16, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)' }}>At each gate the evidence is reviewed against criteria agreed up front: technical, commercial, and strategic. Partners and clients sit in the reviews for the work they fund.</p>
                 </div>
-                <div className='v22-ri-grid-2'>
+                {/* Gate decision ladder — the four outcomes hang off the same
+                    diamond marker the pipeline uses, so it reads as one instrument */}
+                <div style={{ border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <svg viewBox='0 0 20 20' width='18' height='18' aria-hidden='true'>
+                      <path d='M10 2 L18 10 L10 18 L2 10 Z' fill='var(--brand-navy-deep)' stroke='rgba(255,255,255,0.45)' strokeWidth='1.2' />
+                      <circle cx='10' cy='10' r='2.4' fill='var(--v22-accent)' />
+                    </svg>
+                    <span style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: 'rgba(255,255,255,0.6)' }}>AT EVERY GATE · ONE OF FOUR CALLS</span>
+                  </div>
                   {[
-                    { t: 'Go', d: 'fund the next stage', accent: true },
-                    { t: 'Kill', d: 'stop & reallocate' },
-                    { t: 'Hold', d: 'pause for now' },
-                    { t: 'Recycle', d: 'rework & return' },
-                  ].map((g) => (
-                    <div key={g.t} style={{ background: NAVY, border: '1px solid rgba(255,255,255,0.1)', padding: '20px 18px' }}>
-                      <div style={{ fontSize: 16, fontWeight: 700, color: g.accent ? ACCENT : '#fff', marginBottom: 6 }}>{g.t}</div>
-                      <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.65)' }}>{g.d}</div>
+                    { t: 'Go', d: 'fund the next stage', bar: 'var(--v22-accent)', accent: true },
+                    { t: 'Kill', d: 'stop & reallocate', bar: 'rgba(255,255,255,0.45)' },
+                    { t: 'Hold', d: 'pause for now', bar: 'rgba(255,255,255,0.28)' },
+                    { t: 'Recycle', d: 'rework & return', bar: 'rgba(255,255,255,0.28)' },
+                  ].map((g, i, arr) => (
+                    <div key={g.t} style={{ display: 'flex', alignItems: 'baseline', gap: 16, padding: '14px 20px', borderBottom: i < arr.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
+                      <span aria-hidden='true' style={{ width: 22, height: 3, background: g.bar, flex: 'none', alignSelf: 'center' }} />
+                      <span style={{ fontSize: 16, fontWeight: 700, color: g.accent ? 'var(--v22-accent)' : '#fff', minWidth: 64 }}>{g.t}</span>
+                      <span style={{ fontSize: 15, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)' }}>{g.d}</span>
                     </div>
                   ))}
                 </div>
@@ -342,7 +352,7 @@ export default function ResearchInnovationPage() {
                 ].map((h, i, arr) => (
                   <div key={h.hz} style={{ position: 'relative', paddingBottom: i < arr.length - 1 ? 44 : 0 }}>
                     {/* Node on the rail */}
-                    <span aria-hidden='true' style={{ position: 'absolute', left: -36, top: 8, width: 17, height: 17, borderRadius: '50%', border: `1.5px solid ${h.color}`, background: 'var(--v22-paper-2, #F3F0EC)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <span aria-hidden='true' style={{ position: 'absolute', left: -36, top: 8, width: 17, height: 17, borderRadius: '50%', border: `1.5px solid ${h.color}`, background: 'var(--v22-paper-2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <span style={{ width: 7, height: 7, borderRadius: '50%', background: h.color }} />
                     </span>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap' }}>
