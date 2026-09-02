@@ -291,7 +291,7 @@ export default function ResearchInnovationPage() {
             <div className='v22-cdp-block-head'>
               <span className='v22-cdp-block-num'>Our process</span>
               <h2 className='v22-cdp-block-title'>From question to production, through <em>explicit gates.</em></h2>
-              <p className='v22-cdp-block-kicker'>Six stages · five gates.</p>
+              <p className='v22-cdp-block-kicker' style={{ whiteSpace: 'nowrap' }}>Six stages · five gates.</p>
             </div>
             <div className='v22-cdp-block-body'>
               <SheetFrame>
