@@ -9479,3 +9479,28 @@
     max-width: 440px;
   }
 }
+
+/* ── dRSTi 4-tile grids — 4-up on full screens, 2×2 mid, stacked small;
+   never a 3+1 orphan row ─────────────────────────────────────────────────── */
+.v22-ri-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 24px);
+}
+@media (max-width: 1100px) {
+  .v22-ri-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2.5vw, 28px); }
+}
+@media (max-width: 640px) {
+  .v22-ri-grid-2 { grid-template-columns: 1fr; }
+}
+
+/* ── dRSTi page — eyebrows follow the landing-page / BRAND.md kicker spec
+   (DM Mono 500 / 0.14em), not the heavier cdp badge weight ───────────────── */
+.v22-ri-page .v22-cdp-block-num,
+.v22-ri-page .v22-cdp-eyebrow,
+.v22-ri-page .v22-cdp-cta-num,
+.v22-ri-page .v22-cdp-crumb-num {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}

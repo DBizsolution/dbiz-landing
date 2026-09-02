@@ -29,6 +29,59 @@ const STAGES = [
   { name: 'Transfer', note: 'Hand off or scale' },
 ]
 
+/* ─── Who we work with — tabs with the content below each tab ─────────────── */
+
+const AUDIENCES = [
+  {
+    tab: 'Enterprises', k: 'ENTERPRISES', t: 'You have the constraint that makes it real',
+    b: 'Co-fund a research bet on a problem your roadmap keeps deferring: data readiness, agent assurance, autonomy in a regulated process. You get evidence and a transferable result; we get a problem worth solving.',
+    tags: ['Co-funded bets', 'Agreed IP terms'],
+  },
+  {
+    tab: 'Universities & Institutes', k: 'UNIVERSITIES & RESEARCH INSTITUTES', t: 'Enterprise problems, at real scale',
+    b: 'Joint studies, supervised student projects, and placements inside live engagements. We bring industrial problems, data access, and engineers; you bring method and depth. Results are published.',
+    tags: ['Joint studies', 'Placements', 'Publication'],
+  },
+  {
+    tab: 'Technology Partners', k: 'TECHNOLOGY PARTNERS', t: 'Test it where it has to survive',
+    b: 'Hyperscalers, model providers, and platform vendors use the unit to put early capability in front of enterprise conditions: governance, cost, and integration. Findings come back to you.',
+    tags: ['Early access', 'Co-engineering'],
+  },
+]
+
+export function AudienceTabs() {
+  const [active, setActive] = useState(0)
+  const a = AUDIENCES[active]
+  return (
+    <div className='v22-cdp-services-tabs' style={{ marginTop: 0 }}>
+      <div className='v22-cdp-services-tablist' role='tablist' aria-label='Who we work with'>
+        {AUDIENCES.map((x, i) => (
+          <button
+            key={x.tab}
+            type='button'
+            role='tab'
+            id={`ri-aud-tab-${i}`}
+            aria-selected={i === active}
+            aria-controls={`ri-aud-panel-${i}`}
+            tabIndex={i === active ? 0 : -1}
+            className={`v22-cdp-services-tab${i === active ? ' is-active' : ''}`}
+            onClick={() => setActive(i)}
+          >
+            {x.tab}
+          </button>
+        ))}
+      </div>
+      <div role='tabpanel' id={`ri-aud-panel-${active}`} aria-labelledby={`ri-aud-tab-${active}`} className='v22-cdp-services-panel'>
+        <h3 className='v22-cdp-services-panel-name'>{a.t}</h3>
+        <p className='v22-cdp-services-panel-lede'>{a.b}</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 16 }}>
+          {a.tags.map((t) => <span key={t} className='v22-cap-pill'>{t}</span>)}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ─── Process pipeline — draws itself in on mount ─────────────────────────── */
 
 export function ProcessPipeline() {

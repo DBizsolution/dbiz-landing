@@ -10,7 +10,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode, CSSProperties } from 'react'
 import Link from 'next/link'
-import { ProcessPipeline, PortfolioBar, CareersTour } from './interactive'
+import { ProcessPipeline, PortfolioBar, CareersTour, AudienceTabs } from './interactive'
 import { AREAS } from './areas-data'
 import { InlineSvg } from '@/components/inline-svg'
 import {
@@ -102,7 +102,7 @@ function TransferGlyph({ i }: { i: number }) {
 
 export default function ResearchInnovationPage() {
   return (
-    <main className='v22-cap-detail-page'>
+    <main className='v22-cap-detail-page v22-ri-page'>
       {/* NAV — standard site header, current page highlighted */}
       <nav className='v22-nav scrolled' aria-label='Primary'>
         <div className='v22-nav-inner'>
@@ -138,7 +138,7 @@ export default function ResearchInnovationPage() {
         <div className='v22-container'>
           <div className='v22-cdp-hero-grid'>
             <div className='v22-cdp-hero-meta'>
-              <span className='v22-cdp-eyebrow'>dRSTi · Research &amp; Innovation</span>
+              <span className='v22-cdp-eyebrow'><span style={{ textTransform: 'none' }}>dRSTi</span> · Research &amp; Innovation</span>
               <h1 className='v22-cdp-title'>
                 <span style={{ display: 'inline-flex', alignItems: 'baseline', gap: '0.16em' }}>
                   dRSTi
@@ -181,7 +181,7 @@ export default function ResearchInnovationPage() {
             <div className='v22-cdp-block-body'>
               <p style={{ margin: '0 0 24px', fontSize: 17, lineHeight: 1.65, color: INK2, maxWidth: '60ch' }}>The demo is rarely the problem. Data that isn&rsquo;t ready, permissions that don&rsquo;t hold, evaluation nobody trusts. That is where enterprise AI stalls. dRSTi exists to solve those problems ahead of the delivery work, so our clients are not the ones discovering them in production.</p>
               <div style={{ borderLeft: `2px solid ${ACCENT}`, paddingLeft: 20, marginBottom: 40 }}>
-                <div style={{ fontFamily: MONO, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: ACCENT_DEEP, marginBottom: 10 }}>HOW WE ARE DIFFERENT</div>
+                <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: ACCENT_DEEP, marginBottom: 10 }}>HOW WE ARE DIFFERENT</div>
                 <p style={{ margin: 0, fontSize: 16, lineHeight: 1.65, color: INK, maxWidth: '56ch' }}>The unit runs on its own clock and its own funding, so long-horizon questions get answered properly. Everything it produces is built to be handed to a delivery team, or to you.</p>
               </div>
               <div className='v22-ri-stats-grid'>
@@ -212,7 +212,7 @@ export default function ResearchInnovationPage() {
               <p className='v22-cdp-block-kicker'>Every piece of work moves through them.</p>
             </div>
             <div className='v22-cdp-block-body'>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 'clamp(14px,2vw,20px)' }}>
+              <div className='v22-ri-grid-2'>
                 {[
                   { n: '01', t: 'Explore', b: 'We track where the technology is actually going and frame the questions worth answering, not the ones easiest to demo.' },
                   { n: '02', t: 'Validate', b: 'Prototypes and experiments against real data, real permissions, and real cost envelopes. Evidence decides what continues.' },
@@ -267,7 +267,7 @@ export default function ResearchInnovationPage() {
                     </span>
                   </div>
                   <div style={{ minWidth: 0 }}>
-                    <div style={{ fontFamily: MONO, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: ACCENT_DEEP, marginBottom: 10 }}>{a.kicker}</div>
+                    <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: ACCENT_DEEP, marginBottom: 10 }}>{a.kicker}</div>
                     <h3 style={{ margin: '0 0 10px', fontSize: 'clamp(18px,2vw,22px)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, color: INK }}>{a.title}</h3>
                     <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: INK2, maxWidth: '62ch' }}>{a.body}</p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 14 }}>
@@ -302,7 +302,7 @@ export default function ResearchInnovationPage() {
                   <h3 style={{ margin: '0 0 12px', fontSize: 19, fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>Every gate is a decision, taken in the open</h3>
                   <p style={{ margin: 0, fontSize: 16, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)' }}>At each gate the evidence is reviewed against criteria agreed up front: technical, commercial, and strategic. Partners and clients sit in the reviews for the work they fund.</p>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(120px,1fr))', gap: 'clamp(14px,2vw,20px)' }}>
+                <div className='v22-ri-grid-2'>
                   {[
                     { t: 'Go', d: 'fund the next stage', accent: true },
                     { t: 'Kill', d: 'stop & reallocate' },
@@ -381,7 +381,7 @@ export default function ResearchInnovationPage() {
                 ].map((c) => (
                   <div key={c.k} style={{ borderLeft: '2px solid rgba(240,123,47,0.4)', paddingLeft: 20 }}>
                     <span aria-hidden='true' style={{ display: 'block', width: 26, height: 26, color: 'var(--v22-accent)', marginBottom: 12 }}><InlineSvg markup={c.icon} /></span>
-                    <div style={{ fontFamily: MONO, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: ACCENT, marginBottom: 12 }}>{c.k}</div>
+                    <div style={{ fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: ACCENT, marginBottom: 12 }}>{c.k}</div>
                     <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)' }}>{c.b}</p>
                   </div>
                 ))}
@@ -401,7 +401,7 @@ export default function ResearchInnovationPage() {
               <p className='v22-cdp-block-kicker'>The hardest part of research is the handoff. We name the receiving team and the success criteria before work begins, so what we prove lands somewhere ready to scale it.</p>
             </div>
             <div className='v22-cdp-block-body'>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 'clamp(18px,2.5vw,28px)' }}>
+              <div className='v22-ri-grid-2'>
                 {[
                   { s: 'STEP 1', t: 'Prove readiness', b: 'Validated demand, a working prototype, and a credible unit economics case.' },
                   { s: 'STEP 2', t: 'Name the home', b: 'A delivery team, a product, or your own engineering group commits to receive it.' },
@@ -432,7 +432,7 @@ export default function ResearchInnovationPage() {
               <h2 className='v22-cdp-block-title'>Four ways work <em>starts with us</em></h2>
             </div>
             <div className='v22-cdp-block-body'>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(230px,1fr))', gap: 'clamp(14px,2vw,20px)' }}>
+              <div className='v22-ri-grid-2'>
                 {[
                   { n: '01', t: 'Framing workshop', b: 'A short engagement to turn an ambition into a testable question, with the criteria that would make it a yes.', span: 'DAYS' },
                   { n: '02', t: 'Prototype sprint', b: 'We build the smallest thing that can fail, run it against your data and constraints, and report what held.', span: 'WEEKS' },
@@ -464,24 +464,7 @@ export default function ResearchInnovationPage() {
               <h2 className='v22-cdp-block-title'>Bring us a hard problem, or a technology <em>worth testing</em></h2>
             </div>
             <div className='v22-cdp-block-body'>
-              {/* Carousel — horizontal scroll-snap track, one audience card per swipe */}
-              <div style={{ display: 'flex', gap: 'clamp(14px,2vw,20px)', overflowX: 'auto', scrollSnapType: 'x mandatory', paddingBottom: 14, WebkitOverflowScrolling: 'touch' }}>
-                {[
-                  { k: 'ENTERPRISES', t: 'You have the constraint that makes it real', b: 'Co-fund a research bet on a problem your roadmap keeps deferring: data readiness, agent assurance, autonomy in a regulated process. You get evidence and a transferable result; we get a problem worth solving.', tags: ['Co-funded bets', 'Agreed IP terms'] },
-                  { k: 'UNIVERSITIES & RESEARCH INSTITUTES', t: 'Enterprise problems, at real scale', b: 'Joint studies, supervised student projects, and placements inside live engagements. We bring industrial problems, data access, and engineers; you bring method and depth. Results are published.', tags: ['Joint studies', 'Placements', 'Publication'] },
-                  { k: 'TECHNOLOGY PARTNERS', t: 'Test it where it has to survive', b: 'Hyperscalers, model providers, and platform vendors use the unit to put early capability in front of enterprise conditions: governance, cost, and integration. Findings come back to you.', tags: ['Early access', 'Co-engineering'] },
-                ].map((c) => (
-                  <div key={c.k} style={{ flex: '0 0 min(440px, 86%)', scrollSnapAlign: 'start', background: '#fff', border: '1px solid rgba(0,0,0,0.06)', padding: '30px 28px', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ fontFamily: MONO, fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: ACCENT_DEEP, marginBottom: 18 }}>{c.k}</div>
-                    <h3 style={{ margin: '0 0 12px', fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', color: INK }}>{c.t}</h3>
-                    <p style={{ margin: '0 0 20px', fontSize: 15, lineHeight: 1.65, color: INK2 }}>{c.b}</p>
-                    <div style={{ marginTop: 'auto', display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                      {c.tags.map((t) => <span key={t} className='v22-cap-pill'>{t}</span>)}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ marginTop: 6, fontFamily: MONO, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', color: 'rgba(13,27,62,0.45)' }}>SCROLL →</div>
+              <AudienceTabs />
             </div>
           </div>
         </div>
@@ -492,13 +475,13 @@ export default function ResearchInnovationPage() {
         <div className='v22-container'>
           <div className='v22-cdp-block-grid'>
             <div className='v22-cdp-block-head'>
-              <span className='v22-cdp-block-num'>Join dRSTi</span>
+              <span className='v22-cdp-block-num'>Join <span style={{ textTransform: 'none' }}>dRSTi</span></span>
               <h2 className='v22-cdp-block-title'>For people who would rather <em>find out than assume</em></h2>
               <p className='v22-cdp-block-kicker'>Open to dbiz teams and external researchers.</p>
             </div>
             <div className='v22-cdp-block-body'>
               <p style={{ margin: '0 0 36px', fontSize: 17, lineHeight: 1.65, color: 'rgba(255,255,255,0.65)', maxWidth: '64ch' }}>The unit runs as a small core with fixed-term tours of duty. Engineers, designers, and data scientists inside dbiz can join a bet, do the work, and take the capability back to their team.</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 'clamp(14px,2vw,20px)' }}>
+              <div className='v22-ri-grid-2'>
                 {[
                   { t: 'Research & tech leads', b: 'Deep expertise in a target domain; drive discovery and technical feasibility.' },
                   { t: 'Venture & product leads', b: 'Own a bet end to end: the problem, the case, and the path to transfer.' },
@@ -524,7 +507,7 @@ export default function ResearchInnovationPage() {
               pitch + actions fill the left cell, audience paths the right. */}
           <div className='v22-cdp-cta-inner'>
             <div className='v22-cdp-cta-end'>
-              <span className='v22-cdp-cta-num'>[Z·dRSTi] NEXT STEP</span>
+              <span className='v22-cdp-cta-num'>[Z·<span style={{ textTransform: 'none' }}>dRSTi</span>] NEXT STEP</span>
               <h2 className='v22-cdp-cta-title'>
                 Start with a question,<br />
                 <em>not a proposal.</em>
